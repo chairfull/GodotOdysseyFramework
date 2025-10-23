@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2d005ossyel5"]
+
+[ext_resource type="Script" uid="uid://cvg82hhulw8xw" path="res://scripts/camera/camera_top_down.gd" id="1_rtqo3"]
+
+[node name="camera_topdown" type="Node3D" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_rtqo3")
+camera = NodePath("camera")
+
+[node name="camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 10, 0)

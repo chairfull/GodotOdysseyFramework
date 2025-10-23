@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1e5tur6memej"]
+
+[ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/controllers/interactive.gd" id="1_51xss"]
+[ext_resource type="Script" uid="uid://c6fwss4rippt7" path="res://scripts/controllers/simple_car.gd" id="1_ls0ui"]
+[ext_resource type="Script" uid="uid://cqbglmqqo0jdq" path="res://scripts/controllers/holder.gd" id="2_l1hn7"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_78fwf"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_51xss"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l1hn7"]
+
+[node name="simple_car" type="RigidBody3D"]
+script = ExtResource("1_ls0ui")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("SphereMesh_78fwf")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_51xss")
+
+[node name="door_driver" type="Area3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.6)
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_51xss")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="door_driver"]
+shape = SubResource("SphereShape3D_l1hn7")
+
+[node name="seat_driver" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("2_l1hn7")

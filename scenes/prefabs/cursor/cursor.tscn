@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c06awfqjak1we"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_00mlj"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_80qdn"]
+material = SubResource("StandardMaterial3D_00mlj")
+radius = 0.1
+height = 0.2
+
+[node name="cursor" type="MeshInstance3D"]
+mesh = SubResource("SphereMesh_80qdn")
+skeleton = NodePath("../camera")
