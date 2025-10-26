@@ -2,11 +2,13 @@ extends Node
 
 var paths: Dictionary[StringName, String]
 
-func _ready() -> void:
+func _init() -> void:
 	_dirscan("res://scenes/prefabs")
 
 func create(id: StringName, parent: Node = null, props := {}) -> Node:
-	if not id in paths: return null
+	if not id in paths:
+		push_error("No %s in prefabs. %s." % [id, paths.values()])
+		return null
 	var node: Node = load(paths[id]).instantiate()
 	if parent:
 		parent.add_child(node)

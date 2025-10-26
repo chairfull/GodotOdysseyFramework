@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cobhm38x3170i"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ls0ui"]
+height = 0.25
+radial_segments = 32
+rings = 1
+
+[node name="VehicleWheel3D" type="VehicleWheel3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_ls0ui")
+skeleton = NodePath("../../CSGBox3D")

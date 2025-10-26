@@ -1,26 +1,75 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1e5tur6memej"]
+[gd_scene load_steps=8 format=3 uid="uid://b1e5tur6memej"]
 
-[ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/controllers/interactive.gd" id="1_51xss"]
-[ext_resource type="Script" uid="uid://c6fwss4rippt7" path="res://scripts/controllers/simple_car.gd" id="1_ls0ui"]
-[ext_resource type="Script" uid="uid://cqbglmqqo0jdq" path="res://scripts/controllers/holder.gd" id="2_l1hn7"]
+[ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/nodes/interactive.gd" id="1_51xss"]
+[ext_resource type="Script" uid="uid://c6fwss4rippt7" path="res://scripts/nodes/simple_car.gd" id="1_ls0ui"]
+[ext_resource type="PackedScene" uid="uid://cobhm38x3170i" path="res://scenes/prefabs/vehicles/wheel.tscn" id="2_ce6gi"]
+[ext_resource type="Script" uid="uid://cqbglmqqo0jdq" path="res://scripts/nodes/mount.gd" id="2_l1hn7"]
+[ext_resource type="AudioStream" uid="uid://bn584unj1f8sf" path="res://assets/sound/vehicle/engine.mp3" id="3_wkwv2"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_78fwf"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_51xss"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ce6gi"]
+size = Vector3(2, 1, 3)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_l1hn7"]
 
-[node name="simple_car" type="RigidBody3D"]
+[node name="simple_car" type="VehicleBody3D"]
+linear_damp = 1.0
+angular_damp = 10.0
 script = ExtResource("1_ls0ui")
+suspension_stiff_value = 50.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("SphereMesh_78fwf")
-skeleton = NodePath("../CollisionShape3D")
+[node name="wheel_front_driver" parent="." instance=ExtResource("2_ce6gi")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.90000004, 0, -1)
+use_as_traction = true
+use_as_steering = true
+
+[node name="wheel_front_passenger" parent="." instance=ExtResource("2_ce6gi")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.90000004, 0, -1)
+use_as_traction = true
+use_as_steering = true
+
+[node name="wheel_back_driver" parent="." instance=ExtResource("2_ce6gi")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.90000004, 0, 1)
+
+[node name="wheel_back_passenger" parent="." instance=ExtResource("2_ce6gi")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.90000004, 0, 1)
+
+[node name="light_front_driver" type="SpotLight3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, -0.5, 0.6, -1.8000001)
+light_energy = 2.0
+spot_range = 10.0
+spot_attenuation = 2.0
+
+[node name="light_front_passenger" type="SpotLight3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0.5, 0.6, -1.8000001)
+light_energy = 2.0
+spot_range = 10.0
+spot_attenuation = 2.0
+
+[node name="light_brake_driver" type="OmniLight3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 1.6)
+light_color = Color(1, 0, 0, 1)
+omni_range = 2.0
+
+[node name="light_brake_passenger" type="OmniLight3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 1.6)
+light_color = Color(1, 0, 0, 1)
+omni_range = 2.0
+
+[node name="aux_engine" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_wkwv2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("SphereShape3D_51xss")
+shape = SubResource("BoxShape3D_ce6gi")
 
 [node name="door_driver" type="Area3D" parent="."]
 unique_name_in_owner = true
@@ -37,3 +86,7 @@ shape = SubResource("SphereShape3D_l1hn7")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("2_l1hn7")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(2, 1, 3)

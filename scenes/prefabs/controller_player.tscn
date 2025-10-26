@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=3 uid="uid://52fw605jpf2i"]
+
+[ext_resource type="Script" uid="uid://cx2wudo5il5m7" path="res://scripts/nodes/controller_player.gd" id="1_dv00x"]
+[ext_resource type="Script" uid="uid://s3k7324tagti" path="res://scripts/camera/camera_master.gd" id="2_psuda"]
+[ext_resource type="Script" uid="uid://ovjr1tt5pv2g" path="res://scripts/nodes/hud_markers.gd" id="3_psuda"]
+
+[node name="controller_player" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_dv00x")
+
+[node name="viewport_container" type="SubViewportContainer" parent="."]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+script = ExtResource("1_dv00x")
+
+[node name="viewport" type="SubViewport" parent="viewport_container"]
+unique_name_in_owner = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="camera_master" type="Camera3D" parent="viewport_container/viewport"]
+unique_name_in_owner = true
+current = true
+script = ExtResource("2_psuda")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 608.0
+offset_right = 91.0
+offset_bottom = 631.0
+text = "Screen 1w"
+
+[node name="markers" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_psuda")
+
+[node name="reticle" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="reticle"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

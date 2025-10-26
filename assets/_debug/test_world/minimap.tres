@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MinimapData" load_steps=2 format=3 uid="uid://ct8c73em5aiif"]
+
+[ext_resource type="Script" uid="uid://ckdnyim8cp2xc" path="res://scripts/resources/minimap_data.gd" id="1_a55k3"]
+
+[resource]
+script = ExtResource("1_a55k3")
+scene = "res://scenes/worlds/test_world.tscn"
+cells = Array[Vector3i]([Vector3i(0, -2, -2), Vector3i(0, -2, -1), Vector3i(0, -2, 0), Vector3i(0, -2, 1), Vector3i(0, -2, 2), Vector3i(0, -1, -2), Vector3i(0, -1, -1), Vector3i(0, -1, 0), Vector3i(0, -1, 1), Vector3i(0, -1, 2), Vector3i(0, 0, -2), Vector3i(0, 0, -1), Vector3i(0, 0, 0), Vector3i(0, 0, 1), Vector3i(0, 0, 2), Vector3i(0, 1, -2), Vector3i(0, 1, -1), Vector3i(0, 1, 0), Vector3i(0, 1, 1), Vector3i(0, 1, 2), Vector3i(0, 2, -2), Vector3i(0, 2, -1), Vector3i(0, 2, 0), Vector3i(0, 2, 1), Vector3i(0, 2, 2)])
+meters = 16.0
+texture_size = Vector2i(512, 512)
+texture_format = "webp"

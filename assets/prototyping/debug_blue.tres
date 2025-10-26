@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c2hngflkdijc3"]
+
+[ext_resource type="Texture2D" uid="uid://m4v4corlutfs" path="res://assets/prototyping/checker_512x512/checker_blue_512x512.svg" id="1_8txr4"]
+
+[resource]
+albedo_texture = ExtResource("1_8txr4")
+uv1_triplanar = true
+uv1_world_triplanar = true
