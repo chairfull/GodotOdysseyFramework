@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://clkh35bjyldwx"]
+
+[ext_resource type="Script" uid="uid://du00rlv0r0id5" path="res://scripts/nodes/camera_follow.gd" id="1_thq15"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6ugyi"]
+radius = 0.1
+
+[node name="camera_follow" type="Node3D" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_thq15")
+camera = NodePath("pivot/spring_arm/camera")
+
+[node name="pivot" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="spring_arm" type="SpringArm3D" parent="pivot"]
+unique_name_in_owner = true
+shape = SubResource("SphereShape3D_6ugyi")
+spring_length = 3.0
+
+[node name="camera" type="Camera3D" parent="pivot/spring_arm"]

@@ -13,23 +13,22 @@ var view_state := ViewState.FirstPerson:
 	set(vs):
 		view_state = vs
 		view_state_changed.emit()
+		prints(name, view_state_changed.get_connections(), controllable)
 
 static func get_move_vector() -> Vector2:
 	return Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_backward")
 
-
-
 func hud_is_visible(id: StringName) -> bool:
 	return id in _hud
 
-func hud_show(id: StringName) -> Node:
+func hud_show(_id: StringName) -> Node:
 	return null
 
-func hud_hide(id: StringName):
+func hud_hide(_id: StringName):
 	pass
 
 func _unhandled_input(event: InputEvent) -> void:
-	if index != 0: return
+	if name != "player_1": return
 	if event.is_action_pressed(&"toggle_first_person", false, true):
 		print("first person")
 		view_state = ViewState.FirstPerson

@@ -28,13 +28,18 @@ collision_layer = 512
 collision_mask = 0
 monitoring = false
 script = ExtResource("2_gisge")
+interact_on_enter = null
+interact_on_exit = null
+ioe_expression = null
+ioe_delay = null
 metadata/_custom_type_script = "uid://dbleug2gqv7c5"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="interactive"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1920929e-07, 0.4, 0)
 shape = SubResource("BoxShape3D_32qov")
 
-[node name="mount" type="Node3D" parent="."]
+[node name="mount" type="Node3D" parent="." node_paths=PackedStringArray("interactives")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09324783, 0)
 script = ExtResource("4_gisge")
+interactives = [NodePath("../interactive")]

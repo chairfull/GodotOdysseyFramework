@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://52fw605jpf2i"]
 
 [ext_resource type="Script" uid="uid://cx2wudo5il5m7" path="res://scripts/nodes/controller_player.gd" id="1_dv00x"]
-[ext_resource type="Script" uid="uid://s3k7324tagti" path="res://scripts/camera/camera_master.gd" id="2_psuda"]
+[ext_resource type="Script" uid="uid://s3k7324tagti" path="res://scripts/nodes/camera_master.gd" id="2_psuda"]
 [ext_resource type="Script" uid="uid://ovjr1tt5pv2g" path="res://scripts/nodes/hud_markers.gd" id="3_psuda"]
 
 [node name="controller_player" type="Control"]
@@ -79,3 +79,82 @@ offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="hit_marker" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="hit_marker" type="ColorRect" parent="hit_marker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = 7.0
+offset_right = 2.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+
+[node name="hit_marker2" type="ColorRect" parent="hit_marker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = 3.0
+offset_right = 13.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+color = Color(1, 0, 0, 1)
+
+[node name="hit_marker3" type="ColorRect" parent="hit_marker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 2.0
+offset_right = -15.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+color = Color(1, 0, 0, 1)
+
+[node name="hit_marker4" type="ColorRect" parent="hit_marker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 3.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -3.1415927
+color = Color(1, 0, 0, 1)

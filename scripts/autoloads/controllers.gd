@@ -14,8 +14,9 @@ var EV_HIDE_MARKER := Event.new(event)
 func _ready() -> void:
 	mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_DISABLED
 	
-	for c in controllers:
-		add_child(c)
+	add_child(player)
+	#for c in controllers:
+		#add_child(c)
 	size = Vector2(
 		ProjectSettings.get_setting("display/window/size/viewport_width"),
 		ProjectSettings.get_setting("display/window/size/viewport_height"))
@@ -51,10 +52,10 @@ func _toggle_2_player():
 	player2.viewport_container.size = player2.size
 	#RenderingServer.viewport_attach_camera(player.viewport.get_viewport_rid(), player.camera_master.get_camera_rid())
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"toggle_1_player", false, true):
+func _unhandled_input(ev: InputEvent) -> void:
+	if ev.is_action_pressed(&"toggle_1_player", false, true):
 		_toggle_1_player()
 		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed(&"toggle_2_player", false, true):
+	elif ev.is_action_pressed(&"toggle_2_player", false, true):
 		_toggle_2_player()
 		get_viewport().set_input_as_handled()

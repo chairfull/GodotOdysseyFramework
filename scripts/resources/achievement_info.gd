@@ -1,0 +1,1 @@
+class_name AchievementInfo extends DatabaseObject

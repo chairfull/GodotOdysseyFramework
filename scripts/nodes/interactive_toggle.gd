@@ -1,5 +1,4 @@
-@tool
-class_name InteractiveToggle extends Interactive
+@tool class_name InteractiveToggle extends Interactive
 
 signal toggled(on: bool)
 
@@ -7,8 +6,8 @@ signal toggled(on: bool)
 @export var label_on := "Disable"
 @export var label_off := "Enable"
 
-func _interacted(controllable: Controllable) -> void:
-	super(controllable)
+func _interacted(controllable: Controllable, form: Form) -> void:
+	super(controllable, form)
 	set_on(not on)
 
 func set_on(o: bool):

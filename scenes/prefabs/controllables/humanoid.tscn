@@ -1,0 +1,134 @@
+[gd_scene load_steps=18 format=3 uid="uid://p7rqgmtls5qk"]
+
+[ext_resource type="Script" uid="uid://dw8awr8a4l0dr" path="res://scripts/nodes/humanoid.gd" id="1_mq6sh"]
+[ext_resource type="PackedScene" uid="uid://gacoxeknq1iq" path="res://assets/model/base_character/superhero_male.tscn" id="2_qlb12"]
+[ext_resource type="Script" uid="uid://b4kwcxibv0778" path="res://scripts/nodes/damageable.gd" id="3_6kbyu"]
+[ext_resource type="Script" uid="uid://bbksu3kwersqu" path="res://scripts/nodes/detector.gd" id="3_pplf3"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_pplf3"]
+
+[sub_resource type="BTWait" id="BTWait_2rnpl"]
+
+[sub_resource type="BTSequence" id="BTSequence_117w7"]
+children = [SubResource("BTWait_2rnpl")]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_2grrx"]
+blackboard_plan = SubResource("BlackboardPlan_pplf3")
+root_task = SubResource("BTSequence_117w7")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_6kbyu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qaen5"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rtavd"]
+radius = 0.25
+
+[sub_resource type="PrismMesh" id="PrismMesh_mq6sh"]
+size = Vector3(0.4, 0.4, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mq6sh"]
+radius = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pplf3"]
+radius = 5.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2grrx"]
+radius = 5.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6kbyu"]
+radius = 0.15
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6kbyu"]
+radius = 0.2
+height = 1.4755371
+
+[node name="humanoid" type="CharacterBody3D"]
+collision_layer = 49152
+script = ExtResource("1_mq6sh")
+direction = null
+player = null
+
+[node name="nav_agent" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+
+[node name="behavior" type="BTPlayer" parent="."]
+behavior_tree = SubResource("BehaviorTree_2grrx")
+blackboard_plan = SubResource("BlackboardPlan_6kbyu")
+unique_name_in_owner = true
+
+[node name="collision_shape" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_qaen5")
+
+[node name="ray_coyote" type="RayCast3D" parent="."]
+
+[node name="direction" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="model" parent="direction" instance=ExtResource("2_qlb12")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="visual_dummy" type="MeshInstance3D" parent="direction"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_rtavd")
+skeleton = NodePath("../..")
+
+[node name="viser" type="MeshInstance3D" parent="direction/visual_dummy"]
+transform = Transform3D(-1, -8.742278e-08, 3.821371e-15, 0, -4.371139e-08, -1, 8.742278e-08, -1, 4.371139e-08, 0, 0.5, -0.29999998)
+mesh = SubResource("PrismMesh_mq6sh")
+
+[node name="head" type="Node3D" parent="direction"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="interact" type="Area3D" parent="direction"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.39999998)
+collision_layer = 0
+collision_mask = 512
+monitorable = false
+script = ExtResource("3_pplf3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/interact"]
+shape = SubResource("SphereShape3D_mq6sh")
+
+[node name="seeing" type="Area3D" parent="direction"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4.9)
+collision_layer = 16384
+collision_mask = 0
+monitorable = false
+script = ExtResource("3_pplf3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/seeing"]
+shape = SubResource("SphereShape3D_pplf3")
+
+[node name="hearing" type="Area3D" parent="direction"]
+unique_name_in_owner = true
+collision_layer = 32768
+collision_mask = 0
+monitorable = false
+script = ExtResource("3_pplf3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/hearing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("SphereShape3D_2grrx")
+
+[node name="damageable" type="Area3D" parent="."]
+unique_name_in_owner = true
+collision_layer = 1024
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_6kbyu")
+
+[node name="head" type="CollisionShape3D" parent="damageable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6178652, 0)
+shape = SubResource("SphereShape3D_6kbyu")
+
+[node name="body" type="CollisionShape3D" parent="damageable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78776854, 0)
+shape = SubResource("CapsuleShape3D_6kbyu")

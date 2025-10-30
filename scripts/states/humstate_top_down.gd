@@ -5,8 +5,8 @@ var cursor: Node3D
 var path: PackedVector3Array
 
 func _enter_tree() -> void:
-	camera = Prefabs.create(&"camera_top_down", humanoid)
-	cursor = Prefabs.create(&"cursor", humanoid)
+	camera = Assets.create_prefab(&"camera_top_down", humanoid)
+	cursor = Assets.create_prefab(&"cursor", humanoid)
 
 func _exit_tree() -> void:
 	humanoid.remove_child(camera)

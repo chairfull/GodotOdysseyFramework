@@ -1,0 +1,1 @@
+class_name EquipmentSlotInfo extends DatabaseObject

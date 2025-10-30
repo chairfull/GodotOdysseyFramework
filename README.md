@@ -1,4 +1,9 @@
-# Universal 3D Controller
+# OSK: Odyssey Starter Kit for Godot
+
+# Included Addons
+- [Little Camera Preview](https://github.com/anthonyec/godot_little_camera_preview)
+- [LimboAI](https://github.com/limbonaut/limboai)
+- [YAML](https://github.com/fimbul-works/godot-yaml)
 
 # Controls
 
@@ -8,6 +13,26 @@
 |`Ctrl`+`2`| Toggle 3rd-person view|
 |`Ctrl`+`3`| Toggle top-down view|
 
+# Design Goal
+- AFAP: As few components as possible:
+	- Player & npc share most scripts
+	- Weapons/items share most components
+- Gameplay over cinema:
+	- Max interaction: Everything interactive w everything
+	- Most cinematics skippable/ffwdable
+	- NPCs w behavior, reacting to game events
+- RPG-like world state where vars in unloaded scenes can be get/set
+- Planning from the start for:
+	- 1st/3rd/top-down/point-and-click view
+	- Split screen multiplayer
+	- Language changing
+	- Mod/patch support
+- Lots of juice/crunch (Communicating "somthing happened" to player and "how much")
+	- Minimise jerkiness/clankiness.
+	- [ ] UI buttons animate/communicate on hover, click, unhover
+	- [ ] Landing causes camera to tilt based on impact
+	- [ ] Sounds change based on object movement speed
+	
 # Todo
 
 ## Camera
@@ -15,13 +40,26 @@
 ## First Person
 - [x] Movement
 - [x] Jumping
-	- [ ] Coyote Time
+	- [x] Coyote Time
 	- [ ] Shrink Collider
-	- [ ] Hold longer = jump higher
-- [ ] Crouch
+	- [x] Hold longer = jump higher
+	- [ ] Speed based on velocity
+	- [ ] Air-control
+- [x] Prone
+	- [x] Crouch
+	- [x] Crawl
 	- [ ] Auto-Stand
+- [ ] Tilt around corner
+- [x] Sprint
+- [ ] Swim
 - [x] Interaction
-- [ ] Pick-Up
+- [x] Pick-Up
+	- [x] Aim
+	- [x] Camera FOV adjust
+	- [x] Breathing Noise
+	- [x] Drop
+	- [x] Fire
+	- [x] Reload
 - [ ] God-Mode
 
 ## Third Person
@@ -34,6 +72,42 @@
 ### Animations
 - [x] Movement
 - [x] Jumping
+
+## NPC
+- [ ] Moving
+- [ ] Jumping
+- [ ] Entering/Exiting mounts
+	- [ ] Generic
+	- [ ] Vehicles
+- [ ] Behaviors
+	- [ ] Senses
+		- [ ] Visual
+			- [ ] Lighting scale (darkness, smoke... decreases)
+		- [ ] Auditory
+			- [ ] Drone scale (rain, machinery... decreases)
+	- [ ] Patrol Area
+	- [ ] "Live" in area (Sit, use objects)
+	- [ ] Day schedule
+	- [ ] Hostile to target
+		- [ ] Hostile to multiple targets
+	- [ ] Chase
+	- [ ] Flee
+	- [ ] Attack
+		- [ ] Shoot
+		- [ ] Melee
+	- [ ] Pick-up items
+	- [ ] Give/offer items
+
+## Cinema
+- [ ] Scripting language
+- [ ] Pause gameplay
+- [ ] Dialogue
+	- [ ] Captions
+		- [ ] Audio
+	- [ ] Choices
+	- [ ] Scripted animations
+		- [ ] Walking
+		- [ ] Animations
 
 ## Interactions
 ### Mounts
@@ -54,20 +128,27 @@
 - [ ] Inventory
 	- [ ] UI
 - [ ] Pickup
-	- [ ] 1st Person
-	- [ ] 3rd Person
+	- [ ] 1st-Person
+	- [ ] 3rd-Person
 	- [ ] Top-Down
 - [ ] Equip
 - [ ] Use
 - [ ] Mount/Display
 ### Weapons
-- [ ] Firing
-	- [ ] Ray-based
+- [x] Firing
+	- [x] Ray-based
 	- [ ] Shape-based
 	- [ ] Decals
-	
+	- [ ] Particles
+	- [ ] Sound
+- [ ] Melee
+- [x] Damagables
+- [ ] Fall Damage
 
 ## UI
+- [ ] Hit direction indicator
+- [ ] Damage indicator (red-periphery)
+	- [ ] Posion indicator (green)
 ### Markers
 - [x] Show markers
 - [ ] Fade in/out based on distance

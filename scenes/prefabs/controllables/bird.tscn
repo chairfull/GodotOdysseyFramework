@@ -1,0 +1,256 @@
+[gd_scene load_steps=39 format=3 uid="uid://bptngmmdirjt7"]
+
+[ext_resource type="Script" uid="uid://c2gecwvkm126p" path="res://scripts/nodes/bird.gd" id="1_r65ma"]
+[ext_resource type="Script" uid="uid://dovg2kforl1yi" path="res://ai/tasks/choose_random_position.gd" id="2_ulacb"]
+[ext_resource type="Script" uid="uid://bet5mbq58hn0c" path="res://ai/tasks/move_to_position.gd" id="3_007pp"]
+[ext_resource type="Script" uid="uid://bbksu3kwersqu" path="res://scripts/nodes/detector.gd" id="4_afdt5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ulacb"]
+radius = 0.152409
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fxdfo"]
+radius = 0.1
+height = 0.3
+
+[sub_resource type="PrismMesh" id="PrismMesh_afdt5"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="Animation" id="Animation_ulacb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.14955717, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("mesh:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r65ma"]
+resource_name = "idle"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 0.96666664),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.14955717, 0), Vector3(0, 0.14955717, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_afdt5"]
+resource_name = "move"
+length = 0.2
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mesh:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.34906584, 0, 0), Vector3(0.34906584, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_007pp"]
+resource_name = "peck"
+length = 0.2
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.14955717, 0), Vector3(0, 0, 0), Vector3(0, 0.14955717, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_007pp"]
+_data = {
+&"RESET": SubResource("Animation_ulacb"),
+&"idle": SubResource("Animation_r65ma"),
+&"move": SubResource("Animation_afdt5"),
+&"peck": SubResource("Animation_007pp")
+}
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_r65ma"]
+
+[sub_resource type="BBVariant" id="BBVariant_afdt5"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_6ystn"]
+property = &"flee"
+value = SubResource("BBVariant_afdt5")
+
+[sub_resource type="BTSequence" id="BTSequence_007pp"]
+custom_name = "Fly Away"
+children = [SubResource("BTCheckAgentProperty_6ystn")]
+
+[sub_resource type="BBNode" id="BBNode_afdt5"]
+saved_value = NodePath("animation")
+resource_name = "animation"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_6ystn"]
+animation_player = SubResource("BBNode_afdt5")
+animation_name = &"idle"
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_r65ma"]
+min_duration = 0.5
+max_duration = 1.5
+
+[sub_resource type="BBNode" id="BBNode_r65ma"]
+saved_value = NodePath("animation")
+resource_name = "animation"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ulacb"]
+animation_player = SubResource("BBNode_r65ma")
+animation_name = &"peck"
+
+[sub_resource type="BBNode" id="BBNode_ulacb"]
+saved_value = NodePath("animation")
+resource_name = "animation"
+
+[sub_resource type="BTAwaitAnimation" id="BTAwaitAnimation_007pp"]
+animation_player = SubResource("BBNode_ulacb")
+animation_name = &"peck"
+
+[sub_resource type="BTWait" id="BTWait_r65ma"]
+
+[sub_resource type="BTSequence" id="BTSequence_8rgh1"]
+custom_name = "Chill"
+children = [SubResource("BTPlayAnimation_6ystn"), SubResource("BTRandomWait_r65ma"), SubResource("BTPlayAnimation_ulacb"), SubResource("BTAwaitAnimation_007pp"), SubResource("BTWait_r65ma")]
+
+[sub_resource type="BTProbability" id="BTProbability_r65ma"]
+children = [SubResource("BTSequence_8rgh1")]
+
+[sub_resource type="BTAction" id="BTAction_007pp"]
+script = ExtResource("2_ulacb")
+
+[sub_resource type="BBNode" id="BBNode_6ystn"]
+saved_value = NodePath("animation")
+resource_name = "animation"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_8rgh1"]
+animation_player = SubResource("BBNode_6ystn")
+animation_name = &"move"
+
+[sub_resource type="BTAction" id="BTAction_lgirk"]
+script = ExtResource("3_007pp")
+
+[sub_resource type="BTSequence" id="BTSequence_ulacb"]
+custom_name = "Move"
+children = [SubResource("BTAction_007pp"), SubResource("BTPlayAnimation_8rgh1"), SubResource("BTAction_lgirk")]
+
+[sub_resource type="BTSelector" id="BTSelector_6ystn"]
+custom_name = "Patrol"
+children = [SubResource("BTProbability_r65ma"), SubResource("BTSequence_ulacb")]
+
+[sub_resource type="BTSelector" id="BTSelector_8rgh1"]
+children = [SubResource("BTSequence_007pp"), SubResource("BTSelector_6ystn")]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_lgirk"]
+blackboard_plan = SubResource("BlackboardPlan_r65ma")
+root_task = SubResource("BTSelector_8rgh1")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ulacb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6ystn"]
+radius = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8rgh1"]
+radius = 0.9971659
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lgirk"]
+radius = 1.0
+
+[node name="bird" type="CharacterBody3D"]
+script = ExtResource("1_r65ma")
+
+[node name="nav_agent" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15593576, 0)
+shape = SubResource("SphereShape3D_ulacb")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14955717, 0)
+mesh = SubResource("CapsuleMesh_fxdfo")
+
+[node name="beak" type="MeshInstance3D" parent="mesh"]
+transform = Transform3D(-4.371139e-08, -4.371139e-08, 1, -1, 1.9106855e-15, -4.371139e-08, 0, -1, -4.371139e-08, 0, 0.03444764, -0.119288325)
+mesh = SubResource("PrismMesh_afdt5")
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_007pp")
+}
+
+[node name="behavior" type="BTPlayer" parent="."]
+behavior_tree = SubResource("BehaviorTree_lgirk")
+blackboard_plan = SubResource("BlackboardPlan_ulacb")
+
+[node name="direction" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="interact" type="Area3D" parent="direction"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 512
+monitorable = false
+script = ExtResource("4_afdt5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/interact"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.26340428, 0)
+shape = SubResource("SphereShape3D_6ystn")
+
+[node name="seeing" type="Area3D" parent="direction"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 16384
+monitorable = false
+script = ExtResource("4_afdt5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/seeing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3051033, -0.7856599)
+shape = SubResource("SphereShape3D_8rgh1")
+
+[node name="hearing" type="Area3D" parent="direction"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27170277, 0)
+collision_layer = 0
+collision_mask = 32768
+monitorable = false
+script = ExtResource("4_afdt5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/hearing"]
+shape = SubResource("SphereShape3D_lgirk")

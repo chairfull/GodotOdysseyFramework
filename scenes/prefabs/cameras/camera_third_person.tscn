@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://clkh35bjyldwx"]
-
-[ext_resource type="Script" uid="uid://du00rlv0r0id5" path="res://scripts/camera/camera_third_person.gd" id="1_6ugyi"]
-
-[node name="camera_third_person" type="Node3D" node_paths=PackedStringArray("camera")]
-script = ExtResource("1_6ugyi")
-camera = NodePath("camera")
-
-[node name="camera" type="Camera3D" parent="."]

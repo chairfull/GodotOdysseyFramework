@@ -10,12 +10,12 @@ var controller_player: ControllerPlayer:
 	get: return get_controller()
 
 @export var player: bool: ## The main controllable of the main controller.
-	get: return is_controlled() and get_controller() == Controllers.main
+	get: return is_controlled() and get_controller() == Controllers.player
 	set(c):
 		if c:
-			take_control()
+			take_control.call_deferred()
 		elif is_controlled():
-			Controllers.main.controllable = null
+			Controllers.player.controllable = null
 
 func _init() -> void:
 	add_to_group(&"Controllable")
@@ -27,6 +27,7 @@ func take_control(c: Controller = null):
 	(c if c else Controllers.player).controllable = self
 
 func _control_started():
+	print("[%s controls %s]" % [controller.name, name])
 	control_started.emit()
 
 func _control_ended():

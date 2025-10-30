@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://nl47yqcvi06o"]
+
+[ext_resource type="Script" uid="uid://6w2soy7eumkg" path="res://scripts/autoloads/quadruped.gd" id="1_erfie"]
+[ext_resource type="Script" uid="uid://bbksu3kwersqu" path="res://scripts/nodes/detector.gd" id="2_p2qjd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_erfie"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lhffy"]
+radius = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3y41m"]
+radius = 0.9971659
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hkpi7"]
+radius = 1.0
+
+[node name="Quadruped" type="CharacterBody3D"]
+script = ExtResource("1_erfie")
+
+[node name="collider" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_erfie")
+
+[node name="direction" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="interact" type="Area3D" parent="direction"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 512
+monitorable = false
+script = ExtResource("2_p2qjd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/interact"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.26340428, 0)
+shape = SubResource("SphereShape3D_lhffy")
+
+[node name="seeing" type="Area3D" parent="direction"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 16384
+monitorable = false
+script = ExtResource("2_p2qjd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/seeing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3051033, -0.7856599)
+shape = SubResource("SphereShape3D_3y41m")
+
+[node name="hearing" type="Area3D" parent="direction"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27170277, 0)
+collision_layer = 0
+collision_mask = 32768
+monitorable = false
+script = ExtResource("2_p2qjd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/hearing"]
+shape = SubResource("SphereShape3D_hkpi7")

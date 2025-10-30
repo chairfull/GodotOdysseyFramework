@@ -1,21 +1,30 @@
-[gd_scene load_steps=8 format=3 uid="uid://jk2x74byqo2s"]
+[gd_scene load_steps=12 format=3 uid="uid://jk2x74byqo2s"]
 
-[ext_resource type="PackedScene" uid="uid://p7rqgmtls5qk" path="res://scenes/prefabs/humanoid/humanoid.tscn" id="1_k3ref"]
+[ext_resource type="PackedScene" uid="uid://p7rqgmtls5qk" path="res://scenes/prefabs/controllables/humanoid.tscn" id="1_k3ref"]
 [ext_resource type="Material" uid="uid://dkb2fsjtxhblu" path="res://assets/prototyping/debug_black.tres" id="3_nvj10"]
 [ext_resource type="PackedScene" uid="uid://c4cky3lenwdnj" path="res://scenes/prefabs/toggle.tscn" id="4_havs6"]
 [ext_resource type="Script" uid="uid://ggc8qh63mf5k" path="res://scripts/nodes/toggle_node.gd" id="5_wk3yy"]
 [ext_resource type="PackedScene" uid="uid://o4q83cjjxwq6" path="res://scenes/elevator.tscn" id="6_56p6u"]
 [ext_resource type="Script" uid="uid://dhnbfnhbjdh5l" path="res://scripts/nodes/marker.gd" id="6_4205s"]
+[ext_resource type="PackedScene" uid="uid://c0vwbb2a8p2au" path="res://scenes/prefabs/shooter.tscn" id="7_4205s"]
+[ext_resource type="PackedScene" uid="uid://bptngmmdirjt7" path="res://scenes/prefabs/controllables/bird.tscn" id="8_32qov"]
+[ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/nodes/interactive.gd" id="9_acq1c"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_wdhyl"]
 vertices = PackedVector3Array(-49.5, 0, -9, -15.5, 0, -9, -15.5, 0, -11, -13.75, 0, -11.25, -14, 0, -49.5, -49.5, 0, -49.5, -6, 0, -11.25, -5.75, 0, -49.5, -4.25, 0, -4, 1.5, 0, -4.25, 1.75, 0, -8.75, -4.25, 0, -11, 7.5, 0, -8.75, 7.75, 0, -8.25, 8, 0, -49.5, 7.75, 0, -7, 49.5, 0, -7.25, 49.5, 0, -49.5, -14.5, 9.5, -10.25, -14.5, 9.5, -1, -5.25, 9.5, -1, -5.25, 9.5, -10.25, -49.5, 0, -2.25, -15.5, 0, -2.25, 2.5, 5, -7.75, 2.5, 5, -3.5, 6.75, 5, -3.5, 6.75, 5, -7.75, 7.25, 0, -2.5, 8.75, 0, -0.25, 9, 0, -0.75, 7.75, 0, -2.75, 10.75, 0, -0.75, 11, 0, 0.5, 49.5, 0, 0.5, 8.75, 0, 1.25, 1.75, 0, -2.5, -4.25, 0, -0.25, 10, 0, 1.5, -6.5, 0, 0, -6.5, 0, 49.5, 10, 0, 49.5, -15.5, 0, -0.25, -13.25, 0, 0, -49.5, 0, 49.5, -13.25, 0, 49.5, 10.75, 0, 1.5, 49.5, 0, 49.5)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(4, 0, 5), PackedInt32Array(3, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 11), PackedInt32Array(14, 13, 12), PackedInt32Array(10, 11, 12), PackedInt32Array(12, 11, 14), PackedInt32Array(14, 11, 7), PackedInt32Array(11, 6, 7), PackedInt32Array(15, 13, 16), PackedInt32Array(16, 13, 14), PackedInt32Array(16, 14, 17), PackedInt32Array(21, 20, 18), PackedInt32Array(18, 20, 19), PackedInt32Array(0, 1, 22), PackedInt32Array(22, 1, 23), PackedInt32Array(27, 26, 24), PackedInt32Array(24, 26, 25), PackedInt32Array(31, 30, 28), PackedInt32Array(28, 30, 29), PackedInt32Array(32, 34, 33), PackedInt32Array(32, 30, 31), PackedInt32Array(31, 15, 32), PackedInt32Array(32, 15, 16), PackedInt32Array(32, 16, 34), PackedInt32Array(29, 35, 28), PackedInt32Array(28, 35, 36), PackedInt32Array(36, 35, 37), PackedInt32Array(9, 36, 8), PackedInt32Array(8, 36, 37), PackedInt32Array(35, 38, 37), PackedInt32Array(37, 38, 39), PackedInt32Array(39, 38, 41), PackedInt32Array(39, 41, 40), PackedInt32Array(22, 23, 42), PackedInt32Array(42, 43, 22), PackedInt32Array(22, 43, 45), PackedInt32Array(22, 45, 44), PackedInt32Array(43, 39, 45), PackedInt32Array(45, 39, 40), PackedInt32Array(33, 34, 46), PackedInt32Array(46, 34, 47), PackedInt32Array(46, 47, 41), PackedInt32Array(41, 38, 46)]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oemaf"]
+radius = 0.9138933
 
 [node name="TestWorld" type="Node3D"]
 
 [node name="humanoid" parent="." instance=ExtResource("1_k3ref")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.927585, -0.50000286, 5.974679)
 player = true
+
+[node name="humanoid2" parent="." instance=ExtResource("1_k3ref")]
+transform = Transform3D(-0.50000006, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.50000006, -4.2093983, -0.50000286, -0.18301916)
 
 [node name="master" type="Node" parent="."]
 
@@ -50,24 +59,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.835417, 1, 0.47127342)
 
 [node name="toggle" parent="." instance=ExtResource("4_havs6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1826015, 1.5535293, -0.19937849)
-label = "Disable"
+hold_time = null
+hold_instant_reset = false
+hold_increase_scale = true
+interact_on_enter = null
+ioe_expression = false
+ioe_scene = 0.1
+mountable = null
+mount_anim = null
 
-[node name="light_on" type="OmniLight3D" parent="." node_paths=PackedStringArray("toggle")]
+[node name="light_on" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.73959, 2.244966, -0.29926395)
 light_color = Color(0.36209008, 0.7274332, 1.1551381e-06, 1)
 light_energy = 12.13
 script = ExtResource("5_wk3yy")
-toggle = NodePath("../toggle")
 expr_on = "$visible = true"
 expr_off = "$visible = false"
 
-[node name="light_off" type="OmniLight3D" parent="." node_paths=PackedStringArray("toggle")]
+[node name="light_off" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3063097, 2.244966, -0.29926395)
 visible = false
 light_color = Color(1, 0.30501965, 0.7094665, 1)
 light_energy = 6.0
 script = ExtResource("5_wk3yy")
-toggle = NodePath("../toggle")
 expr_on = "$visible = false"
 expr_off = "$visible = true"
 
@@ -80,3 +94,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 [node name="marker" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1046977, 2, 0.5661421)
 script = ExtResource("6_4205s")
+
+[node name="shooter" parent="." instance=ExtResource("7_4205s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.435173, -0.452596, 1.7838554)
+
+[node name="shooter2" parent="." instance=ExtResource("7_4205s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0757087, -0.452596, 1.7838554)
+
+[node name="shooter3" parent="." instance=ExtResource("7_4205s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.64659655, -0.452596, 1.7838554)
+
+[node name="bird" parent="." instance=ExtResource("8_32qov")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.605142, -0.49955574, 3.8701313)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 1.1000001)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016998291, 0.23759103, 0.2596364)
+operation = 2
+size = Vector3(0.6104126, 0.6583252, 1)
+
+[node name="interactive" type="Area3D" parent="CSGBox3D" node_paths=PackedStringArray("mount_target")]
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_acq1c")
+label = "Sit"
+mountable = true
+mount_anim = &"Sitting_Idle"
+mount_target = NodePath("../mount")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/interactive"]
+shape = SubResource("SphereShape3D_oemaf")
+
+[node name="mount" type="Node3D" parent="CSGBox3D"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.5838431, 0.605958)
