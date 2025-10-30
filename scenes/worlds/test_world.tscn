@@ -59,31 +59,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.835417, 1, 0.47127342)
 
 [node name="toggle" parent="." instance=ExtResource("4_havs6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1826015, 1.5535293, -0.19937849)
-label = ""
-hold_time = null
-hold_instant_reset = false
-hold_decrease_scale = null
-interact_on_enter = 0.0
-interact_on_exit = null
-ioe_delay = null
-ioe_scene = false
+on = true
+toggle_state = 1
 
-[node name="light_on" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.73959, 2.244966, -0.29926395)
+[node name="light_on" type="OmniLight3D" parent="toggle" node_paths=PackedStringArray("interactive")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5569882, 0.69143677, -0.09988546)
 light_color = Color(0.36209008, 0.7274332, 1.1551381e-06, 1)
 light_energy = 12.13
 script = ExtResource("5_wk3yy")
+interactive = NodePath("..")
+on_state = 1
 expr_on = "$visible = true"
 expr_off = "$visible = false"
 
-[node name="light_off" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3063097, 2.244966, -0.29926395)
+[node name="light_off" type="OmniLight3D" parent="toggle" node_paths=PackedStringArray("interactive")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.87629175, 0.69143677, -0.09988546)
 visible = false
 light_color = Color(1, 0.30501965, 0.7094665, 1)
 light_energy = 6.0
 script = ExtResource("5_wk3yy")
-expr_on = "$visible = false"
-expr_off = "$visible = true"
+interactive = NodePath("..")
+on = false
+expr_on = "$visible = true"
+expr_off = "$visible = false"
 
 [node name="elevator" parent="." instance=ExtResource("6_56p6u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15, -0.44384766, -4.25)
@@ -127,6 +125,7 @@ collision_mask = 0
 monitoring = false
 script = ExtResource("9_acq1c")
 label = "Sit"
+toggle_labels = PackedStringArray("Off", "On")
 mountable = true
 mount_anim = &"Sitting_Idle"
 mount_target = NodePath("../mount")
