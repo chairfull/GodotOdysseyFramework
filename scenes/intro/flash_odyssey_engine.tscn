@@ -1,0 +1,127 @@
+[gd_scene load_steps=7 format=3 uid="uid://2kdjgm83fa2k"]
+
+[ext_resource type="Texture2D" uid="uid://c56qc0l3m5386" path="res://icon_of.svg" id="1_r6fea"]
+
+[sub_resource type="Animation" id="Animation_r6fea"]
+resource_name = "play"
+length = 3.0
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IconOf:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector2(0.9, 0.9), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("IconOf:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(-2, 0.5, 1),
+"update": 0,
+"values": [-0.03490658503988659, 0.03490658503988659, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_a7bf4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IconOf:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("IconOf:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a7bf4"]
+_data = {
+&"RESET": SubResource("Animation_a7bf4"),
+&"play": SubResource("Animation_r6fea")
+}
+
+[sub_resource type="Gradient" id="Gradient_r6fea"]
+offsets = PackedFloat32Array(0.5954546, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.27058825)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a7bf4"]
+gradient = SubResource("Gradient_r6fea")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[node name="FlashOdysseyEngine" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.023529412, 0.25490198, 0.36862746, 1)
+
+[node name="IconOf" type="TextureRect" parent="."]
+modulate = Color(0.94509804, 0.89411765, 0.79607844, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -370.7631
+offset_top = -287.75
+offset_right = 370.7631
+offset_bottom = 287.75
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(370.763, 287.75)
+texture = ExtResource("1_r6fea")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_a7bf4")
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_a7bf4")

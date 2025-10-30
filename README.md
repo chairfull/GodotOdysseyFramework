@@ -1,4 +1,4 @@
-# OSK: Odyssey Starter Kit for Godot
+# OF: Odyssey Framework
 
 # Included Addons
 - [Little Camera Preview](https://github.com/anthonyec/godot_little_camera_preview)

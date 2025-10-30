@@ -59,14 +59,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.835417, 1, 0.47127342)
 
 [node name="toggle" parent="." instance=ExtResource("4_havs6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1826015, 1.5535293, -0.19937849)
+label = ""
 hold_time = null
 hold_instant_reset = false
-hold_increase_scale = true
-interact_on_enter = null
-ioe_expression = false
-ioe_scene = 0.1
-mountable = null
-mount_anim = null
+hold_decrease_scale = null
+interact_on_enter = 0.0
+interact_on_exit = null
+ioe_delay = null
+ioe_scene = false
 
 [node name="light_on" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.73959, 2.244966, -0.29926395)
@@ -97,12 +97,18 @@ script = ExtResource("6_4205s")
 
 [node name="shooter" parent="." instance=ExtResource("7_4205s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.435173, -0.452596, 1.7838554)
+debug_properties_yaml = null
+state = null
 
 [node name="shooter2" parent="." instance=ExtResource("7_4205s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0757087, -0.452596, 1.7838554)
+debug_properties_yaml = null
+state = null
 
 [node name="shooter3" parent="." instance=ExtResource("7_4205s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.64659655, -0.452596, 1.7838554)
+debug_properties_yaml = null
+state = null
 
 [node name="bird" parent="." instance=ExtResource("8_32qov")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.605142, -0.49955574, 3.8701313)

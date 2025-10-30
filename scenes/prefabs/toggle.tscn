@@ -13,7 +13,11 @@ collision_layer = 512
 collision_mask = 0
 monitoring = false
 script = ExtResource("1_3p2uf")
-ioe_delay = 0.0
+toggle_states = null
+toggle_state = null
+ioe_expression = 0
+mountable = null
+mount_anim = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_o64qq")

@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="asset_global_controller"
+config/name="Odyssey Framework"
 run/main_scene="uid://jk2x74byqo2s"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://c56qc0l3m5386"
 
 [autoload]
 
@@ -33,6 +33,10 @@ settings/addon_root_folder="res://addons/debug_draw_3d"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/mixamo_animation_retargeter/plugin.cfg", "res://addons/yaml/plugin.cfg")
+
+[gui]
+
+common/snap_controls_to_pixels=false
 
 [input]
 

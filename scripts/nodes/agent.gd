@@ -7,6 +7,7 @@ signal damage_taken(info: DamageInfo)
 @onready var node_interact: Detector = %interact
 @onready var node_seeing: Detector = %seeing
 @onready var node_hearing: Detector = %hearing
+@onready var nav_agent: NavigationAgent3D = %nav_agent
 @export_range(-180, 180, 0.01, "radians_as_degrees") var direction: float: get=get_direction, set=set_direction
 var _frozen := false
 var movement := Vector2.ZERO

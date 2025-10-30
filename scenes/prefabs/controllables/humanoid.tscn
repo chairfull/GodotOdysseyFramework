@@ -45,8 +45,6 @@ height = 1.4755371
 [node name="humanoid" type="CharacterBody3D"]
 collision_layer = 49152
 script = ExtResource("1_mq6sh")
-direction = null
-player = null
 
 [node name="nav_agent" type="NavigationAgent3D" parent="."]
 unique_name_in_owner = true

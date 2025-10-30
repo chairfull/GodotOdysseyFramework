@@ -1,5 +1,8 @@
 @tool class_name Interactive extends Area3D
 
+signal toggled()
+signal toggled_on()
+signal toggled_off()
 signal hold_started()
 signal hold_percent(amnt: float)
 signal hold_ended()
@@ -11,7 +14,11 @@ enum Form { INTERACT, ENTERED, EXITED }
 @export var label: String = "Interact"
 var can_interact := func(_controllable: Controllable): return true
 
-@export_category("Holdable")
+@export_group("Toggleable")
+@export var toggle_states := 0 ## 0 == no toggle. 1 = on/off.
+@export var toggle_state := 0
+
+@export_group("Holdable")
 @export var hold_time := 0.0 ## How many seconds to hold interact. Useful for turnwheels.
 @export var hold_instant_reset := true
 @export var hold_increase_scale := 1.0
@@ -21,14 +28,14 @@ var _held_time := 0.0
 var _held_controllable: Controllable
 var _held_form: Form
 
-@export_category("Enterable & Exitable")
+@export_group("Enterable & Exitable")
 @export var interact_on_enter := false ## Interaction occurs when object enters.
 @export var interact_on_exit := false ## Interaction occurs when object leaves.
 @export_custom(PROPERTY_HINT_EXPRESSION, "") var ioe_expression: String ## Expression to test if interact_on_enter == true.
 @export var ioe_delay := 0.1 ## Slight time delay, so it's not instant. If no longer inside, this cancels interaction.
 @export var ioe_scene: PackedScene ## A scene to swap to if interaction occurs.
 
-@export_category("Mountable")
+@export_group("Mountable")
 @export var mountable := false
 @export var mount_anim := &"" ## Animation to play when mounting.
 @export var mount_target: Node3D: ## Object will be aligned to this.
@@ -46,6 +53,9 @@ func _ready() -> void:
 	body_exited.connect(_exited)
 	set_process(false)
 
+func is_toggled() -> bool: return toggle_state >= 1
+func is_toggleable() -> bool: return toggle_states >= 1
+
 func is_mounted() -> bool:
 	return mounted_controllable != null
 
@@ -56,8 +66,6 @@ func mount(obj: Controllable):
 		return
 	
 	mounted_controllable = obj
-	#mounted_controllable.global_position = global_position
-	#mounted_controllable.process_mode = Node.PROCESS_MODE_DISABLED
 	
 	if mounted_controllable is Humanoid and mount_anim:
 		var human: Humanoid = mounted_controllable as Humanoid
@@ -77,8 +85,6 @@ func mount(obj: Controllable):
 	
 func unmount():
 	if not is_mounted(): return
-	
-	#mounted_controllable.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	if mounted_controllable is Humanoid and mount_anim:
 		mounted_controllable.unfreeze()
@@ -150,7 +156,17 @@ func _process(delta: float) -> void:
 
 func _interacted(controllable: Controllable, form: Form) -> void:
 	interacted.emit(controllable, form)
+	
+	if is_toggleable():
+		toggle_state = wrapi(toggle_state + 1, 0, toggle_states)
+		toggled.emit()
+		if is_toggled():
+			toggled_on.emit()
+		else:
+			toggled_off.emit()
+	
 	if mountable:
 		mount(controllable)
+	
 	if interact_on_enter and ioe_scene:
 		get_tree().change_scene_to_packed(ioe_scene)
