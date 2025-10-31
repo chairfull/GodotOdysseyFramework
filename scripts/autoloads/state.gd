@@ -1,6 +1,8 @@
 extends Node
 ## Handles state of world in a way where non-loaded content can be set/get.
 
+@warning_ignore("unused_signal") signal event(event: Event)
+
 @export var characters: CharacterDB
 @export var locations: LocationDB
 @export var inventories: Database

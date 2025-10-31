@@ -7,14 +7,18 @@ signal charge_started()
 signal charge_percent(amnt: float)
 signal charge_ended()
 signal interacted(controllable: Controllable, form: Form)
-signal mounted(controller: Controllable)
-signal unmounted(controller: Controllable)
+#signal mounted(controller: Controllable)
+#signal unmounted(controller: Controllable)
 
 enum Form { INTERACT, ENTERED, EXITED }
 enum ToggleIterationMode { FORWARD, BACKWARD, RANDOM }
 
 @export var label: String = "Interact"
 var can_interact := func(_controllable: Controllable): return true
+
+@export var disabled := false:
+	get: return not monitorable
+	set(d): monitorable = not d
 
 @export_group("Toggleable")
 @export var toggleable := false:
@@ -73,12 +77,12 @@ var _charge_form: Form
 @export var ioe_delay := 0.1 ## Slight time delay, so it's not instant. If no longer inside, this cancels interaction.
 @export var ioe_scene: PackedScene ## A scene to swap to if interaction occurs.
 
-@export_group("Mountable")
-@export var mountable := false
-@export var mount_anim := &"" ## Animation to play when mounting.
-@export var mount_target: Node3D: ## Object will be aligned to this.
-	get: return mount_target if mount_target else self
-var mounted_controllable: Controllable: set=mount
+#@export_group("Mountable")
+#@export var mountable := false
+#@export var mount_anim := &"" ## Animation to play when mounting.
+#@export var mount_target: Node3D: ## Object will be aligned to this.
+	#get: return mount_target if mount_target else self
+#var mounted_controllable: Controllable: set=mount
 
 func _init() -> void:
 	monitoring = false
@@ -91,42 +95,30 @@ func _ready() -> void:
 	body_exited.connect(_exited)
 	set_process(false)
 
-func is_mounted() -> bool:
-	return mounted_controllable != null
+#func is_mounted() -> bool:
+	#return mounted_controllable != null
 
-func mount(obj: Controllable):
-	if obj == null:
-		if is_mounted():
-			unmount()
-		return
-	
-	mounted_controllable = obj
-	
-	if mounted_controllable is Humanoid and mount_anim:
-		var human: Humanoid = mounted_controllable as Humanoid
-		human.freeze()
-		human.anim_travel(mount_anim)
-		var dir_from := human.direction
-		var dir_to := mount_target.global_rotation.y
-		var pos_from := human.global_position
-		var pos_to := mount_target.global_position
-		UTween.interp(mounted_controllable, 
-			func(x: float):
-				mounted_controllable.direction = lerp_angle(dir_from, dir_to, x)
-				mounted_controllable.global_position = lerp(pos_from, pos_to, x),
-			0.5)
-	
-	mounted.emit(mounted_controllable)
-	
-func unmount():
-	if not is_mounted(): return
-	
-	if mounted_controllable is Humanoid and mount_anim:
-		mounted_controllable.unfreeze()
-		mounted_controllable.anim_travel(&"Standing")
+#func mount(obj: Controllable):
+	#if obj == null:
+		#if is_mounted():
+			#unmount()
+		#return
+	#
+	#mounted_controllable = obj
+	#
 
-	unmounted.emit(mounted_controllable)
-	mounted_controllable = null
+	#
+	#mounted.emit(mounted_controllable)
+	#
+#func unmount():
+	#if not is_mounted(): return
+	#
+	#if mounted_controllable is Humanoid and mount_anim:
+		#mounted_controllable.unfreeze()
+		#mounted_controllable.anim_travel(&"Standing")
+#
+	#unmounted.emit(mounted_controllable)
+	#mounted_controllable = null
 
 func _entered(body: Node3D):
 	if not interact_on_enter: return
@@ -206,8 +198,8 @@ func _interacted(controllable: Controllable, form: Form) -> void:
 		# Label is what happens *next*
 		label = toggle_labels[_toggle_next]
 	
-	if mountable:
-		mount(controllable)
+	#if mountable:
+		#mount(controllable)
 	
 	if interact_on_enter and ioe_scene:
 		get_tree().change_scene_to_packed(ioe_scene)

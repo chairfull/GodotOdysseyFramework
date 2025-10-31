@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://jk2x74byqo2s"]
+[gd_scene load_steps=14 format=3 uid="uid://jk2x74byqo2s"]
 
 [ext_resource type="PackedScene" uid="uid://p7rqgmtls5qk" path="res://scenes/prefabs/controllables/humanoid.tscn" id="1_k3ref"]
 [ext_resource type="Material" uid="uid://dkb2fsjtxhblu" path="res://assets/prototyping/debug_black.tres" id="3_nvj10"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://c0vwbb2a8p2au" path="res://scenes/prefabs/shooter.tscn" id="7_4205s"]
 [ext_resource type="PackedScene" uid="uid://bptngmmdirjt7" path="res://scenes/prefabs/controllables/bird.tscn" id="8_32qov"]
 [ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/nodes/interactive.gd" id="9_acq1c"]
+[ext_resource type="Script" uid="uid://cqbglmqqo0jdq" path="res://scripts/nodes/mount.gd" id="10_oemaf"]
+[ext_resource type="Script" uid="uid://bhypjwf1kftq6" path="res://scripts/states/mount_state.gd" id="11_8xtsc"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_wdhyl"]
 vertices = PackedVector3Array(-49.5, 0, -9, -15.5, 0, -9, -15.5, 0, -11, -13.75, 0, -11.25, -14, 0, -49.5, -49.5, 0, -49.5, -6, 0, -11.25, -5.75, 0, -49.5, -4.25, 0, -4, 1.5, 0, -4.25, 1.75, 0, -8.75, -4.25, 0, -11, 7.5, 0, -8.75, 7.75, 0, -8.25, 8, 0, -49.5, 7.75, 0, -7, 49.5, 0, -7.25, 49.5, 0, -49.5, -14.5, 9.5, -10.25, -14.5, 9.5, -1, -5.25, 9.5, -1, -5.25, 9.5, -10.25, -49.5, 0, -2.25, -15.5, 0, -2.25, 2.5, 5, -7.75, 2.5, 5, -3.5, 6.75, 5, -3.5, 6.75, 5, -7.75, 7.25, 0, -2.5, 8.75, 0, -0.25, 9, 0, -0.75, 7.75, 0, -2.75, 10.75, 0, -0.75, 11, 0, 0.5, 49.5, 0, 0.5, 8.75, 0, 1.25, 1.75, 0, -2.5, -4.25, 0, -0.25, 10, 0, 1.5, -6.5, 0, 0, -6.5, 0, 49.5, 10, 0, 49.5, -15.5, 0, -0.25, -13.25, 0, 0, -49.5, 0, 49.5, -13.25, 0, 49.5, 10.75, 0, 1.5, 49.5, 0, 49.5)
@@ -79,7 +81,7 @@ light_color = Color(1, 0.30501965, 0.7094665, 1)
 light_energy = 6.0
 script = ExtResource("5_wk3yy")
 interactive = NodePath("..")
-on = false
+on_state = 1
 expr_on = "$visible = true"
 expr_off = "$visible = false"
 
@@ -119,19 +121,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016998291, 0.23759103, 0.2
 operation = 2
 size = Vector3(0.6104126, 0.6583252, 1)
 
-[node name="interactive" type="Area3D" parent="CSGBox3D" node_paths=PackedStringArray("mount_target")]
+[node name="interactive" type="Area3D" parent="CSGBox3D"]
 collision_layer = 512
 collision_mask = 0
 monitoring = false
 script = ExtResource("9_acq1c")
 label = "Sit"
 toggle_labels = PackedStringArray("Off", "On")
-mountable = true
-mount_anim = &"Sitting_Idle"
-mount_target = NodePath("../mount")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/interactive"]
 shape = SubResource("SphereShape3D_oemaf")
 
-[node name="mount" type="Node3D" parent="CSGBox3D"]
+[node name="mount" type="Node3D" parent="CSGBox3D" node_paths=PackedStringArray("interactive", "interactives")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.5838431, 0.605958)
+script = ExtResource("10_oemaf")
+interactive = NodePath("../interactive")
+interactives = [NodePath("../interactive")]
+state_script = ExtResource("11_8xtsc")

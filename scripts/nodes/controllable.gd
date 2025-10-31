@@ -5,12 +5,13 @@ signal control_ended()
 signal mount_started()
 signal mount_ended()
 
-var controller: Controller: get=get_controller
+var controller: Controller: set=set_controller
+
 var controller_player: ControllerPlayer:
-	get: return get_controller()
+	get: return controller
 
 @export var player: bool: ## The main controllable of the main controller.
-	get: return is_controlled() and get_controller() == Controllers.player
+	get: return is_controlled() and controller == Controllers.player
 	set(c):
 		if c:
 			take_control.call_deferred()
@@ -20,18 +21,28 @@ var controller_player: ControllerPlayer:
 func _init() -> void:
 	add_to_group(&"Controllable")
 
+## In multiplayer there may be multiple ControllerPlayers.
 func is_player_controlled() -> bool:
 	return controller is ControllerPlayer
+
+func set_controller(c: Controller):
+	if controller:
+		_control_ended(controller)
+		control_ended.emit()
+	controller = c
+	if controller:
+		_control_started(controller)
+		control_started.emit()
 
 func take_control(c: Controller = null):
 	(c if c else Controllers.player).controllable = self
 
-func _control_started():
+func _control_started(_con: Controller):
 	print("[%s controls %s]" % [controller.name, name])
-	control_started.emit()
+	pass
 
-func _control_ended():
-	control_ended.emit()
+func _control_ended(_con: Controller):
+	pass
 
 func _mount_started():
 	mount_started.emit()
@@ -40,10 +51,4 @@ func _mount_ended():
 	mount_ended.emit()
 
 func is_controlled() -> bool:
-	return get_controller() != null
-
-func get_controller() -> Controller:
-	for con in Controllers.controllers:
-		if con.controllable == self:
-			return con
-	return null
+	return controller != null

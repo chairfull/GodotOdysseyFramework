@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://2kdjgm83fa2k"]
 
-[ext_resource type="Texture2D" uid="uid://c56qc0l3m5386" path="res://icon_of.svg" id="1_r6fea"]
+[ext_resource type="Texture2D" uid="uid://c56qc0l3m5386" path="res://addons/odyssey/icon_of.svg" id="1_r6fea"]
 
 [sub_resource type="Animation" id="Animation_r6fea"]
 resource_name = "play"

@@ -36,11 +36,27 @@ func _ready() -> void:
 func anim_travel(to: StringName):
 	%model.get_node("%animation_tree").travel(to)
 
-func _control_started():
-	super()
+func _control_started(con: Controller):
+	super(con)
 	if is_player_controlled():
-		controller_player.view_state_changed.connect(_update_control_state)
+		con.view_state_changed.connect(_update_control_state)
 		_update_control_state()
+
+func _control_ended(con: Controller):
+	super(con)
+	set_control_state(&"")
+	con.view_state_changed.disconnect(_update_control_state)
+	print("Control ended...")
+
+func freeze():
+	super()
+	if _control_state:
+		_control_state.process_mode = Node.PROCESS_MODE_DISABLED
+
+func unfreeze():
+	super()
+	if _control_state:
+		_control_state.process_mode = Node.PROCESS_MODE_INHERIT
 
 func _update_control_state():
 	match controller_player.view_state:
@@ -48,10 +64,6 @@ func _update_control_state():
 		ControllerPlayer.ViewState.FirstPerson: set_control_state(&"_first_person")
 		ControllerPlayer.ViewState.ThirdPerson: set_control_state(&"_third_person")
 		ControllerPlayer.ViewState.TopDown: set_control_state(&"_top_down")
-
-func _control_ended():
-	super()
-	set_control_state(&"")
 
 func enable_physics(enable := true):
 	set_physics_process(enable)

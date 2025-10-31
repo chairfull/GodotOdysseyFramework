@@ -8,11 +8,12 @@ func _init(i := 0) -> void:
 	add_to_group(&"Controller")
 
 func set_controllable(target: Controllable):
-	if target.is_controlled() and target.get_controller() != self:
-		controllable._control_ended()
+	if controllable == target: return
+	if controllable:
+		controllable.set_controller.call_deferred(null)
 		_ended()
 	controllable = target
-	controllable._control_started()
+	controllable.set_controller.call_deferred(self)
 	_started.call_deferred()
 
 func _started():

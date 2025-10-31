@@ -1,5 +1,7 @@
 # OF: Odyssey Framework
 
+Simplify development of FPS, RPG, ImSims.
+
 # Included Addons
 - [Little Camera Preview](https://github.com/anthonyec/godot_little_camera_preview)
 - [LimboAI](https://github.com/limbonaut/limboai)
