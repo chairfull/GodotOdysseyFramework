@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl1wu7da5ih3s"]
+
+[ext_resource type="Script" uid="uid://cgwwfgkrmwih1" path="res://scripts/nodes/hud_menu_choice.gd" id="1_5yxrb"]
+
+[node name="choice" type="RichTextLabel"]
+mouse_default_cursor_shape = 2
+bbcode_enabled = true
+text = "Choice Text"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_5yxrb")

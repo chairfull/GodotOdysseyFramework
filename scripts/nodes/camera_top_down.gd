@@ -10,7 +10,7 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-func _process(delta: float) -> void:
-	var move := ControllerPlayer.get_move_vector()
-	var speed := 10.0
-	global_position += Vector3(move.x, 0.0, move.y) * speed * delta
+#func _process(delta: float) -> void:
+	#var move := _c.get_move_vector()
+	#var speed := 10.0
+	#global_position += Vector3(move.x, 0.0, move.y) * speed * delta

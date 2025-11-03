@@ -13,12 +13,15 @@ class_name Mount extends Controllable
 @export var interactives: Array[Interactive]
 @export var siblings: Array[Mount]
 @export var mounted_controllable: Controllable
-@export var state_script: GDScript
-var _state_node: Node
+@export var parent_to_self := true ## Parent the controllable to the mount.
+@export var hud_scene: PackedScene ## If player, scene added to hud.
+@export var cinematic: PackedScene ## Cinematic to play.
+var _last_parent: Node
 
 func _ready() -> void:
 	for inter in interactives:
 		inter.interacted.connect(_interacted)
+	set_mount_state_enabled(false)
 	if mounted_controllable:
 		mount(mounted_controllable)
 
@@ -29,6 +32,11 @@ func _interacted(con: Controllable, _form: Interactive.Form):
 
 func mount(con: Controllable):
 	mounted_controllable = con
+	
+	if parent_to_self:
+		_last_parent = con.get_parent()
+		con.reparent(self)
+	
 	# Handoff control.
 	if mounted_controllable.is_controlled():
 		mounted_controllable.controller.set_controllable(self)
@@ -39,8 +47,12 @@ func unmount():
 	if is_controlled():
 		controller.set_controllable(mounted_controllable) 
 	
+	if _last_parent:
+		mounted_controllable.reparent(_last_parent)
+	
 	mounted_controllable = null
-
+	_last_parent = null
+	
 func is_mounted() -> bool:
 	return mounted_controllable != null
 
@@ -49,16 +61,27 @@ func is_mountable(con: Controllable) -> bool:
 
 func _control_started(con: Controller):
 	super(con)
-	print("CONTROL ", name)
-	if is_player_controlled():
-		_state_node = state_script.new()
-		_state_node.mount = self
-		_state_node.name = state_script.resource_path.get_basename().get_file()
-		add_child(_state_node)
+	set_mount_state_enabled(true)
 
 func _control_ended(con: Controller):
 	super(con)
-	print("UNCONTROL ", name)
-	if _state_node:
-		remove_child(_state_node)
-		_state_node.queue_free()
+	set_mount_state_enabled(false)
+
+func set_mount_state_enabled(enabled := true) -> void:
+	for node in get_children():
+		if node is MountState:
+			if enabled:
+				node._enable()
+			else:
+				node._disable()
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var out: PackedStringArray
+	var has_mount_state := false
+	for child in get_children():
+		if child is MountState:
+			has_mount_state = true
+			break
+	if not has_mount_state:
+		out.append("Requires a MountState child.")
+	return out

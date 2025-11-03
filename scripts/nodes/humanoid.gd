@@ -3,23 +3,32 @@ class_name Humanoid extends Agent
 signal jumped() ## Called after jumping.
 signal landed(meters: float) ## Called when hitting the floor.
 signal prone_state_changed()
+signal looked_at(pos: Vector3)
+signal interactive_changed()
+@warning_ignore("unused_signal")
+signal trigger_animation(anim: StringName)
 
 enum ProneState { Stand, Crouch, Kneel, Crawl }
 
+@export var cinematic: CinemaScript
+
 @onready var damageable: Damageable = %damageable
 @onready var ray_coyote: RayCast3D = $ray_coyote
-var char_info: CharacterInfo
 var speed_stand := 3.0
 var speed_crouch := 1.0
 var speed_crawl := 0.25
-var _next_prone_state := ProneState.Stand
 var prone_state := ProneState.Stand
+var _next_prone_state := ProneState.Stand
+var visual: PackedScene ## TODO:
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var jump_force := 6.0
+var looking_at: Vector3:
+	set(at):
+		looking_at = at
+		looked_at.emit(at)
+		%cursor.global_position = looking_at
 var _jumping := false
 var _jump_cancel := false
-var looking_at: Vector3
-var visual: PackedScene ## TODO:
 var _control_state: HumanoidState
 var _sprinting := false
 var _was_in_air := false
@@ -29,21 +38,17 @@ var _focusing := false
 var _interacting: Interactive
 var _tween_item: Tween
 
-func _ready() -> void:
-	super()
-	%model.get_node("%animation_tree").humanoid = self
-
-func anim_travel(to: StringName):
-	%model.get_node("%animation_tree").travel(to)
-
 func _control_started(con: Controller):
 	super(con)
-	if is_player_controlled():
+	if con is ControllerPlayer:
 		con.view_state_changed.connect(_update_control_state)
 		_update_control_state()
+		interactive_detector.visible_changed.connect(interactive_changed.emit)
 
 func _control_ended(con: Controller):
 	super(con)
+	if con is ControllerPlayer:
+		interactive_detector.visible_changed.disconnect(interactive_changed.emit)
 	set_control_state(&"")
 	con.view_state_changed.disconnect(_update_control_state)
 	print("Control ended...")
@@ -78,6 +83,8 @@ func set_control_state(id: StringName):
 	_control_state.humanoid = self
 	_control_state.name = "state %s" % id
 	add_child(_control_state)
+
+var _footstep_time := 0.0
 
 func _physics_process(delta: float) -> void:
 	if _frozen: return
@@ -115,6 +122,31 @@ func _physics_process(delta: float) -> void:
 		vel.y -= gravity * delta
 		
 	if body.is_on_floor():
+		_footstep_time += Vector2(vel.x, vel.z).length() * delta
+		if _footstep_time > 1.0:
+			_footstep_time -= 1.0
+			
+			
+			var col: Node = %ray_coyote.get_collider()
+			if "physics_material_override" in col and col.physics_material_override is SurfaceMaterial:
+				var mat: SurfaceMaterial = col.physics_material_override
+				var id: String
+				match mat.resource_path:
+					"res://assets/surfaces/grass.tres":
+						id = "grass_%s" % randi_range(1, 15)
+					"res://assets/surfaces/concrete.tres":
+						id = "concrete_%s" % randi_range(1, 15)
+					"res://assets/surfaces/wood.tres":
+						id = "wood_%s" % randi_range(1, 15)
+					"res://assets/surfaces/carpet.tres":
+						id = "carpet_%s" % randi_range(1, 15)
+				var audio: AudioStreamPlayer3D = Assets.create_audio_player(id)
+				add_child(audio)
+				audio.play(0.1)
+				audio.finished.connect(func():
+					audio.queue_free()
+					print("removed"))
+		
 		if _was_in_air:
 			_was_in_air = false
 			landed.emit(1.0) # TODO: Meters fallen.
@@ -128,9 +160,14 @@ func _physics_process(delta: float) -> void:
 func move_to(pos: Vector3):
 	nav_agent.set_target_position(pos)
 
+func get_interactives() -> Array[Interactive]:
+	var out: Array[Interactive]
+	out.assign(interactive_detector._visible)
+	return out
+
 func interact_start() -> bool:
-	if node_interact.is_detecting():
-		_interacting = node_interact.get_nearest() as Interactive
+	if interactive_detector.is_detecting():
+		_interacting = interactive_detector.get_nearest() as Interactive
 		_interacting.interact(self)
 		return true
 	return false
@@ -183,6 +220,7 @@ func jump_start():
 func jump_end():
 	_jump_cancel = true
 
+func is_focusing() -> bool: return _focusing
 func is_crouching() -> bool: return prone_state == ProneState.Crouch or _next_prone_state == ProneState.Crouch
 func is_crawling() -> bool: return prone_state == ProneState.Crawl or _next_prone_state == ProneState.Crawl
 func is_standing() -> bool: return prone_state == ProneState.Stand or _next_prone_state == ProneState.Stand

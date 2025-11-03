@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c6fwss4rippt7" path="res://scripts/nodes/simple_car.gd" id="1_ls0ui"]
 [ext_resource type="PackedScene" uid="uid://cobhm38x3170i" path="res://scenes/prefabs/vehicles/wheel.tscn" id="2_ce6gi"]
 [ext_resource type="Script" uid="uid://cqbglmqqo0jdq" path="res://scripts/nodes/mount.gd" id="2_l1hn7"]
-[ext_resource type="AudioStream" uid="uid://bn584unj1f8sf" path="res://assets/sound/vehicle/engine.mp3" id="3_wkwv2"]
+[ext_resource type="AudioStream" uid="uid://bn584unj1f8sf" path="res://assets/audio/vehicle/engine.mp3" id="3_wkwv2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ce6gi"]
 size = Vector3(2, 1, 3)

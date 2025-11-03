@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsa17lrw23t4"]
+
+[ext_resource type="Script" uid="uid://biaptg8kvjcvi" path="res://scripts/nodes/hud_caption.gd" id="1_0ust4"]
+
+[node name="caption" type="PanelContainer"]
+script = ExtResource("1_0ust4")
+
+[node name="margin" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="margin"]
+layout_mode = 2
+
+[node name="label" type="RichTextLabel" parent="margin/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Speaker: Text they speak."
+fit_content = true
+autowrap_mode = 0

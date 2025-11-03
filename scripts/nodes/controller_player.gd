@@ -15,17 +15,33 @@ var view_state := ViewState.FirstPerson:
 		view_state_changed.emit()
 		prints(name, view_state_changed.get_connections(), controllable)
 
-static func get_move_vector() -> Vector2:
+func get_move_vector() -> Vector2:
 	return Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_backward")
 
-func hud_is_visible(id: StringName) -> bool:
+func get_move_vector_camera() -> Vector2:
+	var dir := camera_master.global_rotation.y
+	return get_move_vector().rotated(-dir)
+
+func is_hud_visible(id: StringName) -> bool:
 	return id in _hud
 
-func hud_show(_id: StringName) -> Node:
-	return null
+func show_hud(id: StringName, props := {}) -> Node:
+	var hud_id := "hud_" + id
+	var hud: Node = _hud.get(hud_id)
+	if not hud:
+		hud = Assets.create_prefab(hud_id, self, props)
+		_hud[hud_id] = hud
+	return hud
 
-func hud_hide(_id: StringName):
-	pass
+func hide_hud(id: StringName) -> bool:
+	var hud_id := "hud_" + id
+	var hud: Node = _hud.get(hud_id)
+	if hud:
+		remove_child(hud)
+		hud.queue_free()
+		_hud.erase(hud_id)
+		return true
+	return false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if name != "player_1": return

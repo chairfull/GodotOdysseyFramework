@@ -7,9 +7,11 @@ signal entered(area: Node3D) ## Noticed something.
 signal exited(area: Node3D) ## Lost something.
 signal moved(area: Node3D)
 signal ended() ## Stopped noticing anything.
+signal visible_changed() ## List of detected changed.
 
-var _nodes: Array[Node3D]
-var _visible: Array[Node3D]
+var ignore: Array[Node3D]
+var _nodes: Array[Node3D] ## Nodes in area, but may not be visible w raycast.
+var _visible: Array[Node3D] ## Nodes in area and visible w raycast.
 var _confidence: Dictionary[Node3D, float]
 var _last_position: Dictionary[Node3D, Vector3]
 
@@ -38,6 +40,7 @@ func get_last_position(area: Node3D, default := Vector3.ZERO) -> Vector3:
 	return _last_position.get(area, default)
 
 func _entered(node: Node3D):
+	if node in ignore: return
 	if node == owner: return
 	if not node in _nodes:
 		_nodes.append(node)
@@ -45,14 +48,18 @@ func _entered(node: Node3D):
 			set_physics_process(true)
 
 func _exited(node: Node3D):
+	if node in ignore: return
 	if node == owner: return
-	if not node in _nodes:
+	if node in _nodes:
 		_nodes.erase(node)
-		_invisible(node)
+		if _invisible(node):
+			visible_changed.emit()
 		if _nodes.size() == 0:
 			set_physics_process(false)
 
 func _physics_process(_delta: float) -> void:
+	var _visible_changed := false
+	
 	for node in _nodes:
 		if _is_ray_path_clear(node):
 			_confidence[node] = _confidence.get(node, 0.0) + 1.0
@@ -60,6 +67,7 @@ func _physics_process(_delta: float) -> void:
 			if not node in _visible:
 				_visible.append(node)
 				entered.emit(node)
+				_visible_changed = true
 				if _visible.size() == 1:
 					started.emit()
 			
@@ -72,21 +80,28 @@ func _physics_process(_delta: float) -> void:
 			_confidence[node] = _confidence.get(node, 0.0) - 0.1
 			if _confidence[node] < 0.0:
 				_confidence[node] = 0.0
-				_invisible(node)
+				if _invisible(node):
+					_visible_changed = true
+	
+	if _visible_changed:
+		visible_changed.emit()
 
 func _invisible(node: Node3D):
-	if not node in _visible:
-		return
+	if not node in _visible: return
 	
+	var _detected_changed := false
 	_visible.erase(node)
 	exited.emit(node)
+	_detected_changed = true
 	if _visible.size() == 0:
 		ended.emit()
-	 
+	
 	# Remove last position from trackers after a minute?
 	Global.wait(60.0, func():
 		if not node in _nodes:
 			_last_position.erase(node))
+	
+	return _detected_changed
 
 func _is_ray_path_clear(target: Node3D) -> bool:
 	return true

@@ -1,4 +1,5 @@
 class_name LocationLink extends Resource
+## Used by AStar system.
 
 @export var type: StringName
 @export var locked := false
@@ -9,19 +10,6 @@ var b: LocationInfo
 
 func _to_string() -> String:
 	return "LocationLink(%s <-> %s)" % [a.id, b.id]
-
-func _set(property: StringName, _value: Variant) -> bool:
-	match property:
-		&"links":
-			#var parts: PackedStringArray = value.split(" ", true, 1)
-			#var from := parts[0].split("/", true, 1)
-			#from_zone.id = from[0]
-			#from_area_id = from[1]
-			#var to := parts[1].split("/", true, 1)
-			#to_zone_id = to[0]
-			#to_area_id = to[1]
-			return true
-	return false
 
 func get_inverse(loc: LocationInfo) -> LocationInfo:
 	if loc == a: return b

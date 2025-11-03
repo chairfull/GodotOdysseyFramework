@@ -1,0 +1,30 @@
+{
+	"branches": {
+		"ROOT": {
+			"steps": [
+				{ "type": "cap", "text": "Once upon a time..." },
+				{ "type": "cap", "text": "in a land far away" },
+				{ "type": "cap", "text": "there lived a king" },
+				{ "type": "cap", "text": "starting his day." },
+				{ "type": "menu", "caption": "Chose a direction", "choices": [
+					{ "text": "North" },
+					{ "text": "South" },
+					{ "text": "East" },
+					{ "text": "West" },
+				]},
+				{ "type": "cond", "cond": ["score > 20", "cond_0", "true", "cond_1"] },
+				{ "type": "cap", "text": "Text that comes after a choice." }
+			]
+		},
+		"cond_0": {
+			"steps": [
+				{ "type": "cap", "text": "Cond was TRUE." },
+			]
+		},
+		"cond_1": {
+			"steps": [
+				{ "type": "cap", "text": "Condition was FALSE." },
+			]
+		}
+	}
+}

@@ -3,25 +3,36 @@ class_name Agent extends Controllable
 signal damage_dealt(info: DamageInfo)
 signal damage_taken(info: DamageInfo)
 
+@onready var interactive_node: Interactive = %interactive
 @onready var node_direction: Node3D = %direction
-@onready var node_interact: Detector = %interact
+@onready var interactive_detector: Detector = %interact
 @onready var node_seeing: Detector = %seeing
 @onready var node_hearing: Detector = %hearing
 @onready var nav_agent: NavigationAgent3D = %nav_agent
 @export_range(-180, 180, 0.01, "radians_as_degrees") var direction: float: get=get_direction, set=set_direction
-var _frozen := false
+var char_info: CharacterInfo
 var movement := Vector2.ZERO
 var body: CharacterBody3D = convert(self, TYPE_OBJECT)
+var _frozen := false
 var _equipped: Dictionary[StringName, ItemNode]
 
 func _ready() -> void:
-	# Transfer rotation to proper node.
-	%direction.rotation.y = rotation.y
-	rotation.y = 0
+	fix_direction()
 	if %nav_agent:
 		(%nav_agent as NavigationAgent3D).navigation_finished.connect(func(): movement = Vector2.ZERO)
 	if %damageable:
 		(%damageable as Damageable).damaged.connect(damage_taken.emit)
+	if %interactive:
+		interactive_detector.ignore.append(%interactive)
+		%interactive.interacted.connect(_interacted)
+
+func _interacted(con: Controllable, form: Interactive.Form):
+	prints(con.name, "interacted with", name, "FORM:", form)
+
+func fix_direction():
+	# Transfer rotation to proper node.
+	%direction.rotation.y = rotation.y
+	rotation.y = 0
 
 func equip(item: ItemNode, slot: StringName = &""):
 	_equipped[slot] = item

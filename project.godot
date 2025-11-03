@@ -13,7 +13,7 @@ config_version=5
 config/name="Odyssey Framework"
 run/main_scene="uid://jk2x74byqo2s"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="uid://c56qc0l3m5386"
+config/icon="uid://dcy71dgq416wh"
 
 [autoload]
 
@@ -25,6 +25,8 @@ State="*res://scripts/autoloads/state.gd"
 Cinema="*res://scripts/autoloads/cinema.gd"
 Mods="*res://scripts/autoloads/mods.gd"
 Persistent="*res://scripts/autoloads/persistent.gd"
+Audio="*res://scripts/autoloads/audio.gd"
+Music="*res://scripts/autoloads/music.gd"
 
 [debug_draw_3d]
 

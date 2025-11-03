@@ -1,27 +1,29 @@
 extends Node
 
-var paths: Dictionary[StringName, String]
+var assets: AssetsDB
 
 func _init() -> void:
-	_dirscan("res://scenes/prefabs")
+	assets = load("res://assets/assets.tres")
+
+func create_audio_player(id: StringName) -> Node:
+	if not id in assets.audio:
+		push_error("No %s in audio." % [id])
+		return null
+	var full_path := "res://assets/audio".path_join(assets.audio[id])
+	var stream := load(full_path)
+	var player := AudioStreamPlayer3D.new()
+	player.stream = stream
+	return player
 
 func create_prefab(id: StringName, parent: Node = null, props := {}) -> Node:
-	if not id in paths:
-		push_error("No %s in prefabs. %s." % [id, paths.values()])
+	if not id in assets.prefabs:
+		push_error("No %s in prefabs. %s." % [id, assets.prefabs.values()])
 		return null
-	var node: Node = load(paths[id]).instantiate()
+	var full_path := "res://scenes/prefabs".path_join(assets.prefabs[id])
+	var node: Node = load(full_path).instantiate()
 	if parent:
 		parent.add_child(node)
 	for prop in props:
 		if prop in node:
 			node[prop] = props[prop]
 	return node
-
-func _dirscan(dir: String):
-	for subdir in DirAccess.get_directories_at(dir):
-		_dirscan(dir.path_join(subdir))
-	
-	for file in DirAccess.get_files_at(dir):
-		if file.ends_with(".tscn"):
-			var id := file.get_basename()
-			paths[id] = dir.path_join(file)

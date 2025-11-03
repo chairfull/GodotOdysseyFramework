@@ -7,18 +7,27 @@ signal charge_started()
 signal charge_percent(amnt: float)
 signal charge_ended()
 signal interacted(controllable: Controllable, form: Form)
+signal highlight_changed()
 #signal mounted(controller: Controllable)
 #signal unmounted(controller: Controllable)
 
 enum Form { INTERACT, ENTERED, EXITED }
 enum ToggleIterationMode { FORWARD, BACKWARD, RANDOM }
+enum Highlight { NONE, FOCUSED }
 
 @export var label: String = "Interact"
+@export var label_world_space_offset := Vector3.ZERO
+@export var humanoid_lookat_offset := Vector3.ZERO
 var can_interact := func(_controllable: Controllable): return true
 
 @export var disabled := false:
 	get: return not monitorable
 	set(d): monitorable = not d
+
+@export var highlight := Highlight.NONE:
+	set(h):
+		highlight = h
+		highlight_changed.emit()
 
 @export_group("Toggleable")
 @export var toggleable := false:

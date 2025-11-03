@@ -1,0 +1,14 @@
+{
+	"branches": {
+		"ROOT": {
+			"steps": [
+				{ "type": "cap", "from": "paul", "text": "Different animations..." },
+			]
+		},
+		"ROOT-IF": {
+			"steps": [
+				{ "type": "cap", "text": "All right." },
+			]
+		}
+	}
+}

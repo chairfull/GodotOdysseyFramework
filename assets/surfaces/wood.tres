@@ -1,0 +1,7 @@
+[gd_resource type="PhysicsMaterial" script_class="SurfaceMaterial" load_steps=2 format=3 uid="uid://c4jdr7ueabe2p"]
+
+[ext_resource type="Script" uid="uid://pgunwwbtwh21" path="res://scripts/resources/surface_material.gd" id="1_bphmk"]
+
+[resource]
+script = ExtResource("1_bphmk")
+metadata/_custom_type_script = "uid://pgunwwbtwh21"

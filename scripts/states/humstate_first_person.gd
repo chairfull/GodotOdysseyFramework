@@ -5,14 +5,21 @@ var _crouch_hold_time := 0.0
 var _crouch_held := false
 
 func _enter_tree() -> void:
-	humanoid.prone_state_changed.connect(func(): camera.get_node("%pivot").position.y = humanoid.get_node("%head").position.y)
-	camera = humanoid.get_node_or_null("camera")
-	if not camera:
-		camera = Assets.create_prefab(&"camera_follow", humanoid)
-		camera.name = "camera"
-	camera.get_node("%pivot").position.y = humanoid.get_node("%head").position.y
-	await camera.set_first_person()
-	humanoid.get_node(^"%model").visible = false
+	super()
+	
+	if is_player():
+		humanoid.prone_state_changed.connect(func(): camera.get_node("%pivot").position.y = humanoid.get_node("%head").position.y)
+		camera = humanoid.get_node_or_null("camera")
+		if not camera:
+			camera = Assets.create_prefab(&"camera_follow", humanoid)
+			camera.name = "camera"
+		camera.get_node("%pivot").position.y = humanoid.get_node("%head").position.y
+		camera.target = humanoid
+		await camera.set_first_person()
+		humanoid.get_node(^"%model").visible = false
+	else:
+		set_process(false)
+		set_process_unhandled_input(false)
 
 func _startstop(ev: InputEvent, key: StringName, meth_start: StringName, meth_stop: StringName) -> bool:
 	if ev.is_action_pressed(key):
@@ -85,9 +92,7 @@ func _physics_process(_delta: float) -> void:
 	var dir := camera.camera.global_rotation.y
 	humanoid.direction = dir + PI * .5
 	
-	var input_dir := ControllerPlayer.get_move_vector()
-	input_dir = input_dir.rotated(-dir)
-	
+	var input_dir := _controller_player.get_move_vector()
 	humanoid.movement = input_dir
 	
 	var cam := camera.camera
@@ -100,5 +105,3 @@ func _physics_process(_delta: float) -> void:
 	var target_pos = hit.position if hit else to
 	
 	humanoid.looking_at = target_pos
-	
-	#camera.get_node("%cursor").global_position = target_pos

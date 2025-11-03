@@ -71,6 +71,9 @@ Simplify development of FPS, RPG, ImSims.
 - [x] Keyboard Movement
 	- [x] Jumping
 - [x] Interaction
+- [x] Aim/Focus
+- [ ] Look at objects
+- [ ] Use hands on interactives
 ### Animations
 - [x] Movement
 - [x] Jumping
@@ -81,6 +84,10 @@ Simplify development of FPS, RPG, ImSims.
 - [ ] Entering/Exiting mounts
 	- [ ] Generic
 	- [ ] Vehicles
+- [ ] Look at
+	- [ ] Character
+	- [ ] Actions in scene
+	- [ ] Noise locations
 - [ ] Behaviors
 	- [ ] Senses
 		- [ ] Visual
@@ -99,6 +106,7 @@ Simplify development of FPS, RPG, ImSims.
 		- [ ] Melee
 	- [ ] Pick-up items
 	- [ ] Give/offer items
+- [ ] Interact
 
 ## Cinema
 - [ ] Scripting language
@@ -112,11 +120,25 @@ Simplify development of FPS, RPG, ImSims.
 		- [ ] Animations
 
 ## Interactions
+### Items
+- [x] Pick up
+	- [ ] Hand points at object
+	- [ ] Hand grab object animation
+	- [ ] Add to inventory
+- [x] Object Highlight
+- [x] Label
+	- [x] World-space when 3rd person
+	- [ ] HUD-space when 1st person
+- [x] Drop
+- [ ] Place on mount
+- [x] Use equipped item
+- [x] Reload equipped item
+- [ ] Put item back in inventory
 ### Mounts
-- [ ] Mount: Change control to mount
-- [ ] Unmount: Revert control to character
+- [x] Mount: Change control to mount
+- [x] Unmount: Revert control to character
 ### Vehicle
-- [ ] Enter/Exit
+- [x] Enter/Exit
 - [ ] Toggle first-third person camera
 #### First Person
 #### Third Person

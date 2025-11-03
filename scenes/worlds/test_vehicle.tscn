@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dxs7clcdollsl"]
 
-[ext_resource type="Material" uid="uid://dkb2fsjtxhblu" path="res://assets/prototyping/debug_black.tres" id="3_imxsf"]
+[ext_resource type="Material" uid="uid://dkb2fsjtxhblu" path="res://assets/materials/debug_black.tres" id="3_imxsf"]
 [ext_resource type="PackedScene" uid="uid://b1e5tur6memej" path="res://scenes/prefabs/controllables/simple_car.tscn" id="5_1inxc"]
 [ext_resource type="Script" uid="uid://llfmpeqtpli1" path="res://scripts/nodes/camera_target.gd" id="6_imxsf"]
 
