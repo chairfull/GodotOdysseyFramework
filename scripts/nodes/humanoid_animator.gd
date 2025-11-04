@@ -17,7 +17,8 @@ func set_humanoid(h: Humanoid):
 	if not humanoid:
 		set_process(false)
 		return
-	_connect.call_deferred()
+	if not Engine.is_editor_hint():
+		_connect.call_deferred()
 
 func _connect():
 	set_process(not Engine.is_editor_hint())
@@ -29,7 +30,8 @@ func _connect():
 			Humanoid.ProneState.Crouch: travel(&"Crouching")
 			Humanoid.ProneState.Crawl: travel(&"Crawling")
 		)
-	humanoid.looked_at.connect(func(at: Vector3): %lookat_head.global_position = at)
+	humanoid.head_looked_at.connect(func(at: Vector3): %lookat_head.global_position = at)
+	humanoid.head_looking_amount_changed.connect(func(amount: float): %head.influence = amount)
 	humanoid.interactive_node.highlight_changed.connect(func():
 		match humanoid.interactive_node.highlight:
 			Interactive.Highlight.NONE: highlight = false

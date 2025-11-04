@@ -1,4 +1,4 @@
-class_name Agent extends Controllable
+class_name Agent extends Pawn
 
 signal damage_dealt(info: DamageInfo)
 signal damage_taken(info: DamageInfo)
@@ -13,7 +13,6 @@ signal damage_taken(info: DamageInfo)
 var char_info: CharacterInfo
 var movement := Vector2.ZERO
 var body: CharacterBody3D = convert(self, TYPE_OBJECT)
-var _frozen := false
 var _equipped: Dictionary[StringName, ItemNode]
 
 func _ready() -> void:
@@ -26,8 +25,8 @@ func _ready() -> void:
 		interactive_detector.ignore.append(%interactive)
 		%interactive.interacted.connect(_interacted)
 
-func _interacted(con: Controllable, form: Interactive.Form):
-	prints(con.name, "interacted with", name, "FORM:", form)
+func _interacted(pawn: Pawn, form: Interactive.Form):
+	prints(pawn.name, "interacted with", name, "FORM:", form)
 
 func fix_direction():
 	# Transfer rotation to proper node.
@@ -55,9 +54,3 @@ func get_direction() -> float:
 
 func set_direction(dir: float):
 	%direction.rotation.y = dir
-
-func freeze():
-	_frozen = true
-
-func unfreeze():
-	_frozen = false

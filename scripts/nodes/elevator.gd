@@ -1,10 +1,9 @@
-extends Node3D
+extends Pawn
 
-@export var screen: StringName
 @onready var origin: Vector3 = global_position
 @onready var target: Vector3 = get_node("target").global_position
 
-var _anim := 0.0
+#var _anim := 0.0
 #
 #func _physics_process(delta: float) -> void:
 	#_anim += delta

@@ -1,4 +1,5 @@
-@tool class_name Interactive extends Area3D
+@tool @icon("res://addons/odyssey/icons/interactive.svg")
+class_name Interactive extends Area3D
 
 signal toggled()
 signal toggled_on()
@@ -6,10 +7,8 @@ signal toggled_off()
 signal charge_started()
 signal charge_percent(amnt: float)
 signal charge_ended()
-signal interacted(controllable: Controllable, form: Form)
+signal interacted(pawn: Pawn, form: Form)
 signal highlight_changed()
-#signal mounted(controller: Controllable)
-#signal unmounted(controller: Controllable)
 
 enum Form { INTERACT, ENTERED, EXITED }
 enum ToggleIterationMode { FORWARD, BACKWARD, RANDOM }
@@ -18,7 +17,7 @@ enum Highlight { NONE, FOCUSED }
 @export var label: String = "Interact"
 @export var label_world_space_offset := Vector3.ZERO
 @export var humanoid_lookat_offset := Vector3.ZERO
-var can_interact := func(_controllable: Controllable): return true
+var can_interact := func(_pawn: Pawn): return true
 
 @export var disabled := false:
 	get: return not monitorable
@@ -76,7 +75,7 @@ var _toggle_next := 0 ## Next state we will enter. Needed for setting accurate l
 @export var charge_decrease_scale := 1.0
 var _charging := false
 var _charge_time := 0.0
-var _charge_controllable: Controllable
+var _charge_pawn: Pawn
 var _charge_form: Form
 
 @export_group("Enterable & Exitable")
@@ -85,13 +84,6 @@ var _charge_form: Form
 @export_custom(PROPERTY_HINT_EXPRESSION, "") var ioe_expression: String ## Expression to test if interact_on_enter == true.
 @export var ioe_delay := 0.1 ## Slight time delay, so it's not instant. If no longer inside, this cancels interaction.
 @export var ioe_scene: PackedScene ## A scene to swap to if interaction occurs.
-
-#@export_group("Mountable")
-#@export var mountable := false
-#@export var mount_anim := &"" ## Animation to play when mounting.
-#@export var mount_target: Node3D: ## Object will be aligned to this.
-	#get: return mount_target if mount_target else self
-#var mounted_controllable: Controllable: set=mount
 
 func _init() -> void:
 	monitoring = false
@@ -103,31 +95,6 @@ func _ready() -> void:
 	body_entered.connect(_entered)
 	body_exited.connect(_exited)
 	set_process(false)
-
-#func is_mounted() -> bool:
-	#return mounted_controllable != null
-
-#func mount(obj: Controllable):
-	#if obj == null:
-		#if is_mounted():
-			#unmount()
-		#return
-	#
-	#mounted_controllable = obj
-	#
-
-	#
-	#mounted.emit(mounted_controllable)
-	#
-#func unmount():
-	#if not is_mounted(): return
-	#
-	#if mounted_controllable is Humanoid and mount_anim:
-		#mounted_controllable.unfreeze()
-		#mounted_controllable.anim_travel(&"Standing")
-#
-	#unmounted.emit(mounted_controllable)
-	#mounted_controllable = null
 
 func _entered(body: Node3D):
 	if not interact_on_enter: return
@@ -147,23 +114,23 @@ func _exited(body: Node3D):
 			if not body in get_overlapping_bodies():
 				interact(body, Form.EXITED))
 
-func interact(controllable: Controllable, form := Form.INTERACT):
-	if not can_interact.call(controllable): return
+func interact(pawn: Pawn, form := Form.INTERACT):
+	if not can_interact.call(pawn): return
 	if charge_time == 0:
-		_interacted(controllable, form)
+		_interacted(pawn, form)
 	else:
 		_charging = true
-		_charge_controllable = controllable
+		_charge_pawn = pawn
 		_charge_form = form
 		charge_started.emit()
 		set_process(true)
 
 ## Cancel the interaction.
 ## Only used when hold_time != 0.0
-func cancel(controllable: Controllable):
-	if _charging and controllable == _charge_controllable:
+func cancel(pawn: Pawn):
+	if _charging and pawn == _charge_pawn:
 		_charging = false
-		_charge_controllable = null
+		_charge_pawn = null
 		charge_ended.emit()
 
 func _process(delta: float) -> void:
@@ -172,8 +139,8 @@ func _process(delta: float) -> void:
 		if _charge_time >= charge_time:
 			set_process(false)
 			_charge_time = charge_time
-			_interacted(_charge_controllable, _charge_form)
-			_charge_controllable = null
+			_interacted(_charge_pawn, _charge_form)
+			_charge_pawn = null
 	else:
 		if charge_instant_reset:
 			_charge_time = 0.0
@@ -188,8 +155,8 @@ func _process(delta: float) -> void:
 	charge_percent.emit(percent)
 	print(percent)
 
-func _interacted(controllable: Controllable, form: Form) -> void:
-	interacted.emit(controllable, form)
+func _interacted(pawn: Pawn, form: Form) -> void:
+	interacted.emit(pawn, form)
 	
 	if toggleable:
 		toggle_count += 1
@@ -206,9 +173,6 @@ func _interacted(controllable: Controllable, form: Form) -> void:
 		
 		# Label is what happens *next*
 		label = toggle_labels[_toggle_next]
-	
-	#if mountable:
-		#mount(controllable)
 	
 	if interact_on_enter and ioe_scene:
 		get_tree().change_scene_to_packed(ioe_scene)

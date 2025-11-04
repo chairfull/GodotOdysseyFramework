@@ -17,7 +17,7 @@ var focus_offset := Vector2(10.0, 10.0)
 var _noise := FastNoiseLite.new()
 var _noise_time := randf()
 var _noise_speed := 10.0
-var _noise_scale := Vector2(0.3, 0.1)
+#var _noise_scale := Vector2(0.3, 0.1)
 
 var push_out := Vector2.ZERO: set=set_push_out
 # NEW: Yaw compensation for push_out (keeps reticle centered on pivot/target)
@@ -40,14 +40,12 @@ func focus():
 	aim_look_dist = pivot.global_position.distance_to((target as Humanoid).looking_at)
 	UTween.parallel(camera, { "fov": fov_focused }, 0.2)
 	UTween.parallel(self, { "push_out": Vector2(1, 0.0) }, 0.2)
-	#UTween.parallel(self, { "anim_offset_y": atan2(1.0, aim_look_dist) }, 0.2, "_tween2", Tween.TRANS_LINEAR)
 
 func unfocus():
 	focusing = false
 	aim_look_dist = spring_arm.spring_length
 	UTween.parallel(camera, { "fov": fov_unfocused }, 0.2)
 	UTween.parallel(self, { "push_out": Vector2.ZERO }, 0.2)
-	#UTween.parallel(self, { "anim_offset_y": atan2(0, aim_look_dist) }, 0.2, "_tween2", Tween.TRANS_LINEAR)
 
 func set_push_out(off: Vector2):
 	push_out = off
@@ -75,6 +73,7 @@ func _input(event: InputEvent) -> void:
 		rot_x = clampf(rot_x, deg_to_rad(-89), deg_to_rad(89))
 
 func _process(delta: float) -> void:
+	
 	pivot.rotation.y = lerp_angle(pivot.rotation.y, rot_y + aim_offset_y, 30.0 * delta)
 	pivot.rotation.x = lerp_angle(pivot.rotation.x, rot_x, 30.0 * delta)
 	
@@ -85,9 +84,9 @@ func _process(delta: float) -> void:
 	
 	match view_mode:
 		ViewMode.FIRST_PERSON:
-			#rotation.y = lerp_angle(rotation.y, rot_y, delta * 50.0)
-			#camera.rotation.x = lerp_angle(camera.rotation.x, rot_x, delta * 50.0)
-			pass
+			if target:
+				global_position = target.global_position
 		
 		ViewMode.THIRD_PERSON:
-			pass
+			if target:
+				global_position = global_position.slerp(target.global_position, 20.0 * delta)

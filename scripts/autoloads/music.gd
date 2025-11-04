@@ -1,9 +1,9 @@
 extends Node
 
-var _queue: Array[Dictionary]
+#var _queue: Array[Dictionary]
 
-func play(id: StringName):
+func play(_id: StringName):
 	pass
 
-func play_queued(id: StringName):
+func play_queued(_id: StringName):
 	pass

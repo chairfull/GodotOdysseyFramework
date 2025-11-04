@@ -1,16 +1,12 @@
 [gd_scene load_steps=24 format=3 uid="uid://p7rqgmtls5qk"]
 
 [ext_resource type="Script" uid="uid://dw8awr8a4l0dr" path="res://scripts/nodes/humanoid.gd" id="1_mq6sh"]
-[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://scripts/resources/cinema_script.gd" id="2_iv36d"]
 [ext_resource type="PackedScene" uid="uid://gacoxeknq1iq" path="res://assets/model/base_character/superhero_male.tscn" id="2_qlb12"]
 [ext_resource type="Script" uid="uid://b4kwcxibv0778" path="res://scripts/nodes/damageable.gd" id="3_6kbyu"]
+[ext_resource type="Script" uid="uid://c3xqy78pwcuga" path="res://scripts/states/pstate_humanoid_keyboard.gd" id="3_677yw"]
 [ext_resource type="Script" uid="uid://bbksu3kwersqu" path="res://scripts/nodes/detector.gd" id="3_pplf3"]
 [ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/nodes/interactive.gd" id="5_117w7"]
-
-[sub_resource type="Resource" id="Resource_11kkr"]
-script = ExtResource("2_iv36d")
-code = "speaker: What are you talking about?"
-metadata/_custom_type_script = "uid://bkc0pux3d1ajc"
+[ext_resource type="Script" uid="uid://llfmpeqtpli1" path="res://scripts/nodes/camera_target.gd" id="7_11kkr"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_pplf3"]
 
@@ -34,7 +30,7 @@ radius = 0.25
 size = Vector3(0.4, 0.4, 0.5)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mq6sh"]
-radius = 1.0
+radius = 1.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pplf3"]
 radius = 5.0
@@ -61,10 +57,14 @@ height = 0.2
 height = 1.8
 radius = 0.2
 
-[node name="humanoid" type="CharacterBody3D"]
+[node name="humanoid" type="CharacterBody3D" node_paths=PackedStringArray("rider_interact")]
 collision_layer = 49152
 script = ExtResource("1_mq6sh")
-cinematic = SubResource("Resource_11kkr")
+rider_interact = NodePath("interactive")
+
+[node name="keyboard" type="Node3D" parent="." node_paths=PackedStringArray("pawn")]
+script = ExtResource("3_677yw")
+pawn = NodePath("..")
 
 [node name="nav_agent" type="NavigationAgent3D" parent="."]
 unique_name_in_owner = true
@@ -138,6 +138,30 @@ script = ExtResource("3_pplf3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="direction/hearing"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("SphereShape3D_2grrx")
+
+[node name="cinema_camera" type="Node3D" parent="direction"]
+visible = false
+
+[node name="real_close" type="Camera3D" parent="direction/cinema_camera"]
+unique_name_in_owner = true
+transform = Transform3D(-0.99939024, 0, -0.034916844, 0, 1, 0, 0.034916844, 0, -0.99939024, -0.133, 1.655, -3.353)
+fov = 3.0
+far = 100.0
+script = ExtResource("7_11kkr")
+
+[node name="closeup" type="Camera3D" parent="direction/cinema_camera"]
+unique_name_in_owner = true
+transform = Transform3D(-0.99939024, 0, -0.034916844, 0, 1, 0, 0.034916844, 0, -0.99939024, -0.3059926, 1.6258023, -8.299053)
+fov = 3.0
+far = 100.0
+script = ExtResource("7_11kkr")
+
+[node name="cowboy" type="Camera3D" parent="direction/cinema_camera"]
+unique_name_in_owner = true
+transform = Transform3D(-0.99939024, 0, -0.034916844, 0, 1, 0, 0.034916844, 0, -0.99939024, -0.2594366, 1.339915, -6.7167606)
+fov = 10.0
+far = 100.0
+script = ExtResource("7_11kkr")
 
 [node name="damageable" type="Area3D" parent="."]
 unique_name_in_owner = true

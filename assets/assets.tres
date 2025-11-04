@@ -99,4 +99,12 @@ prefabs = Dictionary[StringName, String]({
 &"transition": "ui/transition.tscn",
 &"wheel": "vehicles/wheel.tscn"
 })
+materials = Dictionary[StringName, String]({
+&"debug_black": "debug_black.tres",
+&"debug_blue": "debug_blue.tres",
+&"debug_green": "debug_green.tres",
+&"debug_orange": "debug_orange.tres",
+&"debug_pink": "debug_pink.tres",
+&"highlighted": "highlighted.tres"
+})
 metadata/_custom_type_script = "uid://cj5hkgjt1tbqo"

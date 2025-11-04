@@ -1,35 +1,47 @@
-extends HumanoidState
+extends PawnState
 
 var camera: CameraTarget
+var humanoid: Humanoid:
+	get: return pawn
 var _crouch_hold_time := 0.0
 var _crouch_held := false
 var _interactive: Interactive
 var _interactive_hud: Node
 
-func _enter_tree() -> void:
+func _enable() -> void:
 	super()
-	if is_player():
-		camera = humanoid.get_node_or_null("camera")
-		if not camera:
-			camera = Assets.create_prefab(&"camera_follow", humanoid)
-			camera.name = "camera"
+	get_player_controller().view_state_changed.connect(_view_state_changed)
+	if not camera:
+		camera = Assets.create_prefab(&"camera_follow", get_tree().current_scene)
 		camera.target = humanoid
-		camera.set_third_person()
-		humanoid.get_node(^"%model").visible = true
-		_interactive_hud = _controller_player.show_hud(&"interaction_label")
-	else:
-		set_process(false)
-		set_process_unhandled_input(false)
+		_view_state_changed()
+	_interactive_hud = get_player_controller().show_hud(&"interaction_label")
 
-func _exit_tree() -> void:
-	#super()
-	if is_player():
-		_controller_player.hide_hud(&"interaction_label")
+func _disable() -> void:
+	super()
+	_interactive_hud = null
+	get_player_controller().view_state_changed.disconnect(_view_state_changed)
+	get_player_controller().hide_hud(&"interaction_label")
+
+func _view_state_changed():
+	match pawn.player_controller.view_state:
+		ControllerPlayer.ViewState.FirstPerson:
+			await camera.set_first_person()
+			humanoid.get_node(^"%model").visible = false
+		ControllerPlayer.ViewState.ThirdPerson:
+			camera.set_third_person()
+			humanoid.get_node(^"%model").visible = true
 
 func _unhandled_input(event: InputEvent) -> void:
+	super(event)
+	
 	if event.is_action_pressed(&"interact"):
-		if humanoid.interact_start():
+		if humanoid.interact_start(_interactive):
 			get_viewport().set_input_as_handled()
+	elif event.is_action_released(&"interact"):
+		if humanoid.interact_stop():
+			get_viewport().set_input_as_handled()
+	
 	elif event.is_action_pressed(&"fire"):
 		if humanoid.fire():
 			get_viewport().set_input_as_handled()
@@ -71,7 +83,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		if humanoid.is_crouching():
 			humanoid.stand()
 		get_viewport().set_input_as_handled()
-		
+	
+	elif event.is_action_pressed(&"sprint"):
+		if humanoid.sprint_start():
+			get_viewport().set_input_as_handled()
+	elif event.is_action_released(&"sprint"):
+		if humanoid.sprint_end():
+			get_viewport().set_input_as_handled()
+
 func _process(delta: float) -> void:
 	camera.get_node("%pivot").position.y = humanoid.get_node("%head").position.y
 	humanoid.get_node("%head").global_rotation = camera.camera.global_rotation
@@ -83,7 +102,13 @@ func _process(delta: float) -> void:
 				humanoid.crawl()
 
 func _physics_process(delta: float) -> void:
-	var inter: Interactive = humanoid.interactive_detector.get_nearest()
+	var inter: Interactive
+	if is_third_person():
+		var pos := humanoid.interactive_detector.global_position
+		inter = humanoid.interactive_detector.get_nearest(pos)
+	elif is_first_person():
+		inter = humanoid.interactive_detector.get_nearest(humanoid.looking_at)
+	
 	if inter != _interactive:
 		if _interactive:
 			_interactive.highlight = Interactive.Highlight.NONE
@@ -92,7 +117,7 @@ func _physics_process(delta: float) -> void:
 		if _interactive:
 			_interactive.highlight = Interactive.Highlight.FOCUSED
 	
-	var input_dir := _controller_player.get_move_vector_camera()
+	var input_dir := get_player_controller().get_move_vector_camera()
 	
 	if humanoid.is_focusing():
 		var cam_dir := camera.camera.global_rotation.y
@@ -114,7 +139,17 @@ func _physics_process(delta: float) -> void:
 	var hit := space.intersect_ray(query)
 	var target_pos = hit.position if hit else to
 	
+	humanoid.looking_at = target_pos
+	
 	if inter:
-		humanoid.looking_at = inter.global_position + inter.humanoid_lookat_offset
+		humanoid.head_looking_at = inter.global_position + inter.humanoid_lookat_offset
+		humanoid.head_looking_amount = 1.0
+	elif humanoid.is_focusing():
+		humanoid.head_looking_at = target_pos
+		humanoid.head_looking_amount = 1.0
 	else:
-		humanoid.looking_at = target_pos
+		var node: Node3D = humanoid.get_node("%direction")
+		var forward_dir := -node.global_transform.basis.z
+		var front_pos := node.global_position + forward_dir * 2.0 + Vector3.UP * 1.3
+		humanoid.head_looking_at = front_pos
+		humanoid.head_looking_amount = 0.0

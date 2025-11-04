@@ -13,7 +13,7 @@ var view_state := ViewState.FirstPerson:
 	set(vs):
 		view_state = vs
 		view_state_changed.emit()
-		prints(name, view_state_changed.get_connections(), controllable)
+		prints(name, view_state_changed.get_connections(), pawn)
 
 func get_move_vector() -> Vector2:
 	return Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_backward")

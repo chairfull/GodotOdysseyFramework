@@ -11,12 +11,12 @@ func _ready() -> void:
 func _noticed():
 	if not flee:
 		flee = true
-		print("fly away")
+		#print("fly away")
 	
 func _unnoticed():
 	if not node_seeing.is_detecting() and not node_hearing.is_detecting():
 		flee = false
-		print("stop flying")
+		#print("stop flying")
 
 func move(to: Vector3, _delta: float) -> bool:
 	var dir := Vector3(

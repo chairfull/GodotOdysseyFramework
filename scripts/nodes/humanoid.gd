@@ -4,13 +4,13 @@ signal jumped() ## Called after jumping.
 signal landed(meters: float) ## Called when hitting the floor.
 signal prone_state_changed()
 signal looked_at(pos: Vector3)
+signal head_looked_at(pos: Vector3)
+signal head_looking_amount_changed(amount: float)
 signal interactive_changed()
 @warning_ignore("unused_signal")
 signal trigger_animation(anim: StringName)
 
 enum ProneState { Stand, Crouch, Kneel, Crawl }
-
-@export var cinematic: CinemaScript
 
 @onready var damageable: Damageable = %damageable
 @onready var ray_coyote: RayCast3D = $ray_coyote
@@ -26,68 +26,37 @@ var looking_at: Vector3:
 	set(at):
 		looking_at = at
 		looked_at.emit(at)
-		%cursor.global_position = looking_at
+		%cursor.global_position = at
+var head_looking_at: Vector3:
+	set(at):
+		head_looking_at = at
+		head_looked_at.emit(at)
+var head_looking_amount: float:
+	set(amt):
+		head_looking_amount = amt
+		head_looking_amount_changed.emit(amt)
 var _jumping := false
 var _jump_cancel := false
-var _control_state: HumanoidState
 var _sprinting := false
 var _was_in_air := false
 var _last_position: Vector3
 var _held_item: ItemNode
 var _focusing := false
 var _interacting: Interactive
-var _tween_item: Tween
-
-func _control_started(con: Controller):
-	super(con)
-	if con is ControllerPlayer:
-		con.view_state_changed.connect(_update_control_state)
-		_update_control_state()
-		interactive_detector.visible_changed.connect(interactive_changed.emit)
-
-func _control_ended(con: Controller):
-	super(con)
-	if con is ControllerPlayer:
-		interactive_detector.visible_changed.disconnect(interactive_changed.emit)
-	set_control_state(&"")
-	con.view_state_changed.disconnect(_update_control_state)
-	print("Control ended...")
-
-func freeze():
-	super()
-	if _control_state:
-		_control_state.process_mode = Node.PROCESS_MODE_DISABLED
-
-func unfreeze():
-	super()
-	if _control_state:
-		_control_state.process_mode = Node.PROCESS_MODE_INHERIT
-
-func _update_control_state():
-	match controller_player.view_state:
-		ControllerPlayer.ViewState.None: set_control_state(&"")
-		ControllerPlayer.ViewState.FirstPerson: set_control_state(&"_first_person")
-		ControllerPlayer.ViewState.ThirdPerson: set_control_state(&"_third_person")
-		ControllerPlayer.ViewState.TopDown: set_control_state(&"_top_down")
-
-func enable_physics(enable := true):
-	set_physics_process(enable)
-	set_physics_process_internal(enable)
-
-func set_control_state(id: StringName):
-	if _control_state:
-		remove_child(_control_state)
-		_control_state.queue_free()
-		_control_state = null
-	_control_state = load("res://scripts/states/humstate%s.gd" % id).new()
-	_control_state.humanoid = self
-	_control_state.name = "state %s" % id
-	add_child(_control_state)
-
 var _footstep_time := 0.0
 
+func _posessed(con: Controller) -> void:
+	super(con)
+	if con.is_player():
+		interactive_detector.visible_changed.connect(interactive_changed.emit)
+
+func _unposessed(con: Controller) -> void:
+	super(con)
+	if con.is_player():
+		interactive_detector.visible_changed.disconnect(interactive_changed.emit)
+
 func _physics_process(delta: float) -> void:
-	if _frozen: return
+	if frozen: return
 	
 	var move_speed := 1.0
 	match prone_state:
@@ -165,9 +134,9 @@ func get_interactives() -> Array[Interactive]:
 	out.assign(interactive_detector._visible)
 	return out
 
-func interact_start() -> bool:
-	if interactive_detector.is_detecting():
-		_interacting = interactive_detector.get_nearest() as Interactive
+func interact_start(inter: Interactive) -> bool:
+	if inter:#interactive_detector.is_detecting():
+		_interacting = inter#interactive_detector.get_nearest() as Interactive
 		_interacting.interact(self)
 		return true
 	return false
@@ -201,12 +170,16 @@ func pickup(item_node: ItemNode):
 	item_node.reparent(%head)
 	item_node.item._node_equipped(item_node)
 	
-	if _tween_item: _tween_item.kill()
-	_tween_item = create_tween()
-	_tween_item.set_parallel()
-	_tween_item.set_trans(Tween.TRANS_BACK)
-	_tween_item.tween_property(item_node, "position", Vector3(0.2, -0.2, -0.2), 0.5)
-	_tween_item.tween_property(item_node, "basis", Basis.IDENTITY, 0.5)
+	UTween.parallel(item_node, {
+		"position": Vector3(0.2, -0.2, -0.2),
+		"basis": Basis.IDENTITY
+	}, 0.5)
+	#if _tween_item: _tween_item.kill()
+	#_tween_item = create_tween()
+	#_tween_item.set_parallel()
+	#_tween_item.set_trans(Tween.TRANS_BACK)
+	#_tween_item.tween_property(item_node, "position", Vector3(0.2, -0.2, -0.2), 0.5)
+	#_tween_item.tween_property(item_node, "basis", Basis.IDENTITY, 0.5)
 
 func sprint_start():
 	_sprinting = true

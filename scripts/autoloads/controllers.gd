@@ -23,24 +23,29 @@ func _ready() -> void:
 	
 	player.index = 0
 	player.name = "player_1"
-	player.size = size
+	player.set_size.call_deferred(size)
 
 	player2.index = 1
 	player2.name = "player_2"
-	player2.size = size
+	player2.set_size.call_deferred(size)
 	
 	npc.name = "npc"
 	
 	_toggle_1_player()
 	
+	get_tree().current_scene.get_viewport().disable_3d = true
+	
 func _toggle_1_player():
 	player.visible = true
-	player.size = size
+	player.set_size.call_deferred(size)
 	player.viewport_container.size = player.size
 	
 	player2.visible = false
 	
 func _toggle_2_player():
+	if not player2.get_parent():
+		add_child(player2)
+	
 	player.visible = true
 	player.size = Vector2(size.x * .5, size.y)
 	player.viewport_container.size = player.size

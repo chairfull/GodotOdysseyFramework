@@ -24,7 +24,7 @@ func set_interactive(inter: Interactive):
 
 func _process(_delta: float) -> void:
 	if not interactive: return
-	var vp := get_viewport()
+	var vp := Controllers.player.viewport
 	var cam := vp.get_camera_3d()
 	var pos_3d := interactive.global_position + interactive.label_world_space_offset
 	var pos := cam.unproject_position(pos_3d)

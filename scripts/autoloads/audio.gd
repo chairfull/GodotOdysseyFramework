@@ -1,4 +1,4 @@
 extends Node
 
-func play(id: StringName):
+func play(_id: StringName):
 	pass

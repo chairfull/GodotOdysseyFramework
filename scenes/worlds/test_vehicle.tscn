@@ -49,5 +49,9 @@ script = ExtResource("6_imxsf")
 camera = NodePath("Camera3D")
 metadata/_custom_type_script = "uid://llfmpeqtpli1"
 
-[node name="Camera3D" type="Camera3D" parent="simple_car/CameraTarget"]
+[node name="Camera3D" type="Camera3D" parent="simple_car/CameraTarget" node_paths=PackedStringArray("camera")]
 transform = Transform3D(1, 0, 0, 0, 0.93555504, 0.35318094, 0, -0.35318094, 0.93555504, 0, 4.5773926, 5)
+current = true
+script = ExtResource("6_imxsf")
+camera = NodePath(".")
+_make_current = true

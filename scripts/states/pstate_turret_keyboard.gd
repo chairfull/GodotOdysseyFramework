@@ -1,0 +1,11 @@
+extends PawnState
+
+var _angle := 0.0
+
+func _process(delta: float) -> void:
+	if not get_controller():
+		print("NO!")
+		return
+	var vec := get_controller().get_move_vector()
+	_angle -= vec.x * 2.0 * delta
+	pawn.rotation.y = lerp_angle(pawn.rotation.y, _angle, delta * 10.0)

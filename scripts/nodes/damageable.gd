@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/odyssey/icons/damageable.svg")
 class_name Damageable extends Area3D
 
 signal died()

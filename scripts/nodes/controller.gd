@@ -1,20 +1,26 @@
 class_name Controller extends Node
 
 @export var index := 0 ## For multiplayer.
-@export var controllable: Controllable: set=set_controllable
+@export var pawn: Pawn: set=set_pawn
 
 func _init(i := 0) -> void:
 	index = i
 	add_to_group(&"Controller")
 
-func set_controllable(target: Controllable):
-	if controllable == target: return
-	if controllable:
-		controllable.set_controller.call_deferred(null)
+func set_pawn(target: Pawn):
+	if pawn == target: return
+	if pawn:
+		pawn.set_controller.call_deferred(null)
 		_ended()
-	controllable = target
-	controllable.set_controller.call_deferred(self)
+	pawn = target
+	pawn.set_controller.call_deferred(self)
 	_started.call_deferred()
+
+func is_player() -> bool:
+	return self is ControllerPlayer
+
+func get_move_vector() -> Vector2:
+	return Vector2.ZERO
 
 func _started():
 	pass

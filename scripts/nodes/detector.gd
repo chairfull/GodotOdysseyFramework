@@ -1,3 +1,4 @@
+@icon("res://addons/odyssey/icons/detector.svg")
 class_name Detector extends Area3D
 ## Manages a list of things it can see.
 ## Used for hearing, seeing, and interaction.
@@ -26,11 +27,11 @@ func _ready() -> void:
 func is_detecting() -> bool:
 	return _visible.size() > 0
 
-func get_nearest() -> Node3D:
+func get_nearest(point: Vector3) -> Node3D:
 	var dist := INF
 	var near: Node3D = null
 	for area in _visible:
-		var d := global_position.distance_to(area.global_position)
+		var d := point.distance_to(area.global_position)
 		if d < dist:
 			dist = d
 			near = area
@@ -103,7 +104,7 @@ func _invisible(node: Node3D):
 	
 	return _detected_changed
 
-func _is_ray_path_clear(target: Node3D) -> bool:
+func _is_ray_path_clear(_target: Node3D) -> bool:
 	return true
 	#var from := global_position
 	#var targ_pos := target.global_position

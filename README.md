@@ -189,6 +189,14 @@ Simplify development of FPS, RPG, ImSims.
 	- [x] Cells
 	- [ ] Objects/interactives
 	- [ ] Markers
+### Meta-Menu
+- [ ] Quest Log
+- [ ] Wiki/Encyclopedia
+- [ ] Skills/Stats
+### Misc
+- [ ] Pause Menu
+- [ ] Settings
+- [ ] Controls
 
 ## Input
 - [ ] Gamepad
