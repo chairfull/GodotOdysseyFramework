@@ -10,10 +10,15 @@ class_name AssetsDB extends Resource
 @export var materials: Dictionary[StringName, String]
 
 func _update() -> void:
+	for d in [audio, music, prefabs, materials]:
+		d.clear()
+	
 	_scan_dir(audio, "res://assets/audio/", "res://assets/audio", [ "mp3", "wav", "ogg" ])
 	_scan_dir(music, "res://assets/music/", "res://assets/music")
 	_scan_dir(prefabs, "res://scenes/prefabs/", "res://scenes/prefabs", [ "tscn", "scn" ])
 	_scan_dir(materials, "res://assets/materials/", "res://assets/materials", [ "tres" ])
+	
+	ResourceSaver.save(self, "res://assets/assets.tres")
 	print("Prefabs: %s, Audio: %s, Music: %s, Materials: %s" % [len(prefabs), len(audio), len(music), len(materials)])
 
 func _scan_dir(paths: Dictionary[StringName, String], head: String, dir: String, ext: Array[String] = []):

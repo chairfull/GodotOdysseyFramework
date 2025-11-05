@@ -23,3 +23,10 @@ func _to_string() -> String:
 	#var clss_name := lines[0].split("class_name", true, 1)[-1].split(" ", true, 1)[0]
 	var clss_name := resource_path.get_basename().get_file().capitalize()
 	return "%s(%s)" % [clss_name, id]
+
+func get_state() -> Dictionary[StringName, Variant]:
+	var out: Dictionary[StringName, Variant]
+	for prop in get_property_list():
+		if prop.usage & PROPERTY_USAGE_STORAGE and not (prop.usage & PROPERTY_USAGE_EDITOR):
+			out[prop.name] = self[prop.name]
+	return out

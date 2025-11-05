@@ -1,4 +1,7 @@
-# OF: Odyssey Framework
+# Odyssey Framework
+
+![Alt text](./addons/odyssey/icon_of.svg)
+<img src="./addons/odyssey/icon_of.svg">
 
 Simplify development of FPS, RPG, ImSims.
 
@@ -6,6 +9,7 @@ Simplify development of FPS, RPG, ImSims.
 - [Little Camera Preview](https://github.com/anthonyec/godot_little_camera_preview)
 - [LimboAI](https://github.com/limbonaut/limboai)
 - [YAML](https://github.com/fimbul-works/godot-yaml)
+- [Twee](https://github.com/chair_full/GodotTwee)
 
 # Controls
 
@@ -62,7 +66,10 @@ Simplify development of FPS, RPG, ImSims.
 	- [x] Drop
 	- [x] Fire
 	- [x] Reload
-- [ ] God-Mode
+- [ ] Pushing
+- [ ] Pulling
+- [ ] Climbing
+- [ ] God-Mode/Flying
 
 ## Third Person
 - [ ] God-Mode
@@ -109,15 +116,22 @@ Simplify development of FPS, RPG, ImSims.
 - [ ] Interact
 
 ## Cinema
-- [ ] Scripting language
-- [ ] Pause gameplay
-- [ ] Dialogue
-	- [ ] Captions
+- [x] Scripting language
+	- [x] Parsing
+	- [x] Script to AnimationPlayer
+- [ ] Rewind
+- [x] Pause gameplay
+	- [ ] Slow game speed right before and after
+- [ ] Respond to state
+- [ ] Runtime cinematics (These don't pause gameplay)
+- [x] Dialogue
+	- [x] Captions
 		- [ ] Audio
 	- [ ] Choices
 	- [ ] Scripted animations
 		- [ ] Walking
 		- [ ] Animations
+- [ ] Save/load
 
 ## Interactions
 ### Items
@@ -129,11 +143,13 @@ Simplify development of FPS, RPG, ImSims.
 - [x] Label
 	- [x] World-space when 3rd person
 	- [ ] HUD-space when 1st person
+- [x] No-clip first person camera
 - [x] Drop
 - [ ] Place on mount
 - [x] Use equipped item
 - [x] Reload equipped item
-- [ ] Put item back in inventory
+- [ ] Put item in inventory
+- [ ] Hold from inventory
 ### Mounts
 - [x] Mount: Change control to mount
 - [x] Unmount: Revert control to character
@@ -197,6 +213,11 @@ Simplify development of FPS, RPG, ImSims.
 - [ ] Pause Menu
 - [ ] Settings
 - [ ] Controls
+- [ ] Save & Load
+	- [x] Save
+		- [x] Preview
+		- [x] State
+		- [ ] Only save changes to resources
 
 ## Input
 - [ ] Gamepad

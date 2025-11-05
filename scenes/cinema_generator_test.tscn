@@ -1,0 +1,336 @@
+[gd_scene load_steps=11 format=3 uid="uid://dkb2ijqn56r50"]
+
+[ext_resource type="Script" uid="uid://bq66jt7y5mlak" path="res://scripts/nodes/cinematic_generator.gd" id="1_8po4n"]
+[ext_resource type="PackedScene" uid="uid://cpvlxd1nxceqo" path="res://assets/cinematics/dummy.tscn" id="2_1d1t3"]
+[ext_resource type="Resource" uid="uid://cp2fj786xxl53" path="res://assets/cinematics/stranger.tres" id="2_iwpky"]
+
+[sub_resource type="Animation" id="Animation_dhhia"]
+length = 6.501
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"_code9"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, false, true, true, true, true, true, true, false, true, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 2, 2.5, 3, 3.5, 4, 4.5, 5.5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["stranger: Howdy stranger.", "stranger: We don't get many folk around here.", "Once upon a time in a land far away...", "There lived a king on his way to play...", "Bing-o bang-o", "mary: What is happening?", "mary: Where is everyone?", "paul: Not here.", "Text that displays after the menu.", "And some more text."]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("./menu:caption")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Direction?"]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("./menu:choices")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Array[Dictionary]([{
+"anim": &"branch_3300087328",
+"text": "North"
+}, {
+"anim": &"branch_116866231",
+"text": "South"
+}, {
+"anim": &"branch_1019013874",
+"text": "East"
+}, {
+"anim": &"branch_3954112133",
+"text": "West"
+}])]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("./menu:visible")
+tracks/5/interp = 0
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 5, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_lxor5"]
+length = 1.5009999
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["East is the direction", "paul: Let's head east.", "mary: Okay"]
+}
+
+[sub_resource type="Animation" id="Animation_klimt"]
+length = 1.0009999
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["Southward", "paul: Let's do it."]
+}
+
+[sub_resource type="Animation" id="Animation_hwegd"]
+length = 1.0009999
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["We'll head north.", "mary: Okay, sounds good."]
+}
+
+[sub_resource type="Animation" id="Animation_fvqv5"]
+length = 1.0009999
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["paul: I don't want to go west.", "mary: Me neither."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6oo00"]
+_data = {
+&"ROOT": SubResource("Animation_dhhia"),
+&"branch_1019013874": SubResource("Animation_lxor5"),
+&"branch_116866231": SubResource("Animation_klimt"),
+&"branch_3300087328": SubResource("Animation_hwegd"),
+&"branch_3954112133": SubResource("Animation_fvqv5")
+}
+
+[sub_resource type="GDScript" id="GDScript_2ty15"]
+script/source = "extends Cinematic
+# res://assets/cinematics/stranger.tres:3
+func _code9() -> void:
+	if State.score < 20:
+		State.archer.reset(\"arrows\")
+		print(\"Arrows reset.\")
+"
+
+[node name="CinemaTest" type="Node2D" node_paths=PackedStringArray("anim")]
+script = ExtResource("1_8po4n")
+file = ExtResource("2_iwpky")
+anim = NodePath("@AnimationPlayer@55047")
+
+[node name="@AnimationPlayer@55047" type="AnimationPlayer" parent="." instance=ExtResource("2_1d1t3")]
+root_node = NodePath(".")
+libraries = {
+&"stranger": SubResource("AnimationLibrary_6oo00")
+}
+script = SubResource("GDScript_2ty15")

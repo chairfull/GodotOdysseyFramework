@@ -59,6 +59,7 @@ audio = Dictionary[StringName, String]({
 &"grass_7": "footsteps/grass/grass_7.wav",
 &"grass_8": "footsteps/grass/grass_8.wav",
 &"grass_9": "footsteps/grass/grass_9.wav",
+&"quest_log_updated": "quest_log_updated.mp3",
 &"wood_1": "footsteps/wood/wood_1.wav",
 &"wood_10": "footsteps/wood/wood_10.wav",
 &"wood_11": "footsteps/wood/wood_11.wav",
@@ -76,6 +77,7 @@ audio = Dictionary[StringName, String]({
 &"wood_9": "footsteps/wood/wood_9.wav"
 })
 prefabs = Dictionary[StringName, String]({
+&"barrel": "barrel.tscn",
 &"bike": "controllables/bike.tscn",
 &"bird": "controllables/bird.tscn",
 &"boat": "controllables/boat.tscn",
@@ -85,9 +87,11 @@ prefabs = Dictionary[StringName, String]({
 &"cursor": "cursor/cursor.tscn",
 &"helicopter": "controllables/helicopter.tscn",
 &"hud_caption": "ui/hud_caption.tscn",
+&"hud_context_menu": "ui/hud_context_menu.tscn",
 &"hud_interaction_label": "ui/hud_interaction_label.tscn",
 &"hud_menu": "ui/hud_menu.tscn",
 &"hud_menu_choice": "ui/hud_menu_choice.tscn",
+&"hud_quest_log": "ui/hud_quest_log.tscn",
 &"humanoid": "controllables/humanoid.tscn",
 &"item": "item.tscn",
 &"minimap_generator": "minimap_generator.tscn",

@@ -1,8 +1,8 @@
-@tool
 class_name Cinematic extends AnimationPlayer
 
 signal wait_started()
 signal wait_ended()
+signal ended()
 
 var _waiting_for_user := false
 var _stack: Array[Array]
@@ -10,7 +10,7 @@ var _stack: Array[Array]
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		animation_finished.connect(_animation_finished)
-		play(&"ROOT")
+		#play(&"ROOT")
 
 func _animation_finished(_a: StringName):
 	if _stack:
@@ -21,6 +21,7 @@ func _animation_finished(_a: StringName):
 		seek(position)
 	else:
 		print("All finished.")
+		end()
 
 func end_branch():
 	if is_playing():
@@ -28,11 +29,16 @@ func end_branch():
 		stop()
 		_animation_finished(curr)
 
+func end():
+	stop()
+	ended.emit()
+
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"advance") and _waiting_for_user:
+	if event.is_action_pressed(&"advance_cinematic") and _waiting_for_user:
 		get_viewport().set_input_as_handled()
 		_waiting_for_user = false
 		wait_ended.emit()
+		seek(current_animation_position+.01)
 		play()
 
 ## Wait for user to press something.
@@ -42,6 +48,7 @@ func wait():
 	_waiting_for_user = true
 	wait_started.emit()
 	pause()
+	print("Waiting for user input.")
 
 func goto(id: StringName, return_after := true, clear_stack := false):
 	if clear_stack:

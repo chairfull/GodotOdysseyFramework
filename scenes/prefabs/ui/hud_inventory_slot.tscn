@@ -1,0 +1,105 @@
+[gd_scene load_steps=10 format=3 uid="uid://cjdbs4crptmma"]
+
+[ext_resource type="Script" uid="uid://nopklevp3ypn" path="res://addons/twee/nodes/twee_button.gd" id="1_1gmlp"]
+[ext_resource type="Texture2D" uid="uid://cvqiwepgya3ua" path="res://icon.svg" id="1_johxr"]
+[ext_resource type="Script" uid="uid://clu7legt7n4yl" path="res://addons/twee/resources/twee.gd" id="2_1gmlp"]
+[ext_resource type="Resource" uid="uid://djai5nvuht5lf" path="res://assets/twees/hud_inventory_slot.tres" id="3_lerhx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2fx8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h0xkw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3foh6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kfe4x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lerhx"]
+
+[node name="slot_prefab" type="Button" node_paths=PackedStringArray("target", "for_child_target")]
+custom_minimum_size = Vector2(144, 144)
+offset_right = 144.0
+offset_bottom = 144.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_j2fx8")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_h0xkw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_3foh6")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kfe4x")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lerhx")
+script = ExtResource("1_1gmlp")
+target = NodePath(".")
+for_child_target = NodePath(".")
+twees = Array[ExtResource("2_1gmlp")]([ExtResource("3_lerhx")])
+_TWEE_code_0 = "ON chosen:
+	print(\"I was chosen!\", @name)
+	E 0.2 modulate Color.GREEN %icon.rotation 0 %icon.scale (1, 1)
+	BLOCK:
+		E modulate Color.WHITE
+		E modulate Color.GREEN
+		LOOP
+
+ON other_chosen:
+	E 0.1 modulate Color.RED %icon.rotation 0 %icon.scale (1, 1)
+
+ON hovered:
+	E 0.2 modulate (2.5, 2.5, 2.5, 1) %icon.scale (1.1, 1.1) %icon.rotation randf_range(-.2, .2)
+	BLOCK:
+		PARALLEL:
+			EO_BACK 0.5 %icon.scale (1, 1)
+		PARALLEL:
+			E 0.4 modulate (1.1,1.1,1.1,1)
+			E 0.4 modulate (1.5,1.5,1.5,1)
+			LOOP
+		PARALLEL:
+			E 0.5 %icon.rotation -0.1
+			E 0.5 %icon.rotation 0.1
+			LOOP
+
+ON unhovered:
+	E 0.3 modulate ~modulate %icon.rotation 0 %icon.scale (1, 1)"
+twees = Array[ExtResource("2_1gmlp")]([ExtResource("3_lerhx")])
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 144.0
+offset_bottom = 144.0
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Control" type="Control" parent="MarginContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="icon" type="TextureRect" parent="MarginContainer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("1_johxr")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="label" type="Label" parent="MarginContainer/Control/icon"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1x"
+horizontal_alignment = 2
+vertical_alignment = 2

@@ -1,11 +1,16 @@
 @tool
 class_name CinematicGenerator extends Node
 
-@export_file(".json") var file := "res://assets/dummy.json"
+@export var file: CinemaScript
+@warning_ignore("unused_private_class_variable")
 @export_tool_button("Regen") var _toolbutton_regen := _regenerate
 @export var default_delay := 0.5
 @export var anim: AnimationPlayer
+var _code: Array[String]
+var _queued_branches: Array[Array]
+var _code_methods := 0
 var _player: AnimationPlayer
+var _library_id: String
 var _library: AnimationLibrary ## Current lib being generated.
 var _branch_anim: Animation ## Current anim being generated.
 var _branch_state: Dictionary ## State of current anim branch.
@@ -28,14 +33,14 @@ func _ready() -> void:
 	if not Engine.is_editor_hint():
 		_regenerate()
 
-func _regenerate():
-	var gen_time := Time.get_ticks_msec()
-	
-	if anim:
-		remove_child(anim)
-		anim.queue_free()
-		anim = null
-	
+static func gen(paths: Array[CinemaScript]) -> Cinematic:
+	var generator := CinematicGenerator.new()
+	generator._gen()
+	for path in paths:
+		generator.add_file(path)
+	return generator._player
+
+func _gen():
 	_player = Cinematic.new()
 	_player.set_root(^".")
 	
@@ -44,8 +49,24 @@ func _regenerate():
 	_screens.name = "screens"
 	_screens.owner = _player
 	
+	_code = ["extends Cinematic"]
+
+func _regenerate():
+	var gen_time := Time.get_ticks_msec()
+	
+	if anim:
+		remove_child(anim)
+		anim.queue_free()
+		anim = null
+	
+	_gen()
 	add_file(file)
-	add_file("res://assets/other.json")
+	
+	var gdscript := GDScript.new()
+	gdscript.source_code = "\n".join(_code)
+	print(gdscript.source_code)
+	gdscript.reload()
+	_player.set_script(gdscript)
 	
 	var path := "res://assets/cinematics/%s.tscn" % ["dummy"]
 	var packed := PackedScene.new()
@@ -65,20 +86,27 @@ func _regenerate():
 	
 	prints("Generated in %s ms." % [Time.get_ticks_msec() - gen_time])
 
-func add_file(path: String) -> void:
+func add_file(cscript: CinemaScript) -> void:
 	_library = AnimationLibrary.new()
-	var lib_id := path.get_basename().get_file()
-	if _player.has_animation_library(lib_id):
+	_library_id = cscript.resource_path.get_basename().get_file()
+	if _player.has_animation_library(_library_id):
 		return
-	_player.add_animation_library(lib_id, _library)
-	var json := FileAccess.get_file_as_string(path)
-	var json_data: Variant = JSON.parse_string(json)
-	for branch in json_data.branches:
-		var steps: Array[Dictionary]
-		steps.assign(json_data.branches[branch].steps)
-		add_branch(branch, steps)
+	_player.add_animation_library(_library_id, _library)
+	var dict := CinemaScriptParser.parse(cscript.code, cscript.resource_path)
+	_queued_branches = [["ROOT", dict.tabbed]]
+	while _queued_branches:
+		var binfo: Array = _queued_branches.pop_front()
+		var branch: Array[Dictionary]
+		branch.assign(binfo[1])
+		_add_branch(binfo[0], branch)
 
-func add_branch(branch_id: StringName, steps: Array[Dictionary]):
+func add_branch_queued(steps: Array[Dictionary], branch_id := &"") -> StringName:
+	if not branch_id:
+		branch_id = "branch_%s" % hash(steps)
+	_queued_branches.append([branch_id, steps])
+	return branch_id
+
+func _add_branch(branch_id: StringName, steps: Array[Dictionary]):
 	_branch_anim = Animation.new()
 	_branch_anim.length = 0.0
 	_branch_state = {}
@@ -87,23 +115,99 @@ func add_branch(branch_id: StringName, steps: Array[Dictionary]):
 	var track := _branch_anim.add_track(Animation.TYPE_METHOD)
 	_branch_state.t_methods = track
 	_branch_anim.track_set_path(track, ^".")
+	_library.add_animation(branch_id, _branch_anim)
 	
 	for step in steps:
 		match step.type:
-			&"cap":
+			CinemaScriptParser.TYPE_TEXT:
 				var state := add_object("caption", HUD_CAPTION)
 				state.node._cinematic_step(self, step)
-			&"menu":
-				var state := add_object("menu", HUD_MENU)
+			CinemaScriptParser.TYPE_KEYV:
+				var state := add_object("caption", HUD_CAPTION)
 				state.node._cinematic_step(self, step)
-			&"wait":
-				add_time(1.0)
-			&"cond":
-				add_method(&"cond", step.cond)
-				add_time(1.0)
+			CinemaScriptParser.TYPE_CMND:
+				match step.cmnd:
+					&"MENU":
+						var state := add_object("menu", HUD_MENU)
+						state.node._cinematic_step(self, step)
+					&"WAIT":
+						add_time(1.0)
+					&"CODE":
+						var _func_name := "_code%s" % _code_methods
+						_code_methods += 1
+						_code.append("# %s" % step.dbg)
+						_code.append("func %s() -> void:" % _func_name)
+						_code.append("\t" + _replace_vars(step.rest).replace("\n", "\n\t"))
+						add_method(_func_name)
+						add_time(1.0)
+					&"IF", &"ELSE", &"ELIF":
+						var func_name := "_cond%s" % _code_methods
+						var branch := add_branch_queued(step.tabbed)
+						var expression := _replace_vars(step.rest)
+						if not "/" in branch:
+							branch = _library_id + "/" + branch
+						_code_methods += 1
+						_code.append("func %s() -> void: if %s: goto(&\"%s\")" % [func_name, expression, branch])
+						add_method(func_name)
+						add_time(1.0)
+					_:
+						push_warning("Unimplimented command %s." % [step])
 			_:
-				print("Unimplemented: ", step)
-	_library.add_animation(branch_id, _branch_anim)
+				push_warning("Unimplmented step %s." % [step])
+
+func _replace_vars(input: String) -> String:
+	const IGNORE := ["true", "false", "null",
+		"match", "if", "elif", "else",
+		"print",
+		"return", "pass", "continue"]
+	var REG_VAR := RegEx.create_from_string(r"[A-Za-z_]\w*(?:\[[^\]]+\]|\.[A-Za-z_]\w*)*")
+	var i := 0
+	var out := ""
+	var safe := 1000
+	while i < input.length() and safe > 0:
+		safe -= 1
+		var c := input[i]
+		# Skip quoted.
+		if c == '"' or c == "'":
+			var quote := c
+			out += quote
+			i += 1
+			while i < input.length():
+				out += input[i]
+				if input[i] == "\\" and i + 1 < input.length():
+					i += 2
+					continue
+				if input[i] == quote:
+					i += 1
+					break
+				i += 1
+			continue
+		var rm := REG_VAR.search(input, i)
+		if not rm:
+			out += input.substr(i)
+			break
+		var start := rm.get_start()
+		var end := rm.get_end()
+		var dq := input.find('"', i)
+		var sq := input.find("'", i)
+		var next_quote := -1
+		if dq != -1 and (sq == -1 or dq < sq):
+			next_quote = dq
+		elif sq != -1:
+			next_quote = sq
+		if next_quote != -1 and next_quote < start:
+			out += input.substr(i, next_quote - i)
+			i = next_quote
+			continue
+		var found := rm.strings[0]
+		out += input.substr(i, start - i)
+		if found not in IGNORE:
+			if start < 6 or input.substr(start - 6, 6) != "State.":
+				out += "State."
+		out += found
+		i = end
+	return out
+
 
 func has_object(id: String) -> bool:
 	return get_object(id) != null

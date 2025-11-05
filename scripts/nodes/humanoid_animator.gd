@@ -60,7 +60,6 @@ func set_highlight(h: bool):
 			_highlight_material = null)
 
 func travel(to: StringName):
-	print("TRAVEL ", to)
 	var sm: AnimationNodeStateMachinePlayback = _tree.get(&"parameters/main/playback")
 	sm.travel(to)
 

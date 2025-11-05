@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CinemaScript" load_steps=2 format=3 uid="uid://be3kln23ocndb"]
+
+[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://addons/odyssey/cinema/cinema_script.gd" id="1_p47si"]
+
+[resource]
+script = ExtResource("1_p47si")
+code = "SHOW paul
+CODE:
+	if score > 20:
+		reset()
+		
+		archer.upgrade(\"Stats\")
+
+MENU
+	What is everyone talking about!?
+	Animals
+		paul: We were talking about animals.
+
+paul: What's going on here?
+mary: I was wondering that myself.
+
+=== mynique
+	paul: Who is there?"
+metadata/_custom_type_script = "uid://bkc0pux3d1ajc"

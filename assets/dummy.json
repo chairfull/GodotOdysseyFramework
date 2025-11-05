@@ -13,6 +13,11 @@
 					{ "text": "West" },
 				]},
 				{ "type": "cond", "cond": ["score > 20", "cond_0", "true", "cond_1"] },
+				{ "type": "code", "code":
+"match archer.level:
+	0: print(\"We made it out the forrest!\")
+	1: print('Lets get out of here!')
+	3: print('Wow, who cares!?')" },
 				{ "type": "cap", "text": "Text that comes after a choice." }
 			]
 		},

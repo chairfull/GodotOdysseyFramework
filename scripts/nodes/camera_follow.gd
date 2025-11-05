@@ -1,4 +1,4 @@
-class_name CameraThirdPerson extends CameraTarget
+class_name CameraFollow extends CameraTarget
 
 @onready var pivot: Node3D = %pivot
 @onready var spring_arm: SpringArm3D = %spring_arm
@@ -20,32 +20,37 @@ var _noise_speed := 10.0
 #var _noise_scale := Vector2(0.3, 0.1)
 
 var push_out := Vector2.ZERO: set=set_push_out
-# NEW: Yaw compensation for push_out (keeps reticle centered on pivot/target)
 var aim_offset_y := 0.0
 var aim_look_dist := 0.0
 
 func _ready() -> void:
 	_noise.noise_type = FastNoiseLite.TYPE_CELLULAR
 	_noise.fractal_type = FastNoiseLite.FRACTAL_FBM
+	process_priority = 100
+	process_physics_priority = 100
 
 func _enter_tree() -> void:
-	make_current()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 func _exit_tree() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
+func is_third_person() -> bool: return view_mode == ViewMode.THIRD_PERSON
+func is_first_person() -> bool: return view_mode == ViewMode.FIRST_PERSON
+
 func focus():
 	focusing = true
 	aim_look_dist = pivot.global_position.distance_to((target as Humanoid).looking_at)
 	UTween.parallel(camera, { "fov": fov_focused }, 0.2)
-	UTween.parallel(self, { "push_out": Vector2(1, 0.0) }, 0.2)
+	if is_third_person():
+		UTween.parallel(self, { "push_out": Vector2(1, 0.0) }, 0.2)
 
 func unfocus():
 	focusing = false
 	aim_look_dist = spring_arm.spring_length
 	UTween.parallel(camera, { "fov": fov_unfocused }, 0.2)
-	UTween.parallel(self, { "push_out": Vector2.ZERO }, 0.2)
+	if is_third_person():
+		UTween.parallel(self, { "push_out": Vector2.ZERO }, 0.2)
 
 func set_push_out(off: Vector2):
 	push_out = off
@@ -82,11 +87,11 @@ func _process(delta: float) -> void:
 	#camera.h_offset = _noise.get_noise_1d(_noise_time + 123.456) * _noise_scale.x * fov_scale
 	#camera.v_offset = _noise.get_noise_1d(_noise_time + 654.321) * _noise_scale.y * fov_scale
 	
-	match view_mode:
-		ViewMode.FIRST_PERSON:
-			if target:
-				global_position = target.global_position
-		
-		ViewMode.THIRD_PERSON:
-			if target:
-				global_position = global_position.slerp(target.global_position, 20.0 * delta)
+	#match view_mode:
+		#ViewMode.FIRST_PERSON:
+			#if target:
+				#global_position = target.global_position
+		#
+		#ViewMode.THIRD_PERSON:
+			#if target:
+				#global_position = global_position.slerp(target.global_position, 20.0 * delta)

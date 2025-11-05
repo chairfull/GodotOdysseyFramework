@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgu0c5ul5u3nn"]
+
+[ext_resource type="Script" uid="uid://cnu8oepjxrmwj" path="res://scripts/nodes/hud_inventory.gd" id="1_t68u1"]
+[ext_resource type="Script" uid="uid://dh0608unc0n6i" path="res://addons/twee/nodes/twee_button_list.gd" id="2_k1jvm"]
+[ext_resource type="PackedScene" uid="uid://cjdbs4crptmma" path="res://scenes/prefabs/ui/hud_inventory_slot.tscn" id="2_t68u1"]
+
+[node name="inventory_hud" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_t68u1")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 1006.0
+offset_bottom = 505.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="slots" type="GridContainer" parent="PanelContainer/MarginContainer/ScrollContainer" node_paths=PackedStringArray("focus_highlight", "target", "for_child_target")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+columns = 5
+script = ExtResource("2_k1jvm")
+disable_on_pressed = true
+focus_highlight = NodePath("../../../../outline")
+target = NodePath(".")
+for_child_target = NodePath(".")
+
+[node name="slot_prefab" parent="PanelContainer/MarginContainer/ScrollContainer/slots" instance=ExtResource("2_t68u1")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="outline" type="ColorRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+color = Color(1, 1, 1, 0.48235294)

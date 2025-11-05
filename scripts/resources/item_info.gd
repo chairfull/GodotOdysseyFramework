@@ -1,11 +1,12 @@
 class_name ItemInfo extends DatabaseObject
 
-@export var max_per_slot: int = 1_000_000_000:
+var desc: String
+var max_per_slot: int = 1_000_000_000:
 	get: return 1 if is_special() else max_per_slot
-@export var wear_to: PackedStringArray ## Equipment slots.
-@export var cells: Array[Vector2i] = [Vector2i.ZERO] ## TODO: How wide and high it is.
-@export var default_state: Dictionary[StringName, Variant] = {} ## Setting this will mark the item as a special one.
-@export var scene_held: PackedScene
+var wear_to: PackedStringArray ## Equipment slots.
+var cells: Array[Vector2i] = [Vector2i.ZERO] ## TODO: How wide and high it is.
+var default_state: Dictionary[StringName, Variant] = {} ## Setting this will mark the item as a special one.
+var scene_held: PackedScene
 
 ## [Currency]
 ## currency: StringName

@@ -15,18 +15,18 @@ static func get_style_color(s := Style.HIDDEN) -> Color:
 		Style.FAILED: return Color.TOMATO
 	return Color.PURPLE
 
-@export var desc: String
+#@export var fmods: Array[QuestFMod]
 @export var ticks: Array[QuestTick]
-@export var fmods: Array[QuestFMod]
 @export var style := Style.HIDDEN: set=set_style
-@export var variables: Dictionary[StringName, Variant]
-@export var visible := true
+@export var properties := PropertyDB.new()
+@export var hidden := false
+var desc: String
 
-func find_tick(tid: String) -> QuestTick:
-	for tick in ticks:
-		if tick.id == tid:
-			return tick
-	return null
+#func find_tick(tid: String) -> QuestTick:
+	#for tick in ticks:
+		#if tick.id == tid:
+			#return tick
+	#return null
 
 func set_style(s: Style):
 	if style == s:
@@ -42,13 +42,16 @@ func _get_devmode() -> Array:
 			options[-1].call = set_style.bind(s)
 	return options
 
-func _iter_init(iter):
+func _iter_init(iter) -> bool:
 	iter[0] = 0
 	return iter[0] < ticks.size()
 
-func _iter_next(iter):
+func _iter_next(iter) -> bool:
 	iter[0] += 1
 	return iter[0] < ticks.size()
 
-func _iter_get(iter):
+func _iter_get(iter) -> Variant:
 	return ticks[iter]
+
+func get_db() -> Database:
+	return State.quests

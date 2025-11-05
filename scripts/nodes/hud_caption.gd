@@ -7,14 +7,19 @@ func set_text(t: String):
 	%label.text = t
 
 func _cinematic_step(gen: CinematicGenerator, step: Dictionary):
-	var caption: String
-	if "from" in step:
-		caption = "%s: %s" % [step.from, step.text]
+	var speaker := ""
+	var caption := ""
+	match step.type:
+		CinemaScriptParser.TYPE_KEYV:
+			speaker = step.key
+			caption = step.val
+		CinemaScriptParser.TYPE_TEXT:
+			caption = step.text
+		
+	if speaker:
+		caption = "%s: %s" % [speaker, caption]
 	else:
-		caption = step.text
-	#match step.type:
-		#FlowScriptParser.TYPE_KEYV: caption = "%s: %s" % [step.key, step.val]
-		#"cap": caption = step.text
+		caption = caption
 	
 	var caption_count: int = gen.get_state(&"caption_count", 0)
 	gen.set_state(&"caption_count", caption_count + 1)

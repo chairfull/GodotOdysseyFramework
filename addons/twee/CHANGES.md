@@ -1,0 +1,11 @@
+- Added
+	- TweeButton `focused` `unfocused` signals only work if not disabled.
+	- TweeButton `hovered` `unhovered` signals only work if not disabled.
+- Fixes
+	- Prevent warnings from source code generator by using `_node` `_root` instead of `node` `root`.
+	- TweeButtonList better handles adding/removing children.
+	- Can pass unique_name node sub properties: "%cursor.modulate".
+- Minor
+	- Reorganized.
+	- Combined plugin/inspector script.
+	- Removed flow_script.

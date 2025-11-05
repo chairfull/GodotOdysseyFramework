@@ -50,8 +50,10 @@ shading_mode = 0
 
 [sub_resource type="SphereMesh" id="SphereMesh_117w7"]
 material = SubResource("StandardMaterial3D_2rnpl")
-radius = 0.1
-height = 0.2
+radius = 0.05
+height = 0.1
+radial_segments = 32
+rings = 16
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_iv36d"]
 height = 1.8

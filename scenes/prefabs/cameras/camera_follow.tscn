@@ -21,3 +21,8 @@ spring_length = 3.0
 unique_name_in_owner = true
 
 [node name="camera" type="Camera3D" parent="pivot/spring_arm/offset"]
+
+[node name="head_remote" type="RemoteTransform3D" parent="pivot/spring_arm/offset/camera"]
+unique_name_in_owner = true
+update_position = false
+update_scale = false

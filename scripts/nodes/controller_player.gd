@@ -5,9 +5,18 @@ signal view_state_changed()
 enum ViewState { None, FirstPerson, ThirdPerson, TopDown }
 
 @onready var viewport_container: ControllerPlayer = %viewport_container
+@onready var fps_viewport_container: SubViewportContainer = %fps_viewport_container
 @onready var viewport: SubViewport = %viewport
 @onready var camera_master: CameraMaster = %camera_master
 var _hud: Dictionary[StringName, Node]
+
+func hide_fps_viewport():
+	UTween.parallel(fps_viewport_container, { "modulate:a": 0.0 }, 0.2)\
+		.finished.connect(func(): fps_viewport_container.visible = false)
+
+func show_fps_viewport():
+	fps_viewport_container.visible = true
+	UTween.parallel(fps_viewport_container, { "modulate:a": 1.0 }, 0.2)
 
 var view_state := ViewState.FirstPerson:
 	set(vs):
@@ -23,7 +32,15 @@ func get_move_vector_camera() -> Vector2:
 	return get_move_vector().rotated(-dir)
 
 func is_hud_visible(id: StringName) -> bool:
-	return id in _hud
+	return ("hud_" + id) in _hud
+
+func toggle_hud(id: StringName) -> Node:
+	prints(id, is_hud_visible(id), _hud.get("hud_" + id))
+	if is_hud_visible(id):
+		hide_hud(id)
+		return null
+	else:
+		return show_hud(id)
 
 func show_hud(id: StringName, props := {}) -> Node:
 	var hud_id := "hud_" + id

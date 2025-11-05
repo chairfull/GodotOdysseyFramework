@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="Twee" load_steps=2 format=3 uid="uid://djai5nvuht5lf"]
+
+[ext_resource type="Script" uid="uid://clu7legt7n4yl" path="res://addons/twee/resources/twee.gd" id="1_1cknh"]
+
+[resource]
+script = ExtResource("1_1cknh")
+code = "ON chosen:
+	print(\"I was chosen!\", @name)
+	E 0.2 modulate Color.GREEN %icon.rotation 0 %icon.scale (1, 1)
+	BLOCK:
+		E modulate Color.WHITE
+		E modulate Color.GREEN
+		LOOP
+
+ON other_chosen:
+	E 0.1 modulate Color.RED %icon.rotation 0 %icon.scale (1, 1)
+
+ON hovered:
+	E 0.2 modulate (2.5, 2.5, 2.5, 1) %icon.scale (1.1, 1.1) %icon.rotation randf_range(-.2, .2)
+	BLOCK:
+		PARALLEL:
+			EO_BACK 0.5 %icon.scale (1, 1)
+		PARALLEL:
+			E 0.4 modulate (1.1,1.1,1.1,1)
+			E 0.4 modulate (1.5,1.5,1.5,1)
+			LOOP
+		PARALLEL:
+			E 0.5 %icon.rotation -0.1
+			E 0.5 %icon.rotation 0.1
+			LOOP
+
+ON unhovered:
+	E 0.3 modulate ~modulate %icon.rotation 0 %icon.scale (1, 1)"
+metadata/_custom_type_script = "uid://clu7legt7n4yl"

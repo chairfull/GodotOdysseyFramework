@@ -9,6 +9,7 @@ signal damage_taken(info: DamageInfo)
 @onready var node_seeing: Detector = %seeing
 @onready var node_hearing: Detector = %hearing
 @onready var nav_agent: NavigationAgent3D = %nav_agent
+@export var cinematic: CinemaScript
 @export_range(-180, 180, 0.01, "radians_as_degrees") var direction: float: get=get_direction, set=set_direction
 var char_info: CharacterInfo
 var movement := Vector2.ZERO
@@ -25,10 +26,13 @@ func _ready() -> void:
 		interactive_detector.ignore.append(%interactive)
 		%interactive.interacted.connect(_interacted)
 
-func _interacted(pawn: Pawn, form: Interactive.Form):
-	prints(pawn.name, "interacted with", name, "FORM:", form)
+func _interacted(pawn: Pawn, form: Interactive.Form) -> void:
+	if cinematic:
+		Cinema.queue(cinematic)
+	else:
+		prints(pawn.name, "interacted with", name, "FORM:", form)
 
-func fix_direction():
+func fix_direction() -> void:
 	# Transfer rotation to proper node.
 	%direction.rotation.y = rotation.y
 	rotation.y = 0

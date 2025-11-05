@@ -9,11 +9,25 @@ var _interactive: Interactive
 var _interactive_hud: Node
 
 func _enable() -> void:
+	process_priority = 200
+	process_physics_priority = 200
+	
 	super()
 	get_player_controller().view_state_changed.connect(_view_state_changed)
 	if not camera:
 		camera = Assets.create_prefab(&"camera_follow", get_tree().current_scene)
 		camera.target = humanoid
+		get_player_controller().camera_master.target = camera.camera
+		camera.get_node("%head_remote").remote_path = humanoid.get_node("%head").get_path()
+		
+		var remote := RemoteTransform3D.new()
+		remote.name = "camera_target"
+		remote.update_position = true
+		remote.update_rotation = false
+		remote.update_scale = false
+		humanoid.get_node("%head").add_child(remote)
+		remote.remote_path = camera.get_path()
+		
 		_view_state_changed()
 	_interactive_hud = get_player_controller().show_hud(&"interaction_label")
 
@@ -26,14 +40,19 @@ func _disable() -> void:
 func _view_state_changed():
 	match pawn.player_controller.view_state:
 		ControllerPlayer.ViewState.FirstPerson:
+			Global.wait(0.35, get_player_controller().show_fps_viewport)
 			await camera.set_first_person()
 			humanoid.get_node(^"%model").visible = false
 		ControllerPlayer.ViewState.ThirdPerson:
+			get_player_controller().hide_fps_viewport()
 			camera.set_third_person()
 			humanoid.get_node(^"%model").visible = true
 
 func _unhandled_input(event: InputEvent) -> void:
 	super(event)
+	
+	if event.is_action_pressed(&"toggle_quest_log"):
+		get_player_controller().toggle_hud(&"quest_log")
 	
 	if event.is_action_pressed(&"interact"):
 		if humanoid.interact_start(_interactive):
@@ -92,8 +111,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 func _process(delta: float) -> void:
-	camera.get_node("%pivot").position.y = humanoid.get_node("%head").position.y
-	humanoid.get_node("%head").global_rotation = camera.camera.global_rotation
+	#camera.get_node("%pivot").position.y = humanoid.get_node("%head").position.y
+	#humanoid.get_node("%head").global_rotation = camera.camera.global_rotation
 	
 	if _crouch_held:
 		_crouch_hold_time += delta
@@ -132,7 +151,6 @@ func _physics_process(delta: float) -> void:
 	var mp := cam.get_viewport().get_mouse_position()
 	var from := cam.project_ray_origin(mp)
 	var to := from + cam.project_ray_normal(mp) * 1000.0
-	
 	var space := cam.get_world_3d().direct_space_state
 	var query := PhysicsRayQueryParameters3D.create(from, to)
 	query.exclude = [humanoid]

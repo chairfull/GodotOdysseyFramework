@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="CinemaScript" load_steps=2 format=3 uid="uid://cp2fj786xxl53"]
+
+[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://addons/odyssey/cinema/cinema_script.gd" id="1_p5g7v"]
+
+[resource]
+script = ExtResource("1_p5g7v")
+code = "stranger: Howdy stranger.
+stranger: We don't get many folk around here.
+
+CODE:
+	if score < 20:
+		archer.reset(\"arrows\")
+		print(\"Arrows reset.\")
+
+Once upon a time in a land far away...
+There lived a king on his way to play...
+Bing-o bang-o
+
+
+mary: What is happening?
+mary: Where is everyone?
+paul: Not here.
+
+MENU
+	Direction?
+	North
+		We'll head north.
+		mary: Okay, sounds good.
+	South
+		Southward
+		paul: Let's do it.
+	East
+		East is the direction
+		paul: Let's head east.
+		mary: Okay
+	West
+		paul: I don't want to go west.
+		mary: Me neither.
+
+Text that displays after the menu.
+And some more text."
+metadata/_custom_type_script = "uid://bkc0pux3d1ajc"

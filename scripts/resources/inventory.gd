@@ -21,6 +21,9 @@ func _init(frontmatter := {}):
 			"items":
 				gain.call_deferred(value) # Call late, so items will exist.
 
+func get_item_slot_count() -> int:
+	return _items.size()
+
 func _iter_init(iter: Array) -> bool:
 	iter[0] = 0
 	return iter[0] < len(_items)

@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://cpvlxd1nxceqo"]
+[gd_scene load_steps=12 format=3 uid="uid://cpvlxd1nxceqo"]
 
 [ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/prefabs/ui/hud_caption.tscn" id="1_dhhia"]
 [ext_resource type="PackedScene" uid="uid://cucq8gseatpvc" path="res://scenes/prefabs/ui/hud_menu.tscn" id="3_klimt"]
+[ext_resource type="Script" uid="uid://biaptg8kvjcvi" path="res://scripts/nodes/hud_caption.gd" id="3_lxor5"]
+[ext_resource type="Script" uid="uid://bifsd86p73u58" path="res://scripts/nodes/hud_menu.gd" id="5_fvqv5"]
 
 [sub_resource type="Animation" id="Animation_dhhia"]
-length = 4.001
+length = 6.501
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -12,8 +14,8 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 1, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
 "args": [],
 "method": &"wait"
@@ -22,6 +24,12 @@ tracks/0/keys = {
 "method": &"wait"
 }, {
 "args": [],
+"method": &"_code9"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
 "method": &"wait"
 }, {
 "args": [],
@@ -30,8 +38,17 @@ tracks/0/keys = {
 "args": [],
 "method": &"wait"
 }, {
-"args": ["score > 20", "cond_0", "true", "cond_1"],
-"method": &"cond"
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
 }, {
 "args": [],
 "method": &"wait"
@@ -44,10 +61,10 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 3.5, 4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 1, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true, true, true, true, false, true, false]
+"values": [true, true, false, true, true, true, true, true, true, false, true, true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -56,10 +73,10 @@ tracks/2/path = NodePath("./caption:text")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 3.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 2, 2.5, 3, 3.5, 4, 4.5, 5.5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": ["Once upon a time...", "in a land far away", "there lived a king", "starting his day.", "Text that comes after a choice."]
+"values": ["stranger: Howdy stranger.", "stranger: We don't get many folk around here.", "Once upon a time in a land far away...", "There lived a king on his way to play...", "Bing-o bang-o", "mary: What is happening?", "mary: Where is everyone?", "paul: Not here.", "Text that displays after the menu.", "And some more text."]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -68,10 +85,10 @@ tracks/3/path = NodePath("./menu:caption")
 tracks/3/interp = 0
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(2),
+"times": PackedFloat32Array(5),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["Chose a direction"]
+"values": ["Direction?"]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -80,18 +97,22 @@ tracks/4/path = NodePath("./menu:choices")
 tracks/4/interp = 0
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(2),
+"times": PackedFloat32Array(5),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [[{
+"values": [Array[Dictionary]([{
+"anim": &"branch_3300087328",
 "text": "North"
 }, {
+"anim": &"branch_116866231",
 "text": "South"
 }, {
+"anim": &"branch_1019013874",
 "text": "East"
 }, {
+"anim": &"branch_3954112133",
 "text": "West"
-}]]
+}])]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -100,14 +121,14 @@ tracks/5/path = NodePath("./menu:visible")
 tracks/5/interp = 0
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 2, 2.5),
+"times": PackedFloat32Array(0, 5, 5.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_hwegd"]
-length = 0.501
+length = 1.0009999
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -115,9 +136,12 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"wait"
+}, {
 "args": [],
 "method": &"wait"
 }]
@@ -129,10 +153,10 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [true, true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -141,14 +165,14 @@ tracks/2/path = NodePath("./caption:text")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": ["Cond was TRUE."]
+"values": ["We'll head north.", "mary: Okay, sounds good."]
 }
 
 [sub_resource type="Animation" id="Animation_klimt"]
-length = 0.501
+length = 1.0009999
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -156,9 +180,12 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"wait"
+}, {
 "args": [],
 "method": &"wait"
 }]
@@ -170,10 +197,10 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [true, true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -182,21 +209,61 @@ tracks/2/path = NodePath("./caption:text")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": ["Condition was FALSE."]
+"values": ["Southward", "paul: Let's do it."]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_lxor5"]
-_data = {
-&"ROOT": SubResource("Animation_dhhia"),
-&"cond_0": SubResource("Animation_hwegd"),
-&"cond_1": SubResource("Animation_klimt")
+[sub_resource type="Animation" id="Animation_lxor5"]
+length = 1.5009999
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["East is the direction", "paul: Let's head east.", "mary: Okay"]
 }
 
 [sub_resource type="Animation" id="Animation_fvqv5"]
-length = 0.501
+length = 1.0009999
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -204,9 +271,12 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"wait"
+}, {
 "args": [],
 "method": &"wait"
 }]
@@ -218,10 +288,10 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [true, true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -230,69 +300,42 @@ tracks/2/path = NodePath("./caption:text")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["paul: Different animations..."]
-}
-
-[sub_resource type="Animation" id="Animation_6oo00"]
-length = 0.501
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"wait"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("./caption:visible")
-tracks/1/interp = 0
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("./caption:text")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["All right."]
+"values": ["paul: I don't want to go west.", "mary: Me neither."]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ty15"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6oo00"]
 _data = {
-&"ROOT": SubResource("Animation_fvqv5"),
-&"ROOT-IF": SubResource("Animation_6oo00")
+&"ROOT": SubResource("Animation_dhhia"),
+&"branch_1019013874": SubResource("Animation_lxor5"),
+&"branch_116866231": SubResource("Animation_klimt"),
+&"branch_3300087328": SubResource("Animation_hwegd"),
+&"branch_3954112133": SubResource("Animation_fvqv5")
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer"]
+[sub_resource type="GDScript" id="GDScript_2ty15"]
+script/source = "extends Cinematic
+# res://assets/cinematics/stranger.tres:3
+func _code9() -> void:
+	if State.score < 20:
+		State.archer.reset(\"arrows\")
+		print(\"Arrows reset.\")"
+
+[node name="" type="AnimationPlayer"]
 root_node = NodePath(".")
 libraries = {
-&"dummy": SubResource("AnimationLibrary_lxor5"),
-&"other": SubResource("AnimationLibrary_2ty15")
+&"stranger": SubResource("AnimationLibrary_6oo00")
 }
+script = SubResource("GDScript_2ty15")
 
 [node name="screens" type="CanvasLayer" parent="."]
 
-[node name="caption" parent="." instance=ExtResource("1_dhhia")]
+[node name="caption" type="PanelContainer" parent="." instance=ExtResource("1_dhhia")]
+script = ExtResource("3_lxor5")
 
-[node name="menu" parent="." instance=ExtResource("3_klimt")]
-visible = false
+[node name="menu" type="VBoxContainer" parent="." instance=ExtResource("3_klimt")]
+offset_right = 90.0
+offset_bottom = 50.0
+script = ExtResource("5_fvqv5")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://ba47kj4lq4mm6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5xmed"]
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xmed"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.9593834, 0, 0.115856014, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kw1ic"]
+height = 1.0
+radial_segments = 32
+rings = 1
+
+[node name="barrel" type="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_5xmed")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_5xmed")
+mesh = SubResource("CylinderMesh_kw1ic")
+skeleton = NodePath("../CollisionShape3D")

@@ -14,6 +14,29 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_dv00x")
 
+[node name="fps_viewport_container" type="SubViewportContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="fps_viewport" type="SubViewport" parent="fps_viewport_container"]
+unique_name_in_owner = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="fps_camera_master" type="Camera3D" parent="fps_viewport_container/fps_viewport"]
+unique_name_in_owner = true
+cull_mask = 2
+far = 100.0
+
 [node name="viewport_container" type="SubViewportContainer" parent="."]
 unique_name_in_owner = true
 show_behind_parent = true
@@ -35,7 +58,9 @@ render_target_update_mode = 4
 
 [node name="camera_master" type="Camera3D" parent="viewport_container/viewport"]
 unique_name_in_owner = true
+cull_mask = 1048573
 current = true
+far = 100.0
 script = ExtResource("2_psuda")
 
 [node name="Label" type="Label" parent="."]

@@ -8,5 +8,8 @@ static var QUEST_PASSED := GameEvent.new({ quest=QuestInfo })
 static var QUEST_FAILED := GameEvent.new({ quest=QuestInfo })
 static var QUEST_TICKED := GameEvent.new({ quest=QuestInfo })
 
+#static var PROP_CHANGED := GameEvent.new({ vary=PropInfo })
+
 func _init(props := {}) -> void:
-	super(State.event, props)
+	pass
+	#super(State.event, props)

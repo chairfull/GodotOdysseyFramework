@@ -1,10 +1,10 @@
-class_name ItemNode extends Node3D
+class_name ItemNode extends RigidBody3D
 
 #signal damage_dealt(info: DamageInfo)
 
 @export var item: ItemInfo
 @export_custom(PROPERTY_HINT_EXPRESSION, "") var debug_properties_yaml: String
-@export var state: Dictionary[StringName, Variant]
+@export var _state: Dictionary[StringName, Variant]
 @export var mount: Node3D: set=set_mount ## Humanoid or ItemMount.
 @onready var animation_player: AnimationPlayer = %animation_player
 @onready var animation_tree: AnimationTree = %animation_tree
@@ -12,6 +12,8 @@ class_name ItemNode extends Node3D
 @export var highlight := false: set=set_highlight
 @export var highlightable: Array[Node3D]
 var _highlight_material: Material
+var _reset_state := false
+var _reset_transform: Transform3D
 
 func _ready() -> void:
 	var yaml := YAML.parse(debug_properties_yaml)
@@ -31,7 +33,7 @@ func _highlight_changed():
 
 func set_highlight(h: bool):
 	highlight = h
-	if highlight:
+	if highlight and not mount:
 		_highlight_material = Assets.get_material(&"highlighted")
 		_highlight_material.albedo_color.a = 0.0
 		_highlight_material.stencil_color.a = 0.0
@@ -52,18 +54,40 @@ func set_highlight(h: bool):
 func _can_interact(pawn: Pawn) -> bool:
 	return pawn is Humanoid
 
-func _interacted(pawn: Pawn):
-	set_mount(pawn)
+func _interacted(pawn: Pawn, _form: Interactive.Form):
+	if pawn is Humanoid:
+		pawn.pickup(self)
 
 func set_mount(to: Node3D):
+	if mount == to: return
 	mount = to
 	if mount:
-		process_mode = Node.PROCESS_MODE_DISABLED
-		if mount is Humanoid:
-			(mount as Humanoid).pickup(self)
+		freeze = true
+		sleeping = true
+		collision_layer = 0
+		for h in highlightable:
+			if "layers" in h:
+				h.layers = 1 << 1
+			if "material_overlay" in h:
+				h.material_overlay = null
+		highlight = false
 	else:
-		process_mode = Node.PROCESS_MODE_INHERIT
+		freeze = false
+		sleeping = false
+		collision_layer = 1 << 1
+		for h in highlightable:
+			if "layers" in h:
+				h.layers = 1 << 0
 
 func anim_travel(anim_id: StringName):
 	var playback: AnimationNodeStateMachinePlayback = animation_tree.get(&"parameters/playback")
 	playback.travel(anim_id)
+
+func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
+	if _reset_state:
+		physics_state.transform = _reset_transform
+		_reset_state = false
+
+func reset_state(trans: Transform3D):
+	_reset_state = true
+	_reset_transform = trans
