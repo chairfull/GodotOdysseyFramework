@@ -86,6 +86,7 @@ var _charge_form: Form
 @export var ioe_scene: PackedScene ## A scene to swap to if interaction occurs.
 
 func _init() -> void:
+	add_to_group(&"Interactive")
 	monitoring = false
 	collision_layer = 0
 	collision_mask = 0

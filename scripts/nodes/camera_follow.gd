@@ -4,7 +4,7 @@ class_name CameraFollow extends CameraTarget
 @onready var spring_arm: SpringArm3D = %spring_arm
 @onready var offset: Node3D = %offset
 
-@export var target: Node3D
+@export var target: Node3D: set=set_target
 @export var mouse_sensitivity := 0.02
 @export var rot_y := 0.0
 @export var rot_x := 0.0
@@ -35,17 +35,23 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
+func set_target(t):
+	target = t
+	if target is Agent:
+		target.focus_started.connect(_focus_started)
+		target.focus_stopped.connect(_focus_stopped)
+
 func is_third_person() -> bool: return view_mode == ViewMode.THIRD_PERSON
 func is_first_person() -> bool: return view_mode == ViewMode.FIRST_PERSON
 
-func focus():
+func _focus_started():
 	focusing = true
-	aim_look_dist = pivot.global_position.distance_to((target as Humanoid).looking_at)
+	aim_look_dist = pivot.global_position.distance_to((target as Agent).looking_at)
 	UTween.parallel(camera, { "fov": fov_focused }, 0.2)
 	if is_third_person():
 		UTween.parallel(self, { "push_out": Vector2(1, 0.0) }, 0.2)
 
-func unfocus():
+func _focus_stopped():
 	focusing = false
 	aim_look_dist = spring_arm.spring_length
 	UTween.parallel(camera, { "fov": fov_unfocused }, 0.2)

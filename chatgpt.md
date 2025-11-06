@@ -13,19 +13,11 @@ signal unmounted(ride: Pawn)
 signal froze()
 signal unfroze()
 
-@export var player: bool: ## The main controllable of the main controller.
-	get: return is_controlled() and controller == Controllers.player
-	set(c):
-		if c:
-			take_control.call_deferred()
-		elif is_controlled():
-			Controllers.player.controllable = null
-
 @export_group("Mount")
 @export var rider_interact: Interactive ## Interactive that takes control.
 @export var rider: Pawn: set=set_rider ## Set internally. TODO: Set from scene.
 var frozen := false: set=set_frozen
-var controller: Controller: set=set_controller
+var controller: Controller
 var player_controller: ControllerPlayer:
 	get: return controller
 var _mount: Pawn: set=set_mount ## What we are riding.
@@ -34,6 +26,11 @@ func _init() -> void:
 	add_to_group(&"Pawn")
 
 func _ready() -> void:
+	if name == "player":
+		Controllers.player.set_pawn.call_deferred(self)
+	elif name.begins_with("npc_"):
+		Controllers.get_or_create_npc(name).set_pawn.call_deferred(self)
+	
 	if rider_interact:
 		rider_interact.interacted.connect(_rider_interacted)
 	else:
@@ -42,24 +39,17 @@ func _ready() -> void:
 func _rider_interacted(pawn: Pawn, _form: Interactive.Form):
 	set_rider(pawn)
 
-func set_controller(c: Controller):
-	if controller == c: return
-	if controller: _unposessed(controller)
-	controller = c
-	if controller: _posessed(controller)
-
 func get_controller_recursive() -> Controller:
 	return rider.controller if rider else controller
 
-func take_control(c: Controller = null):
-	(c if c else Controllers.player).pawn = self
-
 func _posessed(con: Controller) -> void:
-	print("[%s controls %s]" % [controller.name, name])
+	print("[%s controls %s]" % [con.name, name])
+	controller = con
 	posessed.emit(con)
 
-func _unposessed(con: Controller) -> void:
-	unposessed.emit(con)
+func _unposessed() -> void:
+	unposessed.emit(controller)
+	controller = null
 
 func is_controlled() -> bool: return controller != null
 func is_player_controlled() -> bool: return controller is ControllerPlayer
@@ -80,235 +70,20 @@ func set_mount(m: Pawn):
 
 func set_rider(r: Pawn):
 	if rider == r: return
-	if rider:
+	if rider: # Unmount old.
 		# Take back control.
-		if rider.is_controlled():
-			rider.controller.set_pawn(self)
+		if is_controlled():
+			controller.set_pawn.call_deferred(rider)
 		rider._mount = null
 		rider_unmounted.emit(rider)
 	rider = r
-	if rider:
+	if rider: # Remound new.
 		# Give control to rider.
-		if is_controlled():
-			controller.set_pawn(rider)
+		if rider.is_controlled():
+			rider.controller.set_pawn.call_deferred(self)
 		rider._mount = self
 		rider_mounted.emit(rider)
 	
-```
-
-```gd
-# res://scripts/nodes/controller.gd
-class_name Controller extends Node
-
-@export var index := 0 ## For multiplayer.
-@export var pawn: Pawn: set=set_pawn
-
-func _init(i := 0) -> void:
-	index = i
-	add_to_group(&"Controller")
-
-func set_pawn(target: Pawn):
-	if pawn == target: return
-	if pawn:
-		pawn.set_controller.call_deferred(null)
-		_ended()
-	pawn = target
-	pawn.set_controller.call_deferred(self)
-	_started.call_deferred()
-
-func is_player() -> bool:
-	return self is ControllerPlayer
-
-func get_move_vector() -> Vector2:
-	return Vector2.ZERO
-
-func _started():
-	pass
-
-func _ended():
-	pass
-```
-
-```gd
-# res://scripts/nodes/interactive.gd
-@tool @icon("res://addons/odyssey/icons/interactive.svg")
-class_name Interactive extends Area3D
-
-signal toggled()
-signal toggled_on()
-signal toggled_off()
-signal charge_started()
-signal charge_percent(amnt: float)
-signal charge_ended()
-signal interacted(pawn: Pawn, form: Form)
-signal highlight_changed()
-
-enum Form { INTERACT, ENTERED, EXITED }
-enum ToggleIterationMode { FORWARD, BACKWARD, RANDOM }
-enum Highlight { NONE, FOCUSED }
-
-@export var label: String = "Interact"
-@export var label_world_space_offset := Vector3.ZERO
-@export var humanoid_lookat_offset := Vector3.ZERO
-var can_interact := func(_pawn: Pawn): return true
-
-@export var disabled := false:
-	get: return not monitorable
-	set(d): monitorable = not d
-
-@export var highlight := Highlight.NONE:
-	set(h):
-		highlight = h
-		highlight_changed.emit()
-
-@export_group("Toggleable")
-@export var toggleable := false:
-	get: return toggle_states != 0
-	set(t):
-		if t:
-			if toggle_states == 0:
-				toggle_states = 1
-		else:
-			toggle_states = 0
-@export var on := false:
-	get: return toggle_state != 0
-	set(o):
-		if o:
-			if toggle_state == 0:
-				toggle_state = 1
-		else:
-			toggle_state = 0
-@export var toggle_states := 0 ## 0 == no toggle. 1 = on/off.
-@export var toggle_state := 0:
-	set(t):
-		toggle_state = t
-		if toggle_state == 0:
-			toggled_off.emit()
-		else:
-			toggled_on.emit()
-		toggled.emit()
-@export var toggle_labels: PackedStringArray = ["Interact [Turn Off]", "Interact [Turn On]"]
-@export var toggle_iteration_mode := ToggleIterationMode.FORWARD ## Only when toggle_states > 0.
-@export var toggle_iteration_loop := true ## Loop or clamp.
-var toggle_count := 0 ## How many times interactive was toggled.
-var _toggle_next := 0 ## Next state we will enter. Needed for setting accurate labels.
-
-@export_group("Chargeable")
-@export var chargeable := false: ## Based on charge_time state. 0.0 == false.
-	get: return charge_time != 0.0
-	set(c):
-		if c:
-			if charge_time == 0.0:
-				charge_time = 1.0
-		else:
-			charge_time = 0.0
-@export var charge_time := 0.0 ## Seconds to hold interact down.
-@export var charge_instant_reset := true
-@export var charge_increase_scale := 1.0
-@export var charge_decrease_scale := 1.0
-var _charging := false
-var _charge_time := 0.0
-var _charge_pawn: Pawn
-var _charge_form: Form
-
-@export_group("Enterable & Exitable")
-@export var interact_on_enter := false ## Interaction occurs when object enters.
-@export var interact_on_exit := false ## Interaction occurs when object leaves.
-@export_custom(PROPERTY_HINT_EXPRESSION, "") var ioe_expression: String ## Expression to test if interact_on_enter == true.
-@export var ioe_delay := 0.1 ## Slight time delay, so it's not instant. If no longer inside, this cancels interaction.
-@export var ioe_scene: PackedScene ## A scene to swap to if interaction occurs.
-
-func _init() -> void:
-	monitoring = false
-	collision_layer = 0
-	collision_mask = 0
-	set_collision_layer_value(10, true)
-
-func _ready() -> void:
-	body_entered.connect(_entered)
-	body_exited.connect(_exited)
-	set_process(false)
-
-func _entered(body: Node3D):
-	if not interact_on_enter: return
-	if ioe_delay == 0:
-		interact(body, Form.ENTERED)
-	else:
-		Global.wait(ioe_delay, func():
-			if body in get_overlapping_bodies():
-				interact(body, Form.ENTERED))
-
-func _exited(body: Node3D):
-	if not interact_on_exit: return
-	if ioe_delay == 0:
-		interact(body, Form.EXITED)
-	else:
-		Global.wait(ioe_delay, func():
-			if not body in get_overlapping_bodies():
-				interact(body, Form.EXITED))
-
-func interact(pawn: Pawn, form := Form.INTERACT):
-	if not can_interact.call(pawn): return
-	if charge_time == 0:
-		_interacted(pawn, form)
-	else:
-		_charging = true
-		_charge_pawn = pawn
-		_charge_form = form
-		charge_started.emit()
-		set_process(true)
-
-## Cancel the interaction.
-## Only used when hold_time != 0.0
-func cancel(pawn: Pawn):
-	if _charging and pawn == _charge_pawn:
-		_charging = false
-		_charge_pawn = null
-		charge_ended.emit()
-
-func _process(delta: float) -> void:
-	if _charging:
-		_charge_time += delta * charge_increase_scale
-		if _charge_time >= charge_time:
-			set_process(false)
-			_charge_time = charge_time
-			_interacted(_charge_pawn, _charge_form)
-			_charge_pawn = null
-	else:
-		if charge_instant_reset:
-			_charge_time = 0.0
-		else:
-			_charge_time -= delta * charge_decrease_scale
-		
-		if _charge_time <= 0.0:
-			set_process(false)
-			_charge_time = 0.0
-	
-	var percent := remap(_charge_time, 0.0, charge_time, 0.0, 1.0)
-	charge_percent.emit(percent)
-	print(percent)
-
-func _interacted(pawn: Pawn, form: Form) -> void:
-	interacted.emit(pawn, form)
-	
-	if toggleable:
-		toggle_count += 1
-		toggle_state = _toggle_next
-		match toggle_iteration_mode:
-			ToggleIterationMode.FORWARD: _toggle_next += 1
-			ToggleIterationMode.BACKWARD: _toggle_next -= 1
-			ToggleIterationMode.RANDOM: _toggle_next = randi() % toggle_states
-			
-		if toggle_iteration_loop:
-			_toggle_next = wrapi(_toggle_next, 0, toggle_state)
-		else:
-			_toggle_next = clampi(_toggle_next, 0, toggle_states)
-		
-		# Label is what happens *next*
-		label = toggle_labels[_toggle_next]
-	
-	if interact_on_enter and ioe_scene:
-		get_tree().change_scene_to_packed(ioe_scene)
 ```
 
 ```gd
@@ -317,6 +92,7 @@ func _interacted(pawn: Pawn, form: Form) -> void:
 class_name PawnState extends Node3D
 ## Child of Pawn.
 
+@export var dummy := false
 @export var pawn: Pawn:
 	get: return pawn if pawn else get_parent()
 @export var hud: StringName ## If player, scene added to hud.
@@ -347,6 +123,7 @@ var _froze_rider: bool
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
 	process_mode = Node.PROCESS_MODE_DISABLED
+	if dummy: return
 	if not pawn: return
 	pawn.froze.connect(_frozen)
 	pawn.unfroze.connect(_unfrozen)
@@ -369,53 +146,76 @@ func _unfrozen():
 		process_mode = Node.PROCESS_MODE_INHERIT
 		_froze_rider = false
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"exit"):
-		pawn.rider = null
-		get_viewport().set_input_as_handled()
+func is_action_pressed(action: StringName, allow_echo := false, exact_match := false) -> bool:
+	return get_player_controller().is_action_pressed(action, allow_echo, exact_match)
 
-func _can_enable(p: Pawn) -> bool:
-	if process_if_player and not p.is_player_controlled():
-		return false
-	if process_if_npc and p.is_player_controlled():
-		return false
+func is_action_released(action: StringName, exact_match := false):
+	return get_player_controller().is_action_released(action, exact_match)
+
+func handle_input():
+	get_viewport().set_input_as_handled()
+
+# For when something mounts us
+func _can_enable_as_vehicle(rider: Pawn) -> bool:
+	if process_if_player and not rider.is_player_controlled(): return false
+	if process_if_npc and rider.is_player_controlled(): return false
 	return true
-	
+
+# For when we mount something
+func _can_enable_as_rider() -> bool:
+	var con := pawn.get_controller_recursive()
+	if process_if_player and not con.is_player(): return false
+	if process_if_npc and con.is_player(): return false
+	return true
+
+func _can_enable_as_posessor(con: Controller) -> bool:
+	if process_if_player and not con.is_player(): return false
+	if process_if_npc and con.is_player(): return false
+	return true
+
+func kick_rider():
+	pawn.set_rider(null)
+
 func _rider_mounted(rider: Pawn) -> void:
-	if _can_enable(rider):
-		_rider = rider
-		
-		if reparent_rider:
-			_rider_last_parent = _rider.get_parent()
-			_rider.reparent(self)
-		
-		_enable()
+	if not _can_enable_as_vehicle(rider): return
+	
+	_rider = rider
+	_controller = rider.controller
+	
+	if reparent_rider:
+		_rider_last_parent = _rider.get_parent()
+		_rider.reparent(self)
+	
+	_enable()
 
 func _rider_unmounted(rider: Pawn) -> void:
-	if _rider == rider:
-		_disable()
-		
-		if _rider_last_parent:
-			_rider.reparent(_rider_last_parent)
-			_rider_last_parent = null
-		
-		_rider = null
+	if _rider != rider: return
+	print("Rider unmounted...")
+	
+	if _rider_last_parent:
+		_rider.reparent(_rider_last_parent)
+		_rider_last_parent = null
+	
+	_disable()
+	
+	_rider = null
+	_controller = null
 
 func _mounted(_mount: Pawn) -> void:
-	if _can_enable(pawn):
+	if _can_enable_as_rider():
 		_enable()
 
 func _unmounted(_mount: Pawn) -> void:
-	if _enabled:
+	if _enabled and _can_enable_as_rider():
 		_disable()
 
 func _posessed(con: Controller):
-	if _can_enable(pawn):
+	if not _enabled and _can_enable_as_posessor(con):
 		_controller = con
 		_enable()
 
 func _unposessed(con: Controller):
-	if _controller == con:
+	if _enabled and _controller == con:
 		_disable()
 		_controller = null
 
@@ -427,7 +227,7 @@ func _enable() -> void:
 		if hud:
 			pawn.player_controller.show_hud(hud)
 	
-	if freeze_rider and _rider is Agent:
+	if freeze_rider and _rider:
 		_rider.frozen = true
 		_froze_rider = true
 	
@@ -436,8 +236,9 @@ func _enable() -> void:
 		if animate_rider and animation_enter:
 			human.trigger_animation.emit(animation_enter)
 		if tween_position or tween_rotation:
-			var dir_from := human.direction
-			var dir_to := pawn.global_rotation.y
+			human.fix_direction()
+			var dir_from := human.rotation.y
+			var dir_to := 0.0
 			var pos_from := human.position
 			var pos_to := Vector3.ZERO
 			UTween.interp(human, 
@@ -453,14 +254,13 @@ func _disable() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	_enabled = false
 	
-	if pawn.is_player_controlled():
+	if is_player():
 		if hud:
-			pawn.player_controller.hide_hud(hud)
+			get_player_controller().hide_hud(hud)
 	
 	if _rider is Humanoid:
 		var human: Humanoid = _rider as Humanoid
 		human.fix_direction()
-		human.direction = pawn.global_rotation.y
 		if animate_rider and animation_exit:
 			human.trigger_animation.emit(animation_exit)
 			if _froze_rider:
@@ -472,12 +272,12 @@ func _disable() -> void:
 			human.frozen = false
 			_froze_rider = false
 	
-	elif _froze_rider:
+	elif _froze_rider and _rider:
 		_rider.frozen = false
 		_froze_rider = false
 
 func get_controller() -> Controller:
-	return pawn.get_controller_recursive()
+	return _controller#pawn.get_controller_recursive()
 
 func get_player_controller() -> ControllerPlayer:
 	return get_controller() as ControllerPlayer
@@ -487,10 +287,10 @@ func is_player() -> bool:
 	return con and con.is_player()
 
 func is_first_person() -> bool:
-	return pawn.player_controller.view_state == ControllerPlayer.ViewState.FirstPerson
+	return get_player_controller().view_state == ControllerPlayer.ViewState.FirstPerson
 
 func is_third_person() -> bool:
-	return pawn.player_controller.view_state == ControllerPlayer.ViewState.ThirdPerson
+	return get_player_controller().view_state == ControllerPlayer.ViewState.ThirdPerson
 
 func _get_configuration_warnings() -> PackedStringArray:
 	if pawn == null and not get_parent() is Pawn:
@@ -543,19 +343,20 @@ var _sprinting := false
 var _was_in_air := false
 var _last_position: Vector3
 var _held_item: ItemNode
+var _held_item_remote: RemoteTransform3D
 var _focusing := false
 var _interacting: Interactive
 var _footstep_time := 0.0
 
 func _posessed(con: Controller) -> void:
 	super(con)
-	if con.is_player():
+	if controller.is_player():
 		interactive_detector.visible_changed.connect(interactive_changed.emit)
 
-func _unposessed(con: Controller) -> void:
-	super(con)
-	if con.is_player():
+func _unposessed() -> void:
+	if controller.is_player():
 		interactive_detector.visible_changed.disconnect(interactive_changed.emit)
+	super()
 
 func _physics_process(delta: float) -> void:
 	if frozen: return
@@ -658,30 +459,58 @@ func reload() -> bool:
 	if not _held_item: return false
 	return _held_item.item._node_reload(_held_item)
 
+func pickup(item_node: ItemNode):
+	var dummy := MeshInstance3D.new()
+	get_tree().current_scene.add_child(dummy)
+	dummy.mesh = BoxMesh.new()
+	dummy.mesh.size = Vector3.ONE * .2
+	dummy.layers = 1<<1
+	var camera := player_controller.camera_master.target.get_parent()
+	var remote := RemoteTransform3D.new()
+	camera.add_child(remote)
+	remote.remote_path = dummy.get_path()
+	remote.position = Vector3(-0.2, -0.2, -0.2)
+	
+	_held_item = item_node
+	_held_item.item._node_equipped(_held_item)
+	_held_item.mount = self
+	_held_item.process_mode = Node.PROCESS_MODE_DISABLED
+	
+	_held_item_remote = RemoteTransform3D.new()
+	camera.add_child(_held_item_remote)
+	_held_item_remote.name = "held_item"
+	_held_item_remote.update_scale = false
+	_held_item_remote.update_rotation = true
+	_held_item_remote.update_position = true
+	_held_item_remote.global_position = _held_item.global_position
+	_held_item_remote.global_basis = _held_item.global_basis
+	_held_item_remote.remote_path = _held_item.get_path()
+	#_held_item_last_parent = item_node.get_parent()
+	#_held_item.reparent(%head)
+	
+	UTween.parallel(self, {
+		"_held_item_remote:position": Vector3(0.2, -0.2, -0.2),
+		"_held_item_remote:basis": Basis.IDENTITY
+	}, 0.1)
+
 func drop() -> bool:
 	if not _held_item: return false
 	if _held_item.item._node_unequipped(_held_item):
-		_held_item.reparent(get_tree().current_scene)
+		var trans := _held_item.global_transform
+		var fwd: Vector3 = -%head.global_basis.z
+		trans.origin += fwd * .2
+		%head.remove_child(_held_item_remote)
+		_held_item_remote.queue_free()
+		_held_item_remote = null
+		#_held_item.reparent(_held_item_last_parent)
 		_held_item.mount = null
+		_held_item.process_mode = Node.PROCESS_MODE_INHERIT
+		_held_item.reset_state(trans)
+		_held_item.apply_central_impulse(fwd * 3.0)
 		_held_item = null
+		#_held_item_last_parent = null
 		return true
 	return false
-
-func pickup(item_node: ItemNode):
-	_held_item = item_node
-	item_node.reparent(%head)
-	item_node.item._node_equipped(item_node)
-	
-	UTween.parallel(item_node, {
-		"position": Vector3(0.2, -0.2, -0.2),
-		"basis": Basis.IDENTITY
-	}, 0.5)
-	#if _tween_item: _tween_item.kill()
-	#_tween_item = create_tween()
-	#_tween_item.set_parallel()
-	#_tween_item.set_trans(Tween.TRANS_BACK)
-	#_tween_item.tween_property(item_node, "position", Vector3(0.2, -0.2, -0.2), 0.5)
-	#_tween_item.tween_property(item_node, "basis", Basis.IDENTITY, 0.5)
 
 func sprint_start():
 	_sprinting = true
@@ -732,5 +561,225 @@ func focus():
 
 func unfocus():
 	_focusing = false
+```
+
+```gd
+# res://scripts/nodes/vehicle.gd
+class_name Vehicle extends Pawn
+
+var brake := false ## 
+var move := Vector2.ZERO ## X=throttle (forward/backward), Y=steering (left/right)
+var throttle: float:
+	get: return move.y
+	set(t): move.y = t
+var steering: float:
+	get: return move.x
+	set(s): move.x = s
+
+func honk():
+	pass
+
+func brake_start(): brake = true
+func brake_end(): brake = false
+```
+
+```gd
+# res://scripts/states/pstate_turret_keyboard.gd
+class_name PStateTurret extends PawnState
+
+var _angle := 0.0
+
+func _unhandled_input(event: InputEvent) -> void:
+	get_player_controller()._event = event
+	if is_action_pressed(&"exit"):
+		kick_rider()
+		handle_input()
+
+func _process(delta: float) -> void:
+	var vec := get_controller().get_move_vector()
+	_angle -= vec.x * 2.0 * delta
+	pawn.rotation.y = lerp_angle(pawn.rotation.y, _angle, delta * 10.0)
+```
+
+```gd
+# res://scripts/states/pstate_humanoid_keyboard.gd
+class_name PStateHumanoidKeyboard extends PawnState
+
+var camera: CameraTarget
+var humanoid: Humanoid:
+	get: return pawn
+var _crouch_hold_time := 0.0
+var _crouch_held := false
+var _interactive: Interactive
+var _interactive_hud: Node
+
+func _enable() -> void:
+	process_priority = 200
+	process_physics_priority = 200
+	
+	super()
+	get_player_controller().view_state_changed.connect(_view_state_changed)
+	if not camera:
+		camera = Assets.create_prefab(&"camera_follow", get_tree().current_scene)
+		camera.target = humanoid
+		get_player_controller().camera_master.target = camera.camera
+		camera.get_node("%head_remote").remote_path = humanoid.get_node("%head").get_path()
+		
+		var remote := RemoteTransform3D.new()
+		remote.name = "camera_target"
+		remote.update_position = true
+		remote.update_rotation = false
+		remote.update_scale = false
+		humanoid.get_node("%head").add_child(remote)
+		remote.remote_path = camera.get_path()
+		
+		_view_state_changed()
+	_interactive_hud = get_player_controller().show_hud(&"interaction_label")
+
+func _disable() -> void:
+	super()
+	_interactive_hud = null
+	get_player_controller().view_state_changed.disconnect(_view_state_changed)
+	get_player_controller().hide_hud(&"interaction_label")
+
+func _view_state_changed():
+	match pawn.player_controller.view_state:
+		ControllerPlayer.ViewState.FirstPerson:
+			Global.wait(0.35, get_player_controller().show_fps_viewport)
+			await camera.set_first_person()
+			humanoid.get_node(^"%model").visible = false
+		ControllerPlayer.ViewState.ThirdPerson:
+			get_player_controller().hide_fps_viewport()
+			camera.set_third_person()
+			humanoid.get_node(^"%model").visible = true
+
+func _unhandled_input(event: InputEvent) -> void:
+	var player := get_player_controller()
+	player._event = event
+	
+	if is_action_pressed(&"exit"):
+		pawn.rider = null
+		handle_input()
+	
+	if is_action_pressed(&"toggle_quest_log"):
+		get_player_controller().toggle_hud(&"quest_log")
+	
+	elif is_action_pressed(&"interact"):
+		if humanoid.interact_start(_interactive):
+			get_viewport().set_input_as_handled()
+	elif is_action_released(&"interact"):
+		if humanoid.interact_stop():
+			get_viewport().set_input_as_handled()
+	
+	elif is_action_pressed(&"fire"):
+		if humanoid.fire():
+			get_viewport().set_input_as_handled()
+	elif is_action_pressed(&"reload"):
+		if humanoid.reload():
+			get_viewport().set_input_as_handled()
+	elif is_action_pressed(&"jump"):
+		if humanoid.prone_state in [Humanoid.ProneState.Crouch, Humanoid.ProneState.Crawl]:
+			humanoid.stand()
+		else:
+			humanoid.jump_start()
+		get_viewport().set_input_as_handled()
+	elif is_action_released(&"jump"):
+		if humanoid.jump_end():
+			get_viewport().set_input_as_handled()
+	elif is_action_pressed(&"drop"):
+		if humanoid.drop():
+			get_viewport().set_input_as_handled()
+	
+	elif is_action_pressed(&"aim"):
+		humanoid.focus()
+		camera.focus()
+		get_viewport().set_input_as_handled()
+	elif is_action_released(&"aim"):
+		humanoid.unfocus()
+		camera.unfocus()
+		get_viewport().set_input_as_handled()
+		
+	elif is_action_pressed(&"crouch", false, true):
+		_crouch_held = true
+		if humanoid.is_standing():
+			humanoid.crouch()
+		elif humanoid.is_crawling():
+			humanoid.crouch()
+		get_viewport().set_input_as_handled()
+	elif is_action_released(&"crouch", true):
+		_crouch_held = false
+		_crouch_hold_time = 0.0
+		if humanoid.is_crouching():
+			humanoid.stand()
+		get_viewport().set_input_as_handled()
+	
+	elif is_action_pressed(&"sprint"):
+		if humanoid.sprint_start():
+			get_viewport().set_input_as_handled()
+	elif is_action_released(&"sprint"):
+		if humanoid.sprint_end():
+			get_viewport().set_input_as_handled()
+
+func _process(delta: float) -> void:
+	#camera.get_node("%pivot").position.y = humanoid.get_node("%head").position.y
+	#humanoid.get_node("%head").global_rotation = camera.camera.global_rotation
+	
+	if _crouch_held:
+		_crouch_hold_time += delta
+		if _crouch_hold_time > 0.5:
+			if not humanoid.is_crawling():
+				humanoid.crawl()
+
+func _physics_process(delta: float) -> void:
+	var inter: Interactive
+	if is_third_person():
+		var pos := humanoid.interactive_detector.global_position
+		inter = humanoid.interactive_detector.get_nearest(pos)
+	elif is_first_person():
+		inter = humanoid.interactive_detector.get_nearest(humanoid.looking_at)
+	
+	if inter != _interactive:
+		if _interactive:
+			_interactive.highlight = Interactive.Highlight.NONE
+		_interactive = inter
+		_interactive_hud.interactive = inter
+		if _interactive:
+			_interactive.highlight = Interactive.Highlight.FOCUSED
+	
+	var input_dir := get_player_controller().get_move_vector_camera()
+	
+	if humanoid.is_focusing():
+		var cam_dir := camera.camera.global_rotation.y
+		humanoid.direction = lerp_angle(humanoid.direction, cam_dir, delta * 10.0)
+	else:
+		if input_dir:
+			humanoid.direction = lerp_angle(humanoid.direction, -input_dir.angle() - PI * .5, delta * 10.0)
+	
+	humanoid.movement = input_dir
+	
+	var cam := camera.camera
+	var mp := cam.get_viewport().get_mouse_position()
+	var from := cam.project_ray_origin(mp)
+	var to := from + cam.project_ray_normal(mp) * 1000.0
+	var space := cam.get_world_3d().direct_space_state
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [humanoid]
+	var hit := space.intersect_ray(query)
+	var target_pos = hit.position if hit else to
+	
+	humanoid.looking_at = target_pos
+	
+	if inter:
+		humanoid.head_looking_at = inter.global_position + inter.humanoid_lookat_offset
+		humanoid.head_looking_amount = 1.0
+	elif humanoid.is_focusing():
+		humanoid.head_looking_at = target_pos
+		humanoid.head_looking_amount = 1.0
+	else:
+		var node: Node3D = humanoid.get_node("%direction")
+		var forward_dir := -node.global_transform.basis.z
+		var front_pos := node.global_position + forward_dir * 2.0 + Vector3.UP * 1.3
+		humanoid.head_looking_at = front_pos
+		humanoid.head_looking_amount = 0.0
 ```
 

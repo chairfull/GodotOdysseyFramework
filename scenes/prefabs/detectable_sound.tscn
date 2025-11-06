@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvms6gwqksoow"]
+
+[ext_resource type="Script" uid="uid://dl1je6mt1vmfu" path="res://scripts/nodes/detectable_sound.gd" id="1_70srd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_or1vj"]
+radius = 5.0
+
+[node name="detectable_sound" type="Area3D"]
+collision_layer = 32768
+collision_mask = 0
+monitorable = false
+script = ExtResource("1_70srd")
+
+[node name="shape" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("SphereShape3D_or1vj")
+
+[node name="stream" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+max_distance = 5.0

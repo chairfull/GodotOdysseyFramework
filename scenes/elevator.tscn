@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://o4q83cjjxwq6"]
+[gd_scene load_steps=7 format=3 uid="uid://o4q83cjjxwq6"]
 
 [ext_resource type="Material" uid="uid://c2hngflkdijc3" path="res://assets/materials/debug_blue.tres" id="1_jmdsd"]
 [ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/nodes/interactive.gd" id="2_gisge"]
+[ext_resource type="Script" uid="uid://dfwpyddi4qity" path="res://scripts/nodes/pawn.gd" id="2_pr5mj"]
 [ext_resource type="Script" uid="uid://qsuu2b0hap1p" path="res://scripts/nodes/elevator.gd" id="3_pr5mj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_56p6u"]
@@ -10,9 +11,13 @@ size = Vector3(2.3, 0.2, 2.4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_32qov"]
 size = Vector3(1.4, 1, 1.4)
 
-[node name="elevator" type="AnimatableBody3D" node_paths=PackedStringArray("mount_interactive")]
+[node name="elevator" type="AnimatableBody3D"]
 script = ExtResource("3_pr5mj")
-mount_interactive = NodePath("interactive")
+
+[node name="pawn" type="Node3D" parent="." node_paths=PackedStringArray("node")]
+script = ExtResource("2_pr5mj")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://dfwpyddi4qity"
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 size = Vector3(2.1000001, 0.11230469, 2.3)

@@ -33,6 +33,7 @@ Simplify development of FPS, RPG, ImSims.
 	- Split screen multiplayer
 	- Language changing
 	- Mod/patch support
+- Easy customisation with config files and hot replacements.
 - Lots of juice/crunch (Communicating "somthing happened" to player and "how much")
 	- Minimise jerkiness/clankiness.
 	- [ ] UI buttons animate/communicate on hover, click, unhover

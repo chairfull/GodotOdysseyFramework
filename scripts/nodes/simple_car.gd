@@ -42,13 +42,13 @@ var engine_rev := 0.0
 
 func _physics_process(delta: float) -> void:
 	# Steering.
-	var vehicle: VehicleBody3D = convert(self, TYPE_OBJECT)
-	vehicle.steering = move_toward(vehicle.steering, -steering * max_steering_angle, delta * steering_speed)
+	var vehicle: VehicleBody3D = self as Object as VehicleBody3D
+	vehicle.steering = move_toward(vehicle.steering, -move.x * max_steering_angle, delta * steering_speed)
 	
 	# Engine force.
 	vehicle_linear_velocity = vehicle.linear_velocity.length()
 	var speed_factor := 1.0 - minf(vehicle_linear_velocity / max_speed, 1.0)
-	vehicle.engine_force = throttle * acceleration * speed_factor
+	vehicle.engine_force = -move.y * acceleration * speed_factor
 	
 	# Anti-Roll
 	anti_roll_torque = -global_transform.basis.z * global_rotation.z * anti_roll_force * max_speed
@@ -63,8 +63,8 @@ func _physics_process(delta: float) -> void:
 		wheel.wheel_roll_influence = roll_influence
 	
 	# Handbrake.
-	if brake:
-		vehicle.brake = brake_force
+	if _brake_pressed:
+		vehicle.brake = lerpf(vehicle.brake, brake_force, delta * 5.0)
 		for light in brake_lights:
 			light.visible = true
 	else:
@@ -74,7 +74,7 @@ func _physics_process(delta: float) -> void:
 	
 	var engine_rev_idle := 0.9
 	var engine_rev_max := 1.5
-	if throttle > 0.5 or throttle < -0.5:
+	if move.y > 0.5 or move.y < -0.5:
 		engine_rev += 3.0 * delta
 		if engine_rev > engine_rev_max:
 			engine_rev = engine_rev_max
@@ -84,28 +84,27 @@ func _physics_process(delta: float) -> void:
 			engine_rev = engine_rev_idle
 	
 	aux_engine.pitch_scale = engine_rev
-	
+
+func honk():
+	%aux_horn.play()
+
 func _process(_delta: float) -> void:
 	for wheel in wheels:
 		wheel.wheel_friction_slip = wheel_friction
 		wheel.suspension_stiffness = suspension_stiff_value
 
-#func _control_started(con: Controller):
+#func _posessed(con: Controller) -> void:
 	#super(con)
-	#if con is ControllerPlayer:
-		#_control_state = load("res://scripts/states/vehicle_keyboard.gd").new()
-		#_control_state.vehicle = self
-		#add_child(_control_state)
-		#
-		#if not aux_engine.playing:
-			#aux_engine.play()
+	#if not aux_engine.playing:
+		#aux_engine.play()
+	#
+	#for light in front_lights:
+		#light.visible = true
 #
-#func _control_ended(con: Controller):
-	#super(con)
-	#if con is ControllerPlayer:
-		#remove_child(_control_state)
-		#_control_state.queue_free()
-		#_control_state = null
-		#
-		#if aux_engine.playing:
-			#aux_engine.stop()
+#func _unposessed() -> void:
+	#super()
+	#if aux_engine.playing:
+		#aux_engine.stop()
+	#
+	#for light in front_lights:
+		#light.visible = false

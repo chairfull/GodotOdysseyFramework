@@ -33,7 +33,7 @@ func create_prefab(id: StringName, parent: Variant = null, props := {}) -> Node:
 	if parent is Node:
 		parent.add_child(node)
 	elif parent == true:
-		parent.add_child(get_tree().current_scene)
+		get_tree().current_scene.add_child(node)
 	
 	for prop in props:
 		if prop in node:

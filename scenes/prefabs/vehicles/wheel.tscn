@@ -1,6 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://cobhm38x3170i"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ls0ui"]
+top_radius = 0.25
+bottom_radius = 0.25
 height = 0.25
 radial_segments = 32
 rings = 1

@@ -1,13 +1,19 @@
 extends Control
 
 @onready var label: RichTextLabel = %label
-@export var interactive: Interactive: set=set_interactive
+var agent: Agent
+var interactive: Interactive
 
 func _ready() -> void:
 	visible = false
 	set_process(false)
 
-func set_interactive(inter: Interactive):
+func set_agent(ag: Agent):
+	agent = ag
+	agent.interactive_changed.connect(_interactive_changed)
+
+func _interactive_changed():
+	var inter := agent._interactive
 	if inter:
 		set_process(true)
 		label.text = inter.label

@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxs7clcdollsl"]
+[gd_scene load_steps=4 format=3 uid="uid://dxs7clcdollsl"]
 
 [ext_resource type="Material" uid="uid://dkb2fsjtxhblu" path="res://assets/materials/debug_black.tres" id="3_imxsf"]
 [ext_resource type="PackedScene" uid="uid://b1e5tur6memej" path="res://scenes/prefabs/controllables/simple_car.tscn" id="5_1inxc"]
-[ext_resource type="Script" uid="uid://llfmpeqtpli1" path="res://scripts/nodes/camera_target.gd" id="6_imxsf"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_wdhyl"]
 vertices = PackedVector3Array(-49.5, 0, -9, -15.5, 0, -9, -15.5, 0, -11, -13.75, 0, -11.25, -14, 0, -49.5, -49.5, 0, -49.5, -6, 0, -11.25, -5.75, 0, -49.5, -4.25, 0, -4, 1.5, 0, -4.25, 1.75, 0, -8.75, -4.25, 0, -11, 7.5, 0, -8.75, 7.75, 0, -8.25, 8, 0, -49.5, 7.75, 0, -7, 49.5, 0, -7.25, 49.5, 0, -49.5, -14.5, 9.5, -10.25, -14.5, 9.5, -1, -5.25, 9.5, -1, -5.25, 9.5, -10.25, -49.5, 0, -2.25, -15.5, 0, -2.25, 2.5, 5, -7.75, 2.5, 5, -3.5, 6.75, 5, -3.5, 6.75, 5, -7.75, 7.25, 0, -2.5, 8.75, 0, -0.25, 9, 0, -0.75, 7.75, 0, -2.75, 10.75, 0, -0.75, 11, 0, 0.5, 49.5, 0, 0.5, 8.75, 0, 1.25, 1.75, 0, -2.5, -4.25, 0, -0.25, 10, 0, 1.5, -6.5, 0, 0, -6.5, 0, 49.5, 10, 0, 49.5, -15.5, 0, -0.25, -13.25, 0, 0, -49.5, 0, 49.5, -13.25, 0, 49.5, 10.75, 0, 1.5, 49.5, 0, 49.5)
@@ -40,18 +39,6 @@ size = Vector3(5, 5, 5)
 [node name="1x1x1" type="CSGBox3D" parent="world/nav_region/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.835417, 1, 0.47127342)
 
-[node name="simple_car" parent="." instance=ExtResource("5_1inxc")]
+[node name="player" parent="." instance=ExtResource("5_1inxc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7766724, 3.0108032, 11.296143)
 suspension_stiff_value = 25.0
-
-[node name="CameraTarget" type="Node3D" parent="simple_car" node_paths=PackedStringArray("camera")]
-script = ExtResource("6_imxsf")
-camera = NodePath("Camera3D")
-metadata/_custom_type_script = "uid://llfmpeqtpli1"
-
-[node name="Camera3D" type="Camera3D" parent="simple_car/CameraTarget" node_paths=PackedStringArray("camera")]
-transform = Transform3D(1, 0, 0, 0, 0.93555504, 0.35318094, 0, -0.35318094, 0.93555504, 0, 4.5773926, 5)
-current = true
-script = ExtResource("6_imxsf")
-camera = NodePath(".")
-_make_current = true

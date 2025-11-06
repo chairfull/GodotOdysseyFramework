@@ -6,17 +6,26 @@
 
 [node name="inventory_hud" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 8.0
-offset_bottom = 8.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_t68u1")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_right = 1006.0
-offset_bottom = 505.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="item_grid" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/item_grid"]
 layout_mode = 2
 mouse_filter = 0
 theme_override_constants/margin_left = 8
@@ -24,24 +33,42 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/item_grid/MarginContainer"]
 layout_mode = 2
 mouse_filter = 0
 
-[node name="slots" type="GridContainer" parent="PanelContainer/MarginContainer/ScrollContainer" node_paths=PackedStringArray("focus_highlight", "target", "for_child_target")]
+[node name="slots" type="GridContainer" parent="VBoxContainer/item_grid/MarginContainer/ScrollContainer" node_paths=PackedStringArray("focus_highlight", "target", "for_child_target")]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 0
 columns = 5
 script = ExtResource("2_k1jvm")
 disable_on_pressed = true
-focus_highlight = NodePath("../../../../outline")
+focus_highlight = NodePath("../../../../../outline")
 target = NodePath(".")
 for_child_target = NodePath(".")
 
-[node name="slot_prefab" parent="PanelContainer/MarginContainer/ScrollContainer/slots" instance=ExtResource("2_t68u1")]
+[node name="slot_prefab" parent="VBoxContainer/item_grid/MarginContainer/ScrollContainer/slots" instance=ExtResource("2_t68u1")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="control_labels" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/control_labels"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/control_labels/MarginContainer"]
+layout_mode = 2
+
+[node name="control_info" type="RichTextLabel" parent="VBoxContainer/control_labels/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Press E to equip."
+fit_content = true
+autowrap_mode = 0
 
 [node name="outline" type="ColorRect" parent="."]
 unique_name_in_owner = true

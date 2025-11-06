@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://jk2x74byqo2s"]
+[gd_scene load_steps=33 format=3 uid="uid://jk2x74byqo2s"]
 
 [ext_resource type="PackedScene" uid="uid://p7rqgmtls5qk" path="res://scenes/prefabs/controllables/humanoid.tscn" id="1_k3ref"]
 [ext_resource type="Resource" uid="uid://cp2fj786xxl53" path="res://assets/cinematics/stranger.tres" id="2_suy51"]
@@ -13,32 +13,51 @@
 [ext_resource type="PhysicsMaterial" uid="uid://5ro8qj8waga6" path="res://assets/surfaces/concrete.tres" id="6_si77m"]
 [ext_resource type="PackedScene" uid="uid://c0vwbb2a8p2au" path="res://scenes/prefabs/shooter.tscn" id="7_4205s"]
 [ext_resource type="PhysicsMaterial" uid="uid://c4jdr7ueabe2p" path="res://assets/surfaces/wood.tres" id="8_2yd3j"]
-[ext_resource type="PackedScene" uid="uid://bptngmmdirjt7" path="res://scenes/prefabs/controllables/bird.tscn" id="8_32qov"]
 [ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/nodes/interactive.gd" id="9_acq1c"]
 [ext_resource type="Script" uid="uid://bkip22hej7vra" path="res://scripts/nodes/surface_node.gd" id="9_d5wlu"]
 [ext_resource type="Material" uid="uid://c1fh2vbjanx8x" path="res://assets/materials/debug_pink.tres" id="9_si77m"]
 [ext_resource type="PhysicsMaterial" uid="uid://conrhwlus2dj5" path="res://assets/surfaces/carpet.tres" id="10_2yd3j"]
-[ext_resource type="Script" uid="uid://dcft57xrcxyrs" path="res://scripts/states/pstate_turret_keyboard.gd" id="11_8xtsc"]
 [ext_resource type="PackedScene" uid="uid://ba47kj4lq4mm6" path="res://scenes/prefabs/barrel.tscn" id="12_4ctnv"]
 [ext_resource type="PackedScene" uid="uid://clrhwkbmx84kt" path="res://scenes/prefabs/primitive_stairs_2.tscn" id="12_dwl5u"]
 [ext_resource type="Script" uid="uid://dfwpyddi4qity" path="res://scripts/nodes/pawn.gd" id="17_bjv75"]
+[ext_resource type="Script" uid="uid://bd23iumnmi8bj" path="res://scripts/states/pawn_state.gd" id="20_nlc2i"]
+[ext_resource type="Script" uid="uid://n6rn6nqrlobe" path="res://scripts/states/pstate_rider_agent_player.gd" id="21_0p3vy"]
 [ext_resource type="PackedScene" uid="uid://b1e5tur6memej" path="res://scenes/prefabs/controllables/simple_car.tscn" id="21_bjv75"]
+[ext_resource type="Script" uid="uid://lis64ohqgas0" path="res://scripts/nodes/mount.gd" id="24_ju5gt"]
+[ext_resource type="Script" uid="uid://ior36w5ofb4i" path="res://scripts/states/pstate_rider_agent_player_ladder.gd" id="25_f1vby"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_wdhyl"]
 vertices = PackedVector3Array(-49.5, 0, -9, -15.5, 0, -9, -15.5, 0, -11, -13.75, 0, -11.25, -14, 0, -49.5, -49.5, 0, -49.5, -6, 0, -11.25, -5.75, 0, -49.5, -4.25, 0, -4, 1.5, 0, -4.25, 1.75, 0, -8.75, -4.25, 0, -11, 7.5, 0, -8.75, 7.75, 0, -8.25, 8, 0, -49.5, 7.75, 0, -7, 49.5, 0, -7.25, 49.5, 0, -49.5, -14.5, 9.5, -10.25, -14.5, 9.5, -1, -5.25, 9.5, -1, -5.25, 9.5, -10.25, -49.5, 0, -2.25, -15.5, 0, -2.25, 2.5, 5, -7.75, 2.5, 5, -3.5, 6.75, 5, -3.5, 6.75, 5, -7.75, 7.25, 0, -2.5, 8.75, 0, -0.25, 9, 0, -0.75, 7.75, 0, -2.75, 10.75, 0, -0.75, 11, 0, 0.5, 49.5, 0, 0.5, 8.75, 0, 1.25, 1.75, 0, -2.5, -4.25, 0, -0.25, 10, 0, 1.5, -6.5, 0, 0, -6.5, 0, 49.5, 10, 0, 49.5, -15.5, 0, -0.25, -13.25, 0, 0, -49.5, 0, 49.5, -13.25, 0, 49.5, 10.75, 0, 1.5, 49.5, 0, 49.5)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(4, 0, 5), PackedInt32Array(3, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 11), PackedInt32Array(14, 13, 12), PackedInt32Array(10, 11, 12), PackedInt32Array(12, 11, 14), PackedInt32Array(14, 11, 7), PackedInt32Array(11, 6, 7), PackedInt32Array(15, 13, 16), PackedInt32Array(16, 13, 14), PackedInt32Array(16, 14, 17), PackedInt32Array(21, 20, 18), PackedInt32Array(18, 20, 19), PackedInt32Array(0, 1, 22), PackedInt32Array(22, 1, 23), PackedInt32Array(27, 26, 24), PackedInt32Array(24, 26, 25), PackedInt32Array(31, 30, 28), PackedInt32Array(28, 30, 29), PackedInt32Array(32, 34, 33), PackedInt32Array(32, 30, 31), PackedInt32Array(31, 15, 32), PackedInt32Array(32, 15, 16), PackedInt32Array(32, 16, 34), PackedInt32Array(29, 35, 28), PackedInt32Array(28, 35, 36), PackedInt32Array(36, 35, 37), PackedInt32Array(9, 36, 8), PackedInt32Array(8, 36, 37), PackedInt32Array(35, 38, 37), PackedInt32Array(37, 38, 39), PackedInt32Array(39, 38, 41), PackedInt32Array(39, 41, 40), PackedInt32Array(22, 23, 42), PackedInt32Array(42, 43, 22), PackedInt32Array(22, 43, 45), PackedInt32Array(22, 45, 44), PackedInt32Array(43, 39, 45), PackedInt32Array(45, 39, 40), PackedInt32Array(33, 34, 46), PackedInt32Array(46, 34, 47), PackedInt32Array(46, 47, 41), PackedInt32Array(41, 38, 46)]
 
+[sub_resource type="Resource" id="Resource_n0ag0"]
+script = ExtResource("21_0p3vy")
+metadata/_custom_type_script = "uid://n6rn6nqrlobe"
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_oemaf"]
 radius = 0.9138933
 
+[sub_resource type="Resource" id="Resource_nlc2i"]
+script = ExtResource("25_f1vby")
+metadata/_custom_type_script = "uid://ior36w5ofb4i"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4ctnv"]
+size = Vector3(1, 9.58374, 1)
+
+[sub_resource type="Resource" id="Resource_0p3vy"]
+script = ExtResource("21_0p3vy")
+metadata/_custom_type_script = "uid://n6rn6nqrlobe"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f1vby"]
+size = Vector3(1.2270508, 1, 1)
+
 [node name="TestWorld" type="Node3D"]
 
-[node name="humanoid" parent="." instance=ExtResource("1_k3ref")]
+[node name="player" parent="." instance=ExtResource("1_k3ref")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.927585, -0.50000286, 5.974679)
 floor_max_angle = 1.2217305
-player = true
 
-[node name="humanoid2" parent="." instance=ExtResource("1_k3ref")]
+[node name="npc_paul" parent="." instance=ExtResource("1_k3ref")]
 transform = Transform3D(-0.8740267, 0, 0.48587787, 0, 1, 0, -0.48587787, 0, -0.8740267, -8.336996, -0.50000286, 2.5986118)
 floor_max_angle = 1.2217305
 cinematic = ExtResource("2_suy51")
@@ -67,6 +86,20 @@ size = Vector3(100, 1, 100)
 [node name="10x10x10" type="CSGBox3D" parent="world/nav_region/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.76823, 5, -5.5287266)
 size = Vector3(10, 10, 10)
+
+[node name="10x10x11" type="CSGBox3D" parent="world/nav_region/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.755684, 5, -4.286886)
+size = Vector3(24.589355, 10, 30.96582)
+
+[node name="hole" type="CSGBox3D" parent="world/nav_region/CSGBox3D/10x10x11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01159668, 0.6904297, 0.32400513)
+operation = 2
+size = Vector3(20.973877, 11.380859, 25.730652)
+
+[node name="hole2" type="CSGBox3D" parent="world/nav_region/CSGBox3D/10x10x11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0289383, -4.669197, 4.6631393)
+operation = 2
+size = Vector3(20.974, 2, 9.713)
 
 [node name="5x5x5" type="CSGBox3D" parent="world/nav_region/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.695492, 3, -5.5287266)
@@ -164,21 +197,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.117035, -0.452596, 4.6091
 [node name="shooter3" parent="." instance=ExtResource("7_4205s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.687923, -0.452596, 4.6091647)
 
-[node name="bird" parent="." instance=ExtResource("8_32qov")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.605142, -0.49955574, 3.8701313)
-
-[node name="chair" type="CSGBox3D" parent="." node_paths=PackedStringArray("rider_interact")]
+[node name="chair" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 1.1000001)
 use_collision = true
-script = ExtResource("17_bjv75")
-rider_interact = NodePath("interactive")
 
-[node name="player" type="Node3D" parent="chair" node_paths=PackedStringArray("pawn")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.5, 0.60599995)
-script = ExtResource("11_8xtsc")
-pawn = NodePath("..")
-process_on_posessed = false
-process_on_rider = true
+[node name="Pawn" type="Node3D" parent="chair" node_paths=PackedStringArray("node")]
+script = ExtResource("17_bjv75")
+node = NodePath("..")
+states = Array[ExtResource("20_nlc2i")]([SubResource("Resource_n0ag0")])
+metadata/_custom_type_script = "uid://dfwpyddi4qity"
 
 [node name="interactive" type="Area3D" parent="chair"]
 collision_layer = 512
@@ -200,10 +227,61 @@ size = Vector3(0.6104126, 0.6583252, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.959217, -0.43548575, 3.7611597)
 
 [node name="simple_car" parent="." instance=ExtResource("21_bjv75")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6689022, 0.45683098, 15.338879)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6689022, -0.18862724, 15.338879)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2155056, 0.7607422, 6.0320005)
 size = Vector3(1, 2.5214844, 1)
+
+[node name="ladder" type="CSGBox3D" parent="." node_paths=PackedStringArray("interactive")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 4.269104, -0.4284668)
+size = Vector3(1, 9.538208, 0.1430664)
+script = ExtResource("24_ju5gt")
+interactive = NodePath("Interactive")
+
+[node name="Pawn" type="Node3D" parent="ladder" node_paths=PackedStringArray("node", "rider_interact")]
+script = ExtResource("17_bjv75")
+node = NodePath("..")
+rider_interact = NodePath("../Interactive")
+states = Array[ExtResource("20_nlc2i")]([SubResource("Resource_nlc2i")])
+metadata/_custom_type_script = "uid://dfwpyddi4qity"
+
+[node name="Interactive" type="Area3D" parent="ladder"]
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_acq1c")
+label = "Climb"
+toggle_labels = PackedStringArray("Interact [Turn Off]", "Interact [Turn On]")
+metadata/_custom_type_script = "uid://dbleug2gqv7c5"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ladder/Interactive"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0025634766, 0)
+shape = SubResource("BoxShape3D_4ctnv")
+
+[node name="container" type="CSGBox3D" parent="." node_paths=PackedStringArray("interactive")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.2510014)
+material = ExtResource("9_si77m")
+script = ExtResource("24_ju5gt")
+interactive = NodePath("Interactive")
+
+[node name="Pawn" type="Node3D" parent="container" node_paths=PackedStringArray("node", "rider_interact")]
+script = ExtResource("17_bjv75")
+node = NodePath(".")
+rider_interact = NodePath("../Interactive")
+states = Array[ExtResource("20_nlc2i")]([SubResource("Resource_0p3vy")])
+metadata/_custom_type_script = "uid://dfwpyddi4qity"
+
+[node name="Interactive" type="Area3D" parent="container"]
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_acq1c")
+toggle_labels = PackedStringArray("Interact [Turn Off]", "Interact [Turn On]")
+metadata/_custom_type_script = "uid://dbleug2gqv7c5"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="container/Interactive"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5795984, 0, 0)
+shape = SubResource("BoxShape3D_f1vby")

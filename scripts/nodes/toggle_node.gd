@@ -25,7 +25,6 @@ func set_interactive(inter: Interactive):
 	interactive = inter
 	if interactive:
 		interactive.toggled.connect(_toggled)
-	print("connected")
 
 func _toggled():
 	if on:

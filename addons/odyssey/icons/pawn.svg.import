@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://k0eb20xntvq7"
-path="res://.godot/imported/mount.svg-803e70a822cae5d83f655d32769c5e59.ctex"
+uid="uid://cq31rjduuj52x"
+path="res://.godot/imported/pawn.svg-290fb09f0d97703d1784c850bcb1eb45.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/odyssey/icons/mount.svg"
-dest_files=["res://.godot/imported/mount.svg-803e70a822cae5d83f655d32769c5e59.ctex"]
+source_file="res://addons/odyssey/icons/pawn.svg"
+dest_files=["res://.godot/imported/pawn.svg-290fb09f0d97703d1784c850bcb1eb45.ctex"]
 
 [params]
 

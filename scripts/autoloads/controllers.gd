@@ -5,11 +5,23 @@ signal event(ev: Event, data: Variant)
 
 var player: ControllerPlayer = load("res://scenes/prefabs/controller_player.tscn").instantiate()
 var player2: ControllerPlayer = load("res://scenes/prefabs/controller_player.tscn").instantiate()
-var npc := Controller.new(2)
-var controllers: Array[Controller] = [player, player2, npc]
+var players: Dictionary[StringName, ControllerPlayer] = {
+	"player": player,
+	"player2": player2
+}
+
+var npcs: Dictionary[StringName, ControllerNPC]
 
 var EV_SHOW_MARKER := Event.new(event)
 var EV_HIDE_MARKER := Event.new(event)
+
+func get_or_create_npc(id: StringName) -> ControllerNPC:
+	if not id in npcs:
+		var cont := ControllerNPC.new()
+		add_child(cont)
+		cont.name = id
+		npcs[id] = cont
+	return npcs[id]
 
 func _ready() -> void:
 	mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_DISABLED
@@ -28,8 +40,6 @@ func _ready() -> void:
 	player2.index = 1
 	player2.name = "player_2"
 	player2.set_size.call_deferred(size)
-	
-	npc.name = "npc"
 	
 	_toggle_1_player()
 	

@@ -1,6 +1,6 @@
 extends Node
 
-var infinite_jumping := true ## Enable infinite jumping.
+var infinite_jumping := false ## Enable infinite jumping.
 
 func _ready() -> void:
 	var dir := "res://scripts/cheats"

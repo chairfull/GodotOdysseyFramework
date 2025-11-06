@@ -10,20 +10,20 @@ func _init(i := 0) -> void:
 func set_pawn(target: Pawn):
 	if pawn == target: return
 	if pawn:
-		pawn.set_controller.call_deferred(null)
+		pawn._unposessed()
 		_ended()
 	pawn = target
-	pawn.set_controller.call_deferred(self)
+	pawn._posessed(self)
 	_started.call_deferred()
 
-func is_player() -> bool:
-	return self is ControllerPlayer
+func is_npc() -> bool: return self is ControllerNPC
+func is_player() -> bool: return self is ControllerPlayer
 
 func get_move_vector() -> Vector2:
 	return Vector2.ZERO
 
 func _started():
-	pass
+	print("Control Started ", pawn)
 
 func _ended():
-	pass
+	print("Control Ended ", pawn)

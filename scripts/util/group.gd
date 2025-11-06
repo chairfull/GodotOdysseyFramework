@@ -6,6 +6,9 @@ static func all(group: StringName) -> Array[Node]:
 static func first(group: StringName) -> Node:
 	return Global.get_tree().get_first_node_in_group(group)
 
+static func rand(group: StringName) -> Node:
+	return Global.get_tree().get_nodes_in_group(group).pick_random()
+
 static func named(group: StringName, name: String) -> Node:
 	for node in Global.get_tree().get_nodes_in_group(group):
 		if node.name == name:

@@ -52,11 +52,11 @@ func set_highlight(h: bool):
 			_highlight_material = null)
 
 func _can_interact(pawn: Pawn) -> bool:
-	return pawn is Humanoid
+	return pawn.node is Humanoid
 
 func _interacted(pawn: Pawn, _form: Interactive.Form):
-	if pawn is Humanoid:
-		pawn.pickup(self)
+	if pawn.node is Humanoid:
+		pawn.node.pickup(self)
 
 func set_mount(to: Node3D):
 	if mount == to: return

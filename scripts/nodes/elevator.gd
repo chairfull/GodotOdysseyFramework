@@ -1,4 +1,4 @@
-extends Pawn
+extends Node3D
 
 @onready var origin: Vector3 = global_position
 @onready var target: Vector3 = get_node("target").global_position
