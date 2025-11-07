@@ -1,12 +1,12 @@
 extends Node
 
 @export var achievements: AchievementDB
-@export var unlocks: PropertyDB
+@export var unlocks: VarDB
 @export var donor := false ## Donated to development?
 
 func _ready() -> void:
 	achievements = AchievementDB.new()
-	unlocks = PropertyDB.new()
+	unlocks = VarDB.new()
 	
 	unlocks.add_flag(&"start_mall") # Alloow starting in the mall.
 	unlocks.add_flag(&"start_costco") # Allow spawning in costco.

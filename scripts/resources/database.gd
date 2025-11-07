@@ -3,6 +3,13 @@ class_name Database extends Resource
 @export var _objects: Dictionary[StringName, DatabaseObject]
 var _default_state: Dictionary[StringName, Dictionary]
 
+func size() -> int:
+	return _objects.size()
+
+## Used by State class.
+func connect_signals() -> void:
+	pass
+
 func update_default_state():
 	_default_state = get_state()
 
@@ -29,23 +36,33 @@ func get_state() -> Dictionary[StringName, Dictionary]:
 func has(id: StringName) -> bool:
 	return id in _objects
 
-func find(id: StringName, default: DatabaseObject = null, silent := true) -> DatabaseObject:
+func find(id: StringName, default: DatabaseObject = null, silent := false) -> DatabaseObject:
 	if has(id):
 		return _objects[id]
 	if not silent:
-		push_error("No item %s in %s." % [id, self])
+		push_error("No item %s in %s. %s" % [id, self, _objects.keys()])
 	return default
 
 func find_id(data: DatabaseObject) -> StringName:
-	return _objects.find_key(data)
+	for id in _objects:
+		if _objects[id] == data:
+			return id
+	return &""
 
 func get_ids() -> PackedStringArray:
 	return PackedStringArray(_objects.keys())
 
-func _add(id: StringName, obj: DatabaseObject, props := {}) -> DatabaseObject:
+func merge(db: Database):
+	for id in db._objects:
+		if id in _objects:
+			push_warning("DB Merge: Overriding %s." % id)
+		_objects[id] = db._objects[id]
+
+func _add(id: StringName, obj: DatabaseObject, props := {}, silent := false) -> DatabaseObject:
 	if id in _objects:
-		push_warning("Object %s already exists in %s. Replacing with %s." % [id, self, obj])
+		push_warning("Replacing %s." % [id])
 	_objects[id] = obj
+	obj.id = id
 	for prop in props:
 		if prop in obj:
 			match typeof(obj[prop]):
@@ -56,7 +73,8 @@ func _add(id: StringName, obj: DatabaseObject, props := {}) -> DatabaseObject:
 						targ_dict[key] = source_dict[key]
 				TYPE_ARRAY: (obj[prop] as Array).assign(props[prop])
 				var type: obj[prop] = convert(props[prop], type)
-		else:
+		elif prop == prop.to_upper(): pass # Skip ID and TYPE.
+		elif not silent:
 			push_error("Object %s has no property %s to set to %s." % [obj, prop, props[prop]])
 	return obj
 

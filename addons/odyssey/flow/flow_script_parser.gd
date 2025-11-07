@@ -1,20 +1,16 @@
 @tool
-class_name CinemaScriptParser extends RefCounted
+class_name FlowScriptParser extends RefCounted
 
-static var REGEX_FUNCTION := RegEx.create_from_string(r"^[@%^]?[A-Za-z_][A-Za-z0-9_]*\(.*\)$")
-const TYPE_CMND := &"cmnd" # { cmnd: "", rest: "" }
-const TYPE_FLOW := &"flow" # { flow: "" }
-const TYPE_FUNC := &"func" # { func: "" }
-const TYPE_KEYV := &"keyv" # { key: "", val: "" }
-const TYPE_NUMB := &"numb" # { numb: "" }
-const TYPE_PROP := &"prop" # { prop: {} }
-const TYPE_TEXT := &"text" # { text: "" }
-const TYPES := [TYPE_CMND, TYPE_FLOW, TYPE_FUNC, TYPE_KEYV, TYPE_NUMB, TYPE_PROP, TYPE_TEXT]
+const TYPES := [FlowToken.CMND, FlowToken.FLOW, FlowToken.FUNC, FlowToken.KEYV, FlowToken.NUMB, FlowToken.PROP, FlowToken.TEXT]
+
+static var REGEX_FUNCTION: RegEx
 
 static func pprint(d: Dictionary):
 	print(JSON.stringify(d, "\t", false))
 
 static func parse(str: String, dbg_file := "") -> Dictionary:
+	REGEX_FUNCTION = RegEx.create_from_string(r"^[@%^]?[A-Za-z_][A-Za-z0-9_]*\(.*\)$")
+	
 	var out: Dictionary
 	var root := {}
 	var stack := [root]
@@ -32,7 +28,7 @@ static func parse(str: String, dbg_file := "") -> Dictionary:
 			var info := _str_to_step(stripped, dbg_file, i)
 			if "_greedy" in info:
 				var j := i+1
-				var subkey: String = "val" if info.type == TYPE_KEYV else "rest"
+				var subkey: String = "val" if info.type == FlowToken.KEYV else "rest"
 				while j < lines.size():
 					var deep2 := 0
 					var line2 := lines[j]
@@ -63,19 +59,19 @@ static func _str_to_step(str: String, dbg_file: String, dbg_line: int) -> Dictio
 	# Functions: func_name(true, "false)
 	# Can start with @ for nodes, % for unique named, and ^ for when dealing with children, in loops.
 	if REGEX_FUNCTION.search(str):
-		step.type = TYPE_FUNC
+		step.type = FlowToken.FUNC
 		step.func = str
 	# Numbers: "1.0"
 	elif str.is_valid_float():
-		step.type = TYPE_NUMB
+		step.type = FlowToken.NUMB
 		step.numb = str
 	# Flow: "=== flow_id"
 	elif parts[0] == "===":
-		step.type = TYPE_FLOW
+		step.type = FlowToken.FLOW
 		step.flow = parts[1].strip_edges()
 	# Command: "COMMAND rest"
 	elif parts[0] == parts[0].to_upper():
-		step.type = TYPE_CMND
+		step.type = FlowToken.CMND
 		step.cmnd = parts[0]
 		step.rest = parts[1]
 		if step.cmnd.ends_with(":"):
@@ -83,22 +79,22 @@ static func _str_to_step(str: String, dbg_file: String, dbg_line: int) -> Dictio
 			step._greedy = true
 	# Key val: "key: val"
 	elif parts[0].ends_with(":"):
-		step.type = TYPE_KEYV
+		step.type = FlowToken.KEYV
 		step.key = parts[0].trim_suffix(":")
 		step.val = parts[1]
 		if not step.val:
 			step._greedy = true
 	# New line: ""
 	elif parts[0] == "/":
-		step.type = TYPE_TEXT
+		step.type = FlowToken.TEXT
 		step.text = ""
 	# Speakerless text: ":Text without a speaker."
 	elif parts[0].begins_with(":"):
-		step.type = TYPE_TEXT
+		step.type = FlowToken.TEXT
 		step.text = str.trim_prefix(":")
 	# Properties: "position (1, 2)"
 	elif parts[0] == parts[0].to_lower():
-		step.type = TYPE_PROP
+		step.type = FlowToken.PROP
 		step.prop = {}
 		var tokens := get_space_seperated_tokens(str)
 		var i := 0
@@ -107,7 +103,7 @@ static func _str_to_step(str: String, dbg_file: String, dbg_line: int) -> Dictio
 			i += 2
 	# Text: "speaker with or without speach."
 	else:
-		step.type = TYPE_TEXT
+		step.type = FlowToken.TEXT
 		step.text = str
 	step.dbg = "%s:%s" % [dbg_file, dbg_line]
 	return step

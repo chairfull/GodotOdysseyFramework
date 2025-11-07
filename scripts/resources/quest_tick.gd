@@ -1,6 +1,6 @@
 class_name QuestTick extends Resource
 
-@export var style := QuestInfo.Style.HIDDEN: set=set_style
+@export var state := QuestInfo.QuestState.HIDDEN: set=set_state
 @export var tick := 0
 var max_ticks := 1
 var id: StringName
@@ -19,12 +19,11 @@ var completed: bool:
 		if completed != t:
 			tick = max_ticks if t else 0
 			if completed:
-				set_style(QuestInfo.Style.PASSED)
+				set_state(QuestInfo.QuestState.PASSED)
 
-func set_style(s := QuestInfo.Style.HIDDEN):
-	if style == s:
-		return
-	style = s
+func set_state(s := QuestInfo.QuestState.HIDDEN):
+	if state == s: return
+	state = s
 	changed.emit()
 
 func _to_string() -> String:

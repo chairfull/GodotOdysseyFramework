@@ -23,7 +23,7 @@ func set_choices(c: Array):
 		btn.choice = choice
 		index += 1
 
-func _cinematic_step(gen: CinematicGenerator, step: Dictionary):
+func _cinematic_step(gen: FlowPlayerGenerator, step: Dictionary):
 	#print("MENU ", step)
 	
 	var menu_caption: String

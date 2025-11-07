@@ -1,0 +1,30 @@
+TYPE: quest
+ID: my_quest
+name: My Quest
+ticks:
+  area:
+    name: Found a fruit spot.
+  find_apple:
+    name: Find the apple.
+  find_pear:
+    name: Find the pear.
+  find_banana:
+    name: Find the banana.
+triggers:
+  HIDDEN:
+    - event: ZONE_ENTERED
+      state: { who: paul }
+      cond: score > 20 or ZONE_ENTERED.zone in [apple_area, pear_area, banana_area]
+      flow: |
+        You entered the location.
+        paul: This is the spot.
+        IF ZONE_ENTERED.zone == apple_area
+          paul: Now where is that apple.
+        ELIF ZONE_ENTERED.zone == pear_area
+          paul: Those pears should be around here.
+        ELSE
+          paul: Where are you banana?
+        QUEST_TICK my_quest#area
+        QUEST_SHOW my_quest#find_apple
+        QUEST_SHOW my_quest#find_pear
+        QUEST_SHOW my_quest#find_banana

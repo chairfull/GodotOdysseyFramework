@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://dkb2ijqn56r50"]
 
-[ext_resource type="Script" uid="uid://bq66jt7y5mlak" path="res://scripts/nodes/cinematic_generator.gd" id="1_8po4n"]
+[ext_resource type="Script" uid="uid://bq66jt7y5mlak" path="res://addons/odyssey/flow/flow_player_generator.gd" id="1_8po4n"]
 [ext_resource type="PackedScene" uid="uid://cpvlxd1nxceqo" path="res://assets/cinematics/dummy.tscn" id="2_1d1t3"]
 [ext_resource type="Resource" uid="uid://cp2fj786xxl53" path="res://assets/cinematics/stranger.tres" id="2_iwpky"]
 

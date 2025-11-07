@@ -1,0 +1,8 @@
+TYPE: zones
+zones:
+  apple_area:
+    name: Apple Fields
+  pear_area:
+    name: Pear Forrest
+  banana_area:
+    name: Banana Brook

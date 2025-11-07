@@ -24,9 +24,11 @@ enum ProneState { Stand, Crouch, Kneel, Crawl }
 @onready var node_seeing: Detector = %seeing
 @onready var node_hearing: Detector = %hearing
 @onready var nav_agent: NavigationAgent3D = %nav_agent
-@export var cinematic: CinemaScript
+@export var flow_script: FlowScript
 @export_range(-180, 180, 0.01, "radians_as_degrees") var direction: float: get=get_direction, set=set_direction
-var char_info: CharacterInfo
+@export var char_id: StringName
+var char_info: CharInfo:
+	get: return null if not char_id else State.find_char(char_id)
 var movement := Vector2.ZERO
 var body: CharacterBody3D = convert(self, TYPE_OBJECT)
 var _equipped: Dictionary[StringName, ItemNode]
@@ -128,7 +130,7 @@ func _physics_process(delta: float) -> void:
 			_footstep_time -= 1.0
 			
 			var col: Node = %ray_coyote.get_collider()
-			if "physics_material_override" in col and col.physics_material_override is SurfaceMaterial:
+			if col and "physics_material_override" in col and col.physics_material_override is SurfaceMaterial:
 				var mat: SurfaceMaterial = col.physics_material_override
 				var id: String
 				match mat.resource_path:
@@ -158,8 +160,8 @@ func _physics_process(delta: float) -> void:
 	_last_position = body.global_position
 
 func _interacted(pawn: Pawn, form: Interactive.Form) -> void:
-	if cinematic:
-		Cinema.queue(cinematic)
+	if flow_script:
+		Cinema.queue(flow_script)
 	else:
 		prints(pawn.name, "interacted with", name, "FORM:", form)
 

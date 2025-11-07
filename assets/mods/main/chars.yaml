@@ -1,0 +1,6 @@
+TYPE: char_list
+char_list:
+  paul:
+    name: Paul
+  mary:
+    name: Mary

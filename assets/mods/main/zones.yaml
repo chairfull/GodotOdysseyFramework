@@ -1,0 +1,34 @@
+TYPE: zone
+ID: home
+name: Home
+
+zones:
+  backyard:
+    name: Backyard
+  front_yard:
+    name: Front Yard
+  attic:
+    name: Attic
+  upstairs:
+    name: Upstairs
+    zones:
+      pauls_room:
+        name: Pauls Room
+      bathroom:
+        name: Bathroom
+  main_floor:
+    name: Main Floor
+    zones:
+      living_room:
+        name: Living Room
+      bathroom:
+        name: Bathroom
+  basement:
+    name: Basement
+    zones:
+      laundry_room:
+        name: Laundry Room
+      furnace_room:
+        name: Furnace Room
+      supply_closet:
+        name: Supply Closet

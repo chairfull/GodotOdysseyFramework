@@ -12,8 +12,8 @@ var players: Dictionary[StringName, ControllerPlayer] = {
 
 var npcs: Dictionary[StringName, ControllerNPC]
 
-var EV_SHOW_MARKER := Event.new(event)
-var EV_HIDE_MARKER := Event.new(event)
+#var EV_SHOW_MARKER := Event.new(event)
+#var EV_HIDE_MARKER := Event.new(event)
 
 func get_or_create_npc(id: StringName) -> ControllerNPC:
 	if not id in npcs:

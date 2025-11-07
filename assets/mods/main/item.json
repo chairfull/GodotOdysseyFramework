@@ -1,0 +1,19 @@
+[{
+	"TYPE": "item",
+	"ID": "apple",
+	"name": "Apple",
+	"desc": "A bright red apple."
+},
+{
+	"TYPE": "items",
+	"items": {
+		"pear": {
+			"name": "Pear",
+			"desc": "A green pear."
+		},
+		"banana": {
+			"name": "Banana",
+			"desc": "Yellow banana tastes good."
+		},
+	}
+}]

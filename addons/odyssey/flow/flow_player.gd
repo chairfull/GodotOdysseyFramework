@@ -1,4 +1,5 @@
-class_name Cinematic extends AnimationPlayer
+#@icon("res://addons/odyssey/flow")
+class_name FlowPlayer extends AnimationPlayer
 
 signal wait_started()
 signal wait_ended()
@@ -11,6 +12,13 @@ func _ready() -> void:
 	if not Engine.is_editor_hint():
 		animation_finished.connect(_animation_finished)
 		#play(&"ROOT")
+
+func _state_expr(id: int):
+	State._run_expression(id)
+
+func _state_cond(id: int, branch: StringName):
+	if State.test_condition(str(id)):
+		goto(branch)
 
 func _animation_finished(_a: StringName):
 	if _stack:

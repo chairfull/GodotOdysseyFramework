@@ -1,0 +1,201 @@
+[gd_scene load_steps=8 format=3 uid="uid://dm2ernmioan1k"]
+
+[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/prefabs/ui/hud_caption.tscn" id="1_o84jr"]
+
+[sub_resource type="Animation" id="Animation_o84jr"]
+length = 4.001
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"wait"
+}, {
+"args": [],
+"method": &"wait"
+}, {
+"args": [520882869, &"branch_2854962211"],
+"method": &"_state_cond"
+}, {
+"args": [2636823051, &"branch_1071952269"],
+"method": &"_state_cond"
+}, {
+"args": [5381, &"branch_1113953342"],
+"method": &"_state_cond"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["You entered the location.", "paul: This is the spot."]
+}
+
+[sub_resource type="Animation" id="Animation_aq4bm"]
+length = 0.501
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"wait"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["paul: Those pears should be around here."]
+}
+
+[sub_resource type="Animation" id="Animation_m4p48"]
+length = 0.501
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"wait"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["paul: Where are you banana?"]
+}
+
+[sub_resource type="Animation" id="Animation_qctjt"]
+length = 0.501
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"wait"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["paul: Now where is that apple."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0m8dx"]
+_data = {
+&"ROOT": SubResource("Animation_o84jr"),
+&"branch_1071952269": SubResource("Animation_aq4bm"),
+&"branch_1113953342": SubResource("Animation_m4p48"),
+&"branch_2854962211": SubResource("Animation_qctjt")
+}
+
+[sub_resource type="GDScript" id="GDScript_fve58"]
+script/source = "extends FlowPlayer"
+
+[node name="AnimationPlayer" type="AnimationPlayer"]
+root_node = NodePath(".")
+libraries = {
+&"_dbg-my_quest-HIDDEN-0": SubResource("AnimationLibrary_0m8dx")
+}
+script = SubResource("GDScript_fve58")
+
+[node name="screens" type="CanvasLayer" parent="."]
+
+[node name="caption" parent="." instance=ExtResource("1_o84jr")]

@@ -16,7 +16,7 @@ var _remote: RemoteTransform3D
 @export var tween_rotation := true ## A
 @export var tween_time := 0.5
 
-@export var cinematic: CinemaScript ## Cinematic to play.
+@export var cinematic: FlowScript ## Cinematic to play.
 @export var eject_on_cinematic_finished := false ## TODO:
 
 func set_pawn(p: Pawn) -> void:

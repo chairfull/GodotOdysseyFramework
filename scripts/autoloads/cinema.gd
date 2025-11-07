@@ -4,7 +4,7 @@ signal started()
 signal ended()
 
 var _queue: Array[Array]
-var _current: Cinematic
+var _current: FlowPlayer
 var _state: Dictionary[StringName, Variant]
 
 func queue(scene: Variant, state: Dictionary[StringName, Variant] = {}):
@@ -22,11 +22,11 @@ func _play(scene: Variant, state: Dictionary[StringName, Variant]):
 	if scene is PackedScene:
 		_current = scene.instantiate()
 		id = scene.resource_path.get_basename().get_file()
-	elif scene is Cinematic:
+	elif scene is FlowPlayer:
 		_current = scene
 		id = scene.name
-	elif scene is CinemaScript:
-		_current = CinematicGenerator.gen([scene])
+	elif scene is FlowScript:
+		_current = FlowPlayerGenerator.generate([scene])
 		id = scene.get_id()
 	add_child(_current)
 	_current.ended.connect(_cinematic_ended)

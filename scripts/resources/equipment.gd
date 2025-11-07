@@ -1,13 +1,13 @@
 class_name Equipment extends Inventory
 
-signal equipped(slot: EquipmentSlotInfo, item: InventoryItem)
-signal unequipped(slot: EquipmentSlotInfo, item: InventoryItem)
+signal item_equipped(slot: EquipmentSlotInfo, item: InventoryItem)
+signal item_unequipped(slot: EquipmentSlotInfo, item: InventoryItem)
 signal equipment_changed()
 
-@export var _worn: Dictionary[StringName, InventoryItem]
+@export var wearing: Dictionary[StringName, InventoryItem]
 
 func is_wearing(slot: StringName) -> bool:
-	return slot in _worn
+	return slot in wearing
 
 func can_equip(item: InventoryItem, slot_id: StringName = &"") -> bool:
 	return slot_id in item.item_info.wear_to
@@ -29,20 +29,20 @@ func equip(item: InventoryItem, slot_id: StringName = &""):
 	for sid in bare:
 		unequip_slot(sid)
 	
-	var slot_index := _items.find(item)
+	var slot_index := items.find(item)
 	if slot_index != -1:
-		_items.remove_at(slot_index)
+		items.remove_at(slot_index)
 	
-	_worn[slot_id] = item
-	equipped.emit(slot_info, item)
+	wearing[slot_id] = item
+	item_equipped.emit(slot_info, item)
 	equipment_changed.emit()
 
 func unequip_slot(slot_id: StringName):
-	if not slot_id in _worn:
+	if not slot_id in wearing:
 		return
 	var slot_info := State.find_equipment_slot(slot_id)
-	var item := _worn[slot_id]
-	_worn.erase(slot_id)
-	_items.append(item)
-	unequipped.emit(slot_info, item)
+	var item := wearing[slot_id]
+	wearing.erase(slot_id)
+	items.append(item)
+	item_unequipped.emit(slot_info, item)
 	equipment_changed.emit()

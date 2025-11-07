@@ -21,9 +21,9 @@ config/icon="uid://dcy71dgq416wh"
 
 Global="*res://scripts/autoloads/global.gd"
 Assets="*res://scripts/autoloads/assets.gd"
+State="*res://scripts/autoloads/state.gd"
 Cheats="*res://scripts/autoloads/cheats.gd"
 Controllers="*res://scripts/autoloads/controllers.gd"
-State="*res://scripts/autoloads/state.gd"
 Cinema="*res://scripts/autoloads/cinema.gd"
 Mods="*res://scripts/autoloads/mods.gd"
 Persistent="*res://scripts/autoloads/persistent.gd"
@@ -185,6 +185,7 @@ honk={
 
 [layer_names]
 
+3d_physics/layer_7="character"
 3d_physics/layer_10="interactive"
 3d_physics/layer_11="damageable"
 3d_physics/layer_15="visible"

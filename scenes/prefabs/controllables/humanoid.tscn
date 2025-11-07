@@ -73,7 +73,7 @@ radial_segments = 32
 rings = 16
 
 [node name="humanoid" type="CharacterBody3D"]
-collision_layer = 49152
+collision_layer = 49216
 script = ExtResource("1_mq6sh")
 
 [node name="collision_shape" type="CollisionShape3D" parent="."]

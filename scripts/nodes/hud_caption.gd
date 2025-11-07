@@ -6,14 +6,14 @@ extends Node
 func set_text(t: String):
 	%label.text = t
 
-func _cinematic_step(gen: CinematicGenerator, step: Dictionary):
+func _cinematic_step(gen: FlowPlayerGenerator, step: Dictionary):
 	var speaker := ""
 	var caption := ""
 	match step.type:
-		CinemaScriptParser.TYPE_KEYV:
+		FlowToken.KEYV:
 			speaker = step.key
 			caption = step.val
-		CinemaScriptParser.TYPE_TEXT:
+		FlowToken.TEXT:
 			caption = step.text
 		
 	if speaker:
