@@ -96,19 +96,24 @@ func _load_data(data: Variant):
 			&"quest":
 				var id: StringName = dict.get(&"ID", &"")
 				var quest := QuestInfo.new()
-				for tick_id in dict.ticks:
+				var tick_data: Dictionary = UDict.pop(dict, &"ticks", {})
+				var triggers: Dictionary = UDict.pop(dict, &"triggers", {})
+				UObj.set_properties(quest, dict)
+				for tick_id in tick_data:
 					var tick := QuestTick.new()
+					UObj.set_properties(tick, tick_data[tick_id])
 					quest.ticks[tick_id] = tick
-				for state_id in dict.triggers:
+				for state_id in triggers:
 					var state: QuestInfo.QuestState = QuestInfo.QuestState.keys().find(state_id) as QuestInfo.QuestState
-					var triggers: Array[TriggerInfo]
+					quest.triggers[state] = []
 					var trigger_index := 0
-					for trigger_data in dict.triggers[state_id]:
+					for trigger_data in triggers[state_id]:
 						var trigger := TriggerInfo.new()
-						trigger.event = trigger_data.event
-						trigger.state.assign(trigger_data.state)
-						trigger.condition = _add_cond(trigger_data.cond)
-						triggers.append(trigger)
+						trigger.event = UDict.pop(trigger_data, &"event")
+						trigger.state.assign(UDict.pop(trigger_data, &"state"))
+						trigger.condition = _add_cond(UDict.pop(trigger_data, &"cond"))
+						UObj.set_properties(trigger, trigger_data)
+						quest.triggers[state].append(trigger)
 						
 						var path := data_dir.path_join("_dbg-%s-%s-%s" % [ id, state_id, trigger_index])
 						var flow_script := FlowScript.new()
@@ -123,5 +128,4 @@ func _load_data(data: Variant):
 						ResourceSaver.save(packed, path + ".tscn")
 						trigger_index += 1
 						
-					quest.triggers[state] = triggers
 				quests._add(id, quest)

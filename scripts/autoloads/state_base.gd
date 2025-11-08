@@ -3,13 +3,25 @@
 
 @warning_ignore("unused_signal") signal event(event: Event)
 
-var ZONE_ENTERED := Event.new({ zone=ZoneInfo, who=CharInfo }, event)
-var ZONE_EXITED := Event.new({ zone=ZoneInfo, who=CharInfo }, event)
-var QUEST_STARTED := Event.new({ quest=QuestInfo }, event)
-var QUEST_TICKED := Event.new({ quest=QuestInfo }, event)
+var ZONE_ENTERED := Event.new({ zone=ZoneInfo, who=CharInfo })
+var ZONE_EXITED := Event.new({ zone=ZoneInfo, who=CharInfo })
+var QUEST_STARTED := Event.new({ quest=QuestInfo })
+var QUEST_TICKED := Event.new({ quest=QuestInfo })
+var ACHIEVEMENT := Event.new({ achievement=AchievementInfo })
+
+var TOAST := Event.new({ type=TYPE_STRING_NAME, player=TYPE_INT, data=TYPE_DICTIONARY })
 
 @export var objects: StateObjects
 var dbs: Array[Database]
+
+var chars: CharDB:
+	get: return objects.chars
+var items: ItemDB:
+	get: return objects.items
+var zones: ZoneDB:
+	get: return objects.zones
+var quests: QuestDB:
+	get: return objects.quests
 
 func _init() -> void:
 	# reload() calls set_script() which triggers this _init().

@@ -10,6 +10,16 @@ func size() -> int:
 func connect_signals() -> void:
 	pass
 
+func has_notification() -> bool:
+	return get_notification_count() > 0
+
+func get_notification_count() -> int:
+	var count := 0
+	for obj in _objects.values():
+		if obj.has_notification():
+			count += 1
+	return count
+
 func update_default_state():
 	_default_state = get_state()
 
@@ -61,21 +71,8 @@ func merge(db: Database):
 func _add(id: StringName, obj: DatabaseObject, props := {}, silent := false) -> DatabaseObject:
 	if id in _objects:
 		push_warning("Replacing %s." % [id])
-	_objects[id] = obj
+	_objects[id] = UObj.set_properties(obj, props)
 	obj.id = id
-	for prop in props:
-		if prop in obj:
-			match typeof(obj[prop]):
-				TYPE_DICTIONARY:
-					var targ_dict: Dictionary = obj[prop]
-					var source_dict: Dictionary = props[prop]
-					for key in source_dict:
-						targ_dict[key] = source_dict[key]
-				TYPE_ARRAY: (obj[prop] as Array).assign(props[prop])
-				var type: obj[prop] = convert(props[prop], type)
-		elif prop == prop.to_upper(): pass # Skip ID and TYPE.
-		elif not silent:
-			push_error("Object %s has no property %s to set to %s." % [obj, prop, props[prop]])
 	return obj
 
 func _get(property: StringName) -> Variant:
@@ -94,3 +91,6 @@ func _iter_get(iter: Variant) -> Variant:
 
 func get_object_script() -> GDScript:
 	return null
+
+func objects() -> Array[DatabaseObject]:
+	return _objects.values()

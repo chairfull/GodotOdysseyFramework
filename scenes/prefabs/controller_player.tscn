@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cx2wudo5il5m7" path="res://scripts/nodes/controller_player.gd" id="1_dv00x"]
 [ext_resource type="Script" uid="uid://s3k7324tagti" path="res://scripts/nodes/camera_master.gd" id="2_psuda"]
-[ext_resource type="Script" uid="uid://ovjr1tt5pv2g" path="res://scripts/nodes/hud_markers.gd" id="3_psuda"]
+[ext_resource type="Script" uid="uid://ovjr1tt5pv2g" path="res://scripts/widgits/hud_markers.gd" id="3_psuda"]
 
 [node name="controller_player" type="Control"]
 layout_mode = 3

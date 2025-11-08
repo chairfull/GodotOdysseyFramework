@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://daag5e0w4e5qb"]
 
-[ext_resource type="Script" uid="uid://b362fmq7i3l2o" path="res://scripts/nodes/hud_marker.gd" id="1_q4080"]
+[ext_resource type="Script" uid="uid://b362fmq7i3l2o" path="res://scripts/widgits/hud_marker.gd" id="1_q4080"]
 [ext_resource type="Texture2D" uid="uid://cvqiwepgya3ua" path="res://icon.svg" id="2_ddxey"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4080"]

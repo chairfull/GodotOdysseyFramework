@@ -31,16 +31,18 @@ func _enable() -> void:
 		remote.remote_path = camera.get_path()
 		
 		_view_state_changed()
-	_interactive_hud = get_player_controller().show_hud(&"interaction_label")
+	get_player_controller().show_widgit(&"toast_manager")
+	_interactive_hud = get_player_controller().show_widgit(&"interaction_label")
 	_interactive_hud.set_agent(agent)
 
 func _disable() -> void:
 	super()
-
+	
 	_interactive_hud = null
 	#agent.interactive_detector.visible_changed.disconnect(agent.interactive_changed.emit)
 	get_player_controller().view_state_changed.disconnect(_view_state_changed)
-	get_player_controller().hide_hud(&"interaction_label")
+	get_player_controller().hide_widgit(&"interaction_label")
+	get_player_controller().hide_widgit(&"toast_manager")
 
 func _view_state_changed():
 	match get_player_controller().view_state:

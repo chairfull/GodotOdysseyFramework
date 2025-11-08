@@ -52,6 +52,10 @@ Simplify development of FPS, RPG, ImSims.
 	- [x] Hold longer = jump higher
 	- [ ] Speed based on velocity
 	- [ ] Air-control
+- [ ] Ledges
+	- [ ] Small hop over
+	- [ ] Grabbing on fall
+	- [ ] Ledges: Hang climbing side to side
 - [x] Prone
 	- [x] Crouch
 	- [x] Crawl
@@ -190,6 +194,14 @@ Simplify development of FPS, RPG, ImSims.
 - [ ] Hit direction indicator
 - [ ] Damage indicator (red-periphery)
 	- [ ] Posion indicator (green)
+- [x] Toast system
+	- [x] Queue based on type
+	- [ ] Update if visible
+	- [ ] Templates
+		- [ ] Quest state changed
+		- [ ] Inventory state changed
+		- [ ] Achievement
+		- [ ] Location entered
 ### Markers
 - [x] Show markers
 - [ ] Fade in/out based on distance

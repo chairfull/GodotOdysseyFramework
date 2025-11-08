@@ -9,6 +9,9 @@ class_name ItemInfo extends DatabaseObject
 @export var scene_held: PackedScene
 @export var vars: VarDB
 
+# TODO: weight: float
+# TODO: types: Array[StringName]
+
 ## [Currency]
 ## currency: StringName
 ## currency_amount: int

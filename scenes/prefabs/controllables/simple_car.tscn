@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b1e5tur6memej"]
+[gd_scene load_steps=19 format=3 uid="uid://b1e5tur6memej"]
 
 [ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/nodes/interactive.gd" id="1_51xss"]
 [ext_resource type="Script" uid="uid://c6fwss4rippt7" path="res://scripts/nodes/simple_car.gd" id="1_ls0ui"]
@@ -15,6 +15,14 @@ script = ExtResource("6_3g0rj")
 metadata/_custom_type_script = "uid://d21y1uy7e6sf6"
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1l2sd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1l2sd"]
+transparency = 4
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.5686275)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f1cp1"]
+material = SubResource("StandardMaterial3D_1l2sd")
 
 [sub_resource type="Resource" id="Resource_f1cp1"]
 script = ExtResource("4_rftf1")
@@ -56,6 +64,10 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="drivers_seat/exit"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.009041369, 0.8677578, -0.20000002)
 shape = SubResource("CylinderShape3D_1l2sd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="drivers_seat/exit/CollisionShape3D"]
+mesh = SubResource("CylinderMesh_f1cp1")
+skeleton = NodePath("../..")
 
 [node name="trunk" type="Node3D" parent="." node_paths=PackedStringArray("node", "rider_interact")]
 script = ExtResource("3_rftf1")

@@ -1,4 +1,4 @@
-extends Node
+extends Widget
 
 var _markers: Dictionary[Marker, HUDMarker]
 

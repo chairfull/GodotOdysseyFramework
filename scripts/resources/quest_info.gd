@@ -21,7 +21,19 @@ static func get_state_color(s := QuestState.HIDDEN) -> Color:
 @export var vars := VarDB.new()
 @export var hidden := false
 @export var triggers: Dictionary[QuestState, Array]
+@export var marked_for_notification := false
 var desc: String
+
+func has_notification() -> bool:
+	for tick in ticks.values():
+		if tick.marked_for_notification:
+			return true
+	return marked_for_notification
+func mark_notification(): marked_for_notification = true
+func clear_notification():
+	for tick in ticks.values():
+		tick.marked_for_notification = false
+	marked_for_notification = false
 
 func find_tick(tid: String) -> QuestTick:
 	for tick_id in ticks:

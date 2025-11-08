@@ -11,7 +11,7 @@ enum ViewState { None, FirstPerson, ThirdPerson, TopDown }
 @onready var viewport: SubViewport = %viewport
 @onready var camera_master: CameraMaster = %camera_master
 var input_remap: Dictionary[StringName, StringName] # TODO: Move to some global area?
-var _hud: Dictionary[StringName, Node]
+var _widgits: Dictionary[StringName, Widget]
 var _event: InputEvent
 var _focused_control: Control
 
@@ -43,32 +43,31 @@ func get_move_vector_camera() -> Vector2:
 	var dir := camera_master.global_rotation.y
 	return get_move_vector().rotated(-dir)
 
-func is_hud_visible(id: StringName) -> bool:
-	return ("hud_" + id) in _hud
+func is_widgit_visible(id: StringName) -> bool:
+	return ("hud_" + id) in _widgits
 
-func toggle_hud(id: StringName) -> Node:
-	prints(id, is_hud_visible(id), _hud.get("hud_" + id))
-	if is_hud_visible(id):
-		hide_hud(id)
+func toggle_widgit(id: StringName) -> Node:
+	if is_widgit_visible(id):
+		hide_widgit(id)
 		return null
 	else:
-		return show_hud(id)
+		return show_widgit(id)
 
-func show_hud(id: StringName, props := {}) -> Node:
+func show_widgit(id: StringName, props := {}) -> Widget:
 	var hud_id := "hud_" + id
-	var hud: Node = _hud.get(hud_id)
-	if not hud:
-		hud = Assets.create_prefab(hud_id, self, props)
-		_hud[hud_id] = hud
-	return hud
+	var widgit: Widget = _widgits.get(hud_id)
+	if not widgit:
+		widgit = Assets.create_prefab(hud_id, self, props)
+		_widgits[hud_id] = widgit
+	return widgit
 
-func hide_hud(id: StringName) -> bool:
+func hide_widgit(id: StringName) -> bool:
 	var hud_id := "hud_" + id
-	var hud: Node = _hud.get(hud_id)
-	if hud:
-		remove_child(hud)
-		hud.queue_free()
-		_hud.erase(hud_id)
+	var widgit: Widget = _widgits.get(hud_id)
+	if widgit:
+		remove_child(widgit)
+		widgit.queue_free()
+		_widgits.erase(hud_id)
 		return true
 	return false
 

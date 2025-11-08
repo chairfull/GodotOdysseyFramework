@@ -10,12 +10,12 @@ func _accept_controller(con: Controller) -> bool:
 func _enable() -> void:
 	super()
 	if hud:
-		_hud = get_player_controller().show_hud(hud)
+		_hud = get_player_controller().show_widgit(hud)
 
 func _disable() -> void:
 	super()
 	if _hud:
-		get_player_controller().hide_hud(hud)
+		get_player_controller().hide_widgit(hud)
 
 func _unhandled_input(event: InputEvent) -> void:
 	get_player_controller()._event = event

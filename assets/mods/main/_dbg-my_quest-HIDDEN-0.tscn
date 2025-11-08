@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dm2ernmioan1k"]
+[gd_scene load_steps=9 format=3 uid="uid://dm2ernmioan1k"]
 
 [ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/prefabs/ui/hud_caption.tscn" id="1_o84jr"]
+[ext_resource type="Script" uid="uid://biaptg8kvjcvi" path="res://scripts/widgits/hud_caption.gd" id="2_qctjt"]
 
 [sub_resource type="Animation" id="Animation_o84jr"]
 length = 4.001
@@ -53,6 +54,47 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": ["You entered the location.", "paul: This is the spot."]
+}
+
+[sub_resource type="Animation" id="Animation_qctjt"]
+length = 0.501
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"wait"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["paul: Now where is that apple."]
 }
 
 [sub_resource type="Animation" id="Animation_aq4bm"]
@@ -137,47 +179,6 @@ tracks/2/keys = {
 "values": ["paul: Where are you banana?"]
 }
 
-[sub_resource type="Animation" id="Animation_qctjt"]
-length = 0.501
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"wait"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("./caption:visible")
-tracks/1/interp = 0
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("./caption:text")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["paul: Now where is that apple."]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0m8dx"]
 _data = {
 &"ROOT": SubResource("Animation_o84jr"),
@@ -189,7 +190,7 @@ _data = {
 [sub_resource type="GDScript" id="GDScript_fve58"]
 script/source = "extends FlowPlayer"
 
-[node name="AnimationPlayer" type="AnimationPlayer"]
+[node name="" type="AnimationPlayer"]
 root_node = NodePath(".")
 libraries = {
 &"_dbg-my_quest-HIDDEN-0": SubResource("AnimationLibrary_0m8dx")
@@ -198,4 +199,5 @@ script = SubResource("GDScript_fve58")
 
 [node name="screens" type="CanvasLayer" parent="."]
 
-[node name="caption" parent="." instance=ExtResource("1_o84jr")]
+[node name="caption" type="PanelContainer" parent="." instance=ExtResource("1_o84jr")]
+script = ExtResource("2_qctjt")

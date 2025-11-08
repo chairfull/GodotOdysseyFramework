@@ -1,19 +1,31 @@
 class_name Event extends RefCounted
 
-signal triggered(ev: Event, args)
+signal emitted(ev: Event)
 
-var _signal: Signal = triggered
 var _default: Dictionary[StringName, Variant]
 var _current: Dictionary[StringName, Variant]
 
-func _init(props := {}, sig: Signal = triggered) -> void:
-	_signal = sig
+func _init(props := {}) -> void:
 	_default.assign(props)
 	for prop in _default:
-		_current[prop] = null
+		if _default[prop] is int:
+			_current[prop] = type_convert(null, _default[prop])
+		else:
+			_current[prop] = type_convert(null, typeof(_default[prop]))
 
 func _get(property: StringName) -> Variant:
 	return _current.get(property, null)
+
+func get_bool(property: StringName, default := false) -> bool: return _current.get(property, default)
+func get_int(property: StringName, default := 0) -> int: return _current.get(property, default)
+func get_float(property: StringName, default := 0.0) -> float: return _current.get(property, default)
+func get_str(property: StringName, default := "") -> String: return _current.get(property, default)
+func get_str_name(property: StringName, default := &"") -> StringName: return _current.get(property, default)
+func get_dict(property: StringName, default := {}) -> Dictionary: return _current.get(property, default)
+func get_array(property: StringName, default := []) -> Array: return _current.get(property, default)
+
+func connect_to(method: Callable):
+	emitted.connect(method)
 
 func test(props: Dictionary) -> bool:
 	for prop in props:
@@ -29,4 +41,6 @@ func emit(kwargs: Dictionary = {}):
 			_current[prop] = kwargs[prop]
 		else:
 			push_warning("Event has no property %s. (%s)" % [prop, self])
-	_signal.emit(self)
+	print("EV CUR: ", _current)
+	State.event.emit(self)
+	emitted.emit(self)

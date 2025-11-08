@@ -54,16 +54,19 @@ script = ExtResource("7_a8bp6")
 
 [sub_resource type="Resource" id="Resource_fgbsq"]
 script = ExtResource("8_g5222")
+desc = "A bright red apple."
 id = &"apple"
 name = "Apple"
 
 [sub_resource type="Resource" id="Resource_8lt24"]
 script = ExtResource("8_g5222")
+desc = "A green pear."
 id = &"pear"
 name = "Pear"
 
 [sub_resource type="Resource" id="Resource_w7rio"]
 script = ExtResource("8_g5222")
+desc = "Yellow banana tastes good."
 id = &"banana"
 name = "Banana"
 
@@ -77,15 +80,19 @@ _objects = Dictionary[StringName, ExtResource("1_w4che")]({
 
 [sub_resource type="Resource" id="Resource_y7vmj"]
 script = ExtResource("11_w7rio")
+name = "Found a fruit spot."
 
 [sub_resource type="Resource" id="Resource_so43j"]
 script = ExtResource("11_w7rio")
+name = "Find the apple."
 
 [sub_resource type="Resource" id="Resource_0q5l8"]
 script = ExtResource("11_w7rio")
+name = "Find the pear."
 
 [sub_resource type="Resource" id="Resource_g6qg4"]
 script = ExtResource("11_w7rio")
+name = "Find the banana."
 
 [sub_resource type="Resource" id="Resource_td8cs"]
 script = ExtResource("13_y7vmj")
@@ -125,9 +132,10 @@ ticks = Dictionary[StringName, ExtResource("11_w7rio")]({
 })
 vars = SubResource("Resource_45dd6")
 triggers = Dictionary[int, Array]({
-0: Array[ExtResource("12_eyksi")]([SubResource("Resource_pi2qk")])
+0: [SubResource("Resource_pi2qk")]
 })
 id = &"my_quest"
+name = "My Quest"
 
 [sub_resource type="Resource" id="Resource_3337y"]
 script = ExtResource("14_so43j")

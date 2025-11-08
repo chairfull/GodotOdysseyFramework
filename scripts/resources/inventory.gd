@@ -1,4 +1,5 @@
 class_name Inventory extends DatabaseObject
+# TODO: Allow sorting in grid format. Currently it's just a list.
 
 ## Sort all slots in the inventory.
 enum Sort { 
@@ -13,6 +14,15 @@ signal item_lost(id: ItemInfo, amount: int)
 
 @export var items: Array[InventoryItem]
 @export var vars := VarDB.new()
+
+# TODO: var max_items: int
+# TODO: var max_slots: int
+# TODO: var max_weight: int
+# TODO: var weight_scale: float # 0.0 -> 1.0 on how heavy.
+# TODO: var block_items: Array[StringName]
+# TODO: var block_types: Array[StringName]
+# TODO: var allow_items: Array[StringName]
+# TODO: var allow_types: Array[StringName]
 
 func get_item_slot_count() -> int:
 	return items.size()

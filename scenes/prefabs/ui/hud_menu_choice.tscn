@@ -1,11 +1,20 @@
 [gd_scene load_steps=2 format=3 uid="uid://bl1wu7da5ih3s"]
 
-[ext_resource type="Script" uid="uid://cgwwfgkrmwih1" path="res://scripts/nodes/hud_menu_choice.gd" id="1_5yxrb"]
+[sub_resource type="GDScript" id="GDScript_cytji"]
+script/source = "extends Node
+
+@export var choice: Dictionary: set=set_choice
+
+func set_choice(c):
+	choice = c
+	var label: RichTextLabel = convert(self, TYPE_OBJECT)
+	label.text = choice.get(\"text\", \"NO_TEXT\")
+"
 
 [node name="Button" type="Button"]
 offset_right = 8.0
 offset_bottom = 8.0
-script = ExtResource("1_5yxrb")
+script = SubResource("GDScript_cytji")
 
 [node name="text" type="RichTextLabel" parent="."]
 layout_mode = 0
