@@ -1,7 +1,7 @@
 extends Control
 ## Handles players and npcs.
 
-signal event(ev: Event, data: Variant)
+#signal event(ev: Event, data: Variant)
 
 var player: ControllerPlayer = load("res://scenes/prefabs/controller_player.tscn").instantiate()
 var player2: ControllerPlayer = load("res://scenes/prefabs/controller_player.tscn").instantiate()

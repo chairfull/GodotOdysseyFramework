@@ -13,12 +13,17 @@ func _ready() -> void:
 		animation_finished.connect(_animation_finished)
 		#play(&"ROOT")
 
-func _state_expr(id: int):
-	State._run_expression(id)
+func _expr(hash_id: int):
+	State.call("_expr_%s" % hash_id)
 
-func _state_cond(id: int, branch: StringName):
-	if State.test_condition(str(id)):
+func _cond(hash_id: int, branch: StringName):
+	if State.call("_cond_%s" % hash_id):
 		goto(branch)
+
+func _event(id: StringName, data: Variant):
+	print("flow event ", id, data)
+	Cinema._event(id, data)
+
 
 func _animation_finished(_a: StringName):
 	if _stack:

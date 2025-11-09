@@ -12,7 +12,7 @@ static func parse(str: String, dbg_file := "") -> Dictionary:
 	REGEX_FUNCTION = RegEx.create_from_string(r"^[@%^]?[A-Za-z_][A-Za-z0-9_]*\(.*\)$")
 	
 	var out: Dictionary
-	var root := {}
+	var root := { tabbed=[] }
 	var stack := [root]
 	stack.resize(20)
 	var lines := str.split("\n")
@@ -20,8 +20,15 @@ static func parse(str: String, dbg_file := "") -> Dictionary:
 	while i < lines.size():
 		var deep := 0
 		var line := lines[i]
-		while deep < line.length() and line[deep] == "\t":
-			deep += 1
+		# Tabs or YAML style two-spaces.
+		while deep < line.length():
+			if line[deep] == "\t":
+				deep += 2
+			elif line[deep] == " ":
+				deep += 1
+			else:
+				break
+		deep = deep / 2
 		var comment := line.rfind("# ")
 		var stripped := line.substr(deep, comment).strip_edges()
 		if stripped:
@@ -48,6 +55,7 @@ static func parse(str: String, dbg_file := "") -> Dictionary:
 			stack[deep].tabbed.append(info)
 			stack[deep+1] = info
 		i += 1
+	
 	return root
 
 # TODO: Error handling which outputs dbg_file and dbg_line.

@@ -8,5 +8,5 @@ class_name TriggerInfo extends Resource
 func check(evnt: Event) -> bool:
 	if not State[event] == evnt: return false
 	if not evnt.test(state): return false
-	if condition and not State.test_condition(condition): return false
+	if condition and not State.call(condition): return false
 	return true

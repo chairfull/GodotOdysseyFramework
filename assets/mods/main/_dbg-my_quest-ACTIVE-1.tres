@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="FlowScript" load_steps=2 format=3 uid="uid://gg55lx1x2fw8"]
+
+[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://addons/odyssey/flow/flow_script.gd" id="1_aqtyi"]
+
+[resource]
+script = ExtResource("1_aqtyi")
+code = "GAIN_ITEM pear who:paul
+paul: Here is a pear... perfect.
+QUEST_TICK my_quest#find_pear
+"

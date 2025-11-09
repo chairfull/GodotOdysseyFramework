@@ -6,7 +6,7 @@ var agent: Agent:
 var camera: CameraTarget ## TODO: Move to controller...
 var _crouch_hold_time := 0.0
 var _crouch_held := false
-var _interactive_hud: Node
+var _interactive_hud: Widget
 
 func _accept_controller(con: Controller) -> bool:
 	return con is ControllerPlayer
@@ -60,7 +60,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_player_controller()._event = event
 	
 	if is_action_pressed(&"toggle_quest_log"):
-		get_player_controller().toggle_hud(&"quest_log")
+		get_player_controller().toggle_widgit(&"quest_log")
 	
 	elif is_action_pressed(&"interact"):
 		if agent.interact_start(pawn):

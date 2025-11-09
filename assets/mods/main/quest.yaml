@@ -14,17 +14,52 @@ triggers:
   HIDDEN:
     - event: ZONE_ENTERED
       state: { who: paul }
-      cond: score > 20 or ZONE_ENTERED.zone in [apple_area, pear_area, banana_area]
+      cond: ZONE_ENTERED.zone in [apple_area, pear_area, banana_area]
       flow: |
         You entered the location.
         paul: This is the spot.
+        QUEST_START my_quest
+        QUEST_TICK my_quest#area
+        QUEST_SHOW my_quest#find_apple
+        QUEST_SHOW my_quest#find_pear
+        QUEST_SHOW my_quest#find_banana
         IF ZONE_ENTERED.zone == apple_area
           paul: Now where is that apple.
         ELIF ZONE_ENTERED.zone == pear_area
           paul: Those pears should be around here.
         ELSE
           paul: Where are you banana?
-        QUEST_TICK my_quest#area
-        QUEST_SHOW my_quest#find_apple
-        QUEST_SHOW my_quest#find_pear
-        QUEST_SHOW my_quest#find_banana
+  ACTIVE:
+    - event: ZONE_ENTERED
+      state: { who: paul, zone: apple_area }
+      flow: |
+        GAIN_ITEM apple who:paul
+        paul: An apple. Just what I needed.
+        QUEST_TICK my_quest#find_apple
+    - event: ZONE_ENTERED
+      state: { who: paul, zone: pear_area }
+      flow: |
+        GAIN_ITEM pear who:paul
+        paul: Here is a pear... perfect.
+        QUEST_TICK my_quest#find_pear
+    - event: ZONE_ENTERED
+      state: { who: paul, zone: banana_area }
+      flow: |
+        GAIN_ITEM banana who:paul
+        paul: Banana!
+        QUEST_TICK my_quest#find_banana
+    - event: ZONE_EXITED
+      state: { who: paul }
+      cond: ZONE_EXITED.zone in [apple_area, pear_area, banana_area]
+      flow: |
+        IF my_quest.ticked("find_apple", "find_pear", "find_banana")
+          paul: That's all of them!
+          QUEST_PASS my_quest
+        ELIF my_quest.ticked("find_apple", "find_pear")
+          paul: Now all that's left is finding the banana.
+        ELIF my_quest.ticked("find_apple", "find_banana")
+          paul: All I have to find is the pear.
+        ELIF my_quest.ticked("find_pear", "find_banana")
+          paul: All I need is that apple.
+        ELIF my_quest.ticked("find_apple") or my_quest.ticked("find_banana") or my_quest.ticked("find_pear")
+          paul: One down. Two to go.

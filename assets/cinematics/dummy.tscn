@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://cpvlxd1nxceqo"]
 
-[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/prefabs/ui/hud_caption.tscn" id="1_dhhia"]
-[ext_resource type="PackedScene" uid="uid://cucq8gseatpvc" path="res://scenes/prefabs/ui/hud_menu.tscn" id="3_klimt"]
-[ext_resource type="Script" uid="uid://biaptg8kvjcvi" path="res://scripts/widgits/hud_caption.gd" id="3_lxor5"]
-[ext_resource type="Script" uid="uid://bifsd86p73u58" path="res://scripts/widgits/hud_menu.gd" id="5_fvqv5"]
+[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/prefabs/widgets/caption.tscn" id="1_dhhia"]
+[ext_resource type="PackedScene" uid="uid://cucq8gseatpvc" path="res://scenes/prefabs/widgets/menu.tscn" id="3_klimt"]
+[ext_resource type="Script" path="res://scripts/widgits/hud_caption.gd" id="3_lxor5"]
+[ext_resource type="Script" path="res://scripts/widgits/hud_menu.gd" id="5_fvqv5"]
 
 [sub_resource type="Animation" id="Animation_dhhia"]
 length = 6.501

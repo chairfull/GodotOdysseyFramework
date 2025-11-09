@@ -12,10 +12,10 @@ func _ready() -> void:
 func _event(ev: Event) -> void:
 	if not ev == State.TOAST: return
 	var type: StringName = ev.get_str_name(&\"type\")
-	var player: int = ev.get_int(&\"player\")
+	#var player: int = ev.get_int(&\"player\")
 	var data: Dictionary = ev.get_dict(&\"data\")
 	
-	var toast := Assets.create_prefab(\"hud_\" + type, null, { data=data })
+	var toast := Assets.create_prefab(type, null, { data=data })
 	var mono: bool = toast.mono
 	if mono:
 		if type in _active and _active[type].size() > 0:
@@ -31,8 +31,7 @@ func _show_toast(toast: Control, type: StringName):
 		_active[type] = []
 	_active[type].append(toast)
 	var h_align: HorizontalAlignment = toast.h_align
-	var size := toast.size
-	toast.position = Global.view_size - size - Vector2(8, 8)
+	toast.position = Global.view_size - toast.size - Vector2(8, 8)
 	match h_align:
 		HORIZONTAL_ALIGNMENT_RIGHT:
 			toast.position.y = 0.0

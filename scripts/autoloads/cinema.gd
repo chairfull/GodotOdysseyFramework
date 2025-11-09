@@ -1,5 +1,6 @@
 extends Node
 
+signal event(id: StringName, data: Variant)
 signal started()
 signal ended()
 
@@ -7,13 +8,15 @@ var _queue: Array[Array]
 var _current: FlowPlayer
 var _state: Dictionary[StringName, Variant]
 
+func _event(id: StringName, data: Variant):
+	event.emit(id, data)
+
 func queue(scene: Variant, state: Dictionary[StringName, Variant] = {}):
 	if is_playing():
 		_queue.append([scene, state])
 	else:
-		print("CINEMA STARTED")
-		get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
 		started.emit()
+		State.add_pauser(self)
 		_play(scene, state)
 
 func _play(scene: Variant, state: Dictionary[StringName, Variant]):
@@ -33,7 +36,7 @@ func _play(scene: Variant, state: Dictionary[StringName, Variant]):
 	_current.play(id + "/ROOT")
 
 func _cinematic_ended():
-	ended.emit()
+	print("CINEMA ENDED ", _current, " QUEUE ", _queue)
 	remove_child(_current)
 	_current.queue_free()
 	_current = null
@@ -41,9 +44,8 @@ func _cinematic_ended():
 		var next: Array = _queue.pop_front()
 		_play(next[0], next[1])
 	else:
-		get_tree().current_scene.process_mode = Node.PROCESS_MODE_INHERIT
+		State.remove_pauser(self)
 		ended.emit()
-		print("CINEMA ENDED")
 
 func is_playing() -> bool:
 	return _current != null

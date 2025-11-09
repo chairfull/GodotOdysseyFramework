@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dm2ernmioan1k"]
+[gd_scene load_steps=11 format=3 uid="uid://bcxgk05m80g2i"]
 
-[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_o84jr"]
-[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/prefabs/widgets/caption.tscn" id="2_qctjt"]
+[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_ppc7m"]
+[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/prefabs/widgets/caption.tscn" id="2_7p204"]
 
-[sub_resource type="Animation" id="Animation_o84jr"]
-length = 5.501
+[sub_resource type="Animation" id="Animation_ppc7m"]
+length = 5.001
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -12,44 +12,43 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 2, 2.5, 3.5, 4.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"values": [{
+"args": [1190937198, &"branch_1412803000"],
+"method": &"_cond"
+}, {
+"args": [4194837085, &"branch_1358568038"],
+"method": &"_cond"
+}, {
+"args": [2590090614, &"branch_831363324"],
+"method": &"_cond"
+}, {
+"args": [3047965096, &"branch_2139195581"],
+"method": &"_cond"
+}, {
+"args": [2090815788, &"branch_426734299"],
+"method": &"_cond"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7p204"]
+length = 0.601
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"wait"
 }, {
-"args": [],
-"method": &"wait"
-}, {
-"args": ["QUEST_START", "my_quest"],
+"args": ["QUEST_PASS", "my_quest"],
 "method": &"_event"
-}, {
-"args": ["QUEST_TICK", "my_quest#area"],
-"method": &"_event"
-}, {
-"args": ["QUEST_SHOW", "my_quest#find_apple"],
-"method": &"_event"
-}, {
-"args": ["QUEST_SHOW", "my_quest#find_pear"],
-"method": &"_event"
-}, {
-"args": ["QUEST_SHOW", "my_quest#find_banana"],
-"method": &"_event"
-}, {
-"args": [],
-"method": &"wait"
-}, {
-"args": [],
-"method": &"wait"
-}, {
-"args": [520882869, &"branch_3389910691"],
-"method": &"_cond"
-}, {
-"args": [2636823051, &"branch_1404340728"],
-"method": &"_cond"
-}, {
-"args": [5381, &"branch_3979071157"],
-"method": &"_cond"
 }]
 }
 tracks/1/type = "value"
@@ -59,10 +58,10 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, true, false, true, true, false]
+"values": [true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -71,13 +70,13 @@ tracks/2/path = NodePath("./caption:text")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1.5, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["You entered the location.", "paul: This is the spot.", "Pisstest", "p: fghgh"]
+"values": ["paul: That's all of them!"]
 }
 
-[sub_resource type="Animation" id="Animation_qctjt"]
+[sub_resource type="Animation" id="Animation_52och"]
 length = 0.501
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -115,10 +114,10 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["paul: Now where is that apple."]
+"values": ["paul: Now all that's left is finding the banana."]
 }
 
-[sub_resource type="Animation" id="Animation_aq4bm"]
+[sub_resource type="Animation" id="Animation_bcbad"]
 length = 0.501
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -156,10 +155,10 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["paul: Those pears should be around here."]
+"values": ["paul: All I have to find is the pear."]
 }
 
-[sub_resource type="Animation" id="Animation_m4p48"]
+[sub_resource type="Animation" id="Animation_okx42"]
 length = 0.501
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -197,15 +196,58 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["paul: Where are you banana?"]
+"values": ["paul: All I need is that apple."]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0m8dx"]
+[sub_resource type="Animation" id="Animation_sjyad"]
+length = 0.501
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"wait"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["paul: One down. Two to go."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ju5mp"]
 _data = {
-&"ROOT": SubResource("Animation_o84jr"),
-&"branch_1404340728": SubResource("Animation_aq4bm"),
-&"branch_3389910691": SubResource("Animation_qctjt"),
-&"branch_3979071157": SubResource("Animation_m4p48")
+&"ROOT": SubResource("Animation_ppc7m"),
+&"branch_1358568038": SubResource("Animation_52och"),
+&"branch_1412803000": SubResource("Animation_7p204"),
+&"branch_2139195581": SubResource("Animation_okx42"),
+&"branch_426734299": SubResource("Animation_sjyad"),
+&"branch_831363324": SubResource("Animation_bcbad")
 }
 
 [sub_resource type="GDScript" id="GDScript_ys8yc"]
@@ -248,11 +290,11 @@ func _cinematic_step(gen: FlowPlayerGenerator, step: Dictionary):
 [node name="" type="AnimationPlayer"]
 root_node = NodePath(".")
 libraries = {
-&"_dbg-my_quest-HIDDEN-0": SubResource("AnimationLibrary_0m8dx")
+&"_dbg-my_quest-ACTIVE-3": SubResource("AnimationLibrary_ju5mp")
 }
-script = ExtResource("1_o84jr")
+script = ExtResource("1_ppc7m")
 
 [node name="screens" type="CanvasLayer" parent="."]
 
-[node name="caption" type="PanelContainer" parent="." instance=ExtResource("2_qctjt")]
+[node name="caption" type="PanelContainer" parent="." instance=ExtResource("2_7p204")]
 script = SubResource("GDScript_ys8yc")

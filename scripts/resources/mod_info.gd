@@ -7,8 +7,8 @@ class_name ModInfo extends StateObjects
 @export_global_dir var data_dir: String: ## Directory to scan for data files.
 	get: return data_dir if data_dir else resource_path.get_base_dir()
 @export_multiline var _debug_info := ""
-@export var _script_conds: Array[String]
-@export var _script_exprs: Array[String]
+@export var _script_conds: Dictionary[StringName, String]
+@export var _script_exprs: Dictionary[StringName, String]
 
 @warning_ignore("unused_private_class_variable")
 @export_tool_button("Regen") var _tb_regen := func():
@@ -56,13 +56,13 @@ func _process_flow(flow_script: FlowScript):
 				&"ELSE": _add_cond("true")
 
 func _add_cond(st: String) -> StringName:
-	var meth_name := "_cond_%s" % hash(st)
-	_script_conds.append("func %s() -> bool: return %s" % [meth_name, st])
+	var meth_name := StringName("_cond_%s" % hash(st))
+	_script_conds[meth_name] = st
 	return meth_name
 
 func _add_expr(st: String) -> StringName:
-	var meth_name := "_expr_%s" % hash(st)
-	_script_exprs.append("func %s() -> void: %s" % [meth_name, st])
+	var meth_name := StringName("_expr_%s" % hash(st))
+	_script_exprs[meth_name] = st
 	return meth_name
 
 func _load_data(data: Variant):
@@ -102,6 +102,7 @@ func _load_data(data: Variant):
 				for tick_id in tick_data:
 					var tick := QuestTick.new()
 					UObj.set_properties(tick, tick_data[tick_id])
+					tick.quest_id = id
 					quest.ticks[tick_id] = tick
 				for state_id in triggers:
 					var state: QuestInfo.QuestState = QuestInfo.QuestState.keys().find(state_id) as QuestInfo.QuestState
@@ -109,15 +110,16 @@ func _load_data(data: Variant):
 					var trigger_index := 0
 					for trigger_data in triggers[state_id]:
 						var trigger := TriggerInfo.new()
-						trigger.event = UDict.pop(trigger_data, &"event")
-						trigger.state.assign(UDict.pop(trigger_data, &"state"))
-						trigger.condition = _add_cond(UDict.pop(trigger_data, &"cond"))
+						trigger.event = UDict.pop(trigger_data, &"event", &"")
+						trigger.state.assign(UDict.pop(trigger_data, &"state", {}))
+						trigger.condition = _add_cond(UDict.pop(trigger_data, &"cond", ""))
 						UObj.set_properties(trigger, trigger_data)
 						quest.triggers[state].append(trigger)
 						
 						var path := data_dir.path_join("_dbg-%s-%s-%s" % [ id, state_id, trigger_index])
 						var flow_script := FlowScript.new()
-						flow_script.code = trigger_data.flow.replace("  ", "\t")
+						flow_script.code = trigger_data.flow#.replace("  ", "\t")
+						print_rich("[color=cyan]" + flow_script.code)
 						trigger.flow_script = flow_script
 						_process_flow(flow_script)
 						ResourceSaver.save(flow_script, path + ".tres")

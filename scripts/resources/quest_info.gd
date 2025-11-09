@@ -54,6 +54,30 @@ func set_state(s: QuestState):
 			#options[-1].call = set_style.bind(s)
 	#return options
 
+func start():
+	if state == QuestState.HIDDEN:
+		state = QuestState.ACTIVE
+		State.QUEST_STARTED.emit({ quest=self })
+		print("STARTED!")
+
+func set_passed():
+	if state != QuestState.PASSED:
+		state = QuestState.PASSED
+		State.QUEST_PASSED.emit({ quest=self })
+		
+func set_failed():
+	if state != QuestState.FAILED:
+		state = QuestState.FAILED
+		State.QUEST_FAILED.emit({ quest=self })
+
+func ticked(...tick_ids) -> bool:
+	for tid in tick_ids:
+		if not tid in ticks:
+			push_error("No tick %s in quest %s." % [tid, id])
+			return false
+		if not ticks[tid].completed: return false
+	return true
+
 func _get(property: StringName) -> Variant:
 	for tick_id in ticks:
 		if tick_id == property:

@@ -6,7 +6,7 @@ class_name FlowPlayerGenerator extends Node
 @export_tool_button("Regen") var _toolbutton_regen := _regenerate
 @export var default_delay := 0.5
 @export var anim: AnimationPlayer
-var _code: Array[String]
+#var _code: Array[String]
 var _queued_branches: Array[Array]
 var _code_methods := 0
 var _player: AnimationPlayer
@@ -38,7 +38,7 @@ static func generate(paths: Array[FlowScript]) -> FlowPlayer:
 	generator._generate()
 	for path in paths:
 		generator.add_script(path)
-	generator._set_gdscript()
+	#generator._set_gdscript()
 	return generator._player
 
 func _generate():
@@ -50,7 +50,7 @@ func _generate():
 	_screens.name = "screens"
 	_screens.owner = _player
 	
-	_code = []
+	#_code = []
 
 func _regenerate():
 	var gen_time := Time.get_ticks_msec()
@@ -62,7 +62,7 @@ func _regenerate():
 	
 	_generate()
 	add_script(flow_script)
-	_set_gdscript()
+	#_set_gdscript()
 	
 	var path := "res://assets/cinematics/%s.tscn" % ["dummy"]
 	var packed := PackedScene.new()
@@ -82,13 +82,13 @@ func _regenerate():
 	
 	prints("Generated in %s ms." % [Time.get_ticks_msec() - gen_time])
 
-func _set_gdscript():
-	_code.insert(0, "extends FlowPlayer")
-	var gdscript := GDScript.new()
-	gdscript.source_code = "\n".join(_code)
-	print(gdscript.source_code)
-	gdscript.reload()
-	_player.set_script(gdscript)
+#func _set_gdscript():
+	#_code.insert(0, "extends FlowPlayer")
+	#var gdscript := GDScript.new()
+	#gdscript.source_code = "\n".join(_code)
+	#print(gdscript.source_code)
+	#gdscript.reload()
+	#_player.set_script(gdscript)
 
 func add_script(cscript: FlowScript) -> void:
 	_library = AnimationLibrary.new()
@@ -137,88 +137,21 @@ func _add_branch(branch_id: StringName, steps: Array[Dictionary]):
 					&"WAIT":
 						add_time(1.0)
 					&"CODE":
-						#var _func_name := "_code%s" % _code_methods
-						#_code_methods += 1
-						#_code.append("# %s" % step.dbg)
-						#_code.append("func %s() -> void:" % _func_name)
-						#_code.append("\t" + _replace_vars(step.rest).replace("\n", "\n\t"))
-						add_method(&"_state_expr", [hash(step.rest)])
+						add_method(&"_expr", [hash(step.rest)])
 						add_time(1.0)
 					&"IF", &"ELIF", &"ELSE":
 						var branch := add_branch_queued(step.tabbed)
-						#var func_name := "_cond%s" % _code_methods
-						#var expression := _replace_vars(step.rest)
-						#if not "/" in branch:
-							#branch = _library_id + "/" + branch
-						#_code_methods += 1
-						#if step.cmnd == &"ELSE":
-							#_code.append("func %s() -> void: goto(&\"%s\")" % [func_name, branch])
-						#else:
-							#_code.append("func %s() -> void: if %s: goto(&\"%s\")" % [func_name, expression, branch])
-						add_method(&"_state_cond", [hash(step.rest), branch])
+						add_method(&"_cond", [hash(step.rest), branch])
 						add_time(1.0)
-					&"QUEST_TICK": print("TODO: QUEST_TICK")
-					&"QUEST_SHOW": print("TODO: QUEST_SHOW")
 					_:
-						push_warning("Unimplimented command %s." % [step])
+						if step.cmnd in QuestDB.ALL_EVENTS\
+						or step.cmnd in InventoryDB.ALL_EVENTS:
+							add_method(&"_event", [step.cmnd, step.rest])
+							add_time(.1)
+						else:
+							push_warning("[FlowPlayerGenerator] Unimplimented command %s." % [step])
 			_:
-				push_warning("Unimplmented step %s." % [step])
-
-
-
-#static func _replace_vars(input: String, vars: Array = []) -> String:
-	#const IGNORE := ["true", "false", "null",
-		#"match", "if", "elif", "else",
-		#"or", "in", "as",
-		#"return", "pass", "continue"]
-	#var REG_VAR := RegEx.create_from_string(r"[A-Za-z_]\w*(?:\[[^\]]+\]|\.[A-Za-z_]\w*)*")
-	#var i := 0
-	#var out := ""
-	#var safe := 1000
-	#while i < input.length() and safe > 0:
-		#safe -= 1
-		#var c := input[i]
-		## Skip quoted.
-		#if c == '"' or c == "'":
-			#var quote := c
-			#out += quote
-			#i += 1
-			#while i < input.length():
-				#out += input[i]
-				#if input[i] == "\\" and i + 1 < input.length():
-					#i += 2
-					#continue
-				#if input[i] == quote:
-					#i += 1
-					#break
-				#i += 1
-			#continue
-		#var rm := REG_VAR.search(input, i)
-		#if not rm:
-			#out += input.substr(i)
-			#break
-		#var start := rm.get_start()
-		#var end := rm.get_end()
-		#var dq := input.find('"', i)
-		#var sq := input.find("'", i)
-		#var next_quote := -1
-		#if dq != -1 and (sq == -1 or dq < sq):
-			#next_quote = dq
-		#elif sq != -1:
-			#next_quote = sq
-		#if next_quote != -1 and next_quote < start:
-			#out += input.substr(i, next_quote - i)
-			#i = next_quote
-			#continue
-		#var found := rm.strings[0]
-		#out += input.substr(i, start - i)
-		#if found not in IGNORE:
-			#if start < 6 or input.substr(start - 6, 6) != "State.":
-				#if not found in vars: vars.append(found)
-				#out += "State."
-		#out += found
-		#i = end
-	#return out
+				push_warning("[FlowPlayerGenerator] Unimplmented step %s." % [step])
 
 func has_object(id: String) -> bool:
 	return get_object(id) != null
@@ -239,7 +172,6 @@ func add_object(id: String, packed: PackedScene) -> Dictionary:
 
 func add_checkpoint():
 	add_method(&"wait")
-	#_branch_anim.track_insert_key(_branch_state.t_methods, _branch_time, { method=&"wait", args=[] })
 
 func add_method(method: StringName, args: Array = []):
 	_branch_anim.track_insert_key(_branch_state.t_methods, _branch_time, { method=method, args=args })

@@ -4,7 +4,7 @@ class_name ItemNode extends RigidBody3D
 
 @export var item: ItemInfo
 @export_custom(PROPERTY_HINT_EXPRESSION, "") var debug_properties_yaml: String
-@export var _state: Dictionary[StringName, Variant]
+#@export var _state: Dictionary[StringName, Variant]
 @export var mount: Node3D: set=set_mount ## Humanoid or ItemMount.
 @onready var animation_player: AnimationPlayer = %animation_player
 @onready var animation_tree: AnimationTree = %animation_tree

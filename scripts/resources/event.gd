@@ -41,6 +41,5 @@ func emit(kwargs: Dictionary = {}):
 			_current[prop] = kwargs[prop]
 		else:
 			push_warning("Event has no property %s. (%s)" % [prop, self])
-	print("EV CUR: ", _current)
 	State.event.emit(self)
 	emitted.emit(self)

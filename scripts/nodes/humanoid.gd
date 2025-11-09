@@ -1,6 +1,6 @@
 class_name Humanoid extends Agent
 
-func pickup(item_node: ItemNode):
+func pickup(_item_node: ItemNode):
 	print("TODO: PICKUP")
 	#var dummy := MeshInstance3D.new()
 	#get_tree().current_scene.add_child(dummy)
@@ -32,25 +32,6 @@ func pickup(item_node: ItemNode):
 		#"_held_item_remote:position": Vector3(0.2, -0.2, -0.2),
 		#"_held_item_remote:basis": Basis.IDENTITY
 	#}, 0.1)
-
-func drop() -> bool:
-	if not _held_item: return false
-	if _held_item.item._node_unequipped(_held_item):
-		var trans := _held_item.global_transform
-		var fwd: Vector3 = -%head.global_basis.z
-		trans.origin += fwd * .2
-		%head.remove_child(_held_item_remote)
-		_held_item_remote.queue_free()
-		_held_item_remote = null
-		#_held_item.reparent(_held_item_last_parent)
-		_held_item.mount = null
-		_held_item.process_mode = Node.PROCESS_MODE_INHERIT
-		_held_item.reset_state(trans)
-		_held_item.apply_central_impulse(fwd * 3.0)
-		_held_item = null
-		#_held_item_last_parent = null
-		return true
-	return false
 
 func stand():
 	_next_prone_state = ProneState.Stand

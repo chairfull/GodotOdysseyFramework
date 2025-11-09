@@ -28,8 +28,7 @@ func _ready() -> void:
 	_refresh()
 	_select_quest(State.quests._objects.values()[0])
 
-func is_game_pauser() -> bool: return true
-func is_cursor_used() -> bool: return true
+func is_pauser() -> bool: return true
 
 func _refresh():
 	_refresh_quest_list()

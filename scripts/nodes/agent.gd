@@ -253,3 +253,22 @@ func unfreeze() -> void:
 	collision_mask = 1
 	set_process(true)
 	set_physics_process(true)
+
+func drop() -> bool:
+	if not _held_item: return false
+	if _held_item.item._node_unequipped(_held_item):
+		var trans := _held_item.global_transform
+		var fwd: Vector3 = -%head.global_basis.z
+		trans.origin += fwd * .2
+		%head.remove_child(_held_item_remote)
+		_held_item_remote.queue_free()
+		_held_item_remote = null
+		#_held_item.reparent(_held_item_last_parent)
+		_held_item.mount = null
+		_held_item.process_mode = Node.PROCESS_MODE_INHERIT
+		_held_item.reset_state(trans)
+		_held_item.apply_central_impulse(fwd * 3.0)
+		_held_item = null
+		#_held_item_last_parent = null
+		return true
+	return false

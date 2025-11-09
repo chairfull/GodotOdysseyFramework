@@ -71,7 +71,7 @@ func merge(db: Database):
 func _add(id: StringName, obj: DatabaseObject, props := {}, silent := false) -> DatabaseObject:
 	if id in _objects:
 		push_warning("Replacing %s." % [id])
-	_objects[id] = UObj.set_properties(obj, props)
+	_objects[id] = UObj.set_properties(obj, props, silent)
 	obj.id = id
 	return obj
 

@@ -6,12 +6,7 @@
 script = ExtResource("1_5asl5")
 code = "You entered the location.
 paul: This is the spot.
-IF ZONE_ENTERED.zone == apple_area
-	paul: Now where is that apple.
-ELIF ZONE_ENTERED.zone == pear_area
-	paul: Those pears should be around here.
-ELSE
-	paul: Where are you banana?
+QUEST_START my_quest
 QUEST_TICK my_quest#area
 QUEST_SHOW my_quest#find_apple
 QUEST_SHOW my_quest#find_pear

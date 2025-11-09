@@ -2,8 +2,8 @@ extends Widget
 
 var _markers: Dictionary[Marker, HUDMarker]
 
-func _ready() -> void:
-	Controllers.event.connect(_event)
+#func _ready() -> void:
+	#Controllers.event.connect(_event)
 
 func _event(event: Event, data: Variant):
 	match event:

@@ -1,18 +1,24 @@
 @abstract class_name StateBase extends Node
 ## Handles state of world in a way where non-loaded content can be set/get.
 
+signal paused()
+signal unpaused()
 @warning_ignore("unused_signal") signal event(event: Event)
 
 var ZONE_ENTERED := Event.new({ zone=ZoneInfo, who=CharInfo })
 var ZONE_EXITED := Event.new({ zone=ZoneInfo, who=CharInfo })
 var QUEST_STARTED := Event.new({ quest=QuestInfo })
 var QUEST_TICKED := Event.new({ quest=QuestInfo })
+var QUEST_TICK_COMPLETED := Event.new({ tick=QuestTick })
+var QUEST_PASSED := Event.new({ quest=QuestInfo })
+var QUEST_FAILED := Event.new({ quest=QuestInfo })
 var ACHIEVEMENT := Event.new({ achievement=AchievementInfo })
 
-var TOAST := Event.new({ type=TYPE_STRING_NAME, player=TYPE_INT, data=TYPE_DICTIONARY })
+var TOAST := Event.new({ type=TYPE_STRING_NAME, player=TYPE_INT, text=TYPE_STRING, subtext=TYPE_STRING, data=TYPE_DICTIONARY })
 
 @export var objects: StateObjects
 var dbs: Array[Database]
+var _pausers: Array[Object]
 
 var chars: CharDB:
 	get: return objects.chars
@@ -32,6 +38,28 @@ func _init() -> void:
 func _ready() -> void:
 	reload()
 
+func add_pauser(obj: Object):
+	if obj in _pausers: return
+	_pausers.append(obj)
+	if _pausers.size() == 1:
+		_pause.call_deferred()
+
+func remove_pauser(obj: Object):
+	if not obj in _pausers: return
+	_pausers.erase(obj)
+	if _pausers.size() == 0:
+		_unpause.call_deferred()
+
+func _pause():
+	get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	paused.emit()
+	
+func _unpause():
+	get_tree().current_scene.process_mode = Node.PROCESS_MODE_INHERIT
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	unpaused.emit()
+
 func reload():
 	var mods := Mods.get_enabled()
 	var vars := []
@@ -44,9 +72,15 @@ func reload():
 	
 	for mod: ModInfo in mods:
 		# Compile conditions script.
-		code.append_array(mod._script_exprs)
-		code.append_array(mod._script_conds)
-	
+		for meth_name in mod._script_exprs:
+			code.append("func %s() -> void: %s" % [meth_name, mod._script_exprs[meth_name]])
+		for meth_name in mod._script_conds:
+			var cond := mod._script_conds[meth_name]
+			if not cond: cond = "true" # TODO: Fix.
+			code.append("func %s() -> bool: return %s" % [meth_name, cond])
+		
+		#prints(mod.mod_name, mod.mod_version, len(mod._script_exprs), len(mod._script_conds))
+		
 		for db_id in StateObjects.ORDER:
 			var db: Database = mod[db_id]
 			code.append("\n####\n## %s x%s\n####" % [db_id.to_upper(), db.size()])
@@ -68,11 +102,9 @@ func reload():
 		"extends StateBase"
 	] + code
 	scr.source_code = "\n".join(code)
+	#print(scr.source_code)
 	ResourceSaver.save(scr, "res://_state_.gd")
 	set_script.call_deferred(load("res://_state_.gd"))
-	
-	for db in dbs:
-		db.connect_signals()
 	
 	Global.msg("Changing script...")
 
@@ -85,6 +117,10 @@ func _true_reload():
 			var db1: Database = objects[prop]
 			var db2: Database = mod[prop]
 			db1.merge(db2)
+	
+	for db in dbs:
+		db.connect_signals()
+	
 	Global.msg("State", "Reloaded", [objects.get_counts_string()])
 	
 func find_char(id: StringName) -> CharInfo: return objects.chars.find(id)
@@ -93,15 +129,6 @@ func find_zone(id: StringName) -> ItemInfo: return objects.zones.find(id)
 func find_equipment_slot(id: StringName) -> EquipmentSlotInfo: return objects.equipment_slots.find(id)
 func find_attribute(id: StringName) -> AttributeInfo: return objects.attributes.find(id)
 func find_quest(id: StringName) -> QuestInfo: return objects.quests.find(id)
-
-#func test_condition(condition_method: StringName) -> bool:
-	#if not _conditions_script.has_method(condition_method):
-		#push_error("No condition method %s." % condition_method)
-		#return false
-	#if condition_method in _conditions_errored:
-		#push_error("Skipping %s as it has non-existing variables." % [condition_method])
-		#return false
-	#return _conditions_script.call(condition_method)
 	
 func _get(property: StringName) -> Variant:
 	for db in dbs:

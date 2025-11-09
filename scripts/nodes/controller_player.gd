@@ -44,7 +44,7 @@ func get_move_vector_camera() -> Vector2:
 	return get_move_vector().rotated(-dir)
 
 func is_widgit_visible(id: StringName) -> bool:
-	return ("hud_" + id) in _widgits
+	return id in _widgits
 
 func toggle_widgit(id: StringName) -> Node:
 	if is_widgit_visible(id):
@@ -54,20 +54,22 @@ func toggle_widgit(id: StringName) -> Node:
 		return show_widgit(id)
 
 func show_widgit(id: StringName, props := {}) -> Widget:
-	var hud_id := "hud_" + id
-	var widgit: Widget = _widgits.get(hud_id)
+	var widgit: Widget = _widgits.get(id)
 	if not widgit:
-		widgit = Assets.create_prefab(hud_id, self, props)
-		_widgits[hud_id] = widgit
+		widgit = Assets.create_prefab(id, self, props)
+		if widgit.is_pauser():
+			State.add_pauser(widgit)
+		_widgits[id] = widgit
 	return widgit
 
 func hide_widgit(id: StringName) -> bool:
-	var hud_id := "hud_" + id
-	var widgit: Widget = _widgits.get(hud_id)
+	var widgit: Widget = _widgits.get(id)
 	if widgit:
+		if widgit.is_pauser():
+			State.remove_pauser(widgit)
 		remove_child(widgit)
 		widgit.queue_free()
-		_widgits.erase(hud_id)
+		_widgits.erase(id)
 		return true
 	return false
 

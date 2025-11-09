@@ -8,7 +8,7 @@ const ORDER := [&"chars", &"items", &"zones", &"vars", &"quests"]
 @export var vars: VarDB
 @export var quests: QuestDB
 @export var attributes: AttributeDB
-@export var inventories: Database
+@export var inventories: InventoryDB
 @export var equip_slots: Database
 
 func _init() -> void:
@@ -30,7 +30,7 @@ func clear():
 	vars = VarDB.new()
 	quests = QuestDB.new()
 	attributes = AttributeDB.new()
-	inventories = Database.new()
+	inventories = InventoryDB.new()
 	equip_slots = Database.new()
 
 func get_dbs() -> Array[Database]:
