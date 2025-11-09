@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c2gecwvkm126p" path="res://scripts/nodes/bird.gd" id="1_r65ma"]
 [ext_resource type="Script" uid="uid://dfwpyddi4qity" path="res://scripts/nodes/pawn.gd" id="2_c2avh"]
-[ext_resource type="Script" uid="uid://dovg2kforl1yi" path="res://ai/tasks/choose_random_position.gd" id="2_ulacb"]
-[ext_resource type="Script" uid="uid://bet5mbq58hn0c" path="res://ai/tasks/move_to_position.gd" id="3_007pp"]
+[ext_resource type="Script" uid="uid://dovg2kforl1yi" path="res://assets/ai/tasks/choose_random_position.gd" id="2_ulacb"]
+[ext_resource type="Script" uid="uid://bet5mbq58hn0c" path="res://assets/ai/tasks/move_to_position.gd" id="3_007pp"]
 [ext_resource type="Script" uid="uid://bbksu3kwersqu" path="res://scripts/nodes/detector.gd" id="4_afdt5"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ulacb"]

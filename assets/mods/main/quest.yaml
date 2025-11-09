@@ -23,6 +23,11 @@ triggers:
         QUEST_SHOW my_quest#find_apple
         QUEST_SHOW my_quest#find_pear
         QUEST_SHOW my_quest#find_banana
+
+
+
+        <<< THESE IF STATEMENS ARE ERRORING ANIMATIONPLAYER >>>
+
         IF ZONE_ENTERED.zone == apple_area
           paul: Now where is that apple.
         ELIF ZONE_ENTERED.zone == pear_area

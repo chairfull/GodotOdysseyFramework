@@ -1,0 +1,83 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgu0c5ul5u3nn"]
+
+[ext_resource type="Script" uid="uid://ci6onqrxi1w1o" path="res://scenes/widgits/inventory.gd" id="1_xeaml"]
+[ext_resource type="Script" uid="uid://dh0608unc0n6i" path="res://addons/twee/nodes/twee_button_list.gd" id="2_k1jvm"]
+[ext_resource type="PackedScene" uid="uid://cjdbs4crptmma" path="res://scenes/widgits/inventory_slot.tscn" id="2_t68u1"]
+
+[node name="inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xeaml")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="item_grid" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/item_grid"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/item_grid/MarginContainer"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="slots" type="GridContainer" parent="VBoxContainer/item_grid/MarginContainer/ScrollContainer" node_paths=PackedStringArray("focus_highlight", "target", "for_child_target")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+columns = 5
+script = ExtResource("2_k1jvm")
+disable_on_pressed = true
+focus_highlight = NodePath("../../../../../outline")
+target = NodePath(".")
+for_child_target = NodePath(".")
+
+[node name="slot_prefab" parent="VBoxContainer/item_grid/MarginContainer/ScrollContainer/slots" instance=ExtResource("2_t68u1")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="control_labels" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/control_labels"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/control_labels/MarginContainer"]
+layout_mode = 2
+
+[node name="control_info" type="RichTextLabel" parent="VBoxContainer/control_labels/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Press E to equip."
+fit_content = true
+autowrap_mode = 0
+
+[node name="outline" type="ColorRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+color = Color(1, 1, 1, 0.48235294)

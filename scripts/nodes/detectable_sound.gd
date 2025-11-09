@@ -1,7 +1,7 @@
 class_name DetectableSound extends Area3D
 
 static func create(sound: StringName, at: Vector3, distance := 5.0, duration := 1.0) -> DetectableSound:
-	var node: DetectableSound = Assets.create_prefab(&"detectable_sound")
+	var node: DetectableSound = Assets.create_scene(&"detectable_sound")
 	Global.get_tree().current_scene.add_child(node)
 	node.name = "detsound_" + sound
 	node.global_position = at

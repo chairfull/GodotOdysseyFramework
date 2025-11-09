@@ -9,7 +9,7 @@ func wait(time: float, method: Callable) -> Signal:
 	return sig
 
 func change_scene(next_scene: Variant):
-	var trans := Assets.create_prefab(&"transition", self)
+	var trans := Assets.create_scene(&"transition", self)
 	await trans.fade_out()
 	if next_scene is PackedScene:
 		get_tree().change_scene_to_packed(next_scene)

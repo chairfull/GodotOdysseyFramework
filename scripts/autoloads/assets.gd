@@ -22,11 +22,11 @@ func create_audio_player(id: StringName) -> Node:
 	player.stream = stream
 	return player
 
-func create_prefab(id: StringName, parent: Variant = null, props := {}) -> Node:
-	if not id in assets.prefabs:
-		push_error("No %s in prefabs. %s." % [id, assets.prefabs.values()])
+func create_scene(id: StringName, parent: Variant = null, props := {}) -> Node:
+	if not id in assets.scenes:
+		push_error("No %s in scenes. %s." % [id, assets.scenes.values()])
 		return null
-	var full_path := "res://scenes/prefabs".path_join(assets.prefabs[id])
+	var full_path := "res://scenes".path_join(assets.scenes[id])
 	var node: Node = load(full_path).instantiate()
 	node.name = id
 	

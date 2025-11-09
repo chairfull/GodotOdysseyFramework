@@ -102,6 +102,7 @@ func _load_data(data: Variant):
 				for tick_id in tick_data:
 					var tick := QuestTick.new()
 					UObj.set_properties(tick, tick_data[tick_id])
+					tick.id = tick_id
 					tick.quest_id = id
 					quest.ticks[tick_id] = tick
 				for state_id in triggers:
@@ -118,7 +119,7 @@ func _load_data(data: Variant):
 						
 						var path := data_dir.path_join("_dbg-%s-%s-%s" % [ id, state_id, trigger_index])
 						var flow_script := FlowScript.new()
-						flow_script.code = trigger_data.flow#.replace("  ", "\t")
+						flow_script.code = trigger_data.flow
 						print_rich("[color=cyan]" + flow_script.code)
 						trigger.flow_script = flow_script
 						_process_flow(flow_script)

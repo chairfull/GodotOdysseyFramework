@@ -17,7 +17,7 @@ func _enable() -> void:
 	#agent.interactive_detector.visible_changed.connect(agent.interactive_changed.emit)
 	get_player_controller().view_state_changed.connect(_view_state_changed)
 	if not camera:
-		camera = Assets.create_prefab(&"camera_follow", true)
+		camera = Assets.create_scene(&"camera_follow", true)
 		camera.target = agent
 		get_player_controller().camera_master.target = camera.camera
 		camera.get_node("%head_remote").remote_path = agent.get_node("%head").get_path()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bcxgk05m80g2i"]
 
 [ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_ppc7m"]
-[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/prefabs/widgets/caption.tscn" id="2_7p204"]
+[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_7p204"]
 
 [sub_resource type="Animation" id="Animation_ppc7m"]
 length = 5.001

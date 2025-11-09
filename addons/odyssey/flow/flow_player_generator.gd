@@ -2,23 +2,17 @@
 class_name FlowPlayerGenerator extends Node
 
 @export var flow_script: FlowScript
-@warning_ignore("unused_private_class_variable")
-@export_tool_button("Regen") var _toolbutton_regen := _regenerate
 @export var default_delay := 0.5
-@export var anim: AnimationPlayer
-#var _code: Array[String]
 var _queued_branches: Array[Array]
 var _code_methods := 0
-var _player: AnimationPlayer
+var _player: FlowPlayer
 var _library_id: String
 var _library: AnimationLibrary ## Current lib being generated.
+var _branch_id: StringName
 var _branch_anim: Animation ## Current anim being generated.
 var _branch_state: Dictionary ## State of current anim branch.
 var _branch_time: float ## Total time of current anim branch.
 var _screens: Node
-
-const HUD_CAPTION = preload("uid://dsa17lrw23t4")
-const HUD_MENU = preload("uid://cucq8gseatpvc")
 
 func get_state(key: StringName, default: Variant = null) -> Variant:
 	return _branch_state.get(key, default)
@@ -29,16 +23,11 @@ func has_state(key: StringName) -> bool:
 func set_state(key: StringName, value: Variant) -> void:
 	_branch_state[key] = value
 
-func _ready() -> void:
-	if not Engine.is_editor_hint():
-		_regenerate()
-
 static func generate(paths: Array[FlowScript]) -> FlowPlayer:
 	var generator := FlowPlayerGenerator.new()
 	generator._generate()
 	for path in paths:
 		generator.add_script(path)
-	#generator._set_gdscript()
 	return generator._player
 
 func _generate():
@@ -49,46 +38,6 @@ func _generate():
 	_player.add_child(_screens)
 	_screens.name = "screens"
 	_screens.owner = _player
-	
-	#_code = []
-
-func _regenerate():
-	var gen_time := Time.get_ticks_msec()
-	
-	if anim:
-		remove_child(anim)
-		anim.queue_free()
-		anim = null
-	
-	_generate()
-	add_script(flow_script)
-	#_set_gdscript()
-	
-	var path := "res://assets/cinematics/%s.tscn" % ["dummy"]
-	var packed := PackedScene.new()
-	var err := packed.pack(_player)
-	if err != OK:
-		push_error("Couldn't pack.")
-		return
-	
-	err = ResourceSaver.save(packed, path)
-	if err != OK:
-		push_error("Couldn't save.")
-		return
-	
-	anim = load(path).instantiate()
-	add_child(anim)
-	anim.owner = self
-	
-	prints("Generated in %s ms." % [Time.get_ticks_msec() - gen_time])
-
-#func _set_gdscript():
-	#_code.insert(0, "extends FlowPlayer")
-	#var gdscript := GDScript.new()
-	#gdscript.source_code = "\n".join(_code)
-	#print(gdscript.source_code)
-	#gdscript.reload()
-	#_player.set_script(gdscript)
 
 func add_script(cscript: FlowScript) -> void:
 	_library = AnimationLibrary.new()
@@ -104,13 +53,14 @@ func add_script(cscript: FlowScript) -> void:
 		branch.assign(binfo[1])
 		_add_branch(binfo[0], branch)
 
-func add_branch_queued(steps: Array[Dictionary], branch_id := &"") -> StringName:
+func _add_branch_queued(steps: Array[Dictionary], branch_id := &"") -> StringName:
 	if not branch_id:
 		branch_id = "branch_%s" % hash(steps)
 	_queued_branches.append([branch_id, steps])
 	return branch_id
 
 func _add_branch(branch_id: StringName, steps: Array[Dictionary]):
+	_branch_id = branch_id
 	_branch_anim = Animation.new()
 	_branch_anim.length = 0.0
 	_branch_state = {}
@@ -124,15 +74,15 @@ func _add_branch(branch_id: StringName, steps: Array[Dictionary]):
 	for step in steps:
 		match step.type:
 			FlowToken.TEXT:
-				var state := add_object("caption", HUD_CAPTION)
+				var state := add_object("caption")
 				state.node._cinematic_step(self, step)
 			FlowToken.KEYV:
-				var state := add_object("caption", HUD_CAPTION)
+				var state := add_object("caption")
 				state.node._cinematic_step(self, step)
 			FlowToken.CMND:
 				match step.cmnd:
 					&"MENU":
-						var state := add_object("menu", HUD_MENU)
+						var state := add_object("menu")
 						state.node._cinematic_step(self, step)
 					&"WAIT":
 						add_time(1.0)
@@ -140,18 +90,17 @@ func _add_branch(branch_id: StringName, steps: Array[Dictionary]):
 						add_method(&"_expr", [hash(step.rest)])
 						add_time(1.0)
 					&"IF", &"ELIF", &"ELSE":
-						var branch := add_branch_queued(step.tabbed)
+						var branch := _add_branch_queued(step.tabbed)
 						add_method(&"_cond", [hash(step.rest), branch])
 						add_time(1.0)
 					_:
 						if step.cmnd in QuestDB.ALL_EVENTS\
 						or step.cmnd in InventoryDB.ALL_EVENTS:
 							add_method(&"_event", [step.cmnd, step.rest])
-							add_time(.1)
 						else:
-							push_warning("[FlowPlayerGenerator] Unimplimented command %s." % [step])
+							Global.warn("FlowPlayerGenerator", "Unimplimented command %s." % [step])
 			_:
-				push_warning("[FlowPlayerGenerator] Unimplmented step %s." % [step])
+				Global.warn("FlowPlayerGenerator", "Unimplmented step %s." % [step])
 
 func has_object(id: String) -> bool:
 	return get_object(id) != null
@@ -159,10 +108,9 @@ func has_object(id: String) -> bool:
 func get_object(id: String) -> Node:
 	return _player.get_node_or_null(id)
 
-func add_object(id: String, packed: PackedScene) -> Dictionary:
+func add_object(id: String) -> Dictionary:
 	if not has_object(id):
-		var node := packed.instantiate()
-		_player.add_child(node)
+		var node := Assets.create_scene(id, _player)
 		node.name = id
 		node.owner = _player
 	if not has_state(id):
@@ -174,7 +122,12 @@ func add_checkpoint():
 	add_method(&"wait")
 
 func add_method(method: StringName, args: Array = []):
-	_branch_anim.track_insert_key(_branch_state.t_methods, _branch_time, { method=method, args=args })
+	var hash_index := hash(_branch_id + str(_branch_time))
+	if not hash_index in _player.method_calls:
+		_player.method_calls[hash_index] = []
+	_player.method_calls[hash_index].append([method, args])
+	# Will replace existing frames, but that's fine since they will have the same hash.
+	_branch_anim.track_insert_key(_branch_state.t_methods, _branch_time, { method=&"_meth", args=hash_index })
 
 func add_track(node: Node, property: NodePath, update: Variant = null, interp: Variant = null) -> int:
 	var state_name := node.name

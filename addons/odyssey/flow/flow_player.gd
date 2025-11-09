@@ -5,6 +5,8 @@ signal wait_started()
 signal wait_ended()
 signal ended()
 
+## Multiple methods may be called in a single tick this way.
+@export var method_calls: Dictionary[int, Array]
 var _waiting_for_user := false
 var _stack: Array[Array]
 
@@ -13,17 +15,23 @@ func _ready() -> void:
 		animation_finished.connect(_animation_finished)
 		#play(&"ROOT")
 
-func _expr(hash_id: int):
-	State.call("_expr_%s" % hash_id)
-
-func _cond(hash_id: int, branch: StringName):
-	if State.call("_cond_%s" % hash_id):
-		goto(branch)
-
-func _event(id: StringName, data: Variant):
-	print("flow event ", id, data)
-	Cinema._event(id, data)
-
+func _meth(hash_index: int):
+	if hash_index in method_calls:
+		for item in method_calls[hash_index]:
+			var meth_id: StringName = item[0]
+			var meth_args: Array = item[1]
+			match meth_id:
+				&"_expr": State.call("_expr_%s" % meth_args[0])
+				&"_cond":
+					var cond_hash_index: int = meth_args[0]
+					var cond_branch: StringName = meth_args[1]
+					if State.call("_cond_%s" % cond_hash_index):
+						goto(cond_branch)
+				&"_event":
+					var ev_id: StringName = meth_args[0]
+					var ev_data: String = meth_args[1]
+					Cinema._event(ev_id, ev_data)
+				_: callv(meth_id, meth_args)
 
 func _animation_finished(_a: StringName):
 	if _stack:

@@ -35,7 +35,27 @@ func _init() -> void:
 	if get_script().resource_path == "res://_state_.gd":
 		_true_reload()
 
+const LOGO := r"""
+╭─╮┌─╮╷ ╷╭─╮╭─╮╭─╴╮ ╷   ┌─╴┌─╮╭─╮╭┬╮╭─╴╮╷╷╭─╮┌─╮╷ ╷
+│ │≈ │╰┼╯╰─╮╰─╮├─ ╰┼╯   ├─ ├┬╯├─┤│││├─ ││││ │├┬╯├┬╯
+╰─╯└─╯ ╵ ╰─╯╰─╯╰─╴ ╵    ╵  ╵╰╴╯ ╵╵╵╵╰─╴╰┴╯╰─╯╵╰╴╯╰
+╘═══════════════════( v{version} )══════════════════════╛
+"""
+
+func print_logo() -> void:
+	var c1 := Color.DEEP_SKY_BLUE
+	var c2 := Color.GOLDENROD
+	var logo := ""
+	for row in LOGO.format({version="0.1"}).strip_edges().split("\n"):
+		var i := 0
+		for col in row:
+			logo += "[color=#%s]%s[/color]" % [c1.lerp(c2, i / 54.0).to_html(), col]
+			i += 1
+		logo += "\n"
+	print_rich(logo)
+
 func _ready() -> void:
+	print_logo()
 	reload()
 
 func add_pauser(obj: Object):

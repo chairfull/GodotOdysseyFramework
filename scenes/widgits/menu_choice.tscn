@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl1wu7da5ih3s"]
+
+[ext_resource type="Script" uid="uid://wum5tgxqnx40" path="res://scenes/widgits/menu_choice.gd" id="1_5dig4"]
+
+[node name="menu_choice" type="Button"]
+offset_right = 136.0
+offset_bottom = 36.0
+script = ExtResource("1_5dig4")
+
+[node name="text" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+bbcode_enabled = true
+text = "Choice Text"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -191,6 +191,11 @@ honk={
 3d_physics/layer_15="visible"
 3d_physics/layer_16="hearable"
 
+[limbo_ai]
+
+behavior_tree/behavior_tree_default_dir="res://assets/ai/trees"
+behavior_tree/user_task_dirs=PackedStringArray("res://assets/ai/tasks")
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

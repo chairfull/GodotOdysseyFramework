@@ -56,7 +56,7 @@ func toggle_widgit(id: StringName) -> Node:
 func show_widgit(id: StringName, props := {}) -> Widget:
 	var widgit: Widget = _widgits.get(id)
 	if not widgit:
-		widgit = Assets.create_prefab(id, self, props)
+		widgit = Assets.create_scene(id, self, props)
 		if widgit.is_pauser():
 			State.add_pauser(widgit)
 		_widgits[id] = widgit
