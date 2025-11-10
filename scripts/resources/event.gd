@@ -40,6 +40,13 @@ func emit(kwargs: Dictionary = {}):
 		if prop in _default:
 			_current[prop] = kwargs[prop]
 		else:
-			push_warning("Event has no property %s. (%s)" % [prop, self])
+			push_warning("Event %s has no property %s. (%s)" % [get_state_property_name(), prop, self])
 	State.event.emit(self)
 	emitted.emit(self)
+
+func get_state_property_name() -> StringName:
+	for prop in State.get_property_list():
+		if not UBit.is_enabled(prop.usage, PROPERTY_USAGE_SCRIPT_VARIABLE): continue
+		if prop.type == TYPE_OBJECT and State[prop.name] == self:
+			return prop.name
+	return &""

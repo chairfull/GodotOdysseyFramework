@@ -5,10 +5,13 @@ extends StateBase
 func _cond_1190937198() -> bool: return my_quest.ticked("find_apple", "find_pear", "find_banana")
 func _cond_1744640919() -> bool: return ZONE_EXITED.zone in [apple_area, pear_area, banana_area]
 func _cond_1916210732() -> bool: return my_quest.ticked("find_pear", "find_banana")
+func _cond_2090770405() -> bool: return true
 func _cond_2090815788() -> bool: return my_quest.ticked("find_apple") or my_quest.ticked("find_banana") or my_quest.ticked("find_pear")
 func _cond_2590090614() -> bool: return my_quest.ticked("find_apple", "find_banana")
+func _cond_2636823051() -> bool: return ZONE_ENTERED.zone == pear_area
 func _cond_3056990139() -> bool: return ZONE_ENTERED.zone in [apple_area, pear_area, banana_area]
 func _cond_4194837085() -> bool: return my_quest.ticked("find_apple", "find_pear")
+func _cond_520882869() -> bool: return ZONE_ENTERED.zone == apple_area
 func _cond_5381() -> bool: return true
 
 ####

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5q234bb25srj"]
+[gd_scene load_steps=11 format=3 uid="uid://b5q234bb25srj"]
 
-[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_np5xn"]
+[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_mg0lm"]
 [ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_n42i5"]
+[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption_widgit.gd" id="3_n42i5"]
 
-[sub_resource type="Animation" id="Animation_np5xn"]
-length = 0.70100003
+[sub_resource type="Animation" id="Animation_n42i5"]
+length = 0.101
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -12,17 +13,31 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "values": [{
-"args": ["GAIN_ITEM", "apple who:paul"],
-"method": &"_event"
+"args": [1777536727],
+"method": &"_meth"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_m6pof"]
+length = 0.501
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [2894167511],
+"method": &"_meth"
 }, {
-"args": [],
-"method": &"wait"
-}, {
-"args": ["QUEST_TICK", "my_quest#find_apple"],
-"method": &"_event"
+"args": [2894167516],
+"method": &"_meth"
 }]
 }
 tracks/1/type = "value"
@@ -32,7 +47,7 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.6),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -44,62 +59,203 @@ tracks/2/path = NodePath("./caption:text")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["paul: That's all of them!"]
+}
+
+[sub_resource type="Animation" id="Animation_yjh80"]
+length = 0.501
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [256312446],
+"method": &"_meth"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": ["", "paul: An apple. Just what I needed."]
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["paul: Now all that's left is finding the banana."]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_n42i5"]
+[sub_resource type="Animation" id="Animation_ag57d"]
+length = 0.501
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [3549328158],
+"method": &"_meth"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["paul: All I have to find is the pear."]
+}
+
+[sub_resource type="Animation" id="Animation_d6n8h"]
+length = 0.501
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [2849222914],
+"method": &"_meth"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["paul: All I need is that apple."]
+}
+
+[sub_resource type="Animation" id="Animation_28rmy"]
+length = 0.501
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [264718165],
+"method": &"_meth"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("./caption:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("./caption:text")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["paul: One down. Two to go."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cboc8"]
 _data = {
-&"ROOT": SubResource("Animation_np5xn")
+&"ROOT": SubResource("Animation_n42i5"),
+&"branch_1526383200": SubResource("Animation_ag57d"),
+&"branch_2882915596": SubResource("Animation_m6pof"),
+&"branch_3451350117": SubResource("Animation_yjh80"),
+&"branch_3929484761": SubResource("Animation_28rmy"),
+&"branch_952356893": SubResource("Animation_d6n8h")
 }
-
-[sub_resource type="GDScript" id="GDScript_ys8yc"]
-script/source = "@tool
-extends Widget
-
-@export var text: String: set=set_text
-
-func set_text(t: String):
-	%label.text = t
-
-func _cinematic_step(gen: FlowPlayerGenerator, step: Dictionary):
-	var speaker := \"\"
-	var caption := \"\"
-	match step.type:
-		FlowToken.KEYV:
-			speaker = step.key
-			caption = step.val
-		FlowToken.TEXT:
-			caption = step.text
-		
-	if speaker:
-		caption = \"%s: %s\" % [speaker, caption]
-	else:
-		caption = caption
-	
-	var caption_count: int = gen.get_state(&\"caption_count\", 0)
-	gen.set_state(&\"caption_count\", caption_count + 1)
-	var t_visible := gen.add_track(self, \"visible\")
-	var t_text := gen.add_track(self, \"text\")
-	if caption_count == 0:
-		gen.add_key(t_text, 0, \"\")
-	gen.add_key(t_visible, gen.get_time(), true)
-	gen.add_key(t_text, gen.get_time(), caption)
-	gen.add_checkpoint()
-	gen.add_time()
-	gen.add_key(t_visible, gen.get_time(), false)
-"
 
 [node name="" type="AnimationPlayer"]
 root_node = NodePath(".")
 libraries = {
-&"_dbg-my_quest-ACTIVE-0": SubResource("AnimationLibrary_n42i5")
+&"_dbg-my_quest-ACTIVE-0": SubResource("AnimationLibrary_cboc8")
 }
-script = ExtResource("1_np5xn")
+script = ExtResource("1_mg0lm")
+method_calls = Dictionary[int, Array]({
+256312446: [[&"wait", []]],
+264718165: [[&"wait", []]],
+1777536727: [[&"_cond", [[[1190937198, &"branch_2882915596"], [4194837085, &"branch_3451350117"], [2590090614, &"branch_1526383200"], [1916210732, &"branch_952356893"], [2090815788, &"branch_3929484761"]]]]],
+2849222914: [[&"wait", []]],
+2894167511: [[&"wait", []]],
+2894167516: [[&"_event", ["QUEST_PASS", "my_quest"]]],
+3549328158: [[&"wait", []]]
+})
 
 [node name="screens" type="CanvasLayer" parent="."]
 
 [node name="caption" type="PanelContainer" parent="." instance=ExtResource("2_n42i5")]
-script = SubResource("GDScript_ys8yc")
+script = ExtResource("3_n42i5")

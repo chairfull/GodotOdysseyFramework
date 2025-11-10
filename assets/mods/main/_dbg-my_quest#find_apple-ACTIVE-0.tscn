@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsv5htg3lt77y"]
+[gd_scene load_steps=6 format=3 uid="uid://snta15jp7wkx"]
 
-[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_lp8v3"]
-[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_rvlmn"]
-[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption_widgit.gd" id="3_j4bke"]
+[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_0m34g"]
+[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_35hab"]
+[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption_widgit.gd" id="3_pc7ek"]
 
-[sub_resource type="Animation" id="Animation_rvlmn"]
+[sub_resource type="Animation" id="Animation_ebkqp"]
 length = 0.501
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -45,26 +45,26 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["paul: Banana!"]
+"values": ["paul: An apple. Just what I needed."]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_j4bke"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8hbew"]
 _data = {
-&"ROOT": SubResource("Animation_rvlmn")
+&"ROOT": SubResource("Animation_ebkqp")
 }
 
 [node name="" type="AnimationPlayer"]
 root_node = NodePath(".")
 libraries = {
-&"_dbg-my_quest-ACTIVE-2": SubResource("AnimationLibrary_j4bke")
+&"_dbg-my_quest#find_apple-ACTIVE-0": SubResource("AnimationLibrary_8hbew")
 }
-script = ExtResource("1_lp8v3")
+script = ExtResource("1_0m34g")
 method_calls = Dictionary[int, Array]({
-1777536727: [[&"_event", ["GAIN_ITEM", "banana who:paul"]], [&"wait", []]],
-1777536732: [[&"_event", ["QUEST_TICK", "my_quest#find_banana"]]]
+1777536727: [[&"_event", ["GAIN_ITEM", "apple who:paul"]], [&"wait", []]],
+1777536732: [[&"_event", ["QUEST_TICK", "my_quest#find_apple"]]]
 })
 
 [node name="screens" type="CanvasLayer" parent="."]
 
-[node name="caption" type="PanelContainer" parent="." instance=ExtResource("2_rvlmn")]
-script = ExtResource("3_j4bke")
+[node name="caption" type="PanelContainer" parent="." instance=ExtResource("2_35hab")]
+script = ExtResource("3_pc7ek")

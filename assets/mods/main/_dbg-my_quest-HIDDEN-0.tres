@@ -11,4 +11,11 @@ QUEST_TICK my_quest#area
 QUEST_SHOW my_quest#find_apple
 QUEST_SHOW my_quest#find_pear
 QUEST_SHOW my_quest#find_banana
+
+IF ZONE_ENTERED.zone == apple_area
+  paul: Now where is that apple.
+ELIF ZONE_ENTERED.zone == pear_area
+  paul: Those pears should be around here.
+ELSE
+  paul: Where are you banana?
 "

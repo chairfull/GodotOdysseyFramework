@@ -6,10 +6,34 @@ ticks:
     name: Found a fruit spot.
   find_apple:
     name: Find the apple.
+    triggers:
+      ACTIVE:
+        - event: ZONE_ENTERED
+          state: { who: paul, zone: apple_area }
+          flow: |
+            GAIN_ITEM apple who:paul
+            paul: An apple. Just what I needed.
+            QUEST_TICK my_quest#find_apple
   find_pear:
     name: Find the pear.
+    triggers:
+      ACTIVE:
+        - event: ZONE_ENTERED
+          state: { who: paul, zone: pear_area }
+          flow: |
+            GAIN_ITEM pear who:paul
+            paul: Here is a pear... perfect.
+            QUEST_TICK my_quest#find_pear
   find_banana:
     name: Find the banana.
+    triggers:
+      ACTIVE:
+        - event: ZONE_ENTERED
+          state: { who: paul, zone: banana_area }
+          flow: |
+            GAIN_ITEM banana who:paul
+            paul: Banana!
+            QUEST_TICK my_quest#find_banana
 triggers:
   HIDDEN:
     - event: ZONE_ENTERED
@@ -24,10 +48,6 @@ triggers:
         QUEST_SHOW my_quest#find_pear
         QUEST_SHOW my_quest#find_banana
 
-
-
-        <<< THESE IF STATEMENS ARE ERRORING ANIMATIONPLAYER >>>
-
         IF ZONE_ENTERED.zone == apple_area
           paul: Now where is that apple.
         ELIF ZONE_ENTERED.zone == pear_area
@@ -35,24 +55,6 @@ triggers:
         ELSE
           paul: Where are you banana?
   ACTIVE:
-    - event: ZONE_ENTERED
-      state: { who: paul, zone: apple_area }
-      flow: |
-        GAIN_ITEM apple who:paul
-        paul: An apple. Just what I needed.
-        QUEST_TICK my_quest#find_apple
-    - event: ZONE_ENTERED
-      state: { who: paul, zone: pear_area }
-      flow: |
-        GAIN_ITEM pear who:paul
-        paul: Here is a pear... perfect.
-        QUEST_TICK my_quest#find_pear
-    - event: ZONE_ENTERED
-      state: { who: paul, zone: banana_area }
-      flow: |
-        GAIN_ITEM banana who:paul
-        paul: Banana!
-        QUEST_TICK my_quest#find_banana
     - event: ZONE_EXITED
       state: { who: paul }
       cond: ZONE_EXITED.zone in [apple_area, pear_area, banana_area]

@@ -1,10 +1,11 @@
 [gd_scene load_steps=11 format=3 uid="uid://bcxgk05m80g2i"]
 
-[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_ppc7m"]
+[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_k2vxw"]
 [ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_7p204"]
+[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption_widgit.gd" id="3_52och"]
 
-[sub_resource type="Animation" id="Animation_ppc7m"]
-length = 5.001
+[sub_resource type="Animation" id="Animation_7p204"]
+length = 0.101
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -12,28 +13,16 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3, 4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "values": [{
-"args": [1190937198, &"branch_1412803000"],
-"method": &"_cond"
-}, {
-"args": [4194837085, &"branch_1358568038"],
-"method": &"_cond"
-}, {
-"args": [2590090614, &"branch_831363324"],
-"method": &"_cond"
-}, {
-"args": [3047965096, &"branch_2139195581"],
-"method": &"_cond"
-}, {
-"args": [2090815788, &"branch_426734299"],
-"method": &"_cond"
+"args": [1777536727],
+"method": &"_meth"
 }]
 }
 
-[sub_resource type="Animation" id="Animation_7p204"]
-length = 0.601
+[sub_resource type="Animation" id="Animation_52och"]
+length = 0.501
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -44,11 +33,11 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
-"args": [],
-"method": &"wait"
+"args": [3972618419],
+"method": &"_meth"
 }, {
-"args": ["QUEST_PASS", "my_quest"],
-"method": &"_event"
+"args": [3972618424],
+"method": &"_meth"
 }]
 }
 tracks/1/type = "value"
@@ -76,7 +65,7 @@ tracks/2/keys = {
 "values": ["paul: That's all of them!"]
 }
 
-[sub_resource type="Animation" id="Animation_52och"]
+[sub_resource type="Animation" id="Animation_bcbad"]
 length = 0.501
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -88,8 +77,8 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"wait"
+"args": [2528886191],
+"method": &"_meth"
 }]
 }
 tracks/1/type = "value"
@@ -117,7 +106,7 @@ tracks/2/keys = {
 "values": ["paul: Now all that's left is finding the banana."]
 }
 
-[sub_resource type="Animation" id="Animation_bcbad"]
+[sub_resource type="Animation" id="Animation_okx42"]
 length = 0.501
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -129,8 +118,8 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"wait"
+"args": [1665633361],
+"method": &"_meth"
 }]
 }
 tracks/1/type = "value"
@@ -158,7 +147,7 @@ tracks/2/keys = {
 "values": ["paul: All I have to find is the pear."]
 }
 
-[sub_resource type="Animation" id="Animation_okx42"]
+[sub_resource type="Animation" id="Animation_sjyad"]
 length = 0.501
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -170,8 +159,8 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"wait"
+"args": [2506794604],
+"method": &"_meth"
 }]
 }
 tracks/1/type = "value"
@@ -199,7 +188,7 @@ tracks/2/keys = {
 "values": ["paul: All I need is that apple."]
 }
 
-[sub_resource type="Animation" id="Animation_sjyad"]
+[sub_resource type="Animation" id="Animation_ju5mp"]
 length = 0.501
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -211,8 +200,8 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"wait"
+"args": [2258958878],
+"method": &"_meth"
 }]
 }
 tracks/1/type = "value"
@@ -240,61 +229,33 @@ tracks/2/keys = {
 "values": ["paul: One down. Two to go."]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ju5mp"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vp5hh"]
 _data = {
-&"ROOT": SubResource("Animation_ppc7m"),
-&"branch_1358568038": SubResource("Animation_52och"),
-&"branch_1412803000": SubResource("Animation_7p204"),
-&"branch_2139195581": SubResource("Animation_okx42"),
-&"branch_426734299": SubResource("Animation_sjyad"),
-&"branch_831363324": SubResource("Animation_bcbad")
+&"ROOT": SubResource("Animation_7p204"),
+&"branch_1358568038": SubResource("Animation_bcbad"),
+&"branch_1412803000": SubResource("Animation_52och"),
+&"branch_2139195581": SubResource("Animation_sjyad"),
+&"branch_426734299": SubResource("Animation_ju5mp"),
+&"branch_831363324": SubResource("Animation_okx42")
 }
-
-[sub_resource type="GDScript" id="GDScript_ys8yc"]
-script/source = "@tool
-extends Widget
-
-@export var text: String: set=set_text
-
-func set_text(t: String):
-	%label.text = t
-
-func _cinematic_step(gen: FlowPlayerGenerator, step: Dictionary):
-	var speaker := \"\"
-	var caption := \"\"
-	match step.type:
-		FlowToken.KEYV:
-			speaker = step.key
-			caption = step.val
-		FlowToken.TEXT:
-			caption = step.text
-		
-	if speaker:
-		caption = \"%s: %s\" % [speaker, caption]
-	else:
-		caption = caption
-	
-	var caption_count: int = gen.get_state(&\"caption_count\", 0)
-	gen.set_state(&\"caption_count\", caption_count + 1)
-	var t_visible := gen.add_track(self, \"visible\")
-	var t_text := gen.add_track(self, \"text\")
-	if caption_count == 0:
-		gen.add_key(t_text, 0, \"\")
-	gen.add_key(t_visible, gen.get_time(), true)
-	gen.add_key(t_text, gen.get_time(), caption)
-	gen.add_checkpoint()
-	gen.add_time()
-	gen.add_key(t_visible, gen.get_time(), false)
-"
 
 [node name="" type="AnimationPlayer"]
 root_node = NodePath(".")
 libraries = {
-&"_dbg-my_quest-ACTIVE-3": SubResource("AnimationLibrary_ju5mp")
+&"_dbg-my_quest-ACTIVE-3": SubResource("AnimationLibrary_vp5hh")
 }
-script = ExtResource("1_ppc7m")
+script = ExtResource("1_k2vxw")
+method_calls = Dictionary[int, Array]({
+1665633361: [[&"wait", []]],
+1777536727: [[&"_cond", [[[1190937198, &"branch_1412803000"], [4194837085, &"branch_1358568038"], [2590090614, &"branch_831363324"], [1916210732, &"branch_2139195581"], [2090815788, &"branch_426734299"]]]]],
+2258958878: [[&"wait", []]],
+2506794604: [[&"wait", []]],
+2528886191: [[&"wait", []]],
+3972618419: [[&"wait", []]],
+3972618424: [[&"_event", ["QUEST_PASS", "my_quest"]]]
+})
 
 [node name="screens" type="CanvasLayer" parent="."]
 
 [node name="caption" type="PanelContainer" parent="." instance=ExtResource("2_7p204")]
-script = SubResource("GDScript_ys8yc")
+script = ExtResource("3_52och")

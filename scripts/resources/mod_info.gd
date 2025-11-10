@@ -96,39 +96,46 @@ func _load_data(data: Variant):
 			&"quest":
 				var id: StringName = dict.get(&"ID", &"")
 				var quest := QuestInfo.new()
-				var tick_data: Dictionary = UDict.pop(dict, &"ticks", {})
+				quests._add(id, quest)
+				
+				var ticks: Dictionary = UDict.pop(dict, &"ticks", {})
 				var triggers: Dictionary = UDict.pop(dict, &"triggers", {})
+				_init_triggers(id, quest.triggers, triggers)
 				UObj.set_properties(quest, dict)
-				for tick_id in tick_data:
+				
+				for tick_id in ticks:
+					var tick_data: Dictionary = ticks[tick_id]
 					var tick := QuestTick.new()
-					UObj.set_properties(tick, tick_data[tick_id])
+					quest.ticks[tick_id] = tick
+					var tick_triggers: Dictionary = UDict.pop(tick_data, &"triggers", {})
+					_init_triggers(id + "#" + tick_id, tick.triggers, tick_triggers)
+					UObj.set_properties(tick, tick_data)
 					tick.id = tick_id
 					tick.quest_id = id
-					quest.ticks[tick_id] = tick
-				for state_id in triggers:
-					var state: QuestInfo.QuestState = QuestInfo.QuestState.keys().find(state_id) as QuestInfo.QuestState
-					quest.triggers[state] = []
-					var trigger_index := 0
-					for trigger_data in triggers[state_id]:
-						var trigger := TriggerInfo.new()
-						trigger.event = UDict.pop(trigger_data, &"event", &"")
-						trigger.state.assign(UDict.pop(trigger_data, &"state", {}))
-						trigger.condition = _add_cond(UDict.pop(trigger_data, &"cond", ""))
-						UObj.set_properties(trigger, trigger_data)
-						quest.triggers[state].append(trigger)
-						
-						var path := data_dir.path_join("_dbg-%s-%s-%s" % [ id, state_id, trigger_index])
-						var flow_script := FlowScript.new()
-						flow_script.code = trigger_data.flow
-						print_rich("[color=cyan]" + flow_script.code)
-						trigger.flow_script = flow_script
-						_process_flow(flow_script)
-						ResourceSaver.save(flow_script, path + ".tres")
-						
-						var player := FlowPlayerGenerator.generate([load(path + ".tres")])
-						var packed := PackedScene.new()
-						packed.pack(player)
-						ResourceSaver.save(packed, path + ".tscn")
-						trigger_index += 1
-						
-				quests._add(id, quest)
+
+func _init_triggers(id: StringName, triggers: Dictionary[QuestInfo.QuestState, Array], json: Dictionary):
+	for state_id in json:
+		var state: QuestInfo.QuestState = QuestInfo.QuestState.keys().find(state_id) as QuestInfo.QuestState
+		triggers[state] = []
+		var trigger_index := 0
+		for trigger_data in json[state_id]:
+			var trigger := TriggerInfo.new()
+			trigger.event = UDict.pop(trigger_data, &"event", &"")
+			trigger.state.assign(UDict.pop(trigger_data, &"state", {}))
+			trigger.condition = _add_cond(UDict.pop(trigger_data, &"cond", ""))
+			UObj.set_properties(trigger, trigger_data)
+			triggers[state].append(trigger)
+			
+			var path := data_dir.path_join("_dbg-%s-%s-%s" % [ id, state_id, trigger_index])
+			var flow_script := FlowScript.new()
+			flow_script.code = trigger_data.flow
+			print_rich("[color=cyan]" + flow_script.code)
+			trigger.flow_script = flow_script
+			_process_flow(flow_script)
+			ResourceSaver.save(flow_script, path + ".tres")
+			
+			var player := FlowPlayerGenerator.generate([load(path + ".tres")])
+			var packed := PackedScene.new()
+			packed.pack(player)
+			ResourceSaver.save(packed, path + ".tscn")
+			trigger_index += 1

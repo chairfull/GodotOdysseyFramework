@@ -16,6 +16,7 @@ func _ready() -> void:
 func _body_entered(body: Node3D):
 	if disabled: return
 	disabled = true
+	Global.wait(3.0, func(): disabled = false)
 	
 	if not body is Agent: return
 	if body in bodies: return
@@ -30,7 +31,7 @@ func _body_entered(body: Node3D):
 		print(msg)
 		if toast_on_enter:
 			State.TOAST.emit({ type="simple_toast", data={text=msg} })
-
+		
 func _body_exited(body: Node3D):
 	if not body is Agent: return
 	if not body in bodies: return

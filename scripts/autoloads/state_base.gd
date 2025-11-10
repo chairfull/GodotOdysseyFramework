@@ -5,13 +5,23 @@ signal paused()
 signal unpaused()
 @warning_ignore("unused_signal") signal event(event: Event)
 
+class QuestEvent extends Event:
+	var quest: QuestInfo
+
+class QuestTickEvent extends QuestEvent:
+	var tick: QuestTick
+
 var ZONE_ENTERED := Event.new({ zone=ZoneInfo, who=CharInfo })
 var ZONE_EXITED := Event.new({ zone=ZoneInfo, who=CharInfo })
-var QUEST_STARTED := Event.new({ quest=QuestInfo })
-var QUEST_TICKED := Event.new({ quest=QuestInfo })
-var QUEST_TICK_COMPLETED := Event.new({ tick=QuestTick })
-var QUEST_PASSED := Event.new({ quest=QuestInfo })
-var QUEST_FAILED := Event.new({ quest=QuestInfo })
+
+var QUEST_STARTED := QuestEvent.new()
+var QUEST_TICKED := QuestTickEvent.new()
+var QUEST_TICK_COMPLETED := QuestTickEvent.new()
+var QUEST_TICK_PASSED := QuestTickEvent.new()
+var QUEST_TICK_FAILED := QuestTickEvent.new()
+var QUEST_PASSED := QuestEvent.new()
+var QUEST_FAILED := QuestEvent.new()
+
 var ACHIEVEMENT := Event.new({ achievement=AchievementInfo })
 
 var TOAST := Event.new({ type=TYPE_STRING_NAME, player=TYPE_INT, text=TYPE_STRING, subtext=TYPE_STRING, data=TYPE_DICTIONARY })
@@ -35,18 +45,19 @@ func _init() -> void:
 	if get_script().resource_path == "res://_state_.gd":
 		_true_reload()
 
+#╒─══════──═─══☰☰☰☰☰☰☰═☰[░░░░]☰☰☰☰☰☰☰☰☰══─═──════─══╕
 const LOGO := r"""
-╭─╮┌─╮╷ ╷╭─╮╭─╮╭─╴╮ ╷   ┌─╴┌─╮╭─╮╭┬╮╭─╴╮╷╷╭─╮┌─╮╷ ╷
-│ │≈ │╰┼╯╰─╮╰─╮├─ ╰┼╯   ├─ ├┬╯├─┤│││├─ ││││ │├┬╯├┬╯
-╰─╯└─╯ ╵ ╰─╯╰─╯╰─╴ ╵    ╵  ╵╰╴╯ ╵╵╵╵╰─╴╰┴╯╰─╯╵╰╴╯╰
-╘═══════════════════( v{version} )══════════════════════╛
+⌡╭─╮┌─╮╮ ╷╭─╮╭─╮╭─╴╮ ╷  ┌─╴┌─╮╭─╮╭┬╮╭─╴╮╷╷╭─╮┌─╮╷ ╷⌡
+ │ │≈ │╰┼╯╰─╮╰─╮├─ ╰┼╯  ├─ ├┬╯├─┤│││├─ ││││ │├┬╯├┬╯
+⌠╰─╯└─╯ ╵ ╰─╯╰─╯╰─╴ ╵   ╵  ╵╰╴╯ ╵╵╵╵╰─╴╰┴╯╰─╯╵╰╴╯╰ ⌠
+╘══════──═─═══════☰═☰(◟ v{version} ◝)☰═☰═════─═─═════════╛
 """
 
 func print_logo() -> void:
 	var c1 := Color.DEEP_SKY_BLUE
 	var c2 := Color.GOLDENROD
 	var logo := ""
-	for row in LOGO.format({version="0.1"}).strip_edges().split("\n"):
+	for row in LOGO.format({version="0.1"}).trim_prefix("\n").trim_suffix("\n").split("\n"):
 		var i := 0
 		for col in row:
 			logo += "[color=#%s]%s[/color]" % [c1.lerp(c2, i / 54.0).to_html(), col]
@@ -122,11 +133,10 @@ func reload():
 		"extends StateBase"
 	] + code
 	scr.source_code = "\n".join(code)
-	#print(scr.source_code)
 	ResourceSaver.save(scr, "res://_state_.gd")
 	set_script.call_deferred(load("res://_state_.gd"))
 	
-	Global.msg("Changing script...")
+	Global.msg("State", "Reloading script...")
 
 func _true_reload():
 	objects = StateObjects.new()

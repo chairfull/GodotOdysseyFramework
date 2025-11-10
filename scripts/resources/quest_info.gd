@@ -15,14 +15,14 @@ static func get_state_color(s := QuestState.HIDDEN) -> Color:
 		QuestState.FAILED: return Color.TOMATO
 	return Color.PURPLE
 
-#@export var fmods: Array[QuestFMod]
+@export var desc: String
+@export var types: Array[StringName]
 @export var ticks: Dictionary[StringName, QuestTick]
 @export var state := QuestState.HIDDEN: set=set_state
 @export var vars := VarDB.new()
-@export var hidden := false
 @export var triggers: Dictionary[QuestState, Array]
+@export var visible := true ## Sometimes invisible quests are wanted. They shouldn't create toasts.
 @export var marked_for_notification := false
-var desc: String
 
 func has_notification() -> bool:
 	for tick in ticks.values():

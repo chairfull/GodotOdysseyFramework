@@ -13,54 +13,58 @@ var _stack: Array[Array]
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		animation_finished.connect(_animation_finished)
-		#play(&"ROOT")
-
-func _meth(hash_index: int):
-	if hash_index in method_calls:
-		for item in method_calls[hash_index]:
-			var meth_id: StringName = item[0]
-			var meth_args: Array = item[1]
-			match meth_id:
-				&"_expr": State.call("_expr_%s" % meth_args[0])
-				&"_cond":
-					var cond_hash_index: int = meth_args[0]
-					var cond_branch: StringName = meth_args[1]
-					if State.call("_cond_%s" % cond_hash_index):
-						goto(cond_branch)
-				&"_event":
-					var ev_id: StringName = meth_args[0]
-					var ev_data: String = meth_args[1]
-					Cinema._event(ev_id, ev_data)
-				_: callv(meth_id, meth_args)
-
-func _animation_finished(_a: StringName):
-	if _stack:
-		var last: Array = _stack.pop_back()
-		var anim: StringName = last[0]
-		var position: float = last[1]
-		play(anim)
-		seek(position)
-	else:
-		print("All finished.")
-		end()
-
-func end_branch():
-	if is_playing():
-		var curr := current_animation
-		stop()
-		_animation_finished(curr)
-
-func end():
-	stop()
-	ended.emit()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"advance_cinematic") and _waiting_for_user:
 		get_viewport().set_input_as_handled()
 		_waiting_for_user = false
 		wait_ended.emit()
-		seek(current_animation_position+.01)
+		seek(current_animation_position + .01)
 		play()
+
+func _meth(hash_index: int):
+	if hash_index in method_calls:
+		for item in method_calls[hash_index]:
+			var meth_id: StringName = item[0]
+			var meth_args: Array = item[1]
+			Global.msg("FlowPlayer", "Method", item)
+			match meth_id:
+				&"_expr": State.call("_expr_%s" % meth_args[0])
+				&"_cond":
+					var conds: Array = meth_args[0]
+					for cond in conds:
+						var cond_hash: int = cond[0]
+						var cond_branch: StringName = cond[1]
+						if State.call("_cond_%s" % cond_hash):
+							goto(cond_branch)
+							break
+				&"_event":
+					var ev_id: StringName = meth_args[0]
+					var ev_data: String = meth_args[1]
+					Cinema._event(ev_id, ev_data)
+				&"_break":
+					if is_playing():
+						var curr := current_animation
+						stop(true)
+						_animation_finished(curr)
+				_: callv(meth_id, meth_args)
+
+func _animation_finished(anim_id: StringName):
+	Global.msg("FlowPlayer", "Animation Finished", [anim_id])
+	if _stack:
+		var last: Array = _stack.pop_back()
+		var anim: StringName = last[0]
+		var position: float = last[1]
+		Global.msg("FlowPlayer", "Continue from", [], { anim=anim, position=position })
+		_play(anim, position)
+	else:
+		Global.msg("FlowPlayer", "Finished")
+		end()
+
+func end():
+	Global.msg("FlowPlayer", "Stopped")
+	stop(true)
+	ended.emit()
 
 ## Wait for user to press something.
 func wait():
@@ -72,28 +76,22 @@ func wait():
 	print("Waiting for user input.")
 
 func goto(id: StringName, return_after := true, clear_stack := false):
+	Global.msg("FlowPlayer", "Goto", [id], {return_after=return_after, clear_stack=clear_stack})
 	if clear_stack:
 		_stack.clear()
 	
 	if return_after:
-		_stack.append([current_animation, current_animation_position])
+		# Add a tenth of a second offset, so we don't repeat/loop.
+		_stack.append([current_animation, current_animation_position + .01])
 	
 	if "/" in id:
-		play(id)
+		_play(id)
 	else:
 		var branch := current_animation.split("/", true, 1)[0]
-		play(branch + "/" + id)
+		_play(branch + "/" + id)
 
-## Runs through a list of condition strings and plays first anim branch that evalutes true.
-func cond(conds: Array) -> bool:
-	for i in range(0, conds.size(), 2):
-		var test: String = conds[i]
-		var anim: String = conds[i+1]
-		if State.test(test):
-			goto(anim)
-			return true
-	return false
-
-## Set current camera.
-func camera():
-	pass
+func _play(id: StringName, at := 0.0):
+	Global.msg("FlowPlayer", "Play", [], { anim=id, at=at })
+	assigned_animation = id
+	seek(at, false)
+	play()

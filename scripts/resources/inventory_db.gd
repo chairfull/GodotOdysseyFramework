@@ -8,7 +8,8 @@ func connect_signals() -> void:
 	Cinema.event.connect(_cinema_event)
 
 func _cinema_event(ev: StringName, data: String):
-	var data_args := data # TODO
+	if not ev in ALL_EVENTS: return
+	var _data_args := data # TODO
 	match ev:
 		EVENT_GAIN_ITEM: pass
 		EVENT_LOSE_ITEM: pass

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="FlowScript" load_steps=2 format=3 uid="uid://csrskd63a4ev2"]
+
+[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://addons/odyssey/flow/flow_script.gd" id="1_c7eo0"]
+
+[resource]
+script = ExtResource("1_c7eo0")
+code = "GAIN_ITEM apple who:paul
+paul: An apple. Just what I needed.
+QUEST_TICK my_quest#find_apple
+"

@@ -1,6 +1,11 @@
+@tool
 extends Node
 
-var assets: AssetsDB
+var assets: AssetsDB:
+	get:
+		if not assets:
+			assets = load("res://assets/assets.tres")
+		return assets
 
 func _init() -> void:
 	assets = load("res://assets/assets.tres")

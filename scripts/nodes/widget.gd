@@ -1,4 +1,6 @@
-class_name Widget extends Control
+@abstract class_name Widget extends Control
+
+var player_index := 0
 
 ## Is only one allowed.
 func is_exclusive() -> bool: return true
@@ -9,8 +11,8 @@ func is_pauser() -> bool: return false
 ## Will stay visible when a cinematic is playing. (Captions, Choice Menu...)
 func is_visible_in_cinematic() -> bool: return false
 
-func close():
-	pass
+func close() -> void:
+	Controllers.get_player(player_index).hide_widgit(name)
 
 ## Used by FlowPlayerGenerator.
 func _cinematic_step(_gen: FlowPlayerGenerator, _step: Dictionary) -> void:

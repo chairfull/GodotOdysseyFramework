@@ -11,10 +11,10 @@
 [ext_resource type="Script" uid="uid://bhqhogmxc0qb8" path="res://scripts/resources/inventory_db.gd" id="8_5slfy"]
 [ext_resource type="Script" uid="uid://d3eo058gq30hw" path="res://scripts/resources/item_info.gd" id="8_g5222"]
 [ext_resource type="Script" uid="uid://cdjj8faqbmkvm" path="res://scripts/resources/item_db.gd" id="9_fgbsq"]
-[ext_resource type="Script" uid="uid://pf28q2uas18" path="res://scripts/resources/quest_info.gd" id="10_8lt24"]
-[ext_resource type="Script" uid="uid://dh7ughql8mvo3" path="res://scripts/resources/quest_tick.gd" id="11_w7rio"]
-[ext_resource type="Script" uid="uid://022a3ve6dv62" path="res://scripts/resources/trigger_info.gd" id="12_eyksi"]
-[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://addons/odyssey/flow/flow_script.gd" id="13_y7vmj"]
+[ext_resource type="Script" uid="uid://pf28q2uas18" path="res://scripts/resources/quest_info.gd" id="11_5slfy"]
+[ext_resource type="Script" uid="uid://dh7ughql8mvo3" path="res://scripts/resources/quest_tick.gd" id="12_47k6o"]
+[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://addons/odyssey/flow/flow_script.gd" id="13_262un"]
+[ext_resource type="Script" uid="uid://022a3ve6dv62" path="res://scripts/resources/trigger_info.gd" id="14_5g2wn"]
 [ext_resource type="Script" uid="uid://dq5ibhy6h3iky" path="res://scripts/resources/quest_db.gd" id="14_so43j"]
 [ext_resource type="Script" uid="uid://xfry1i78xgw8" path="res://scripts/resources/zone_info.gd" id="16_0q5l8"]
 [ext_resource type="Script" uid="uid://cxdt4et14jdlj" path="res://scripts/resources/zone_db.gd" id="17_g6qg4"]
@@ -80,27 +80,91 @@ _objects = Dictionary[StringName, ExtResource("1_w4che")]({
 })
 
 [sub_resource type="Resource" id="Resource_so43j"]
-script = ExtResource("11_w7rio")
+script = ExtResource("12_47k6o")
+id = &"area"
 quest_id = &"my_quest"
 name = "Found a fruit spot."
 
 [sub_resource type="Resource" id="Resource_0q5l8"]
-script = ExtResource("11_w7rio")
-quest_id = &"my_quest"
-name = "Find the apple."
+script = ExtResource("13_262un")
+code = "GAIN_ITEM apple who:paul
+paul: An apple. Just what I needed.
+QUEST_TICK my_quest#find_apple
+"
 
 [sub_resource type="Resource" id="Resource_g6qg4"]
-script = ExtResource("11_w7rio")
-quest_id = &"my_quest"
-name = "Find the pear."
+script = ExtResource("14_5g2wn")
+event = &"ZONE_ENTERED"
+state = Dictionary[StringName, Variant]({
+&"who": "paul",
+&"zone": "apple_area"
+})
+condition = "_cond_5381"
+flow_script = SubResource("Resource_0q5l8")
 
 [sub_resource type="Resource" id="Resource_td8cs"]
-script = ExtResource("11_w7rio")
+script = ExtResource("12_47k6o")
+id = &"find_apple"
 quest_id = &"my_quest"
-name = "Find the banana."
+name = "Find the apple."
+triggers = Dictionary[int, Array]({
+1: [SubResource("Resource_g6qg4")]
+})
 
 [sub_resource type="Resource" id="Resource_pi2qk"]
-script = ExtResource("13_y7vmj")
+script = ExtResource("13_262un")
+code = "GAIN_ITEM pear who:paul
+paul: Here is a pear... perfect.
+QUEST_TICK my_quest#find_pear
+"
+
+[sub_resource type="Resource" id="Resource_45dd6"]
+script = ExtResource("14_5g2wn")
+event = &"ZONE_ENTERED"
+state = Dictionary[StringName, Variant]({
+&"who": "paul",
+&"zone": "pear_area"
+})
+condition = "_cond_5381"
+flow_script = SubResource("Resource_pi2qk")
+
+[sub_resource type="Resource" id="Resource_7q7xi"]
+script = ExtResource("12_47k6o")
+id = &"find_pear"
+quest_id = &"my_quest"
+name = "Find the pear."
+triggers = Dictionary[int, Array]({
+1: [SubResource("Resource_45dd6")]
+})
+
+[sub_resource type="Resource" id="Resource_3337y"]
+script = ExtResource("13_262un")
+code = "GAIN_ITEM banana who:paul
+paul: Banana!
+QUEST_TICK my_quest#find_banana
+"
+
+[sub_resource type="Resource" id="Resource_70ht7"]
+script = ExtResource("14_5g2wn")
+event = &"ZONE_ENTERED"
+state = Dictionary[StringName, Variant]({
+&"who": "paul",
+&"zone": "banana_area"
+})
+condition = "_cond_5381"
+flow_script = SubResource("Resource_3337y")
+
+[sub_resource type="Resource" id="Resource_6x44p"]
+script = ExtResource("12_47k6o")
+id = &"find_banana"
+quest_id = &"my_quest"
+name = "Find the banana."
+triggers = Dictionary[int, Array]({
+1: [SubResource("Resource_70ht7")]
+})
+
+[sub_resource type="Resource" id="Resource_d4al2"]
+script = ExtResource("13_262un")
 code = "You entered the location.
 paul: This is the spot.
 QUEST_START my_quest
@@ -108,70 +172,26 @@ QUEST_TICK my_quest#area
 QUEST_SHOW my_quest#find_apple
 QUEST_SHOW my_quest#find_pear
 QUEST_SHOW my_quest#find_banana
+
+IF ZONE_ENTERED.zone == apple_area
+  paul: Now where is that apple.
+ELIF ZONE_ENTERED.zone == pear_area
+  paul: Those pears should be around here.
+ELSE
+  paul: Where are you banana?
 "
 
-[sub_resource type="Resource" id="Resource_45dd6"]
-script = ExtResource("12_eyksi")
+[sub_resource type="Resource" id="Resource_awmg3"]
+script = ExtResource("14_5g2wn")
 event = &"ZONE_ENTERED"
 state = Dictionary[StringName, Variant]({
 &"who": "paul"
 })
 condition = "_cond_3056990139"
-flow_script = SubResource("Resource_pi2qk")
-
-[sub_resource type="Resource" id="Resource_7q7xi"]
-script = ExtResource("13_y7vmj")
-code = "GAIN_ITEM apple who:paul
-paul: An apple. Just what I needed.
-QUEST_TICK my_quest#find_apple
-"
-
-[sub_resource type="Resource" id="Resource_3337y"]
-script = ExtResource("12_eyksi")
-event = &"ZONE_ENTERED"
-state = Dictionary[StringName, Variant]({
-&"who": "paul",
-&"zone": "apple_area"
-})
-condition = "_cond_5381"
-flow_script = SubResource("Resource_7q7xi")
-
-[sub_resource type="Resource" id="Resource_70ht7"]
-script = ExtResource("13_y7vmj")
-code = "GAIN_ITEM pear who:paul
-paul: Here is a pear... perfect.
-QUEST_TICK my_quest#find_pear
-"
-
-[sub_resource type="Resource" id="Resource_6x44p"]
-script = ExtResource("12_eyksi")
-event = &"ZONE_ENTERED"
-state = Dictionary[StringName, Variant]({
-&"who": "paul",
-&"zone": "pear_area"
-})
-condition = "_cond_5381"
-flow_script = SubResource("Resource_70ht7")
-
-[sub_resource type="Resource" id="Resource_d4al2"]
-script = ExtResource("13_y7vmj")
-code = "GAIN_ITEM banana who:paul
-paul: Banana!
-QUEST_TICK my_quest#find_banana
-"
-
-[sub_resource type="Resource" id="Resource_awmg3"]
-script = ExtResource("12_eyksi")
-event = &"ZONE_ENTERED"
-state = Dictionary[StringName, Variant]({
-&"who": "paul",
-&"zone": "banana_area"
-})
-condition = "_cond_5381"
 flow_script = SubResource("Resource_d4al2")
 
 [sub_resource type="Resource" id="Resource_gdncn"]
-script = ExtResource("13_y7vmj")
+script = ExtResource("13_262un")
 code = "IF my_quest.ticked(\"find_apple\", \"find_pear\", \"find_banana\")
   paul: That's all of them!
   QUEST_PASS my_quest
@@ -186,7 +206,7 @@ ELIF my_quest.ticked(\"find_apple\") or my_quest.ticked(\"find_banana\") or my_q
 "
 
 [sub_resource type="Resource" id="Resource_sopn5"]
-script = ExtResource("12_eyksi")
+script = ExtResource("14_5g2wn")
 event = &"ZONE_EXITED"
 state = Dictionary[StringName, Variant]({
 &"who": "paul"
@@ -198,17 +218,17 @@ flow_script = SubResource("Resource_gdncn")
 script = ExtResource("4_262un")
 
 [sub_resource type="Resource" id="Resource_vm2x1"]
-script = ExtResource("10_8lt24")
-ticks = Dictionary[StringName, ExtResource("11_w7rio")]({
+script = ExtResource("11_5slfy")
+ticks = Dictionary[StringName, ExtResource("12_47k6o")]({
 &"area": SubResource("Resource_so43j"),
-&"find_apple": SubResource("Resource_0q5l8"),
-&"find_banana": SubResource("Resource_td8cs"),
-&"find_pear": SubResource("Resource_g6qg4")
+&"find_apple": SubResource("Resource_td8cs"),
+&"find_banana": SubResource("Resource_6x44p"),
+&"find_pear": SubResource("Resource_7q7xi")
 })
 vars = SubResource("Resource_h4jq8")
 triggers = Dictionary[int, Array]({
-0: [SubResource("Resource_45dd6")],
-1: [SubResource("Resource_3337y"), SubResource("Resource_6x44p"), SubResource("Resource_awmg3"), SubResource("Resource_sopn5")]
+0: [SubResource("Resource_awmg3")],
+1: [SubResource("Resource_sopn5")]
 })
 id = &"my_quest"
 name = "My Quest"
@@ -353,10 +373,13 @@ _script_conds = Dictionary[StringName, String]({
 &"_cond_1190937198": "my_quest.ticked(\"find_apple\", \"find_pear\", \"find_banana\")",
 &"_cond_1744640919": "ZONE_EXITED.zone in [apple_area, pear_area, banana_area]",
 &"_cond_1916210732": "my_quest.ticked(\"find_pear\", \"find_banana\")",
+&"_cond_2090770405": "true",
 &"_cond_2090815788": "my_quest.ticked(\"find_apple\") or my_quest.ticked(\"find_banana\") or my_quest.ticked(\"find_pear\")",
 &"_cond_2590090614": "my_quest.ticked(\"find_apple\", \"find_banana\")",
+&"_cond_2636823051": "ZONE_ENTERED.zone == pear_area",
 &"_cond_3056990139": "ZONE_ENTERED.zone in [apple_area, pear_area, banana_area]",
 &"_cond_4194837085": "my_quest.ticked(\"find_apple\", \"find_pear\")",
+&"_cond_520882869": "ZONE_ENTERED.zone == apple_area",
 &"_cond_5381": ""
 })
 chars = SubResource("Resource_a8bp6")

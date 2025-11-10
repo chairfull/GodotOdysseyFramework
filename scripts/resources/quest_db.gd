@@ -14,6 +14,7 @@ func connect_signals() -> void:
 	Cinema.event.connect(_cinema_event)
 
 func _cinema_event(id: StringName, data: String) -> void:
+	if not id in ALL_EVENTS: return
 	var quest_id: StringName = data
 	var tick_id: StringName = &""
 	if "#" in data:
@@ -38,14 +39,25 @@ func _cinema_event(id: StringName, data: String) -> void:
 		EVENT_FAIL: quest.set_failed()
 		EVENT_TICK: tick.tick += 1
 		EVENT_SHOW: tick.show()
-		EVENT_HIDE: tick.hide()
+		EVENT_HIDE: push_warning("Quest hiding not implemented. Just don't call show().")
+
+func _check_triggers(obj: Object, event: Event):
+	var state: QuestInfo.QuestState = obj.state
+	var triggers: Dictionary[QuestInfo.QuestState, Array] = obj.triggers
+	if not state in triggers: return
+	for trigger: TriggerInfo in triggers[state]:
+		if trigger.check(event):
+			Cinema.queue(trigger.flow_script)
 
 func _state_event(e: Event):
 	for quest: QuestInfo in _objects.values():
-		if quest.state in quest.triggers:
-			for trigger: TriggerInfo in quest.triggers[quest.state]:
-				if trigger.check(e):
-					Cinema.queue(trigger.flow_script)
+		# Check for state event triggers.
+		_check_triggers(quest, e)
+		# Check for tick event triggers.
+		for tick_id in quest.ticks:
+			var tick := quest.ticks[tick_id]
+			_check_triggers(tick, e)
+		
 	match e:
 		State.QUEST_STARTED:
 			Audio.play(&"quest_log_updated")

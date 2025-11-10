@@ -71,7 +71,9 @@ func _add_branch(branch_id: StringName, steps: Array[Dictionary]):
 	_branch_anim.track_set_path(track, ^".")
 	_library.add_animation(branch_id, _branch_anim)
 	
-	for step in steps:
+	var step_index := 0
+	while step_index < steps.size():
+		var step := steps[step_index]
 		match step.type:
 			FlowToken.TEXT:
 				var state := add_object("caption")
@@ -89,10 +91,27 @@ func _add_branch(branch_id: StringName, steps: Array[Dictionary]):
 					&"CODE":
 						add_method(&"_expr", [hash(step.rest)])
 						add_time(1.0)
-					&"IF", &"ELIF", &"ELSE":
-						var branch := _add_branch_queued(step.tabbed)
-						add_method(&"_cond", [hash(step.rest), branch])
-						add_time(1.0)
+					&"IF":
+						var collected := [step]
+						var step_index2 := step_index+1
+						while step_index2 < steps.size():
+							var step2 := steps[step_index2]
+							if step2.type == FlowToken.CMND and step2.cmnd in [&"ELIF", &"ELSE"]:
+								collected.append(step2)
+								step_index2 += 1
+							else:
+								break
+						step_index = step_index2
+						var args := []
+						for cond in collected:
+							var hash_index := hash(cond.rest)
+							var branch := _add_branch_queued(cond.tabbed)
+							args.append([hash_index, branch])
+						print("IFELFO", args)
+						add_method(&"_cond", [args])
+						add_time(0.1)
+					&"ELIF", &"ELSE":
+						push_error("ELIF and ELSE must follow and IF.")
 					_:
 						if step.cmnd in QuestDB.ALL_EVENTS\
 						or step.cmnd in InventoryDB.ALL_EVENTS:
@@ -101,6 +120,7 @@ func _add_branch(branch_id: StringName, steps: Array[Dictionary]):
 							Global.warn("FlowPlayerGenerator", "Unimplimented command %s." % [step])
 			_:
 				Global.warn("FlowPlayerGenerator", "Unimplmented step %s." % [step])
+		step_index += 1
 
 func has_object(id: String) -> bool:
 	return get_object(id) != null
@@ -127,7 +147,7 @@ func add_method(method: StringName, args: Array = []):
 		_player.method_calls[hash_index] = []
 	_player.method_calls[hash_index].append([method, args])
 	# Will replace existing frames, but that's fine since they will have the same hash.
-	_branch_anim.track_insert_key(_branch_state.t_methods, _branch_time, { method=&"_meth", args=hash_index })
+	_branch_anim.track_insert_key(_branch_state.t_methods, _branch_time, { method=&"_meth", args=[hash_index] })
 
 func add_track(node: Node, property: NodePath, update: Variant = null, interp: Variant = null) -> int:
 	var state_name := node.name

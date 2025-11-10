@@ -9,9 +9,9 @@ class_name QuestTick extends Resource
 @export var desc := ""
 @export var need: Array[StringName] ## Must all be true for any triggers to check.
 @export var mark: Array[StringName] ## Highlights characts, zones, items...
-@export var triggers: Array[TriggerInfo] ## Event that triggers this tick.
-@export var visible: bool = false
+@export var triggers: Dictionary[QuestInfo.QuestState, Array] ## Event that triggers this tick.
 @export var mark_for_notification := false
+@export var visible := true ## Sometimes a hidden tick is desired.
 
 var quest: QuestInfo:
 	get: return State.quests.find(quest_id)
@@ -34,15 +34,15 @@ func set_state(s := QuestInfo.QuestState.HIDDEN):
 func set_tick(t: int):
 	if tick == t: return
 	tick = t
+	show()
 	State.QUEST_TICKED.emit({ tick=self })
 	if completed:
+		state = QuestInfo.QuestState.PASSED
 		State.QUEST_TICK_COMPLETED.emit({ tick=self })
 
 func show() -> void:
-	visible = true
-
-func hide() -> void:
-	visible = false
+	if state == QuestInfo.QuestState.HIDDEN:
+		state = QuestInfo.QuestState.ACTIVE
 
 func _to_string() -> String:
 	return "QuestTick(%s#%s)" % [quest_id, id]

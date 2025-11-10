@@ -46,7 +46,6 @@ func _refresh_quest_list():
 		
 		var quest_button: Node = quest_button_prefab.duplicate()
 		quest_lists[state].get_node("list").add_child(quest_button)
-		#btn.quest = q
 		var btn := quest_button.get_node("button")
 		btn.name = q.id
 		btn.text = q.name
@@ -64,10 +63,12 @@ func _refresh_quest_info():
 			var tk := tick_prefab.duplicate()
 			tick_parent.add_child(tk)
 			tk.text = "%s/%s %s" % [tick.tick, tick.max_ticks, tick.name]
+			tk.modulate = QuestInfo.get_state_color(tick.state)
 	else:
 		quest_info.text = ""
 
 func _select_quest(q: QuestInfo):
+	print("Selected quest ", q)
 	quest = q
 	_refresh_quest_info()
 

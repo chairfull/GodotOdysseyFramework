@@ -1,17 +1,17 @@
 class_name VarDB extends Database
 
-func _get(property: StringName) -> Variant:
-	if has(property):
-		var prop: VarInfo = _objects[property]
-		return prop.value
-	return null
-
-func _set(property: StringName, value: Variant) -> bool:
-	if has(property):
-		var prop: VarInfo = _objects[property]
-		prop.set_value(value)
-		return true
-	return false
+#func _get(property: StringName) -> Variant:
+	#if has(property):
+		#var prop: VarInfo = _objects[property]
+		#return prop.value
+	#return null
+#
+#func _set(property: StringName, value: Variant) -> bool:
+	#if has(property):
+		#var prop: VarInfo = _objects[property]
+		#prop.set_value(value)
+		#return true
+	#return false
 
 func add_range(id: StringName, default: Variant, minn: Variant = 0, maxx: Variant = 100, desc := "") -> VarInfo:
 	var prop := VarInfo.new()

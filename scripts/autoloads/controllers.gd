@@ -44,7 +44,13 @@ func _ready() -> void:
 	_toggle_1_player()
 	
 	get_tree().current_scene.get_viewport().disable_3d = true
-	
+
+func get_player(index: int) -> ControllerPlayer:
+	match index:
+		0: return player
+		1: return player2
+	return null
+
 func _toggle_1_player():
 	player.visible = true
 	player.set_size.call_deferred(size)
