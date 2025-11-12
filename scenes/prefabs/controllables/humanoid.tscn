@@ -72,22 +72,22 @@ height = 0.1
 radial_segments = 32
 rings = 16
 
-[node name="humanoid" type="CharacterBody3D"]
+[node name="humanoid" type="CharacterBody3D" unique_id=2025458579]
 collision_layer = 49216
 script = ExtResource("1_mq6sh")
 
-[node name="collision_shape" type="CollisionShape3D" parent="."]
+[node name="collision_shape" type="CollisionShape3D" parent="." unique_id=975494883]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_qaen5")
 
-[node name="pawn" type="Node3D" parent="." node_paths=PackedStringArray("node")]
+[node name="pawn" type="Node3D" parent="." unique_id=1752111105 node_paths=PackedStringArray("node")]
 script = ExtResource("2_tjwfk")
 node = NodePath("..")
 states = Array[ExtResource("2_6uuaw")]([SubResource("Resource_0iwmb"), SubResource("Resource_87mrt")])
 metadata/_custom_type_script = "uid://dfwpyddi4qity"
 
-[node name="interactive" type="Area3D" parent="."]
+[node name="interactive" type="Area3D" parent="." unique_id=2140025732]
 unique_name_in_owner = true
 collision_layer = 512
 collision_mask = 0
@@ -99,26 +99,26 @@ humanoid_lookat_offset = Vector3(0, 1.5, 0)
 toggle_labels = PackedStringArray("Interact [Turn Off]", "Interact [Turn On]")
 metadata/_custom_type_script = "uid://dbleug2gqv7c5"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="interactive"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interactive" unique_id=707479585]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_iv36d")
 
-[node name="nav_agent" type="NavigationAgent3D" parent="."]
+[node name="nav_agent" type="NavigationAgent3D" parent="." unique_id=903741770]
 unique_name_in_owner = true
 
-[node name="behavior" type="BTPlayer" parent="."]
+[node name="behavior" type="BTPlayer" parent="." unique_id=1562696105]
 behavior_tree = SubResource("BehaviorTree_2grrx")
 blackboard_plan = SubResource("BlackboardPlan_6kbyu")
 unique_name_in_owner = true
 
-[node name="ray_coyote" type="RayCast3D" parent="."]
+[node name="ray_coyote" type="RayCast3D" parent="." unique_id=829987973]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 
-[node name="direction" type="Node3D" parent="."]
+[node name="direction" type="Node3D" parent="." unique_id=198730483]
 unique_name_in_owner = true
 
-[node name="model" parent="direction" node_paths=PackedStringArray("humanoid") instance=ExtResource("2_qlb12")]
+[node name="model" parent="direction" unique_id=259885780 node_paths=PackedStringArray("humanoid") instance=ExtResource("2_qlb12")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 humanoid = NodePath("../..")
@@ -126,22 +126,22 @@ ik_left_hand_position = Vector3(-0.14896408, 1.2391962, -0.30771938)
 ik_left_foot_position = Vector3(-0.20051247, 0.078348994, 0.6413805)
 ik_right_foot_position = Vector3(0.22689289, 0.078348994, 0.6413805)
 
-[node name="visual_dummy" type="MeshInstance3D" parent="direction"]
+[node name="visual_dummy" type="MeshInstance3D" parent="direction" unique_id=689547931]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 mesh = SubResource("CapsuleMesh_rtavd")
 skeleton = NodePath("../..")
 
-[node name="viser" type="MeshInstance3D" parent="direction/visual_dummy"]
+[node name="viser" type="MeshInstance3D" parent="direction/visual_dummy" unique_id=1542828680]
 transform = Transform3D(-1, -8.742278e-08, 3.821371e-15, 0, -4.371139e-08, -1, 8.742278e-08, -1, 4.371139e-08, 0, 0.5, -0.29999998)
 mesh = SubResource("PrismMesh_mq6sh")
 
-[node name="head" type="Node3D" parent="direction"]
+[node name="head" type="Node3D" parent="direction" unique_id=325039780]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="interact" type="Area3D" parent="direction"]
+[node name="interact" type="Area3D" parent="direction" unique_id=507098710]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.39999998)
 collision_layer = 0
@@ -149,10 +149,10 @@ collision_mask = 512
 monitorable = false
 script = ExtResource("3_pplf3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/interact"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/interact" unique_id=1861500627]
 shape = SubResource("SphereShape3D_mq6sh")
 
-[node name="seeing" type="Area3D" parent="direction"]
+[node name="seeing" type="Area3D" parent="direction" unique_id=907668173]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4.9)
 collision_layer = 16384
@@ -160,59 +160,59 @@ collision_mask = 0
 monitorable = false
 script = ExtResource("3_pplf3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/seeing"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/seeing" unique_id=1379385240]
 shape = SubResource("SphereShape3D_pplf3")
 
-[node name="hearing" type="Area3D" parent="direction"]
+[node name="hearing" type="Area3D" parent="direction" unique_id=304063913]
 unique_name_in_owner = true
 collision_layer = 32768
 collision_mask = 0
 monitorable = false
 script = ExtResource("3_pplf3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/hearing"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/hearing" unique_id=1860239456]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("SphereShape3D_2grrx")
 
-[node name="cinema_camera" type="Node3D" parent="direction"]
+[node name="cinema_camera" type="Node3D" parent="direction" unique_id=338218480]
 visible = false
 
-[node name="real_close" type="Camera3D" parent="direction/cinema_camera"]
+[node name="real_close" type="Camera3D" parent="direction/cinema_camera" unique_id=1484267961]
 unique_name_in_owner = true
 transform = Transform3D(-0.99939024, 0, -0.034916844, 0, 1, 0, 0.034916844, 0, -0.99939024, -0.133, 1.655, -3.353)
 fov = 3.0
 far = 100.0
 script = ExtResource("7_11kkr")
 
-[node name="closeup" type="Camera3D" parent="direction/cinema_camera"]
+[node name="closeup" type="Camera3D" parent="direction/cinema_camera" unique_id=1919222159]
 unique_name_in_owner = true
 transform = Transform3D(-0.99939024, 0, -0.034916844, 0, 1, 0, 0.034916844, 0, -0.99939024, -0.3059926, 1.6258023, -8.299053)
 fov = 3.0
 far = 100.0
 script = ExtResource("7_11kkr")
 
-[node name="cowboy" type="Camera3D" parent="direction/cinema_camera"]
+[node name="cowboy" type="Camera3D" parent="direction/cinema_camera" unique_id=1846079128]
 unique_name_in_owner = true
 transform = Transform3D(-0.99939024, 0, -0.034916844, 0, 1, 0, 0.034916844, 0, -0.99939024, -0.2594366, 1.339915, -6.7167606)
 fov = 10.0
 far = 100.0
 script = ExtResource("7_11kkr")
 
-[node name="damageable" type="Area3D" parent="."]
+[node name="damageable" type="Area3D" parent="." unique_id=1494715736]
 unique_name_in_owner = true
 collision_layer = 1024
 collision_mask = 0
 monitoring = false
 script = ExtResource("3_6kbyu")
 
-[node name="head" type="CollisionShape3D" parent="damageable"]
+[node name="head" type="CollisionShape3D" parent="damageable" unique_id=33063199]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6178652, 0)
 shape = SubResource("SphereShape3D_6kbyu")
 
-[node name="body" type="CollisionShape3D" parent="damageable"]
+[node name="body" type="CollisionShape3D" parent="damageable" unique_id=946449709]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78776854, 0)
 shape = SubResource("CapsuleShape3D_6kbyu")
 
-[node name="cursor" type="MeshInstance3D" parent="."]
+[node name="cursor" type="MeshInstance3D" parent="." unique_id=433743149]
 unique_name_in_owner = true
 mesh = SubResource("SphereMesh_117w7")

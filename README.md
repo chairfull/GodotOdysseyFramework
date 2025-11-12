@@ -1,13 +1,18 @@
-![Odyssey Framework](./addons/odyssey/icon_of.svg)
-# v0.001
-![Godot](https://img.shields.io/badge/Godot-4.x-blue.svg)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) (LICENSE)
+![Version](https://img.shields.io/badge/Version-0.001-gray.svg)
+![Godot](https://img.shields.io/badge/Godot-4.6.dev3-blue.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 > [!WARNING]
 > Unstable early development build.
 
 > [!NOTE]
 > Feel free to raise issues with features you want or ideas to discuss.
+
+> [!NOTE]
+> While I want to use pure GDScript, lack of interfaces/traits is a killer, so there is C# hybridisation.
+> At least until `traits` are implemented.
+
+![Odyssey Framework](./addons/odyssey/icon_of.svg)
 
 Simplify development of FPS, RPG, ImSims.
 

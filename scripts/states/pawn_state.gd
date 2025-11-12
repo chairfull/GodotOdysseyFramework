@@ -18,10 +18,10 @@ func _physics_process(_delta: float) -> void: pass
 func _unhandled_input(_event: InputEvent) -> void: pass
 
 func is_action_pressed(action: StringName, allow_echo := false, exact_match := false) -> bool:
-	return get_player_controller().is_action_pressed(action, allow_echo, exact_match)
+	return get_controller().is_action_pressed(action, allow_echo, exact_match)
 
 func is_action_released(action: StringName, exact_match := false):
-	return get_player_controller().is_action_released(action, exact_match)
+	return get_controller().is_action_released(action, exact_match)
 
 func is_action_both(action: StringName, start: Callable, stop: Callable) -> bool:
 	if is_action_pressed(action):
@@ -49,13 +49,9 @@ func _disable() -> void:
 	_enabled = false
 
 func get_controller() -> Controller: return _controller
-func get_player_controller() -> ControllerPlayer: return get_controller() as ControllerPlayer
-func get_npc_controller() -> ControllerNPC: return get_controller() as ControllerNPC
-func is_player() -> bool: return get_controller() is ControllerPlayer 
-func is_npc() -> bool: return get_controller() is ControllerNPC
 
 func is_first_person() -> bool:
-	return get_player_controller().view_state == ControllerPlayer.ViewState.FirstPerson
+	return get_controller().view_state == Controller.ViewState.FirstPerson
 
 func is_third_person() -> bool:
-	return get_player_controller().view_state == ControllerPlayer.ViewState.ThirdPerson
+	return get_controller().view_state == Controller.ViewState.ThirdPerson

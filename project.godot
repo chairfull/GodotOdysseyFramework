@@ -14,7 +14,7 @@ config/name="Odyssey Framework"
 run/main_scene="uid://jk2x74byqo2s"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="odyssey"
-config/features=PackedStringArray("4.5", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://dcy71dgq416wh"
 
 [autoload]
@@ -34,6 +34,10 @@ SaveLoad="*res://scripts/autoloads/save_load.gd"
 [debug_draw_3d]
 
 settings/addon_root_folder="res://addons/debug_draw_3d"
+
+[dotnet]
+
+project/assembly_name="Odyssey Framework"
 
 [editor_plugins]
 

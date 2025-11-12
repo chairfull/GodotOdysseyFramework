@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://52fw605jpf2i"]
 
-[ext_resource type="Script" uid="uid://cx2wudo5il5m7" path="res://scripts/nodes/controller_player.gd" id="1_dv00x"]
+[ext_resource type="Script" uid="uid://vmpdnbpamoi3" path="res://scripts/nodes/controller.gd" id="1_psuda"]
 [ext_resource type="Script" uid="uid://s3k7324tagti" path="res://scripts/nodes/camera_master.gd" id="2_psuda"]
 [ext_resource type="Script" uid="uid://ovjr1tt5pv2g" path="res://scripts/widgits/hud_markers.gd" id="3_psuda"]
 
-[node name="controller_player" type="Control"]
+[node name="controller_player" type="Control" unique_id=718559665]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,9 +12,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_dv00x")
+script = ExtResource("1_psuda")
 
-[node name="fps_viewport_container" type="SubViewportContainer" parent="."]
+[node name="fps_viewport_container" type="SubViewportContainer" parent="." unique_id=2102065026]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -25,19 +25,19 @@ grow_vertical = 2
 mouse_filter = 2
 stretch = true
 
-[node name="fps_viewport" type="SubViewport" parent="fps_viewport_container"]
+[node name="fps_viewport" type="SubViewport" parent="fps_viewport_container" unique_id=1765006455]
 unique_name_in_owner = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
-[node name="fps_camera_master" type="Camera3D" parent="fps_viewport_container/fps_viewport"]
+[node name="fps_camera_master" type="Camera3D" parent="fps_viewport_container/fps_viewport" unique_id=1671572692]
 unique_name_in_owner = true
 cull_mask = 2
 far = 100.0
 
-[node name="viewport_container" type="SubViewportContainer" parent="."]
+[node name="viewport_container" type="SubViewportContainer" parent="." unique_id=708567969]
 unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 0
@@ -47,23 +47,22 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 stretch = true
-script = ExtResource("1_dv00x")
 
-[node name="viewport" type="SubViewport" parent="viewport_container"]
+[node name="viewport" type="SubViewport" parent="viewport_container" unique_id=355193458]
 unique_name_in_owner = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
-[node name="camera_master" type="Camera3D" parent="viewport_container/viewport"]
+[node name="camera_master" type="Camera3D" parent="viewport_container/viewport" unique_id=1638559304]
 unique_name_in_owner = true
 cull_mask = 1048573
 current = true
 far = 100.0
 script = ExtResource("2_psuda")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1279590951]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 608.0
@@ -71,7 +70,7 @@ offset_right = 91.0
 offset_bottom = 631.0
 text = "Screen 1w"
 
-[node name="markers" type="Control" parent="."]
+[node name="markers" type="Control" parent="." unique_id=147392380]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,7 +80,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3_psuda")
 
-[node name="reticle" type="Control" parent="."]
+[node name="reticle" type="Control" parent="." unique_id=958578802]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,7 +89,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="reticle"]
+[node name="ColorRect" type="ColorRect" parent="reticle" unique_id=960618162]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -105,7 +104,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="hit_marker" type="Control" parent="."]
+[node name="hit_marker" type="Control" parent="." unique_id=1740715545]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -121,7 +120,7 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="hit_marker" type="ColorRect" parent="hit_marker"]
+[node name="hit_marker" type="ColorRect" parent="hit_marker" unique_id=234538744]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -136,7 +135,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0, 0, 1)
 
-[node name="hit_marker2" type="ColorRect" parent="hit_marker"]
+[node name="hit_marker2" type="ColorRect" parent="hit_marker" unique_id=594021765]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -152,7 +151,7 @@ grow_vertical = 2
 rotation = -1.5707964
 color = Color(1, 0, 0, 1)
 
-[node name="hit_marker3" type="ColorRect" parent="hit_marker"]
+[node name="hit_marker3" type="ColorRect" parent="hit_marker" unique_id=601807470]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -168,7 +167,7 @@ grow_vertical = 2
 rotation = -1.5707964
 color = Color(1, 0, 0, 1)
 
-[node name="hit_marker4" type="ColorRect" parent="hit_marker"]
+[node name="hit_marker4" type="ColorRect" parent="hit_marker" unique_id=1495644730]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

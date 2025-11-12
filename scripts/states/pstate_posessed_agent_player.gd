@@ -164,7 +164,7 @@ func _physics_process(delta: float) -> void:
 	var to := from + cam.project_ray_normal(mp) * 1000.0
 	var space := cam.get_world_3d().direct_space_state
 	var query := PhysicsRayQueryParameters3D.create(from, to)
-	query.exclude = [agent]
+	query.exclude = [agent.get_rid()]
 	var hit := space.intersect_ray(query)
 	var target_pos = hit.position if hit else to
 	

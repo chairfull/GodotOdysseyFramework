@@ -17,20 +17,18 @@ signal unmounted(ride: Pawn)
 @export var rider_unmount_area: Area3D ## Area to scan if attempting to unmount.
 var rider: Pawn: set=set_rider ## Set internally. TODO: Set from scene.
 var controller: Controller
-var player_controller: ControllerPlayer:
-	get: return controller
 var _mount: Pawn: set=set_mount ## What we are riding.
 
-@export var states: Array[PawnState]
-var _active_states: Array[PawnState]
+#@export var states: Array[PawnState]
+#var _active_states: Array[PawnState]
 
 func _init() -> void:
 	add_to_group(&"Pawn")
 
-func _ready() -> void:
-	set_process(false)
-	set_physics_process(false)
-	set_process_unhandled_input(false)
+#func _ready() -> void:
+	#set_process(false)
+	#set_physics_process(false)
+	#set_process_unhandled_input(false)
 	
 	if Engine.is_editor_hint(): return
 	
@@ -42,27 +40,27 @@ func _ready() -> void:
 	if rider_interact:
 		rider_interact.interacted.connect(_rider_interacted)
 	
-	for state in states:
-		state.set_pawn(self)
+	#for state in states:
+		#state.set_pawn(self)
 
-func add_state(s: PawnState):
-	states.append(s)
-	s.set_pawn(self)
+#func add_state(s: PawnState):
+	#states.append(s)
+	#s.set_pawn(self)
 
-func enable_state(s: PawnState):
-	if s in _active_states: return
-	_active_states.append(s)
-	set_process(true)
-	set_physics_process(true)
-	set_process_unhandled_input(true)
-
-func disable_state(s: PawnState):
-	if not s in _active_states: return
-	_active_states.erase(s)
-	if _active_states.size() > 0: return
-	set_process(false)
-	set_physics_process(false)
-	set_process_unhandled_input(false)
+#func enable_state(s: PawnState):
+	#if s in _active_states: return
+	#_active_states.append(s)
+	#set_process(true)
+	#set_physics_process(true)
+	#set_process_unhandled_input(true)
+#
+#func disable_state(s: PawnState):
+	#if not s in _active_states: return
+	#_active_states.erase(s)
+	#if _active_states.size() > 0: return
+	#set_process(false)
+	#set_physics_process(false)
+	#set_process_unhandled_input(false)
 
 func can_unmount() -> bool:
 	if rider_unmount_area:
@@ -70,17 +68,20 @@ func can_unmount() -> bool:
 			return false
 	return true
 
-func _process(delta: float) -> void:
-	for s in _active_states:
-		s._process(delta)
-
-func _physics_process(delta: float) -> void:
-	for s in _active_states:
-		s._physics_process(delta)
-
-func _unhandled_input(event: InputEvent) -> void:
-	for s in _active_states:
-		s._unhandled_input(event)
+func kick_rider():
+	set_rider(null)
+	
+#func _process(delta: float) -> void:
+	#for s in _active_states:
+		#s._process(delta)
+#
+#func _physics_process(delta: float) -> void:
+	#for s in _active_states:
+		#s._physics_process(delta)
+#
+#func _unhandled_input(event: InputEvent) -> void:
+	#for s in _active_states:
+		#s._unhandled_input(event)
 
 func _rider_interacted(pawn: Pawn, _form: Interactive.Form):
 	set_rider(pawn)
@@ -98,8 +99,6 @@ func _unposessed() -> void:
 	controller = null
 
 func is_controlled() -> bool: return controller != null
-func is_player() -> bool: return controller is ControllerPlayer
-func is_npc() -> bool: return controller is ControllerNPC
 func is_ridden() -> bool: return rider != null
 func is_mounted() -> bool: return _mount != null
 
