@@ -9,7 +9,6 @@ const EVENT_HIDE := &"QUEST_HIDE"
 const ALL_EVENTS := [EVENT_START, EVENT_PASS, EVENT_FAIL, EVENT_TICK, EVENT_SHOW, EVENT_HIDE]
 
 func connect_signals() -> void:
-	print("QUEST CONNECTED SIGNALS")
 	State.event.connect(_state_event)
 	Cinema.event.connect(_cinema_event)
 
@@ -32,7 +31,6 @@ func _cinema_event(id: StringName, data: String) -> void:
 			push_error("No quest tick ", data)
 			return
 	
-	prints("CINEMA", id, data, quest, tick)
 	match id:
 		EVENT_START: quest.start()
 		EVENT_PASS: quest.set_passed()
@@ -61,11 +59,11 @@ func _state_event(e: Event):
 	match e:
 		State.QUEST_STARTED:
 			Audio.play(&"quest_log_updated")
-			State.TOAST.emit({ data={text="Quest Started"} })
+			State.TOAST.fire({ data={text="Quest Started"} })
 			
 		State.QUEST_TICKED:
 			Audio.play(&"quest_log_updated")
-			State.TOAST.emit({ data={text="Quest Updated"} })
+			State.TOAST.fire({ data={text="Quest Updated"} })
 
 func get_object_script() -> GDScript:
 	return QuestInfo

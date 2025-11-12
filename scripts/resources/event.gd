@@ -1,7 +1,8 @@
 class_name Event extends RefCounted
 
-signal emitted(ev: Event)
+signal fired(ev: Event)
 
+var id: StringName ## Set by state base.
 var _default: Dictionary[StringName, Variant]
 var _current: Dictionary[StringName, Variant]
 
@@ -25,7 +26,7 @@ func get_dict(property: StringName, default := {}) -> Dictionary: return _curren
 func get_array(property: StringName, default := []) -> Array: return _current.get(property, default)
 
 func connect_to(method: Callable):
-	emitted.connect(method)
+	fired.connect(method)
 
 func test(props: Dictionary) -> bool:
 	for prop in props:
@@ -35,14 +36,15 @@ func test(props: Dictionary) -> bool:
 		elif _current[prop] != props[prop]: return false
 	return true
 
-func emit(kwargs: Dictionary = {}):
+func fire(kwargs: Dictionary = {}):
+	if not State._loaded: return
 	for prop in kwargs:
 		if prop in _default:
 			_current[prop] = kwargs[prop]
 		else:
 			push_warning("Event %s has no property %s. (%s)" % [get_state_property_name(), prop, self])
 	State.event.emit(self)
-	emitted.emit(self)
+	fired.emit(self)
 
 func get_state_property_name() -> StringName:
 	for prop in State.get_property_list():

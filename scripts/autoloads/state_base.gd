@@ -5,14 +5,59 @@ signal paused()
 signal unpaused()
 @warning_ignore("unused_signal") signal event(event: Event)
 
+#╒─══════──═─══☰☰☰☰☰☰☰═☰[░░░░]☰☰☰☰☰☰☰☰☰══─═──════─══╕
+const LOGO := r"""
+ ╭─╮┌─╮╮ ╷╭─╮╭─╮╭─╴╮ ╷  ┌─╴┌─╮╭─╮╭┬╮╭─╴╮╷╷╭─╮┌─╮╷ ╷ 
+ │ │≈ │╰┼╯╰─╮╰─╮├─ ╰┼╯  ├─ ├┬╯├─┤│││├─ ││││ │├┬╯├┬╯
+ ╰─╯└─╯ ╵ ╰─╯╰─╯╰─╴ ╵   ╵  ╵╰╴╯ ╵╵╵╵╰─╴╰┴╯╰─╯╵╰╴╯╰  
+╘══════──═─═══════☰═☰(◟ v{version} ◝)☰═☰═════─═─═════════╛
+"""
+
+class PawnEvent extends Event:
+	var pawn: Pawn
+	var posessed: Pawn
+	var controller: Controller
+
 class QuestEvent extends Event:
 	var quest: QuestInfo
+
+class CharEvent extends Event:
+	var who: CharInfo
+
+class ZoneEvent extends Event:
+	var zone: ZoneInfo
+	var who: CharInfo
 
 class QuestTickEvent extends QuestEvent:
 	var tick: QuestTick
 
-var ZONE_ENTERED := Event.new({ zone=ZoneInfo, who=CharInfo })
-var ZONE_EXITED := Event.new({ zone=ZoneInfo, who=CharInfo })
+class ToastEvent extends Event:
+	var type: StringName
+	var player: int
+	var icon: String
+	var title: String
+	var subtitle: String
+	var data: Dictionary[StringName, Variant]
+
+class StatEvent extends Event:
+	var stat: StatInfo
+	var old: Variant
+	var new: Variant
+	func is_decreased() -> bool: return new < old
+	func is_increased() -> bool: return new > old
+	func is_reset() -> bool: return new == stat.default
+
+class AwardEvent extends Event:
+	var award: AwardInfo
+
+#region Events.
+var PAWN_ENTERED := PawnEvent.new()
+var PAWN_EXITED := PawnEvent.new()
+
+var ZONE_ENTERED := ZoneEvent.new()
+var ZONE_EXITED := ZoneEvent.new()
+
+var STAT_CHANGED := StatEvent.new()
 
 var QUEST_STARTED := QuestEvent.new()
 var QUEST_TICKED := QuestTickEvent.new()
@@ -22,12 +67,15 @@ var QUEST_TICK_FAILED := QuestTickEvent.new()
 var QUEST_PASSED := QuestEvent.new()
 var QUEST_FAILED := QuestEvent.new()
 
-var ACHIEVEMENT := Event.new({ achievement=AchievementInfo })
+var AWARD_UNLOCKED := AwardEvent.new()
+var AWARD_PROGRESSED := AwardEvent.new()
 
-var TOAST := Event.new({ type=TYPE_STRING_NAME, player=TYPE_INT, text=TYPE_STRING, subtext=TYPE_STRING, data=TYPE_DICTIONARY })
+var TOAST := ToastEvent.new()
+#endregion
 
 @export var objects: StateObjects
 var dbs: Array[Database]
+var _loaded := false
 var _pausers: Array[Object]
 
 var chars: CharDB:
@@ -36,6 +84,8 @@ var items: ItemDB:
 	get: return objects.items
 var zones: ZoneDB:
 	get: return objects.zones
+var stats: StatDB:
+	get: return objects.stats
 var quests: QuestDB:
 	get: return objects.quests
 
@@ -44,14 +94,6 @@ func _init() -> void:
 	# We know we are in business once we are the generated script.
 	if get_script().resource_path == "res://_state_.gd":
 		_true_reload()
-
-#╒─══════──═─══☰☰☰☰☰☰☰═☰[░░░░]☰☰☰☰☰☰☰☰☰══─═──════─══╕
-const LOGO := r"""
-⌡╭─╮┌─╮╮ ╷╭─╮╭─╮╭─╴╮ ╷  ┌─╴┌─╮╭─╮╭┬╮╭─╴╮╷╷╭─╮┌─╮╷ ╷⌡
- │ │≈ │╰┼╯╰─╮╰─╮├─ ╰┼╯  ├─ ├┬╯├─┤│││├─ ││││ │├┬╯├┬╯
-⌠╰─╯└─╯ ╵ ╰─╯╰─╯╰─╴ ╵   ╵  ╵╰╴╯ ╵╵╵╵╰─╴╰┴╯╰─╯╵╰╴╯╰ ⌠
-╘══════──═─═══════☰═☰(◟ v{version} ◝)☰═☰═════─═─═════════╛
-"""
 
 func print_logo() -> void:
 	var c1 := Color.DEEP_SKY_BLUE
@@ -92,38 +134,49 @@ func _unpause():
 	unpaused.emit()
 
 func reload():
+	_loaded = false
+	objects = StateObjects.new()
+	
 	var mods := Mods.get_enabled()
-	var vars := []
 	var code := []
 	
-	var score := VarInfo.new()
-	score.default = 0
-	score.value = 0
-	mods[0].vars._add("score", score)
+	var cinema_dir := "res://assets/cinematics"
+	var conds: Dictionary[int, String]
+	var exprs: Dictionary[int, String]
+	for file in DirAccess.get_files_at(cinema_dir):
+		if file.get_extension() == "tres":
+			var fs: FlowScript = load(cinema_dir.path_join(file))
+			fs.collect_expressions(conds, exprs)
 	
 	for mod: ModInfo in mods:
-		# Compile conditions script.
-		for meth_name in mod._script_exprs:
-			code.append("func %s() -> void: %s" % [meth_name, mod._script_exprs[meth_name]])
-		for meth_name in mod._script_conds:
-			var cond := mod._script_conds[meth_name]
-			if not cond: cond = "true" # TODO: Fix.
-			code.append("func %s() -> bool: return %s" % [meth_name, cond])
-		
-		#prints(mod.mod_name, mod.mod_version, len(mod._script_exprs), len(mod._script_conds))
-		
-		for db_id in StateObjects.ORDER:
-			var db: Database = mod[db_id]
+		conds.merge(mod._script_conds)
+		exprs.merge(mod._script_exprs)
+	
+	# Compile conditions script.
+	for hash_index in exprs:
+		var expr := exprs[hash_index]
+		if "\n" in expr:
+			code.append("func _expr_%s() -> void:\n\t%s" % [hash_index, expr.replace("\n", "\n\t")])
+		else:
+			code.append("func _expr_%s() -> void: %s" % [hash_index, expr])
+	for hash_index in conds:
+		var cond := conds[hash_index]
+		if not cond: cond = "true" # TODO: Fix.
+		code.append("func _cond_%s() -> bool: return %s" % [hash_index, cond])
+	
+	for mod: ModInfo in mods:
+		for db in mod.get_dbs():
+			var db_id := UObj.get_class_name(db).trim_suffix("DB").to_snake_case().to_lower() + "s"
 			code.append("\n####\n## %s x%s\n####" % [db_id.to_upper(), db.size()])
-			for obj in db:
+			for obj in db._objects.values():
 				var prop_id: String = obj.id.replace("#", "__")
 				if "#" in obj.id: continue
-				if obj is VarInfo:
+				if obj is StatInfo:
 					var prop_type: String = type_string(typeof(obj.default))
-					code.append("var %s: %s:\n\tget: return objects.%s[&\"%s\"].value\n\tset(v): objects.%s[&\"%s\"].value = v" % [prop_id, prop_type, db_id, obj.id, db_id, obj.id])
+					code.append("var %s: %s:\n\tget: return %s[&\"%s\"].value\n\tset(v): %s[&\"%s\"].value = v" % [prop_id, prop_type, db_id, obj.id, db_id, obj.id])
 				else:
-					var prop_class: String = obj.get_class_name()
-					code.append("var %s: %s:\n\tget: return objects.%s[&\"%s\"]" % [prop_id, prop_class, db_id, obj.id])
+					var prop_class: String = UObj.get_class_name(obj)
+					code.append("var %s: %s:\n\tget: return %s[&\"%s\"]" % [prop_id, prop_class, db_id, obj.id])
 	
 	var scr := GDScript.new()
 	code = [
@@ -141,16 +194,23 @@ func reload():
 func _true_reload():
 	objects = StateObjects.new()
 	dbs = objects.get_dbs()
+	
 	var mods := Mods.get_enabled()
 	for mod in mods:
-		for prop in StateObjects.ORDER:
-			var db1: Database = objects[prop]
-			var db2: Database = mod[prop]
-			db1.merge(db2)
+		var mod_dbs := mod.get_dbs()
+		for i in dbs.size():
+			dbs[i].merge(mod_dbs[i])
 	
 	for db in dbs:
 		db.connect_signals()
 	
+	# Pass Events their variable name.
+	for prop in get_property_list():
+		if UBit.is_enabled(prop.usage, PROPERTY_USAGE_SCRIPT_VARIABLE):
+			if prop.type == TYPE_OBJECT and self[prop.name] is Event:
+				self[prop.name].id = prop.name
+	
+	_loaded = true
 	Global.msg("State", "Reloaded", [objects.get_counts_string()])
 	
 func find_char(id: StringName) -> CharInfo: return objects.chars.find(id)
@@ -172,3 +232,6 @@ func _set(property: StringName, value: Variant) -> bool:
 			db.set(property, value)
 			return true
 	return false
+
+func _cond(hash_index: int) -> bool: return call("_cond_%s" % hash_index)
+func _expr(hash_index: int) -> Variant: return call("_expr_%s" % hash_index)

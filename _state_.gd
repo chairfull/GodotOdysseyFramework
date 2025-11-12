@@ -2,6 +2,12 @@
 # Allows making sure all flow_script variables and functions will work.
 # TODO: Show stats here, like 'lines spoken' for each character.
 extends StateBase
+func _expr_2328950157() -> void:
+	if score < 20:
+		archer.msg("Reset arrows.")
+		print("Arrows reset.")
+func _cond_5381() -> bool: return true
+func _cond_520882869() -> bool: return ZONE_ENTERED.zone == apple_area
 func _cond_1190937198() -> bool: return my_quest.ticked("find_apple", "find_pear", "find_banana")
 func _cond_1744640919() -> bool: return ZONE_EXITED.zone in [apple_area, pear_area, banana_area]
 func _cond_1916210732() -> bool: return my_quest.ticked("find_pear", "find_banana")
@@ -11,48 +17,48 @@ func _cond_2590090614() -> bool: return my_quest.ticked("find_apple", "find_bana
 func _cond_2636823051() -> bool: return ZONE_ENTERED.zone == pear_area
 func _cond_3056990139() -> bool: return ZONE_ENTERED.zone in [apple_area, pear_area, banana_area]
 func _cond_4194837085() -> bool: return my_quest.ticked("find_apple", "find_pear")
-func _cond_520882869() -> bool: return ZONE_ENTERED.zone == apple_area
-func _cond_5381() -> bool: return true
 
 ####
-## CHARS x2
+## CHARS x3
 ####
+var archer: CharInfo:
+	get: return chars[&"archer"]
 var mary: CharInfo:
-	get: return objects.chars[&"mary"]
+	get: return chars[&"mary"]
 var paul: CharInfo:
-	get: return objects.chars[&"paul"]
+	get: return chars[&"paul"]
 
 ####
 ## ITEMS x3
 ####
 var apple: ItemInfo:
-	get: return objects.items[&"apple"]
+	get: return items[&"apple"]
 var banana: ItemInfo:
-	get: return objects.items[&"banana"]
+	get: return items[&"banana"]
 var pear: ItemInfo:
-	get: return objects.items[&"pear"]
+	get: return items[&"pear"]
 
 ####
 ## ZONES x17
 ####
 var apple_area: ZoneInfo:
-	get: return objects.zones[&"apple_area"]
+	get: return zones[&"apple_area"]
 var banana_area: ZoneInfo:
-	get: return objects.zones[&"banana_area"]
+	get: return zones[&"banana_area"]
 var home: ZoneInfo:
-	get: return objects.zones[&"home"]
+	get: return zones[&"home"]
 var pear_area: ZoneInfo:
-	get: return objects.zones[&"pear_area"]
+	get: return zones[&"pear_area"]
 
 ####
-## VARS x1
+## STATS x1
 ####
-var score: int:
-	get: return objects.vars[&"score"].value
-	set(v): objects.vars[&"score"].value = v
+var score: float:
+	get: return stats[&"score"].value
+	set(v): stats[&"score"].value = v
 
 ####
 ## QUESTS x1
 ####
 var my_quest: QuestInfo:
-	get: return objects.quests[&"my_quest"]
+	get: return quests[&"my_quest"]

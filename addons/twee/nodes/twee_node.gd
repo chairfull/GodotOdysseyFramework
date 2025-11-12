@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/twee/icon.svg")
 class_name TweeNode extends Node
 ## Applies a list of Twees to a Node.
 
@@ -53,6 +54,12 @@ func kill():
 	for meta_key in get_meta_list():
 		if meta_key.begins_with("tweeny"):
 			set_meta(meta_key, null)
+
+func is_control() -> bool:
+	return (self as Object) is Control
+
+func as_control() -> Control:
+	return (self as Object) as Control
 
 #region Editor
 

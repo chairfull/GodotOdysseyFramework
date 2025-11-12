@@ -7,7 +7,7 @@ class_name ItemInfo extends DatabaseObject
 @export var cells: Array[Vector2i] = [Vector2i.ZERO] ## TODO: How wide and high it is.
 @export var default_state: Dictionary[StringName, Variant] = {} ## Setting this will mark the item as a special one.
 @export var scene_held: PackedScene
-@export var vars: VarDB
+@export var stats: StatDB
 
 # TODO: weight: float
 # TODO: types: Array[StringName]

@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/twee/icon.svg")
 class_name Twee extends Resource
 
 const Tokenizer := preload("../builder/twee_tokenizer.gd")
@@ -266,11 +267,12 @@ func _create_tween(node: Node, tween_prop: Variant, steps: Array[Dictionary], ro
 	return twn
 
 static func get_object_and_property(node: Node, prop: String) -> Array:
+	var subnode: Node = node
 	if prop.begins_with("%"):
 		var parts := prop.split(":", true, 1)
-		node = node.get_node_or_null(parts[0])
+		subnode = node.get_node_or_null(parts[0])
 		prop = parts[1]
-	var node_and_resource := node.get_node_and_resource(prop)
+	var node_and_resource := subnode.get_node_and_resource(prop)
 	var n: Node = node_and_resource[0]
 	var r: Resource = node_and_resource[1]
 	var p: NodePath = node_and_resource[2]

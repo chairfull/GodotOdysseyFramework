@@ -1,47 +1,31 @@
 [gd_scene load_steps=3 format=3 uid="uid://cucq8gseatpvc"]
 
-[ext_resource type="Script" uid="uid://cmuegv3qrjd2t" path="res://scenes/widgits/menu.gd" id="1_wedc3"]
-[ext_resource type="PackedScene" uid="uid://bl1wu7da5ih3s" path="res://scenes/widgits/menu_choice.tscn" id="2_gpedh"]
+[ext_resource type="Script" uid="uid://cmuegv3qrjd2t" path="res://scenes/widgits/menu_widget.gd" id="1_wedc3"]
+[ext_resource type="Script" uid="uid://dh0608unc0n6i" path="res://addons/twee/nodes/twee_button_list.gd" id="2_cql5a"]
 
-[node name="menu" type="VBoxContainer"]
-offset_right = 238.0
-offset_bottom = 207.0
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_wedc3")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
-layout_mode = 2
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 457.0
+offset_top = 312.0
+offset_right = 695.0
+offset_bottom = 336.0
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="caption" type="RichTextLabel" parent="PanelContainer/MarginContainer"]
+[node name="choice_parent" type="VBoxContainer" parent="MarginContainer" node_paths=PackedStringArray("target", "for_child_target")]
 unique_name_in_owner = true
 layout_mode = 2
-bbcode_enabled = true
-text = "Menu Text"
-fit_content = true
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HudMenu" type="PanelContainer" parent="."]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="HudMenu"]
-layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="choices" type="VBoxContainer" parent="HudMenu/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="choice" parent="HudMenu/MarginContainer/choices" instance=ExtResource("2_gpedh")]
-unique_name_in_owner = true
-layout_mode = 2
+script = ExtResource("2_cql5a")
+target = NodePath(".")
+for_child_target = NodePath(".")

@@ -1,56 +1,308 @@
+![Odysset Framework](./addons/odyssey/icon_of.svg)
+# v0.1.1
+
+Simplify development of FPS, RPG, ImSims.
+
+# Included Addons
+- [Little Camera Preview](https://github.com/anthonyec/godot_little_camera_preview)
+- [LimboAI](https://github.com/limbonaut/limboai)
+- [YAML](https://github.com/fimbul-works/godot-yaml)
+- [GodotIK](https://github.com/monxa/GodotIK)
+- [Twee](https://github.com/chair_full/GodotTwee)
+- [RicherTextLabels](https://github.com/chairfull/GodotRichTextLabel2/tree/v2dev)
+
+# Controls
+
+|Control|Action|
+|--|--|
+|`Ctrl`+`1`| Toggle 1st-person view|
+|`Ctrl`+`2`| Toggle 3rd-person view|
+|`Ctrl`+`3`| Toggle top-down view|
+
+# Design Goal
+- AFAP: As few components as possible:
+	- Player & npc share most scripts
+	- Weapons/items share most components
+- Gameplay over cinema:
+	- Max interaction: Everything interactive w everything
+	- Most cinematics skippable/ffwdable
+	- NPCs w behavior, reacting to game events
+- RPG-like world state where vars in unloaded scenes can be get/set
+- Planning from the start for:
+	- 1st/3rd/top-down/point-and-click view
+	- Split screen multiplayer
+	- Language changing
+	- Mod/patch support
+- Easy customisation with config files and hot replacements.
+- Lots of juice/crunch (Communicating "somthing happened" to player and "how much")
+	- Minimise jerkiness/clankiness.
+	- [ ] UI buttons animate/communicate on hover, click, unhover
+	- [ ] Landing causes camera to tilt based on impact
+	- [ ] Sounds change based on object movement speed
+	
+# Todo
+
+## Camera
+
+## First Person
+- [x] Movement
+- [x] Jumping
+	- [x] Coyote Time
+	- [ ] Shrink Collider
+	- [x] Hold longer = jump higher
+	- [ ] Speed based on velocity
+	- [ ] Air-control
+- [ ] Ledges
+	- [ ] Small hop over
+	- [ ] Grabbing on fall
+	- [ ] Ledges: Hang climbing side to side
+- [x] Prone
+	- [x] Crouch
+	- [x] Crawl
+	- [ ] Auto-Stand
+- [ ] Tilt around corner
+- [x] Sprint
+- [ ] Swim
+- [x] Interaction
+- [x] Pick-Up
+	- [x] Aim
+	- [x] Camera FOV adjust
+	- [x] Breathing Noise
+	- [x] Drop
+	- [x] Fire
+	- [x] Reload
+- [ ] Pushing
+- [ ] Pulling
+- [ ] Climbing
+- [ ] God-Mode/Flying
+
+## Third Person
+- [ ] God-Mode
+- [x] Click Movement
+	- [ ] Auto-Jumping
+- [x] Keyboard Movement
+	- [x] Jumping
+- [x] Interaction
+- [x] Aim/Focus
+- [ ] Look at objects
+- [ ] Use hands on interactives
+### Animations
+- [x] Movement
+- [x] Jumping
+
+## NPC
+- [ ] Moving
+- [ ] Jumping
+- [ ] Entering/Exiting mounts
+	- [ ] Generic
+	- [ ] Vehicles
+- [ ] Look at
+	- [ ] Character
+	- [ ] Actions in scene
+	- [ ] Noise locations
+- [ ] Behaviors
+	- [ ] Senses
+		- [ ] Visual
+			- [ ] Lighting scale (darkness, smoke... decreases)
+		- [ ] Auditory
+			- [ ] Drone scale (rain, machinery... decreases)
+	- [ ] Patrol Area
+	- [ ] "Live" in area (Sit, use objects)
+	- [ ] Day schedule
+	- [ ] Hostile to target
+		- [ ] Hostile to multiple targets
+	- [ ] Chase
+	- [ ] Flee
+	- [ ] Attack
+		- [ ] Shoot
+		- [ ] Melee
+	- [ ] Pick-up items
+	- [ ] Give/offer items
+- [ ] Interact
+
+## Cinema
+- [x] Scripting language
+	- [x] Parsing
+	- [x] Script to AnimationPlayer
+- [ ] Rewind
+- [x] Pause gameplay
+	- [ ] Slow game speed right before and after
+- [ ] Respond to state
+- [ ] Runtime cinematics (These don't pause gameplay)
+- [x] Dialogue
+	- [x] Captions
+		- [ ] Audio
+	- [ ] Choices
+	- [ ] Scripted animations
+		- [ ] Walking
+		- [ ] Animations
+- [ ] Save/load
+
+## Interactions
+### Items
+- [x] Pick up
+	- [ ] Hand points at object
+	- [ ] Hand grab object animation
+	- [ ] Add to inventory
+- [x] Object Highlight
+- [x] Label
+	- [x] World-space when 3rd person
+	- [ ] HUD-space when 1st person
+- [x] No-clip first person camera
+- [x] Drop
+- [ ] Place on mount
+- [x] Use equipped item
+- [x] Reload equipped item
+- [ ] Put item in inventory
+- [ ] Hold from inventory
+### Mounts
+- [x] Mount: Change control to mount
+- [x] Unmount: Revert control to character
+### Vehicle
+- [x] Enter/Exit
+- [ ] Toggle first-third person camera
+#### First Person
+#### Third Person
+#### Top-Down
+- [ ] Click to drive to location
+
+## Audio
+- [ ] Footsteps
+
+## Items
+- [ ] Inventory
+	- [ ] UI
+- [ ] Pickup
+	- [ ] 1st-Person
+	- [ ] 3rd-Person
+	- [ ] Top-Down
+- [ ] Equip
+- [ ] Use
+- [ ] Mount/Display
+### Weapons
+- [x] Firing
+	- [x] Ray-based
+	- [ ] Shape-based
+	- [ ] Decals
+	- [ ] Particles
+	- [ ] Sound
+- [ ] Melee
+- [x] Damagables
+- [ ] Fall Damage
+
+## UI
+- [ ] Hit direction indicator
+- [ ] Damage indicator (red-periphery)
+	- [ ] Posion indicator (green)
+- [x] Toast system
+	- [x] Queue based on type
+	- [ ] Update if visible
+	- [ ] Templates
+		- [ ] Quest state changed
+		- [ ] Inventory state changed
+		- [ ] Achievement
+		- [ ] Location entered
+### Markers
+- [x] Show markers
+- [ ] Fade in/out based on distance
+- [ ] Change to arrow when off screen
+### Minimap
+- [x] Generator
+	- [x] Generate cell images
+	- [ ] Delete old cell images
+	- [ ] Zip cell images
+	- [ ] Stylize
+	- [ ] Levels/Z-axis
+	- [ ] Extra buffer around navpolygon
+- [ ] Renderer
+	- [x] Cells
+	- [ ] Objects/interactives
+	- [ ] Markers
+### Meta-Menu
+- [ ] Quest Log
+- [ ] Wiki/Encyclopedia
+- [ ] Skills/Stats
+### Misc
+- [ ] Pause Menu
+- [ ] Settings
+- [ ] Controls
+- [ ] Save & Load
+	- [x] Save
+		- [x] Preview
+		- [x] State
+		- [ ] Only save changes to resources
+
+## Input
+- [ ] Gamepad
+- [ ] Customise controls
+	- [ ] Presets
+	- [ ] Multiplayer
+
+## Other
+- [x] Split screen
+	- [ ] Lighting not working in Mobile/Comaptibility mode
+
 # res://_state_.gd
 ```gd
 # WARNING: Autogenerated in StateBase
 # Allows making sure all flow_script variables and functions will work.
 # TODO: Show stats here, like 'lines spoken' for each character.
 extends StateBase
-func _cond_675892952() -> bool: return score > 20 or ZONE_ENTERED.zone in [apple_area, pear_area, banana_area]
-func _cond_520882869() -> bool: return ZONE_ENTERED.zone == apple_area
-func _cond_2636823051() -> bool: return ZONE_ENTERED.zone == pear_area
+func _cond_1190937198() -> bool: return my_quest.ticked("find_apple", "find_pear", "find_banana")
+func _cond_1744640919() -> bool: return ZONE_EXITED.zone in [apple_area, pear_area, banana_area]
+func _cond_1916210732() -> bool: return my_quest.ticked("find_pear", "find_banana")
 func _cond_2090770405() -> bool: return true
+func _cond_2090815788() -> bool: return my_quest.ticked("find_apple") or my_quest.ticked("find_banana") or my_quest.ticked("find_pear")
+func _cond_2590090614() -> bool: return my_quest.ticked("find_apple", "find_banana")
+func _cond_2636823051() -> bool: return ZONE_ENTERED.zone == pear_area
+func _cond_3056990139() -> bool: return ZONE_ENTERED.zone in [apple_area, pear_area, banana_area]
+func _cond_4194837085() -> bool: return my_quest.ticked("find_apple", "find_pear")
+func _cond_520882869() -> bool: return ZONE_ENTERED.zone == apple_area
+func _cond_5381() -> bool: return true
 
 ####
 ## CHARS x2
 ####
 var mary: CharInfo:
-	get: return objects.chars[&"mary"]
+	get: return chars[&"mary"]
 var paul: CharInfo:
-	get: return objects.chars[&"paul"]
+	get: return chars[&"paul"]
 
 ####
 ## ITEMS x3
 ####
 var apple: ItemInfo:
-	get: return objects.items[&"apple"]
+	get: return items[&"apple"]
 var banana: ItemInfo:
-	get: return objects.items[&"banana"]
+	get: return items[&"banana"]
 var pear: ItemInfo:
-	get: return objects.items[&"pear"]
+	get: return items[&"pear"]
 
 ####
 ## ZONES x17
 ####
 var apple_area: ZoneInfo:
-	get: return objects.zones[&"apple_area"]
+	get: return zones[&"apple_area"]
 var banana_area: ZoneInfo:
-	get: return objects.zones[&"banana_area"]
+	get: return zones[&"banana_area"]
 var home: ZoneInfo:
-	get: return objects.zones[&"home"]
+	get: return zones[&"home"]
 var pear_area: ZoneInfo:
-	get: return objects.zones[&"pear_area"]
+	get: return zones[&"pear_area"]
 
 ####
-## VARS x1
+## STATS x1
 ####
 var score: int:
-	get: return objects.vars[&"score"].value
-	set(v): objects.vars[&"score"].value = v
+	get: return stats[&"score"].value
+	set(v): stats[&"score"].value = v
 
 ####
 ## QUESTS x1
 ####
 var my_quest: QuestInfo:
-	get: return objects.quests[&"my_quest"]
+	get: return quests[&"my_quest"]
+
 ```
 
 # res://addons/anthonyec.camera_preview/plugin.gd
@@ -554,6 +806,246 @@ func _on_lock_button_pressed() -> void:
 
 ```
 
+# res://addons/libik/script/max_rotation_bone_constraint.gd
+```gd
+@tool
+class_name MaxRotationBoneConstraint extends GodotIKConstraint
+## Constrains the rotation of a bone within a maximum angle.
+##
+## This constraint limits how much a bone can rotate from its initial orientation,
+## ensuring it stays within a given angular range.
+
+## Whether the constraint applies when the IK solver iterates forward.
+@export var forward : bool
+
+## Whether the constraint applies when the IK solver iterates backward.
+@export var backward : bool
+
+## Whether the constraint is currently active.
+@export var active : bool
+
+## The maximum allowable rotation angle (in radians) from the initial pose.
+@export var max_rotation : float
+
+var _initial_rotation : Quaternion
+
+## This function overwrite limits the bone's rotation by ensuring it does not exceed
+## the specified `max_rotation` angle from its initial pose.
+func apply(
+	pos_parent_bone: Vector3,
+	pos_bone: Vector3,
+	pos_child_bone: Vector3,
+	dir: int
+	) -> PackedVector3Array:
+
+	var result = [pos_parent_bone, pos_bone, pos_child_bone]
+	if not active:
+		return result
+
+	var dir_pb = pos_parent_bone.direction_to(pos_bone)
+	var dir_bc = pos_bone.direction_to(pos_child_bone)
+
+	## Store the initial rotation on the first iteration.
+	if get_ik_controller().get_current_iteration() == 0:
+		_initial_rotation = calculate_initial_rotation()
+
+	## Compute the current rotation and the deviation from the initial pose.
+	var current_rotation : Quaternion = Quaternion(dir_pb, dir_bc)
+	var rotation_to_initial = _initial_rotation * current_rotation.inverse()
+	var phi = rotation_to_initial.get_angle()
+
+	## If within the max rotation, no correction is needed.
+	if phi <= max_rotation:
+		return result
+
+	## Adjust the rotation based on direction and constraints.
+	if dir == FORWARD and forward:
+		var d = phi - max_rotation
+		var adj = Quaternion(rotation_to_initial.get_axis(), d)
+		result[2] = pos_bone + adj * dir_bc * (pos_child_bone - pos_bone).length()
+
+	if dir == BACKWARD and backward:
+		var d = phi - max_rotation
+		var adj = Quaternion(-rotation_to_initial.get_axis(), d)
+		result[0] = pos_bone + adj * -dir_pb * (pos_parent_bone - pos_bone).length()
+
+	return result
+
+
+## This function calculates the initial relative rotation between the parent and child bones
+## before any IK solving takes place. This serves as a reference for enforcing the rotation constraint.
+func calculate_initial_rotation() -> Quaternion:
+	var bone_parent = get_skeleton().get_bone_parent(bone_idx)
+	var bone_children = get_skeleton().get_bone_children(bone_idx)
+	assert(bone_children.size() == 1)
+
+	var pos_p = get_skeleton().get_bone_global_pose(bone_parent).origin
+	var pos_b = get_skeleton().get_bone_global_pose(bone_idx).origin
+	var pos_c = get_skeleton().get_bone_global_pose(bone_children[0]).origin
+
+	var dir_pb = pos_p.direction_to(pos_b)
+	var dir_bc = pos_b.direction_to(pos_c)
+
+	return Quaternion(dir_pb, dir_bc)
+
+```
+
+# res://addons/libik/script/pole_bone_constraint.gd
+```gd
+@tool
+class_name PoleBoneConstraint extends GodotIKConstraint
+## Applies a pole vector constraint to an IK bone chain.
+##
+## This constraint ensures that the mid-bone follows a specific pole direction,
+## controlling the plane in which the chain bends.
+
+## Whether the constraint is currently active.
+@export var active : bool = true
+
+## The pole direction vector that influences the bending plane.
+@export var pole_direction : Vector3
+
+## If true, the constraint applies when the IK solver iterates forward.
+@export var forward : bool = true
+
+## If true, the constraint applies when the IK solver iterates backward.
+@export var backward : bool = true
+
+func apply(
+		pos_parent_bone: Vector3,
+		pos_bone: Vector3,
+		pos_child_bone: Vector3,
+		chain_dir : Dir
+	) -> PackedVector3Array:
+	var result : PackedVector3Array = [pos_parent_bone, pos_bone, pos_child_bone]
+	if not active:
+		return result
+	if chain_dir == Dir.FORWARD and not forward:
+		return result
+	if chain_dir == Dir.BACKWARD and not backward:
+		return result
+
+	# Compute the primary bone direction
+	var dir = (pos_child_bone - pos_parent_bone).normalized()
+
+	# Project pole direction onto the plane perpendicular to dir
+	var pole_direction_normalized = pole_direction.normalized()  # Ensure it's a unit vector
+	var pole_direction_projected = pole_direction_normalized - pole_direction_normalized.dot(dir) * dir
+
+	# If the projected pole direction is too small, return early
+	if pole_direction_projected.length_squared() < 0.002:
+		return result
+
+	# Normalize the projected pole direction
+	pole_direction_projected = pole_direction_projected.normalized()
+
+	# Find the perpendicular foot of the bone to the line
+	var mid_point = foot_of_the_perpendicular(pos_bone, pos_parent_bone, pos_child_bone)
+
+	# Adjust the bone position to follow the pole constraint
+	var mid_to_bone = pos_bone - mid_point
+	var bone_length = mid_to_bone.length()  # Store instead of computing twice
+	result[1] = mid_point + pole_direction_projected * bone_length
+
+	return result
+
+## Compute the foot of the perpendicular from a point to a line
+func foot_of_the_perpendicular(point_tip: Vector3, point_line1: Vector3, point_line2: Vector3) -> Vector3:
+	var bc: Vector3 = point_line2 - point_line1  # Vector along the line
+	var t: float = (point_tip - point_line1).dot(bc) / bc.length_squared()  # Projection factor
+	return point_line1 + t * bc
+
+```
+
+# res://addons/libik/script/smooth_bone_constraint.gd
+```gd
+@tool
+class_name SmoothBoneConstraint extends GodotIKConstraint
+
+## Enables or disables the smooth constraint.
+@export var active = true
+## Maximum allowed stretch factor for the bone.
+@export var max_stretch : float = 1.5
+## Speed at which the bone position is interpolated.
+@export var smooth_speed : float = 20.
+
+var _cached_pos_bone : Vector3
+var _prev_time = Time.get_ticks_msec() * 0.001
+
+## Smooths the bone position and applies a stretch limit.
+func apply(
+		pos_parent_bone: Vector3,
+		pos_bone: Vector3,
+		pos_child_bone: Vector3,
+		chain_dir : Dir
+	) -> PackedVector3Array:
+	var result : PackedVector3Array = [pos_parent_bone, pos_bone, pos_child_bone]
+
+	if active:
+		if not _cached_pos_bone:
+			_cached_pos_bone = result[1]
+		var cur_time = Time.get_ticks_msec() * 0.001
+		var delta = cur_time - _prev_time
+		_prev_time = cur_time
+		result[1] = lerp(_cached_pos_bone, result[1], min(delta * smooth_speed, 1.))
+		_cached_pos_bone = result[1]
+		if chain_dir == FORWARD:
+			var d_old = pos_parent_bone.distance_to(pos_bone)
+			var d_new = pos_parent_bone.distance_to(result[1])
+			if d_old != 0 and d_new / d_old >= max_stretch:
+				result[1] = pos_parent_bone + max_stretch * d_old * pos_parent_bone.direction_to(pos_bone)
+	return result
+
+```
+
+# res://addons/libik/script/straight_bone_constraint.gd
+```gd
+@tool
+class_name StraightBoneConstraint extends GodotIKConstraint
+## Ensures a joint remains straight between the parent and child bones.
+##
+## This constraint forces the mid-bone to align perfectly along the axis
+## between the parent and child bones, removing any bending.
+
+## Whether the constraint is currently active.
+@export var active : bool = true
+
+## If true, the constraint applies when the IK solver iterates forward.
+@export var forward : bool = true
+
+## If true, the constraint applies when the IK solver iterates backward.
+@export var backward : bool = true
+
+## This function overwrite modifies the mid-bone position to ensure it stays in a straight line
+## between the parent and child bones.
+func apply(
+		pos_parent_bone: Vector3,
+		pos_bone: Vector3,
+		pos_child_bone: Vector3,
+		chain_dir : Dir
+	) -> PackedVector3Array:
+	var result : PackedVector3Array = [pos_parent_bone, pos_bone, pos_child_bone]
+
+	if not active: return result
+	if not forward and FORWARD or not backward and BACKWARD:
+		return result
+
+	var dir_parent_child = pos_parent_bone.direction_to(pos_child_bone)
+	var len_parent_bone = pos_parent_bone.distance_to(pos_bone)
+	var len_bone_child = pos_bone.distance_to(pos_child_bone)
+	var vec_parent_bone = pos_bone - pos_parent_bone
+
+	match chain_dir:
+		FORWARD:
+			result[1] = pos_parent_bone + dir_parent_child * len_parent_bone
+			result[2] = pos_parent_bone + dir_parent_child * (len_parent_bone + len_bone_child)
+		BACKWARD:
+			result[1] = pos_child_bone - dir_parent_child * len_bone_child
+			result[0] = pos_child_bone - dir_parent_child * (len_parent_bone + len_bone_child)
+	return result
+
+```
+
 # res://addons/odyssey/flow/flow_player.gd
 ```gd
 #@icon("res://addons/odyssey/flow")
@@ -563,49 +1055,66 @@ signal wait_started()
 signal wait_ended()
 signal ended()
 
+## Multiple methods may be called in a single tick this way.
+@export var method_calls: Dictionary[int, Array]
 var _waiting_for_user := false
 var _stack: Array[Array]
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		animation_finished.connect(_animation_finished)
-		#play(&"ROOT")
-
-func _state_expr(id: int):
-	State._run_expression(id)
-
-func _state_cond(id: int, branch: StringName):
-	if State.test_condition(str(id)):
-		goto(branch)
-
-func _animation_finished(_a: StringName):
-	if _stack:
-		var last: Array = _stack.pop_back()
-		var anim: StringName = last[0]
-		var position: float = last[1]
-		play(anim)
-		seek(position)
-	else:
-		print("All finished.")
-		end()
-
-func end_branch():
-	if is_playing():
-		var curr := current_animation
-		stop()
-		_animation_finished(curr)
-
-func end():
-	stop()
-	ended.emit()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"advance_cinematic") and _waiting_for_user:
 		get_viewport().set_input_as_handled()
 		_waiting_for_user = false
 		wait_ended.emit()
-		seek(current_animation_position+.01)
+		seek(current_animation_position + .01)
 		play()
+
+func _meth(hash_index: int):
+	if hash_index in method_calls:
+		for item in method_calls[hash_index]:
+			var meth_id: StringName = item[0]
+			var meth_args: Array = item[1]
+			Global.msg("FlowPlayer", "Method", item)
+			match meth_id:
+				&"_expr": State.call("_expr_%s" % meth_args[0])
+				&"_cond":
+					var conds: Array = meth_args[0]
+					for cond in conds:
+						var cond_hash: int = cond[0]
+						var cond_branch: StringName = cond[1]
+						if State.call("_cond_%s" % cond_hash):
+							goto(cond_branch)
+							break
+				&"_event":
+					var ev_id: StringName = meth_args[0]
+					var ev_data: String = meth_args[1]
+					Cinema._event(ev_id, ev_data)
+				&"_break":
+					if is_playing():
+						var curr := current_animation
+						stop(true)
+						_animation_finished(curr)
+				_: callv(meth_id, meth_args)
+
+func _animation_finished(anim_id: StringName):
+	Global.msg("FlowPlayer", "Animation Finished", [anim_id])
+	if _stack:
+		var last: Array = _stack.pop_back()
+		var anim: StringName = last[0]
+		var position: float = last[1]
+		Global.msg("FlowPlayer", "Continue from", [], { anim=anim, position=position })
+		_play(anim, position)
+	else:
+		Global.msg("FlowPlayer", "Finished")
+		end()
+
+func end():
+	Global.msg("FlowPlayer", "Stopped")
+	stop(true)
+	ended.emit()
 
 ## Wait for user to press something.
 func wait():
@@ -617,31 +1126,25 @@ func wait():
 	print("Waiting for user input.")
 
 func goto(id: StringName, return_after := true, clear_stack := false):
+	Global.msg("FlowPlayer", "Goto", [id], {return_after=return_after, clear_stack=clear_stack})
 	if clear_stack:
 		_stack.clear()
 	
 	if return_after:
-		_stack.append([current_animation, current_animation_position])
+		# Add a tenth of a second offset, so we don't repeat/loop.
+		_stack.append([current_animation, current_animation_position + .01])
 	
 	if "/" in id:
-		play(id)
+		_play(id)
 	else:
 		var branch := current_animation.split("/", true, 1)[0]
-		play(branch + "/" + id)
+		_play(branch + "/" + id)
 
-## Runs through a list of condition strings and plays first anim branch that evalutes true.
-func cond(conds: Array) -> bool:
-	for i in range(0, conds.size(), 2):
-		var test: String = conds[i]
-		var anim: String = conds[i+1]
-		if State.test(test):
-			goto(anim)
-			return true
-	return false
-
-## Set current camera.
-func camera():
-	pass
+func _play(id: StringName, at := 0.0):
+	Global.msg("FlowPlayer", "Play", [], { anim=id, at=at })
+	assigned_animation = id
+	seek(at, false)
+	play()
 
 ```
 
@@ -651,23 +1154,17 @@ func camera():
 class_name FlowPlayerGenerator extends Node
 
 @export var flow_script: FlowScript
-@warning_ignore("unused_private_class_variable")
-@export_tool_button("Regen") var _toolbutton_regen := _regenerate
 @export var default_delay := 0.5
-@export var anim: AnimationPlayer
-var _code: Array[String]
 var _queued_branches: Array[Array]
 var _code_methods := 0
-var _player: AnimationPlayer
+var _player: FlowPlayer
 var _library_id: String
 var _library: AnimationLibrary ## Current lib being generated.
+var _branch_id: StringName
 var _branch_anim: Animation ## Current anim being generated.
 var _branch_state: Dictionary ## State of current anim branch.
 var _branch_time: float ## Total time of current anim branch.
 var _screens: Node
-
-const HUD_CAPTION = preload("uid://dsa17lrw23t4")
-const HUD_MENU = preload("uid://cucq8gseatpvc")
 
 func get_state(key: StringName, default: Variant = null) -> Variant:
 	return _branch_state.get(key, default)
@@ -678,16 +1175,11 @@ func has_state(key: StringName) -> bool:
 func set_state(key: StringName, value: Variant) -> void:
 	_branch_state[key] = value
 
-func _ready() -> void:
-	if not Engine.is_editor_hint():
-		_regenerate()
-
 static func generate(paths: Array[FlowScript]) -> FlowPlayer:
 	var generator := FlowPlayerGenerator.new()
 	generator._generate()
 	for path in paths:
 		generator.add_script(path)
-	generator._set_gdscript()
 	return generator._player
 
 func _generate():
@@ -698,46 +1190,6 @@ func _generate():
 	_player.add_child(_screens)
 	_screens.name = "screens"
 	_screens.owner = _player
-	
-	_code = []
-
-func _regenerate():
-	var gen_time := Time.get_ticks_msec()
-	
-	if anim:
-		remove_child(anim)
-		anim.queue_free()
-		anim = null
-	
-	_generate()
-	add_script(flow_script)
-	_set_gdscript()
-	
-	var path := "res://assets/cinematics/%s.tscn" % ["dummy"]
-	var packed := PackedScene.new()
-	var err := packed.pack(_player)
-	if err != OK:
-		push_error("Couldn't pack.")
-		return
-	
-	err = ResourceSaver.save(packed, path)
-	if err != OK:
-		push_error("Couldn't save.")
-		return
-	
-	anim = load(path).instantiate()
-	add_child(anim)
-	anim.owner = self
-	
-	prints("Generated in %s ms." % [Time.get_ticks_msec() - gen_time])
-
-func _set_gdscript():
-	_code.insert(0, "extends FlowPlayer")
-	var gdscript := GDScript.new()
-	gdscript.source_code = "\n".join(_code)
-	print(gdscript.source_code)
-	gdscript.reload()
-	_player.set_script(gdscript)
 
 func add_script(cscript: FlowScript) -> void:
 	_library = AnimationLibrary.new()
@@ -753,13 +1205,14 @@ func add_script(cscript: FlowScript) -> void:
 		branch.assign(binfo[1])
 		_add_branch(binfo[0], branch)
 
-func add_branch_queued(steps: Array[Dictionary], branch_id := &"") -> StringName:
+func _add_branch_queued(steps: Array[Dictionary], branch_id := &"") -> StringName:
 	if not branch_id:
 		branch_id = "branch_%s" % hash(steps)
 	_queued_branches.append([branch_id, steps])
 	return branch_id
 
 func _add_branch(branch_id: StringName, steps: Array[Dictionary]):
+	_branch_id = branch_id
 	_branch_anim = Animation.new()
 	_branch_anim.length = 0.0
 	_branch_state = {}
@@ -770,104 +1223,56 @@ func _add_branch(branch_id: StringName, steps: Array[Dictionary]):
 	_branch_anim.track_set_path(track, ^".")
 	_library.add_animation(branch_id, _branch_anim)
 	
-	for step in steps:
+	var step_index := 0
+	while step_index < steps.size():
+		var step := steps[step_index]
 		match step.type:
 			FlowToken.TEXT:
-				var state := add_object("caption", HUD_CAPTION)
+				var state := add_object("caption")
 				state.node._cinematic_step(self, step)
 			FlowToken.KEYV:
-				var state := add_object("caption", HUD_CAPTION)
+				var state := add_object("caption")
 				state.node._cinematic_step(self, step)
 			FlowToken.CMND:
 				match step.cmnd:
 					&"MENU":
-						var state := add_object("menu", HUD_MENU)
+						var state := add_object("menu")
 						state.node._cinematic_step(self, step)
 					&"WAIT":
 						add_time(1.0)
 					&"CODE":
-						#var _func_name := "_code%s" % _code_methods
-						#_code_methods += 1
-						#_code.append("# %s" % step.dbg)
-						#_code.append("func %s() -> void:" % _func_name)
-						#_code.append("\t" + _replace_vars(step.rest).replace("\n", "\n\t"))
-						add_method(&"_state_expr", [hash(step.rest)])
+						add_method(&"_expr", [hash(step.rest)])
 						add_time(1.0)
-					&"IF", &"ELIF", &"ELSE":
-						var branch := add_branch_queued(step.tabbed)
-						#var func_name := "_cond%s" % _code_methods
-						#var expression := _replace_vars(step.rest)
-						#if not "/" in branch:
-							#branch = _library_id + "/" + branch
-						#_code_methods += 1
-						#if step.cmnd == &"ELSE":
-							#_code.append("func %s() -> void: goto(&\"%s\")" % [func_name, branch])
-						#else:
-							#_code.append("func %s() -> void: if %s: goto(&\"%s\")" % [func_name, expression, branch])
-						add_method(&"_state_cond", [hash(step.rest), branch])
-						add_time(1.0)
-					&"QUEST_TICK": print("TODO: QUEST_TICK")
-					&"QUEST_SHOW": print("TODO: QUEST_SHOW")
+					&"IF":
+						var collected := [step]
+						var step_index2 := step_index+1
+						while step_index2 < steps.size():
+							var step2 := steps[step_index2]
+							if step2.type == FlowToken.CMND and step2.cmnd in [&"ELIF", &"ELSE"]:
+								collected.append(step2)
+								step_index2 += 1
+							else:
+								break
+						step_index = step_index2
+						var args := []
+						for cond in collected:
+							var hash_index := hash(cond.rest)
+							var branch := _add_branch_queued(cond.tabbed)
+							args.append([hash_index, branch])
+						print("IFELFO", args)
+						add_method(&"_cond", [args])
+						add_time(0.1)
+					&"ELIF", &"ELSE":
+						push_error("ELIF and ELSE must follow and IF.")
 					_:
-						push_warning("Unimplimented command %s." % [step])
+						if step.cmnd in QuestDB.ALL_EVENTS\
+						or step.cmnd in InventoryDB.ALL_EVENTS:
+							add_method(&"_event", [step.cmnd, step.rest])
+						else:
+							Global.warn("FlowPlayerGenerator", "Unimplimented command %s." % [step])
 			_:
-				push_warning("Unimplmented step %s." % [step])
-
-
-
-#static func _replace_vars(input: String, vars: Array = []) -> String:
-	#const IGNORE := ["true", "false", "null",
-		#"match", "if", "elif", "else",
-		#"or", "in", "as",
-		#"return", "pass", "continue"]
-	#var REG_VAR := RegEx.create_from_string(r"[A-Za-z_]\w*(?:\[[^\]]+\]|\.[A-Za-z_]\w*)*")
-	#var i := 0
-	#var out := ""
-	#var safe := 1000
-	#while i < input.length() and safe > 0:
-		#safe -= 1
-		#var c := input[i]
-		## Skip quoted.
-		#if c == '"' or c == "'":
-			#var quote := c
-			#out += quote
-			#i += 1
-			#while i < input.length():
-				#out += input[i]
-				#if input[i] == "\\" and i + 1 < input.length():
-					#i += 2
-					#continue
-				#if input[i] == quote:
-					#i += 1
-					#break
-				#i += 1
-			#continue
-		#var rm := REG_VAR.search(input, i)
-		#if not rm:
-			#out += input.substr(i)
-			#break
-		#var start := rm.get_start()
-		#var end := rm.get_end()
-		#var dq := input.find('"', i)
-		#var sq := input.find("'", i)
-		#var next_quote := -1
-		#if dq != -1 and (sq == -1 or dq < sq):
-			#next_quote = dq
-		#elif sq != -1:
-			#next_quote = sq
-		#if next_quote != -1 and next_quote < start:
-			#out += input.substr(i, next_quote - i)
-			#i = next_quote
-			#continue
-		#var found := rm.strings[0]
-		#out += input.substr(i, start - i)
-		#if found not in IGNORE:
-			#if start < 6 or input.substr(start - 6, 6) != "State.":
-				#if not found in vars: vars.append(found)
-				#out += "State."
-		#out += found
-		#i = end
-	#return out
+				Global.warn("FlowPlayerGenerator", "Unimplmented step %s." % [step])
+		step_index += 1
 
 func has_object(id: String) -> bool:
 	return get_object(id) != null
@@ -875,10 +1280,9 @@ func has_object(id: String) -> bool:
 func get_object(id: String) -> Node:
 	return _player.get_node_or_null(id)
 
-func add_object(id: String, packed: PackedScene) -> Dictionary:
+func add_object(id: String) -> Dictionary:
 	if not has_object(id):
-		var node := packed.instantiate()
-		_player.add_child(node)
+		var node := Assets.create_scene(id, _player)
 		node.name = id
 		node.owner = _player
 	if not has_state(id):
@@ -888,10 +1292,14 @@ func add_object(id: String, packed: PackedScene) -> Dictionary:
 
 func add_checkpoint():
 	add_method(&"wait")
-	#_branch_anim.track_insert_key(_branch_state.t_methods, _branch_time, { method=&"wait", args=[] })
 
 func add_method(method: StringName, args: Array = []):
-	_branch_anim.track_insert_key(_branch_state.t_methods, _branch_time, { method=method, args=args })
+	var hash_index := hash(_branch_id + str(_branch_time))
+	if not hash_index in _player.method_calls:
+		_player.method_calls[hash_index] = []
+	_player.method_calls[hash_index].append([method, args])
+	# Will replace existing frames, but that's fine since they will have the same hash.
+	_branch_anim.track_insert_key(_branch_state.t_methods, _branch_time, { method=&"_meth", args=[hash_index] })
 
 func add_track(node: Node, property: NodePath, update: Variant = null, interp: Variant = null) -> int:
 	var state_name := node.name
@@ -969,7 +1377,7 @@ static func parse(str: String, dbg_file := "") -> Dictionary:
 	REGEX_FUNCTION = RegEx.create_from_string(r"^[@%^]?[A-Za-z_][A-Za-z0-9_]*\(.*\)$")
 	
 	var out: Dictionary
-	var root := {}
+	var root := { tabbed=[] }
 	var stack := [root]
 	stack.resize(20)
 	var lines := str.split("\n")
@@ -977,8 +1385,15 @@ static func parse(str: String, dbg_file := "") -> Dictionary:
 	while i < lines.size():
 		var deep := 0
 		var line := lines[i]
-		while deep < line.length() and line[deep] == "\t":
-			deep += 1
+		# Tabs or YAML style two-spaces.
+		while deep < line.length():
+			if line[deep] == "\t":
+				deep += 2
+			elif line[deep] == " ":
+				deep += 1
+			else:
+				break
+		deep = deep / 2
 		var comment := line.rfind("# ")
 		var stripped := line.substr(deep, comment).strip_edges()
 		if stripped:
@@ -1005,6 +1420,7 @@ static func parse(str: String, dbg_file := "") -> Dictionary:
 			stack[deep].tabbed.append(info)
 			stack[deep+1] = info
 		i += 1
+	
 	return root
 
 # TODO: Error handling which outputs dbg_file and dbg_line.
@@ -1172,6 +1588,4085 @@ const KEYV := &"keyv" # { key: "", val: "" }
 const NUMB := &"numb" # { numb: "" }
 const PROP := &"prop" # { prop: {} }
 const TEXT := &"text" # { text: "" }
+
+```
+
+# res://addons/richer_text/scripts/editor_property_list.gd
+```gd
+@tool
+class_name EditorProperties extends RefCounted
+
+var _list: Array[Dictionary]
+
+func _init(list := []) -> void:
+	_list.assign(list)
+
+func group(name: String, hint_string: String) -> EditorProperties:
+	return prop(name, TYPE_NIL, PROPERTY_HINT_NONE, hint_string, PROPERTY_USAGE_GROUP)
+
+func subgroup(name: String, hint_string: String) -> EditorProperties:
+	return prop(name, TYPE_NIL, PROPERTY_HINT_NONE, hint_string, PROPERTY_USAGE_SUBGROUP)
+
+func res(name: StringName, type: String = "Resource") -> EditorProperties:
+	return prop(name, TYPE_OBJECT, PROPERTY_HINT_RESOURCE_TYPE, type)
+
+func button(name: StringName, text: String = "Click") -> EditorProperties:
+	return prop(name, TYPE_CALLABLE, PROPERTY_HINT_TOOL_BUTTON, text, PROPERTY_USAGE_EDITOR)
+
+func boolean(name: StringName) -> EditorProperties:
+	return prop(name, TYPE_BOOL)
+
+func node_path(name: StringName, type := "") -> EditorProperties:
+	return prop(name, TYPE_NODE_PATH, PROPERTY_HINT_NODE_PATH_VALID_TYPES, type)
+
+func color(name: StringName) -> EditorProperties:
+	return prop(name, TYPE_COLOR)
+
+func integer(name: StringName) -> EditorProperties:
+	return prop(name, TYPE_INT)
+
+func integer_enum(name: StringName, en: Variant) -> EditorProperties:
+	en = en if en is String else ",".join(en.keys().map(func(s): return s.capitalize()))
+	return prop(name, TYPE_INT, PROPERTY_HINT_ENUM, en)
+
+func string(name: StringName) -> EditorProperties:
+	return prop(name, TYPE_STRING)
+
+func string_enum(name: StringName, keys: Variant) -> EditorProperties:
+	return prop(name, TYPE_STRING, PROPERTY_HINT_ENUM_SUGGESTION, ",".join(keys))
+
+func tween_trans(name: StringName) -> EditorProperties:
+	return prop(name, TYPE_INT, PROPERTY_HINT_ENUM, "Linear:0,Sine:1,Quint:2,Quart:3,Quad:4,Expo:5,Elastic:6,Cubic:7,Circ:8,Bounce:9,Back:10,Spring:11")
+
+func tween_ease(name: StringName) -> EditorProperties:
+	return prop(name, TYPE_INT, PROPERTY_HINT_ENUM, "In:0,Out:1,In Out:2,Out In:3")
+
+func number_range(name: StringName, minn = 0.0, maxx = 1.0) -> EditorProperties:
+	return prop(name, TYPE_FLOAT, PROPERTY_HINT_RANGE, "%s,%s" % [minn, maxx])
+
+func number(name: StringName) -> EditorProperties:
+	return prop(name, TYPE_FLOAT)
+
+func node(name: StringName, hint_string: String = "") -> EditorProperties:
+	return prop(name, TYPE_OBJECT, PROPERTY_HINT_NODE_TYPE, hint_string)
+
+func dict(name: StringName, hint_string: String) -> EditorProperties:
+	if true and Engine.get_version_info().hex >= 0x040400:
+		#var hint_string := "%s;%s" % [type_string(typeof(a)), type_string(typeof(b))]
+		# PROPERTY_HINT_DICTIONARY_TYPE = 38
+		return prop(name, TYPE_DICTIONARY, 38, hint_string)
+	else:
+		return prop(name, TYPE_DICTIONARY)
+
+func file(name: StringName, types: PackedStringArray = []) -> EditorProperties:
+	return prop(name, TYPE_STRING, PROPERTY_HINT_FILE, "" if not types else ("*." + ",*.".join(types)))
+
+func dir(name: StringName) -> EditorProperties:
+	return prop(name, TYPE_STRING, PROPERTY_HINT_DIR)
+
+func enum_cursor(name: StringName) -> EditorProperties:
+	return integer_enum(name, CursorShape)
+
+func prop(name: StringName, type: int, hint: PropertyHint = PROPERTY_HINT_NONE, hint_string: String = "", usage := PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE) -> EditorProperties:
+	_list.append({ name=name, type=type, usage=usage, hint=hint, hint_string=hint_string })
+	return self
+
+func end() -> Array[Dictionary]:
+	return _list
+
+enum CursorShape {
+	ARROW = 0,			# Arrow cursor. Standard, default pointing cursor.
+	IBEAM = 1,			# I-beam cursor. Usually used to show where the text cursor will appear when the mouse is clicked.
+	POINTING_HAND = 2,	# Pointing hand cursor. Usually used to indicate the pointer is over a link or other interactable item.
+	CROSS = 3,			# Cross cursor. Typically appears over regions in which a drawing operation can be performed or for selections.
+	WAIT = 4,			# Wait cursor. Indicates that the application is busy performing an operation, and that it cannot be used during the operation.
+	BUSY = 5,			# Busy cursor. Indicates that the application is busy performing an operation, and that it is still usable during the operation.
+	DRAG = 6,			# Drag cursor. Usually displayed when dragging something.
+						# Note: Windows lacks a dragging cursor, so DRAG is the same as MOVE for this platform.
+	CAN_DROP = 7,		# Can drop cursor. Usually displayed when dragging something to indicate that it can be dropped at the current position.
+	FORBIDDEN = 8,		# Forbidden cursor. Indicates that the current action is forbidden or that the control at a position is disabled.
+	VSIZE = 9,			# Vertical resize mouse cursor. Double-headed vertical arrow.
+	HSIZE = 10,			# Horizontal resize mouse cursor. Double-headed horizontal arrow.
+	BDIAGSIZE = 11,		# Window resize cursor (↘↖). Bottom-left to top-right diagonal double-headed arrow.
+	FDIAGSIZE = 12,		# Window resize cursor (↙↗). Top-left to bottom-right diagonal double-headed arrow.
+	MOVE = 13,			# Move cursor. Indicates that something can be moved.
+	VSPLIT = 14,		# Vertical split cursor. On Windows, same as VSIZE.
+	HSPLIT = 15,		# Horizontal split cursor. On Windows, same as HSIZE.
+	HELP = 16			# Help cursor. Usually a question mark.
+}
+
+```
+
+# res://addons/richer_text/scripts/font_db.gd
+```gd
+@tool
+class_name FontDB extends Resource
+## Font Database scans for fonts so they can be easily used.
+
+const EXT_FONT: PackedStringArray = ["otf", "ttf", "ttc", "otc", "woff", "woff2", "pfb", "pfm", "fnt", "font"]
+const PATH_DEFAULT_DB := "res://assets/font_db.tres"
+
+@export_dir var parent_dir := "res://" ## Directory to start scanning from.
+@export var paths: Dictionary[StringName, String] ## Paths organized by a nickname.
+@export var emoji: String ## Path to emoji font.
+@export var sanitize_ids := true ## Make names lowercase without symbols.
+
+## Scans parent_dir for fonts.
+@export_tool_button("Find Fonts") var _tool_button := find_fonts
+
+static func get_default() -> FontDB:
+	if Engine.is_editor_hint():
+		if not FileAccess.file_exists(PATH_DEFAULT_DB):
+			if not DirAccess.dir_exists_absolute(PATH_DEFAULT_DB.get_base_dir()):
+				DirAccess.make_dir_recursive_absolute(PATH_DEFAULT_DB.get_base_dir())
+			var fontdb := FontDB.new()
+			fontdb.find_fonts()
+			var err := ResourceSaver.save(fontdb, PATH_DEFAULT_DB)
+			if err != OK:
+				push_error("FontDB: ", error_string(err))
+	return load(PATH_DEFAULT_DB)
+
+func get_nice_names() -> PackedStringArray:
+	return paths.keys().map(func(s: String): return s.capitalize())
+
+func get_font(id: StringName) -> Font:
+	id = _sanitise(id)
+	#print("SAN ", id)
+	return load(paths[id]) if id in paths else ThemeDB.fallback_font
+
+func find_fonts():
+	if not Engine.is_editor_hint():
+		push_error("Shouldn't scan for fonts when not in editor.")
+		return
+	
+	_scan_dir(parent_dir)
+	notify_property_list_changed()
+
+func _sanitise(id: String) -> StringName:
+	var out := ""
+	for c in id.to_snake_case():
+		if c in "abcdefghijklmnopqrstuvwxyz0123456789":
+			out += c
+		elif out and out[-1] != "-":
+			out += "-"
+	return out
+	
+func _scan_dir(dir: String):
+	for subdir in DirAccess.get_directories_at(dir):
+		_scan_dir(dir.path_join(subdir))
+	
+	for file in DirAccess.get_files_at(dir):
+		if file.get_extension().to_lower() in EXT_FONT:
+			var font_path := dir.path_join(file)
+			var font_id := file.get_basename().get_file()
+			if "emoji" in font_id.to_lower():
+				print("Found emoji font: %s" % font_path)
+				emoji = font_path
+			elif not paths.find_key(font_path):
+				if sanitize_ids:
+					font_id = _sanitise(font_id)
+				print("Found font: %s" % font_id)
+				paths[font_id] = font_path
+			else:
+				print("Already found font at %s" % font_path)
+
+```
+
+# res://addons/richer_text/scripts/juicy_label.gd
+```gd
+@tool
+class_name JuicyLabel extends Control
+
+enum EffectState { DEFAULT, HOVERED, CLICKED }
+
+@export var font_db: FontDB = FontDB.get_default():
+	set(f):
+		if f == null:
+			f = FontDB.get_default()
+		font_db = f
+
+@export_storage var font_id: String:
+	set(f):
+		font_id = f
+		font = font_db.get_font(font_id)
+		queue_redraw()
+
+@export var font_size: int = 64:
+	set(s):
+		font_size = s
+		queue_redraw()
+
+@export var text := "": set=set_text
+@export var color := Color(.17, .78, .45, 1.0)
+
+@export var outlines: Array[RTxtOutline]
+@export var style := RTxtOutline.Style.TEXT
+@export var outline_size := 1 ## Only used if style is Outline or OutlineAndText.
+
+@export_range(0.0, 1.0, 0.01) var effect_weight := 1.0 ## Scales some effects by this amount.
+@export var effect_state := EffectState.DEFAULT: set=set_effect_state
+@export_storage var _effect_state := EffectState.DEFAULT ## True effect_state.
+
+@export var default_effect: RTxtEffect:
+	set(e):
+		if e == null: e = RTE_Mega.new()
+		if e: e._juicy = self
+		default_effect = e
+
+@export var hovered_effect: RTxtEffect:
+	set(e):
+		if e == null: e = RTE_Mega.new()
+		if e: e._juicy = self
+		hovered_effect = e
+
+@export var clicked_effect: RTxtEffect:
+	set(e):
+		if e == null: e = RTE_Mega.new()
+		if e: e._juicy = self
+		clicked_effect = e
+
+@export var disable_effects := false ## Disables any effects. Debug.
+
+var _anim := 0.0
+var _smoothed_mouse_position := Vector2.ZERO
+var _rects: Array[Rect2]
+var _tween: Tween
+var _tween_amount := 0.0
+var font: Font:
+	get: return font if font else ThemeDB.fallback_font
+
+var horizontal_alignment := HORIZONTAL_ALIGNMENT_CENTER ## TODO
+var vertical_alignment := VERTICAL_ALIGNMENT_CENTER ## TODO.
+
+func set_text(t: String):
+	text = t
+	
+	var total_size := Vector2.ZERO
+	var offset := Vector2.ZERO
+	var chr_offset := Vector2.ZERO
+	_rects.resize(text.length())
+	for i in _rects.size():
+		var chr := text[i]
+		var chr_pos := offset + chr_offset
+		var chr_size := font.get_string_size(chr, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size)
+		_rects[i] = Rect2(chr_pos, chr_size)
+		chr_offset.x += chr_size.x
+		total_size.x = maxf(total_size.x, chr_offset.x)
+		total_size.y = maxf(total_size.y, chr_size.y)
+	
+	size = total_size
+	custom_minimum_size = total_size
+	
+	queue_redraw()
+
+func set_effect_state(s: EffectState):
+	effect_state = s
+	_tween_amount = 0.0
+	
+	var from := _get_effect(_effect_state)
+	var to := _get_effect(effect_state)
+	if from and to:
+		if _tween: _tween.kill()
+		_tween = create_tween()
+		_tween.tween_property(self, "_tween_amount", 1.0, to.tween_duration)\
+			.set_trans(to.tween_trans)\
+			.set_ease(to.tween_ease)
+		_tween.tween_callback(func(): _effect_state = effect_state)
+
+func _process(delta: float) -> void:
+	_anim += delta
+	_smoothed_mouse_position = _smoothed_mouse_position.lerp(get_local_mouse_position(), 10.0 * delta)
+	queue_redraw()
+
+func _get_effect(s: EffectState) -> RTxtEffect:
+	match s:
+		EffectState.DEFAULT: return default_effect
+		EffectState.HOVERED: return hovered_effect
+		EffectState.CLICKED: return clicked_effect
+	return default_effect
+
+func _draw() -> void:
+	# Debug boxes.
+	#for i in _rects.size():
+		#draw_rect(_rects[i], Color(Color.BLACK, 0.5), false, 1, true)
+	
+	var ascent := Vector2(0.0, font.get_ascent(font_size))
+	var baseline := Vector2(0.0, font.get_ascent(font_size))
+	var diff := (size - custom_minimum_size)
+	
+	match horizontal_alignment:
+		HORIZONTAL_ALIGNMENT_CENTER: baseline.x += diff.x * .5
+		HORIZONTAL_ALIGNMENT_RIGHT: baseline.x += diff.x
+		HORIZONTAL_ALIGNMENT_FILL: baseline.x += diff.x * .5
+	
+	match vertical_alignment:
+		VERTICAL_ALIGNMENT_CENTER: baseline.y += diff.y * .5
+		VERTICAL_ALIGNMENT_BOTTOM: baseline.y += diff.y
+		VERTICAL_ALIGNMENT_FILL: baseline.y += diff.y * .5
+	
+	if disable_effects:
+		pass
+	
+	elif effect_state != _effect_state:
+		var a_effect := _get_effect(_effect_state)
+		var b_effect := _get_effect(effect_state)
+		if a_effect and b_effect:
+			a_effect._juicy = self
+			b_effect._juicy = self
+			
+			var cfx := RTxtCharFXTransform.new()
+			cfx.elapsed_time = _anim
+			
+			for i in _rects.size():
+				var rect := _rects[i]
+				
+				cfx.relative_index = i
+				cfx.range = Vector2(i, 0)
+				
+				var a_trans: Transform2D 
+				var a_color: Color
+				cfx.transform = Transform2D(0.0, Vector2.ONE, 0.0, rect.position)
+				cfx.color = color
+				if a_effect._process_custom_fx(cfx):
+					a_trans = cfx.transform
+					a_color = cfx.color
+				
+				var b_trans: Transform2D
+				var b_color: Color
+				cfx.transform = Transform2D(0.0, Vector2.ONE, 0.0, rect.position)
+				cfx.color = color
+				if b_effect._process_custom_fx(cfx):
+					b_trans = cfx.transform
+					b_color = cfx.color
+				
+				var mix_trans := a_trans.interpolate_with(b_trans, _tween_amount)
+				var mix_color := a_color.lerp(b_color, _tween_amount)
+				draw_set_transform_matrix(mix_trans)
+				draw_string(font, baseline, text[i], HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, mix_color)
+			return
+	else:
+		var text_server = TextServerManager.get_primary_interface()
+		var effect := _get_effect(effect_state)
+		if effect:
+			effect._juicy = self
+			
+			var states: Array[RTxtCharFXTransform]
+			states.resize(_rects.size())
+			
+			for i in _rects.size():
+				var rect := _rects[i]
+				var half_size := rect.size * .5
+				var cfx := RTxtCharFXTransform.new()
+				cfx.font = font.get_rid()
+				cfx.elapsed_time = _anim
+				cfx.relative_index = i
+				cfx.range = Vector2(i, 0)
+				cfx.transform = Transform2D(0.0, Vector2.ONE, 0.0, Vector2.ZERO)
+				cfx.color = color
+				cfx.glyph_index = text_server.font_get_glyph_index(font.get_rids()[0], font_size, text[i].unicode_at(0), 0)
+				cfx.outline_states.assign(outlines.map(func(o: RTxtOutline):
+					return {} if not o else {
+						style=o.style,
+						color=o.color,
+						position=o.position,
+						size=o.size,
+						rotation=o.rotation,
+						skew=o.skew, 
+						scale=o.scale }))
+				#cfx.set_meta(&"outlines", outlines)
+				#cfx.set_meta(&"outline_states", outline_states)
+				states[i] = cfx
+				
+				if effect._process_custom_fx(cfx):
+					pass
+			
+			for o in range(outlines.size()-1, -1, -1):
+				if not outlines[o]:
+					continue
+				for i in _rects.size():
+					var cfx := states[i]
+					var rect := _rects[i]
+					var half_size := rect.size * .5
+					var outline: Dictionary = cfx.outline_states[o]
+					var off: Vector2 = outline.position
+					var chr := char(text_server.font_get_char_from_glyph_index(font.get_rids()[0], font_size, cfx.glyph_index))
+					var mtx := cfx.transform * Transform2D(outline.rotation, outline.scale, outline.skew, outline.position)
+					var basis_only := Transform2D(cfx.transform.x, cfx.transform.y, Vector2.ZERO)
+					var desired_center := rect.position + Vector2(baseline.x, 0) + half_size
+					var draw_mtx := Transform2D.IDENTITY.translated(desired_center) * basis_only * Transform2D.IDENTITY.translated(-half_size)
+					draw_set_transform_matrix(draw_mtx)
+					if outline.style != RTxtOutline.Style.OUTLINE:
+						draw_string(font, ascent, chr, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, outline.color)
+					if outline.style != RTxtOutline.Style.TEXT:
+						draw_string_outline(font, ascent, chr, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, outline.size, outline.color)
+			
+			for i in _rects.size():
+				var cfx = states[i]
+				var rect := _rects[i]
+				var half_size := rect.size * .5
+				var chr := char(text_server.font_get_char_from_glyph_index(font.get_rids()[0], font_size, cfx.glyph_index))
+				var mtx: Transform2D = cfx.transform
+				var basis_only := Transform2D(cfx.transform.x, cfx.transform.y, Vector2.ZERO)
+				var desired_center := rect.position + Vector2(baseline.x, 0) + half_size
+				var draw_mtx := Transform2D.IDENTITY.translated(desired_center) * basis_only * Transform2D.IDENTITY.translated(-half_size)
+				draw_set_transform_matrix(draw_mtx)
+				if style != RTxtOutline.Style.OUTLINE:
+					draw_string(font, ascent, chr, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, cfx.color)
+				if style != RTxtOutline.Style.TEXT:
+					draw_string_outline(font, ascent, chr, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, outline_size, cfx.color)
+		return
+	
+	for i in _rects.size():
+		var rect := _rects[i]
+		draw_string(font, rect.position + baseline, text[i], HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, color)
+
+#region Editor
+func _property_can_revert(property: StringName) -> bool:
+	return property in JuicyLabel.new()
+
+func _property_get_revert(property: StringName) -> Variant:
+	return JuicyLabel.new().get(property)
+
+func _get_property_list() -> Array[Dictionary]:
+	return EditorProperties.new()\
+		.string_enum(&"font_id", font_db.paths.keys() if font_db else [])\
+		.integer_enum(&"horizontal_alignment", "Left,Center,Right,Fill")\
+		.integer_enum(&"vertical_alignment", "Top,Center,Bottom,Fill")\
+		.end()
+#endregion
+
+```
+
+# res://addons/richer_text/scripts/richer_text_label.gd
+```gd
+@tool
+class_name RicherTextLabel extends RichTextLabel
+
+signal link_hovered(content: Variant)
+signal link_unhovered(content: Variant)
+signal link_clicked(content: Variant)
+signal link_right_clicked(content: Variant)
+signal _mods_finished() ## Called after all the mods have postprocessed the label.
+
+class TooltipObject extends RefCounted:
+	var id: String
+	var tooltip_text: String
+	func _to_string() -> String:
+		return "Tooltip:%s(%s)" % [id, tooltip_text]
+
+@export var bbcode_head: String: set=set_bbcode_head ## Will always prefix the bbcode.
+@export_custom(PROPERTY_HINT_EXPRESSION, "") var bbcode: String: set=set_bbcode
+var _image_keys: PackedInt32Array ## Allow us to change image color & alpha with effects.
+
+## Scaled to the parser size.
+#@export var font_scale := 1.0:
+	#set(f):
+		#font_scale = f
+		#_changed_font_size()
+
+## Scaled against effects like [sin] and [bounce].
+@export_range(0.0, 1.0) var effect_weight := 1.0
+
+@export var modifiers: Array[RTxtModifier]:
+	set(m):
+		modifiers = m
+		for mod in modifiers:
+			if mod:
+				mod.label = self
+				if not mod.changed.is_connected(refresh):
+					mod.changed.connect(refresh)
+		refresh()
+
+@export var shadow: RTxtShadow:
+	set(s):
+		shadow = s
+		if s: s.changed.connect(_changed_shadow)
+		_changed_shadow()
+
+var font: Font:
+	get: return load(parser.font_default) if parser else ThemeDB.fallback_font
+
+var font_size: float:
+	get: return (parser.font_size if parser else ThemeDB.fallback_font_size)# * font_scale
+
+## Populated with [link] tag data.
+@export_storage var link_content: Dictionary[int, String]
+var _link_regions: Dictionary[int, PackedInt32Array] ## Used internally for mouse over detection. Populated by RTxtLinkEffect.
+var _link_rects: Dictionary[int, PackedVector2Array] ## Used internally for mouse over detection.
+var hovered_link: int = -1:
+	set(h):
+		if h == hovered_link:
+			return
+		if hovered_link != -1:
+			_link_unhovered(hovered_link)
+			_set_cursor(Input.CURSOR_ARROW)
+		hovered_link = h
+		if hovered_link != -1:
+			_link_hovered(hovered_link)
+			if can_click(hovered_link):
+				_set_cursor(parser.link_cursor if parser else Input.CURSOR_POINTING_HAND)
+			else:
+				_set_cursor(parser.link_tooltip_cursor if parser else Input.CURSOR_HELP)
+
+@export var parser: RTxtParser = RTxtParser.get_default(): set=set_parser
+
+func _set_cursor(shape: int):
+	Input.set_default_cursor_shape(shape)
+	mouse_default_cursor_shape = shape
+
+## Converts a Callable into a clickable tag.
+## WARNING: You still have to wrap it: "[%s]Test]" % to_link(my_func)
+static func to_link(call: Callable) -> String:
+	var id := call.get_object_id()
+	var meth := call.get_method()
+	var args := "&".join(call.get_bound_arguments().map(JSON.stringify))
+	return "=call:%s:%s:%s" % [id, meth, args]
+
+func set_bbcode_head(head: String):
+	bbcode_head = head
+	refresh()
+
+func set_bbcode(bb: String):
+	if bbcode == bb:
+		return
+	bbcode = bb
+	refresh()
+
+func refresh():
+	link_content.clear()
+	_link_regions.clear()
+	_link_rects.clear()
+	_image_keys.clear()
+	uninstall_effects()
+	set_process_input(false)
+	
+	var bb := bbcode
+	
+	for mod in modifiers:
+		if mod and mod.enabled:
+			bb = mod._preparse(bb)
+	
+	# Attach the head after the modifiers, since they tend to repeat stuff.
+	var bb_head := bbcode_head.strip_edges()
+	if bb_head:
+		if not bb_head.begins_with("["): bb_head = "[" + bb_head
+		if not bb_head.ends_with("]"): bb_head = bb_head + "]"
+		bb = bb_head + bb
+	
+	if parser:
+		if not is_inside_tree():
+			await ready
+		bb = parser.parse(bb, self, link_content)
+		
+		if link_content and parser.link_effect:
+			_install_effect(parser.link_effect)
+			set_process_input(true)
+	else:
+		print("No parser...")
+	
+	if false and "[/img]" in bb:
+		# HACK: To give images a key so we can update them with RichTextLabel effects.
+		clear()
+		var re := RegEx.create_from_string(r"(\[img[^\]]*\])(.+?)(\[/img\])")
+		var offset := 0
+		while offset < bb.length():
+			var rm := re.search(bb, offset)
+			if rm:
+				append_text(bb.substr(offset, rm.get_start() - offset))
+				var index := get_parsed_text().length()
+				_image_keys.append(index)
+				add_image(load(rm.strings[2]), 64, 64, Color.WHITE, INLINE_ALIGNMENT_CENTER, Rect2(), index)
+				offset = rm.get_end()
+			else:
+				append_text(bb.substr(offset))
+				offset = bb.length()
+	else:
+		set_text(bb)
+
+func _finished():
+	for mod in modifiers:
+		if mod and mod.enabled:
+			mod._finished()
+	_mods_finished.emit()
+
+var _debug_commands: Array[Callable]
+func add_draw(drawcmd: Callable):
+	if not _debug_commands:
+		_debug_commands = []
+	_debug_commands.append(drawcmd)
+	queue_redraw()
+
+func _init() -> void:
+	set_process_input(false)
+	
+	if not parser:
+		set_parser(null)
+		bbcode_enabled = true
+		fit_content = true
+		autowrap_mode = TextServer.AUTOWRAP_OFF
+		meta_underlined = false
+		hint_underlined = false
+	
+	for mod in modifiers:
+		if mod and not mod.changed.is_connected(refresh):
+			mod.changed.connect(refresh)
+	
+	if not finished.is_connected(_finished):
+		finished.connect(_finished)
+
+func _exit_tree() -> void:
+	# Clear states on the way out, since many nodes can share the effect.
+	# TODO: At the moment you can't probably can't have RicherTextLabels with links.
+	if link_content and parser.link_effect:
+		parser.link_effect._clear()
+
+func _input(event: InputEvent) -> void:
+	if not link_content or not parser.link_effect:
+		set_process_input(false)
+		return
+		
+	if event is InputEventMouseMotion:
+		if parser and parser.link_effect:
+			parser.link_effect._check_mouse_over(self, get_local_mouse_position())
+	elif event is InputEventMouseButton and event.pressed and hovered_link != -1:
+		if can_click(hovered_link):
+			if event.button_index == MOUSE_BUTTON_LEFT:
+				get_viewport().set_input_as_handled()
+				_link_clicked(hovered_link)
+			elif event.button_index == MOUSE_BUTTON_RIGHT:
+				get_viewport().set_input_as_handled()
+				_link_clicked(hovered_link, true)
+
+func _draw() -> void:
+	for mod in modifiers:
+		if mod and mod.enabled:
+			mod._debug_draw(self)
+	
+	while _debug_commands:
+		_debug_commands.pop_front().call(self)
+
+## If false this is just a tooltip meta.
+func can_click(index: int) -> bool:
+	var link := get_link_content(index)
+	if link is Callable:
+		return true
+	elif link is Object and (link.has_method(&"_richtext_clicked") or link.has_method(&"_richtext_right_clicked")):
+		return true
+	return false
+
+func _link_clicked(index: int, right_clicked := false):
+	var link := get_link_content(index)
+	var result: Variant = null
+	if link is Callable:
+		var obj = link.get_object()
+		var method = link.get_method()
+		if right_clicked and obj.has_method(method + "_right_clicked"):
+			result = obj.callv(method + "_right_clicked", link.get_bound_arguments())
+		else:
+			result = link.call()
+	elif link is Object:
+		if right_clicked:
+			if link.has_method(&"_richtext_right_clicked"):
+				result = link._richtext_right_clicked()
+		else:
+			if link.has_method(&"_richtext_clicked"):
+				result = link._richtext_clicked()
+	
+	if not result:
+		return
+	
+	if parser:
+		if parser.link_effect:
+			parser.link_effect._link_clicked(index)
+		if parser.link_audio_enabled:
+			if right_clicked:
+				_play_sound(parser.link_audio_path_right_clicked)
+			else:
+				_play_sound(parser.link_audio_path_clicked)
+	
+	if right_clicked:
+		if result != true:
+			link_right_clicked.emit(link)
+		RTxtParser.link_right_clicked.emit(self, index)
+	else:
+		if result != true:
+			link_clicked.emit(link)
+		RTxtParser.link_clicked.emit(self, index)
+
+func _link_hovered(index: int):
+	var link := get_link_content(index)
+	var result: Variant
+	if link is Object and link.has_method(&"_richtext_hovered"):
+		result = link._richtext_hovered()
+	elif link is Callable:
+		var obj: Object = link.get_object()
+		var hov_method: StringName = &"%s_hovered" % link.get_method()
+		if obj.has_method(hov_method):
+			result = obj.callv(hov_method, link.get_bound_arguments())
+	elif link is TooltipObject:
+		result = link.tooltip_text
+	
+	if result is String:
+		tooltip_text = result
+	elif result != true:
+		return
+	
+	if parser:
+		if parser.link_effect:
+			parser.link_effect._link_hovered(index)
+		if parser.link_audio_enabled:
+			if can_click(index):
+				_play_sound(parser.link_audio_path_hovered)
+			else:
+				_play_sound(parser.link_audio_path_tooltip_hovered)
+	
+	if result != true:
+		link_hovered.emit(link)
+	RTxtParser.link_hovered.emit(self, index)
+
+func _link_unhovered(index: Variant):
+	var link := get_link_content(index)
+	var result: Variant
+	if link is Object and link.has_method(&"_richtext_unhovered"):
+		result = link._richtext_unhovered()
+	elif link is Callable:
+		var obj: Object = link.get_object()
+		var hov_method: StringName = &"%s_unhovered" % link.get_method()
+		if obj.has_method(hov_method):
+			result = obj.callv(hov_method, link.get_bound_arguments())
+	elif link is TooltipObject:
+		result = ""
+	
+	if result is String:
+		tooltip_text = result
+	elif result != true:
+		return
+	
+	if parser:
+		if parser.link_effect:
+			parser.link_effect._link_unhovered(index)
+		if parser.link_audio_enabled:
+			if can_click(index):
+				_play_sound(parser.link_audio_path_unhovered)
+			else:
+				_play_sound(parser.link_audio_path_tooltip_unhovered)
+	
+	if result != true:
+		link_unhovered.emit(link)
+	RTxtParser.link_unhovered.emit(self, index)
+
+func get_link_content(index: Variant) -> Variant:
+	var link_str: String = link_content.get(int(index), "")
+	if link_str.begins_with("id:"):
+		return instance_from_id(int(link_str.trim_prefix("id:")))
+	elif link_str.begins_with("call:"):
+		var parts := link_str.split(":", true, 3)
+		var object := instance_from_id(int(parts[1]))
+		var method := parts[2]
+		var args := [] if not parts[3] else Array(parts[3].split("&"))
+		return Callable(object, method).bindv(args)
+	elif link_str.begins_with("{"):
+		return JSON.parse_string(link_str)
+	elif "?" in link_str:
+		var parts := link_str.split("?", true, 1)
+		var tt := TooltipObject.new()
+		tt.id = parts[0]
+		tt.tooltip_text = parts[1]
+		return tt
+	return link_str
+
+func _play_sound(path: String):
+	if not path or not FileAccess.file_exists(path):
+		return
+	var snd := AudioStreamPlayer.new()
+	add_child(snd)
+	snd.stream = load(path)
+	snd.play()
+	snd.finished.connect(snd.queue_free)
+
+func get_animation() -> RTxtAnimator:
+	return get_modifier(RTxtAnimator)
+
+func get_modifier(script: GDScript) -> RTxtModifier:
+	for mod in modifiers:
+		if mod.get_script() == script:
+			return mod
+	return null
+
+func set_parser(p: RTxtParser):
+	if p == null:
+		p = RTxtParser.get_default()
+	var last_parser := parser
+	parser = p
+	if p and not p.started.is_connected(_started):
+		p.started.connect(_started, CONNECT_PERSIST)
+		p.install_effect.connect(_install_effect, CONNECT_PERSIST)
+		p.changed_font.connect(_changed_font, CONNECT_PERSIST)
+		p.changed_font_size.connect(_changed_font_size, CONNECT_PERSIST)
+		p.changed_outline.connect(_changed_outline, CONNECT_PERSIST)
+	_changed_font()
+	_changed_font_size()
+	_changed_shadow()
+
+func _install_effect(effect: RichTextEffect):
+	effect.resource_local_to_scene = true
+	effect.set_meta(&"rt", get_instance_id())
+	install_effect(effect)
+
+func _started():
+	bbcode_enabled = true
+
+func uninstall_effects():
+	while custom_effects:
+		custom_effects.pop_back()
+
+func _changed_font_size():
+	_changed_shadow()
+	if parser:
+		add_theme_font_size_override(&"normal_font_size", parser.font_size)
+		add_theme_font_size_override(&"bold_font_size", parser.font_size)
+		add_theme_font_size_override(&"italics_font_size", parser.font_size)
+		add_theme_font_size_override(&"bold_italics_font_size", parser.font_size)
+	else:
+		remove_theme_font_size_override(&"normal_font_size")
+		remove_theme_font_size_override(&"bold_font_size")
+		remove_theme_font_size_override(&"italics_font_size")
+		remove_theme_font_size_override(&"bold_italics_font_size")
+
+func _changed_font():
+	if parser:
+		var normal_font := ThemeDB.fallback_font
+		if parser.font_db:
+			if parser.font_default and parser.font_default in parser.font_db:
+				normal_font = load(parser.font_db.font_paths[parser.font_default])
+		add_theme_font_override(&"normal_font", normal_font)
+		
+		var bold_font := FontVariation.new()
+		bold_font.setup_local_to_scene()
+		bold_font.set_base_font(normal_font)
+		bold_font.set_variation_embolden(parser.font_bold_weight)
+		add_theme_font_override(&"bold_font", bold_font)
+		
+		var italics_font := FontVariation.new()
+		italics_font.set_base_font(normal_font)
+		italics_font.set_variation_embolden(parser.font_italics_weight)
+		italics_font.set_variation_transform(Transform2D(Vector2(1, parser.font_italics_slant), Vector2(0, 1), Vector2(0, 0)))
+		add_theme_font_override(&"italics_font", italics_font)
+		
+		var bold_italics_font := FontVariation.new()
+		bold_italics_font.set_base_font(normal_font)
+		bold_italics_font.set_variation_embolden(parser.font_bold_weight)
+		bold_italics_font.set_variation_transform(Transform2D(Vector2(1, parser.font_italics_slant), Vector2(0, 1), Vector2(0, 0)))
+		add_theme_font_override(&"bold_italics_font", italics_font)
+	else:
+		remove_theme_font_override(&"normal_font")
+		remove_theme_font_override(&"bold_font")
+		remove_theme_font_override(&"italics_font")
+		remove_theme_font_override(&"bold_italics_font")
+
+func _changed_outline():
+	if parser:
+		if parser.outline_size > 0 and parser.outline_mode != RTxtParser.OutlineMode.OFF:
+			add_theme_constant_override(&"outline_size", parser.outline_size)
+		else:
+			remove_theme_constant_override(&"outline_size")
+		
+		if parser.font_color != Color.WHITE:
+			add_theme_color_override(&"default_color", parser.font_color)
+		else:
+			remove_theme_color_override(&"default_color")
+		
+		match parser.outline_mode:
+			RTxtParser.OutlineMode.OFF: remove_theme_color_override(&"font_outline_color")
+			RTxtParser.OutlineMode.DARKEN: add_theme_color_override(&"font_outline_color", hue_shift(parser.font_color.darkened(parser.outline_adjust), parser.outline_hue_adjust))
+			RTxtParser.OutlineMode.LIGHTEN: add_theme_color_override(&"font_outline_color", hue_shift(parser.font_color.lightened(parser.outline_adjust), parser.outline_hue_adjust))
+			RTxtParser.OutlineMode.CUSTOM, RTxtParser.OutlineMode.CUSTOM_DARKEN, RTxtParser.OutlineMode.CUSTOM_LIGHTEN: add_theme_color_override(&"font_outline_color", parser.outline_color)
+	else:
+		remove_theme_constant_override(&"outline_size")
+		remove_theme_color_override(&"font_outline_color")
+		remove_theme_color_override(&"default_color")
+
+func _changed_shadow():
+	if shadow and shadow.enabled:
+		add_theme_color_override(&"font_shadow_color", Color(shadow.color, shadow.alpha))
+		add_theme_constant_override(&"shadow_offset_x", floor(cos(shadow.angle) * shadow.distance))
+		add_theme_constant_override(&"shadow_offset_y", floor(sin(shadow.angle) * shadow.distance))
+		add_theme_constant_override(&"shadow_outline_size", ceil(font_size * shadow.outline_size))
+	else:
+		remove_theme_color_override(&"font_shadow_color")
+		remove_theme_constant_override(&"shadow_offset_x")
+		remove_theme_constant_override(&"shadow_offset_y")
+		remove_theme_constant_override(&"shadow_outline_size")
+
+func _make_custom_tooltip(for_text: String) -> Object:
+	if not for_text.strip_edges():
+		return null
+	var lbl := RicherTextLabel.new()
+	lbl.size = Vector2.ZERO
+	lbl.parser = parser
+	lbl.autowrap_mode = TextServer.AUTOWRAP_OFF
+	lbl.bbcode_enabled = true
+	lbl.fit_content = true
+	lbl.bbcode = "[0.6]%s]" % [for_text]
+	return lbl
+
+# @mairod https://gist.github.com/mairod/a75e7b44f68110e1576d77419d608786
+# converted to godot by teebar. no credit needed.
+const kRGBToYPrime = Vector3(0.299, 0.587, 0.114)
+const kRGBToI = Vector3(0.596, -0.275, -0.321)
+const kRGBToQ = Vector3(0.212, -0.523, 0.311)
+const kYIQToR = Vector3(1.0, 0.956, 0.621)
+const kYIQToG = Vector3(1.0, -0.272, -0.647)
+const kYIQToB = Vector3(1.0, -1.107, 1.704)
+static func hue_shift(color: Color, adjust: float) -> Color:
+	var colorv = Vector3(color.r, color.g, color.b)
+	var YPrime = colorv.dot(kRGBToYPrime)
+	var I = colorv.dot(kRGBToI)
+	var Q = colorv.dot(kRGBToQ)
+	var hue = atan2(Q, I)
+	var chroma = sqrt(I * I + Q * Q)
+	hue += adjust * TAU
+	Q = chroma * sin(hue)
+	I = chroma * cos(hue)
+	var yIQ = Vector3(YPrime, I, Q)
+	return Color(yIQ.dot(kYIQToR), yIQ.dot(kYIQToG), yIQ.dot(kYIQToB), color.a)
+
+```
+
+# res://addons/richer_text/scripts/rtxt_animator.gd
+```gd
+@tool
+class_name RTxtAnimator extends RTxtModifier
+#TODO: When not animating, remove the Effect, so it's less cpu intensive.
+#TODO: Fade out previous lines. This will allow for cool things with Scatterer.
+
+signal started() ## Caused once animation begins.
+signal paused() ## When paused by <hold> or <wait>.
+signal continued() ## User advanced or timer finished.
+signal finished() ## Animation finished, and indicator should probably be shown.
+signal progressed(p: float) ## Better than using progress float, as this is smoothly updated by the tween.
+signal indicator_enabled() ## Fires when paused, finished, or waiting started.
+signal indicator_disabled() ## Fires when started, continued, or waiting ended.
+signal timer_started() ## Timer until advance.
+signal timer_progressed(p: float) ## 1.0 -> 0.0: Time until auto-advance.
+signal timer_finished() ## Timer finished.
+
+## Unit of characters to animate at a time.
+## Look at `delay`.
+enum Unit {
+	CHAR,	## Each character fades one by one.
+	WORD,	## All characters in a word fade together.
+	LINE	## All characters in a line fade together.
+}
+
+## Where the indicator will align itself.
+enum IndicatorAlignment {
+	CharTop,	## Top of last character.
+	CharCenter,	## Center of last character.
+	CharBottom,	## Bottom of last character.
+	LineBottom,	## Bottom of last visible line.
+	LineRight,	## x=Right edge of bounding box, y=last visible line.
+}
+
+enum NewLineStyle {
+	None,
+	WaitForUser,		## Wait for user to press advance.
+	WaitForUserJoin,	## Wait for user, and join lines.
+	WaitForTime,		## Wait for timer to advance.
+	WaitForTimeJoin	## Wait for timer, and join lines.
+}
+
+var unit := Unit.WORD: set=set_unit
+var duration := 1.0  ## How long before a unit is faded in.
+var delay := 0.2 ## Delay between units fading it.
+var trans := Tween.TRANS_LINEAR ## Transition to use for fade.
+var ease := Tween.EASE_IN_OUT	## Ease to use for fade.
+#var uninstall_effect_after_fade := true
+var progress := 1.0: set=set_progress
+var animation := &"fader" ## Animation to fade with.
+var new_line_style := NewLineStyle.WaitForUser
+var arrow_node_path: NodePath ## Node that will be moved to the end of the characters.
+var arrow_offset := Vector2.ZERO ## Ideally it's better to use a node child, but this is for convenience.
+var arrow_alignment := IndicatorAlignment.CharCenter
+var arrow_show_on_finished := true ## Show the indicator even after animation is finished.
+
+## TODO:
+## Hides lines when a new one started animating.
+## Useful for the scatter and ticker effect.
+#@export var hide_previous_lines := false
+
+@export_storage var _total_chars := 0
+@export_storage var _total_words := 0
+@export_storage var _total_lines := 0
+var _tool_button_advance := advance
+var _tool_button_reset = reset
+@export_storage var _waypoints: Dictionary[int, String]
+@export_storage var _alphas: PackedFloat32Array
+@export_storage var _chars: PackedInt32Array
+@export_storage var _words: PackedInt32Array
+@export_storage var _lines: PackedInt32Array
+var _transforms: Array[Transform2D]
+var _char_size: Array[Vector2] ## Returns the character width. Used for CTC.
+var _tween: Tween
+@export_storage var _waiting_for_time := false
+@export_storage var _waiting_for_user := false
+var _tween_timer: Tween
+
+func set_unit(u: Unit):
+	unit = u
+	if not label or not label.is_inside_tree():
+		return
+	
+	var stripped := label.get_parsed_text()
+	var units := [""]
+	var last_unit := 0
+	var ulist := _chars
+	if u == Unit.WORD: ulist = _words
+	if u == Unit.LINE: ulist = _lines
+	for i in stripped.length():
+		if ulist[i] == last_unit:
+			units[-1] += stripped[i]
+		else:
+			units.append(stripped[i])
+		last_unit = ulist[i]
+
+func set_progress(p: float):
+	var last_progress := progress
+	progress = clampf(p, 0.0, 1.0)
+	
+	if not label:
+		return
+	
+	var last_u := floori(last_progress * _total_chars)
+	var u := floori(progress * _total_chars)
+	if _tween: _tween.kill()
+	
+	if last_u > u:
+		for i in _alphas.size():
+			set("alphas_%s" % i, 0.0)
+	else:
+		if last_progress == 0:
+			started.emit()
+		else:
+			continued.emit()
+		indicator_disabled.emit()
+		
+		progressed.emit(progress)
+		
+		var ulist: PackedInt32Array = _chars
+		match unit:
+			Unit.CHAR: ulist = _chars
+			Unit.WORD: ulist = _words
+			Unit.LINE: ulist = _lines
+		var last_visible := -1
+		_tween = label.create_tween()
+		_tween.set_parallel()
+		var last_unit_index := 0
+		var unit_delay := 0.0
+		var max_duration := 0.0
+		for i in _alphas.size():
+			var unit_index := ulist[i]
+			var char_index := _chars[i]
+			var was_visible: bool = char_index <= last_u
+			var visible: bool = char_index <= u
+			if visible:
+				last_visible = i
+			if visible and not was_visible:
+				if unit_index != last_unit_index:
+					unit_delay += delay
+			_tween.tween_property(self, "alphas_%s" % i, 1.0 if visible else 0.0, duration)\
+				.set_delay(unit_delay)\
+				.set_trans(trans)\
+				.set_ease(ease)
+			max_duration = maxf(max_duration, duration + unit_delay)
+			last_unit_index = unit_index
+		_tween.tween_method(progressed.emit, last_progress, progress, max_duration)
+		
+		# HACK: TODO: Why do i need to do this?
+		if progress == 1.0:
+			last_visible = _total_chars
+		
+		_tween.chain().tween_callback(_update_indicator.bind(last_visible))
+		
+		if last_visible in _waypoints:
+			for waypoint in _waypoints[last_visible].split(";"):
+				match waypoint:
+					"user": pass
+					"time":
+						_tween.chain().tween_callback(timer_started.emit)
+						_tween.chain().tween_callback(set.bind("_waiting_for_time", true))
+						_tween.chain().tween_method(timer_progressed.emit, 1.0, 0.0, 1.0)
+						_tween.chain().tween_callback(advance)
+						_tween.chain().tween_callback(set.bind("_waiting_for_time", false))
+						_tween.tween_callback(timer_finished.emit)
+		
+		_tween.chain().tween_callback(_advance_finished)
+
+func _update_indicator(last_visible: int):
+	
+	# Move indicator into position.
+	var arrow_node := label.get_node_or_null(arrow_node_path)
+	if arrow_node:
+		if last_visible != -1:
+			arrow_node.position = Vector2.ZERO
+			
+			match arrow_alignment:
+				IndicatorAlignment.CharTop:
+					var trans := _transforms[last_visible]
+					arrow_node.position = trans.origin
+					arrow_node.position.y -= label.font_size
+				IndicatorAlignment.CharCenter:
+					var trans := _transforms[last_visible]
+					arrow_node.position = trans.origin
+					arrow_node.position.y -= label.font_size * .5
+				IndicatorAlignment.CharBottom:
+					var trans := _transforms[last_visible]
+					arrow_node.position = trans.origin
+				IndicatorAlignment.LineBottom:
+					var trans := _transforms[last_visible]
+					arrow_node.position = trans.origin
+					arrow_node.position.x = label.size.x * .5
+				IndicatorAlignment.LineRight:
+					var trans := _transforms[last_visible]
+					arrow_node.position = trans.origin
+					arrow_node.position.x = label.size.x
+					arrow_node.position.y -= label.font_size * .5
+			arrow_node.position += arrow_offset
+	
+func _advance_finished():
+	# Fire signals.
+	if progress == 1.0:
+		finished.emit()
+		if arrow_show_on_finished:
+			indicator_enabled.emit()
+	else:
+		paused.emit()
+		indicator_enabled.emit()
+
+func reset():
+	progress = 0.0
+
+func advance_to_char(char_index: int):
+	progress = float(char_index) / float(_total_chars)
+
+func get_anim_char() -> int:
+	return floori(progress * float(_total_chars))
+
+func advance():
+	var current := get_anim_char()
+	var next := -1
+	for i in range(current+1, _total_chars):
+		if i in _waypoints:
+			next = i
+			break
+	advance_to_char(next if next != -1 else _total_chars)
+
+## Returns all `progress` positions that can advanced() will move towards.
+## Useful for using an AnimationPlayer to control it.
+func get_all_waypoints() -> Array[float]:
+	var out: Array[float]
+	#if true:
+		#var pp := _preparse(label.bbcode)
+		#var total_chars := label.parser.parse(pp).length()
+		#for i in total_chars:
+			#if i in label.parser._waypoints:
+				#out.append(i / float(total_chars))
+		#prints("WAYPOINTS", label.name, out, label.bbcode, pp)
+	#else:
+	for i in _total_chars:
+		if i in _waypoints:
+			out.append(i / float(_total_chars))
+	out.append(1.0)
+	return out
+
+func is_finished() -> bool:
+	return progress == 1.0
+
+func _preparse(bbcode: String) -> String:
+	if not Engine.is_editor_hint():
+		indicator_disabled.emit()
+		progress = 0.0
+	if new_line_style != NewLineStyle.None:
+		var newlns := ""
+		for line in bbcode.split("\n"):
+			if line.strip_edges() and newlns:
+				match new_line_style:
+					NewLineStyle.WaitForUser: newlns += "<user>\n" + line
+					NewLineStyle.WaitForUserJoin: newlns += "<user>" + line
+					NewLineStyle.WaitForTime: newlns += "<time>\n" + line
+					NewLineStyle.WaitForTimeJoin: newlns += "<time>" + line
+			else:
+				newlns += line
+		bbcode = newlns
+	return super("[%s id=%s]%s]" % [animation, get_instance_id(), bbcode])
+	
+func _finished():
+	_waypoints = {}
+	if label.parser:
+		var stripped := label.get_parsed_text()
+		_waypoints.merge(label.parser._waypoints)
+		_total_chars = stripped.length()
+		_total_words = 0
+		_total_lines = 0
+		_transforms.resize(_total_chars+1) # Not sure why I have to +1
+		_char_size.resize(_total_chars+1)
+		_alphas.resize(_total_chars)
+		_chars.resize(_total_chars)
+		_words.resize(_total_chars)
+		_lines.resize(_total_chars)
+		var spaced := false
+		for i in _total_chars:
+			var c := stripped[i]
+			if c == " ":
+				spaced = true
+			elif c == "\n":
+				_total_lines += 1
+				spaced = true
+			else:
+				if spaced:
+					_total_words += 1
+					spaced = false
+			_chars[i] = i
+			_words[i] = _total_words
+			_lines[i] = _total_lines
+		
+		var words := {}
+		for i in _chars.size():
+			var w := _words[i]
+			var c := stripped[i]
+			words[w] = words.get(w, "") + c
+	prints(label.name, "Animator Waypoints: ", _waypoints, label.get_parsed_text().c_escape())
+	
+#region Internal
+func _property_can_revert(property: StringName) -> bool:
+	return RTxtAnimator.new().get(property) != null
+
+func _property_get_revert(property: StringName) -> Variant:
+	return RTxtAnimator.new().get(property)
+
+func _get_property_list() -> Array[Dictionary]:
+	var files := Array(DirAccess.get_files_at("res://addons/richer_text/text_effects/anims"))\
+		.filter(func(x: String): return x.begins_with("rte_") and x.ends_with(".gd"))\
+		.map(func(x: String): return x.trim_prefix("rte_").trim_suffix(".gd"))
+	var list := EditorProperties.new(super())\
+		.button(&"_tool_button_advance", "Advance")\
+		.button(&"_tool_button_reset", "Reset")\
+		.string_enum(&"animation", files)\
+		.number_range(&"progress")\
+		.integer_enum(&"unit", Unit)\
+		.number(&"duration")\
+		.number(&"delay")\
+		.integer_enum(&"new_line_style", NewLineStyle)\
+		.tween_trans(&"trans")\
+		.tween_ease(&"ease")\
+		.group("Continue Arrow", "arrow_")\
+		.node_path(&"arrow_node_path", "CanvasItem")\
+		.prop(&"arrow_offset", TYPE_VECTOR2)\
+		.integer_enum(&"arrow_alignment", IndicatorAlignment)\
+		.boolean(&"arrow_show_on_finished")\
+		.group("Alphas", "alphas_")\
+		.end()
+	for i in _alphas.size():
+		list.append({ name="alphas_%s" % i, type=TYPE_FLOAT, hint=PROPERTY_HINT_RANGE, hint_string="0.0,1.0" })
+	return list
+
+func _get(property: StringName) -> Variant:
+	if property.begins_with("alphas_"):
+		var index := int(property.trim_prefix("alphas_"))
+		return _alphas[index] if index < _alphas.size() else 1.0
+	return
+
+func _set(property: StringName, value: Variant) -> bool:
+	if property.begins_with("alphas_"):
+		var index := int(property.trim_prefix("alphas_"))
+		if index < _alphas.size():
+			_alphas[index] = value
+		return true
+	return false
+#endregion
+
+```
+
+# res://addons/richer_text/scripts/rtxt_char_fx_transform.gd
+```gd
+class_name RTxtCharFXTransform extends CharFXTransform
+
+var outline_color: Color
+var bg_color: Color
+var fg_color: Color
+var outline_states: Array[Dictionary]
+
+```
+
+# res://addons/richer_text/scripts/rtxt_continue_arrow.gd
+```gd
+@tool
+class_name RTxtContinueArrow extends CanvasItem
+## Simple base class for an indicator to be displayed at the end of the RicherTextLabel.
+
+signal enabled()
+signal disabled()
+
+func _ready() -> void:
+	var anim := get_animation()
+	if anim:
+		anim.indicator_enabled.connect(enabled.emit)
+		anim.indicator_disabled.connect(disabled.emit)
+
+func get_animation() -> RTxtAnimator:
+	var parent := get_parent()
+	if parent is RicherTextLabel:
+		return (parent as RicherTextLabel).get_animation()
+	return null
+
+```
+
+# res://addons/richer_text/scripts/rtxt_curver.gd
+```gd
+@tool
+class_name RTxtCurver extends RTxtModifier
+
+@export_node_path("Path2D") var curve: NodePath
+@export_range(0.0, 1.0, 0.01) var offset := 0.0 ## Offset along the curve. Curve must be larger than text.
+@export var rotate := true ## Rotate with the curve normal.
+@export var skew := true ## Skew with the curve normal.
+@export_range(0, 8) var increase_spaces := 0 ## Add more spaces between text.
+var _sizes: PackedVector2Array
+
+func _preparse(bbcode: String) -> String:
+	label.fit_content = true
+	label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	label.clip_contents = false
+	
+	if increase_spaces > 0:
+		bbcode = bbcode.replace(" ", " ".repeat(1+increase_spaces))
+	
+	return "[curve id=%s]%s]" % [get_instance_id(), super(bbcode)]
+
+func _finished():
+	super()
+	
+	var txt := label.get_parsed_text()
+	_sizes.resize(txt.length())
+	var fnt := label.get_theme_default_font()
+	var fnt_size := label.font_size
+	var off := 0.0
+	for i in txt.length():
+		var chr_size := fnt.get_string_size(txt[i], HORIZONTAL_ALIGNMENT_CENTER, -1, fnt_size)
+		_sizes[i] = Vector2(off, chr_size.x)
+		off += chr_size.x
+	
+#func _get_property_list() -> Array[Dictionary]:
+	#return EditorProperties.new(super())\
+		#.boolean(&"position_enabled")\
+		#.prop(&"position_curve", TYPE_OBJECT)\
+		#.end()
+
+```
+
+# res://addons/richer_text/scripts/rtxt_effect.gd
+```gd
+@tool
+@abstract class_name RTxtEffect extends RichTextEffect
+## Use the _update() method.
+## Designed to work like a shader: assumes char_fx is context.
+## Instead of calling char_fx.color.a just call alpha.
+## WARNING: When trying to animate images all we can really change is there color.
+	## TODO: Write a custom drawer, make [img] transparent, and draw the controlable form overtop.
+
+@export var tween_duration := 0.2 ## Used by JuicyLabel when transitioning to this effect.
+@export var tween_trans := Tween.TRANS_LINEAR ## Used by JuicyLabel when transitioning to this effect.
+@export var tween_ease := Tween.EASE_IN_OUT ## Used by JuicyLabel when transitioning to this effect.
+@export_storage var _juicy: JuicyLabel
+@export var outline_effect: RTxtOutlineEffect
+
+var _char_fx: CharFXTransform
+
+## Used to sort effects. Lower get updated sooner.
+## TODO
+func _get_rank_order() -> int:
+	return 0
+
+var label_richtext: RichTextLabel:
+	get:
+		if _juicy:
+			return
+		if not label_richtext:
+			var rtid := get_meta(&"rt")
+			if rtid:
+				label_richtext = instance_from_id(rtid)
+		return label_richtext
+
+var label: RicherTextLabel:
+	get: return label_richtext
+
+var anim: RTxtAnimator:
+	get: return get_instance()
+
+var text: String = "":
+	get: return _juicy.text if _juicy else label.get_parsed_text()
+
+## Global weight scaler for effects.
+var weight: float:
+	get: return _juicy.effect_weight if _juicy else label.effect_weight if label else 1.0
+
+var font: RID:
+	get: return _juicy.font.get_rids()[0] if _juicy else _char_fx.font
+
+## Ideally effects are scaled to this.
+var font_size: int:
+	get: return _juicy.font_size if _juicy else label.parser.font_size if label and label.parser else 16
+
+var font_height: float:
+	get:
+		var ts := TextServerManager.get_primary_interface()
+		return ts.font_get_ascent(font, font_size) + ts.font_get_descent(font, font_size)
+
+func is_image() -> bool:
+	return false if _juicy else _char_fx.glyph_index == 0 and _char_fx.range.x in label._image_keys
+
+var color: Color:
+	get: return _char_fx.color if _juicy or not is_image() else Color.WHITE 
+	set(c):
+		if _juicy or not is_image():
+			_char_fx.color = c
+		else:
+			label.update_image(_char_fx.range.x, RichTextLabel.UPDATE_COLOR, null, 0, 0, c)
+
+## Get/set character transparency.
+var alpha: float:
+	get: return color.a
+	set(a): color = Color(color, a)
+
+## Index in a styled block.
+var index: int:
+	get: return _char_fx.relative_index
+
+var range: Vector2i:
+	get: return _char_fx.range
+
+## Index in the full text.
+## For _juicy this will absolute_index == index.
+var absolute_index: int:
+	get: return _char_fx.range.x
+
+## Get/set actual character string. (Changing this isn't ideal for non-monospaced fonts.)
+var chr: String:
+	get: return text[absolute_index]
+	set(c):
+		var text_server = TextServerManager.get_primary_interface()
+		var new_glyph := text_server.font_get_glyph_index(font, font_size, c.unicode_at(0), 0)
+		_char_fx.glyph_index = new_glyph
+
+## Previous character in the text.
+var chr_prev: String:
+	get: return text[absolute_index-1] if absolute_index-1 > 0 else ""
+
+## Next character in the text.
+var chr_next: String:
+	get: return text[absolute_index+1] if absolute_index+1 < text.length() else ""
+
+## Size of this specific character. Use label.size for 
+var size: Vector2:
+	get:
+		if _juicy: return _juicy._rects[index].size
+		if is_image(): return Vector2(font_size, font_size)
+		var ts := TextServerManager.get_primary_interface()
+		return ts.font_get_glyph_size(font, Vector2i(font_size, 0), _char_fx.glyph_index)
+
+var transform: Transform2D:
+	get: return _char_fx.transform
+	set(t): _char_fx.transform = t
+
+var position: Vector2:
+	get: return transform.origin
+	set(o): transform.origin = o
+
+var scale: Vector2:
+	get: return transform.get_scale()
+	set(s): transform *= Transform2D.IDENTITY.scaled(s)
+
+var rotation: float:
+	get: return transform.get_rotation()
+	set(r): transform = Transform2D(r, transform.origin)
+
+var skew: float:
+	get: return _char_fx.transform.get_skew()
+	set(s):
+		var t := transform
+		transform = Transform2D(t.get_rotation(), t.get_scale(), s, t.get_origin())
+
+var skew_y: float:
+	get:
+		# Extract from basis
+		return atan2(transform.y.x, transform.y.y)
+	set(s):
+		var t := transform
+		var shear := Transform2D(Vector2(1, tan(s)), Vector2(0, 1), Vector2.ZERO)  
+		var new_basis := Transform2D(t.get_rotation(), Vector2.ZERO)
+		new_basis = new_basis.scaled(t.get_scale())
+		new_basis = shear * new_basis
+		transform = Transform2D(new_basis.x, new_basis.y, t.get_origin())
+
+func skew_pivoted(sk: float, pivot: Vector2):
+	var t := transform
+	var p := (Vector2(0.5, 0.5) - pivot) * size
+	transform *= Transform2D.IDENTITY.translated(-p)
+	transform *= Transform2D(Vector2(1.0, 0.0), Vector2(tan(sk), 1.0), Vector2.ZERO)
+	transform *= Transform2D.IDENTITY.translated(p)
+
+## Prefer using position or transform.origin.
+var offset: Vector2:
+	get: return _char_fx.offset
+	set(o): _char_fx.offset = o
+
+## The alpha of the character. Used in animations.
+## Only works for RichTextAnimation effects.
+var delta: float:
+	get:
+		if anim and _char_fx.range.x < anim._alphas.size():
+			return anim._alphas[_char_fx.range.x]
+		return 1.0
+
+## Local mouse position.
+## This function seems slow, so we attempt to cache it.
+## It might not work if the first character in an effect doesn't try to access it.
+var mouse: Vector2:
+	get:
+		if _juicy: return _juicy._smoothed_mouse_position
+		if index == 0:
+			mouse = label.get_local_mouse_position()
+		return mouse
+
+## Distance from character to the cursor.
+var cursor_delta: Vector2:
+	get:
+		var off := (position - mouse)
+		off.x = (off.x / font_size) / (1 + abs(off.x / font_size))
+		off.y = (off.y / font_size) / (1 + abs(off.y / font_size))
+		return off
+
+## Distance from character to the center of the label.
+var center_delta: Vector2:
+	get:
+		if _juicy: return (position - _juicy.size * .5) / font_size
+		return (position - label.size * .5) / font_size
+
+## Elapsed time. Useful for animations.
+var time: float:
+	get: return _juicy._anim if _juicy else _char_fx.elapsed_time
+
+
+func rotate(angle: float):
+	var cs := size * Vector2(0.5, -0.5)
+	_char_fx.transform *= Transform2D.IDENTITY.translated(cs)
+	_char_fx.transform *= Transform2D.IDENTITY.rotated_local(angle)
+	_char_fx.transform *= Transform2D.IDENTITY.translated(-cs)
+
+## Prefer overriding this instead of _process_custom_fx()
+func _update() -> bool:
+	return true
+
+## Prefer overriding _update().
+func _process_custom_fx(char_fx: CharFXTransform) -> bool:
+	_char_fx = char_fx
+	var updated := _update()
+	if updated and outline_effect:
+		outline_effect._char_fx = char_fx
+		return outline_effect._update()
+	return updated
+
+func get_var(key: StringName, default: Variant = null) -> Variant:
+	return _char_fx.env.get(key, default)
+
+func get_int(key: StringName = &"id", default := 0) -> int:
+	return _char_fx.env.get(key, default)
+
+func get_float(key: StringName, default := 0.0) -> float:
+	return _char_fx.env.get(key, default)
+
+func get_bool(key: StringName, default := true) -> bool:
+	return _char_fx.env.get(key, default)
+
+func get_str(key: StringName, default := "") -> String:
+	return _char_fx.env.get(key, default)
+
+func get_vec2(key: StringName, default := Vector2.ZERO) -> Vector2:
+	return _char_fx.env.get(key, default)
+
+func get_instance(key := &"id", default: Object = null) -> Object:
+	if key in _char_fx.env:
+		return instance_from_id(int(_char_fx.env[key]))
+	return default
+
+## Returns: 0.0 to TAU
+func rnd(freq := 1.0, seed := 0.0) -> float:
+	return fmod(float(index * freq + seed) * 12.9898, TAU)
+
+## Seed gets offset by elapsed_time.
+## Returns: 0.0 - 1.0.
+func rnd_time(freq := 1.0, seed := 0.0) -> float:
+	return rnd(freq, seed + time) / TAU
+
+## Returns: -1.0 to 1.0
+func rnd_smooth(speed := 1.0, freq := 1.0, seed := 0.0) -> float:
+	var phase := rnd(freq, seed)
+	var t := time * speed
+	return sin(t + phase) * 0.5 + sin(t * 1.73 + phase * 2.31) * 0.5
+
+## Unsigned version: 0.0 to 1.0
+func rnd_smoothu(speed := 1.0, freq := 1.0, seed := 0.0) -> float:
+	return rnd_smooth(speed, freq, seed) * .5 + .5
+
+## Lerp between a basic sin() and a noise()
+func rnd_noise(amount: float, speed := 1.0, freq := 1.0, seed := 0.0) -> float:
+	var base := sin(time * speed + (index * freq + seed) * 12.9898)
+	return lerpf(base, rnd_smooth(speed, freq, seed), amount)
+
+## Returns the last characters transformation so we can use it for end of text animations.
+## Should be applied last (so in an animation effect)
+func _send_transform_back():
+	if is_image():
+		return
+	
+	var index := _char_fx.relative_index
+	if index > 0 and index < anim._transforms.size():
+		var ts := TextServerManager.get_primary_interface()
+		var fsize := font_size
+		var off_x := ts.font_get_glyph_size(font, Vector2i(fsize, 0), _char_fx.glyph_index).x
+		var off_y := ts.font_get_ascent(font, fsize) - ts.font_get_descent(font, fsize)
+		anim._char_size[index] = Vector2(off_x, off_y)
+		anim._transforms[index] = _char_fx.transform
+
+func cycle_colors(colors: PackedColorArray, t: float, default := Color.WHITE) -> Color:
+	var n = colors.size()
+	if n == 0: return default
+	var idxf := fmod(t, float(n))
+	var i := int(floor(idxf))
+	var frac := idxf - float(i)
+	var c1 = colors[i]
+	var c2 = colors[(i + 1) % n]
+	return lerp_hsv(c1, c2, frac)
+
+func lerp_hsv(c1: Color, c2: Color, t: float) -> Color:
+	var h1 = c1.h
+	var h2 = c2.h
+	var s1 = c1.s
+	var s2 = c2.s
+	var v1 = c1.v
+	var v2 = c2.v
+	var a1 = c1.a
+	var a2 = c2.a
+	var dh = fmod(h2 - h1 + 1.5, 1.0) - 0.5
+	var h = fmod(h1 + dh * t, 1.0)
+	var s = lerpf(s1, s2, t)
+	var v = lerpf(v1, v2, t)
+	var a = lerpf(a1, a2, t)
+	return Color.from_hsv(h, s, v, a)
+
+func ease_back(x: float) -> float:
+	const c1 := 1.70158
+	const c2 := c1 * 1.525
+	if x < 0.5:
+		return (pow(2.0 * x, 2.0) * ((c2 + 1.0) * 2.0 * x - c2)) / 2.0
+	return (pow(2.0 * x - 2.0, 2.0) * ((c2 + 1.0) * (x * 2.0 - 2.0) + c2) + 2.0) / 2.0
+
+func ease_back_out(x: float, c1 := 1.70158) -> float:
+	var c3 := c1 + 1
+	return 1.0 + c3 * pow(x - 1.0, 3.0) + c1 * pow(x - 1.0, 2.0)
+
+```
+
+# res://addons/richer_text/scripts/rtxt_link_list.gd
+```gd
+@tool
+class_name RTxtLinkList extends RTxtModifier
+## Treats each line as a link, and calls
+
+@export var use_signals := true ## Will fire link_hovered, link_unhovered.
+@export var use_tooltip_text := true ## Will set labels tooltip_text, causing a popup to show.
+@export var can_right_click := false
+var tooltips: Dictionary[String, String]
+
+func _preparse(bbcode: String) -> String:
+	tooltips.clear()
+	var lines := bbcode.strip_edges().split("\n")
+	for i in lines.size():
+		var parts := lines[i].split("|", true, 1)
+		var id := parts[0].to_kebab_case()
+		var tooltip := ""
+		if parts.size() == 2:
+			tooltip = parts[1]
+		tooltips[id] = tooltip
+		lines[i] = "[=call:%s:_clicked:%s]%s]" % [get_instance_id(), id, tr(parts[0], &"main_menu")]
+	return "\n".join(lines)
+
+func _clicked(id: String):
+	label.link_clicked.emit(id)
+	return true
+
+func _clicked_right_clicked(id: String):
+	if can_right_click:
+		label.link_right_clicked.emit(id)
+		return true
+	return false
+
+func _clicked_hovered(id: String):
+	if use_signals:
+		label.link_hovered.emit(id)
+		return true
+	if use_tooltip_text:
+		return tooltips.get(id, "")
+	return ""
+
+func _clicked_unhovered(id: String):
+	if use_signals:
+		label.link_unhovered.emit(id)
+		return true
+	if use_tooltip_text:
+		return ""
+	return ""
+
+```
+
+# res://addons/richer_text/scripts/rtxt_modifier.gd
+```gd
+@tool
+@abstract class_name RTxtModifier extends Resource
+
+## Modifier will preparse bbcode.
+var enabled := true:
+	set(e):
+		enabled = e
+		changed.emit()
+
+@export_storage var label: RicherTextLabel
+
+## Called before set_text()
+func _preparse(bbcode: String) -> String:
+	label.bbcode_enabled = true
+	return bbcode
+
+## Called when text is done processing.
+func _finished():
+	pass
+
+func _debug_draw(rtl: RicherTextLabel):
+	pass
+
+func _get_property_list() -> Array[Dictionary]:
+	return [{ name=&"enabled", type=TYPE_BOOL, hint=PROPERTY_HINT_GROUP_ENABLE }]
+
+```
+
+# res://addons/richer_text/scripts/rtxt_outline.gd
+```gd
+class_name RTxtOutline extends Resource
+
+enum Style { OUTLINE, TEXT, OUTLINE_AND_TEXT }
+
+@export var style := Style.OUTLINE
+@export var size := 2.0
+@export var color := Color.WHITE
+@export var position := Vector2.ZERO
+@export_range(-180, 180, 1.0, "radians_as_degrees") var rotation := 0.0
+@export var skew := 0.0
+@export var scale := Vector2.ONE
+
+```
+
+# res://addons/richer_text/scripts/rtxt_outline_effect.gd
+```gd
+@abstract class_name RTxtOutlineEffect extends RTxtEffect
+
+```
+
+# res://addons/richer_text/scripts/rtxt_parser.gd
+```gd
+@tool
+class_name RTxtParser extends Resource
+
+"""
+TODO:
+	- fill stack w tags, but never push them until you get to text
+		- before printing, allow for tag sorting, so certain effects can run before others
+		- when closing a stack, remember the order of the printing
+		- when doing an old fashioned close [/tag], reprint opening tags, so you can do mixed order [b]bold[i]bold italic[/b]italic[/i]
+			mixed order currently isn't allowed in godot, but shouldn't be impossible to implement
+"""
+
+static var link_hovered: Signal = _add_signal(&"url_hovered", { label=TYPE_OBJECT, link_index=TYPE_INT })
+static var link_unhovered: Signal = _add_signal(&"url_unhovered", { label=TYPE_OBJECT, link_index=TYPE_INT })
+static var link_clicked: Signal = _add_signal(&"url_clicked", { label=TYPE_OBJECT, link_index=TYPE_INT })
+static var link_right_clicked: Signal = _add_signal(&"url_right_clicked", { label=TYPE_OBJECT, link_index=TYPE_INT })
+static var _get_all_rtp: Signal = _add_signal(&"get_all_rtp")
+signal started()
+signal install_effect(effect)
+signal changed_font()
+signal changed_font_size()
+signal changed_outline()
+
+const EXT_IMAGE: PackedStringArray = ["png", "jpg", "jpeg", "webp", "svg"]
+const EXT_AUDIO: PackedStringArray = ["mp3", "ogg", "wav"]
+const FONT_BOLD_WEIGHT := 1.2
+const FONT_ITALICS_SLANT := 0.25
+const FONT_ITALICS_WEIGHT := -.25
+const FONT_SIZE_MIN := 8
+const FONT_SIZE_MAX := 128
+const BBCODE_BUILTIN: PackedStringArray = ["b", "i", "u", "s", "left", "right", "center", "fill", "url"]
+const DIR := "res://addons/richer_text/"
+const DIR_TEXT_EFFECTS := DIR + "text_effects/effects"
+const DIR_TEXT_ANIMATIONS := DIR + "text_effects/anims"
+const DIR_TEXT_MODIFIERS := DIR + "text_effects/mods"
+const PATH_EMOJIS := DIR + "emoji.json"
+const PATH_DEFAULT_PARSER := "res://assets/richer_text_parser.tres"
+static var REGEX_REPLACE_CONTEXT := RegEx.create_from_string(r"(?<!\\)@(?:[a-zA-Z][a-zA-Z0-9_]*|-?\d+)(?:\.[a-zA-Z0-9_]+)*(?:\([^\)]*\))?(?![^\[\]]*\])")
+static var REGEX_REPLACE_CONTEXT_2 := RegEx.create_from_string(r"\{.*?\}")
+static var REGEX_EMOJI := RegEx.create_from_string(r"~[a-zA-Z0-9/_-]+(?=\b|[^a-zA-Z0-9/_-])")
+static var REGEX_NODE_OR_OBJECT := RegEx.create_from_string(r"(?:([A-Za-z0-9_]+):)?<([A-Za-z0-9_]+)#(-?\d+)>")
+static var REGEX_TAG_HEAD := RegEx.create_from_string("^[/=!]?(\\w+)") # [tag] [tag=true] [tag prop=true] all return "tag"
+static var REGEX_URL := RegEx.create_from_string(r"\[url(?:=([^\]]+)| ([^\]]+))?\](.*?)(?:\[/url\]|\[\]|(?<=\S)\])")
+
+enum OutlineMode {
+	OFF, ## Disables outline.
+	DARKEN, ## Outlines will be darker than text color.
+	LIGHTEN, ## Outlines will be lighter than text color.
+	CUSTOM, ## Uses outline_color for all text.
+	CUSTOM_DARKEN, ## Uses outline_color by default, but darkens colored text outlines.
+	CUSTOM_LIGHTEN, ## Uses outline_color by default, but lightens colored text outlines.
+}
+
+var _state: Dictionary
+var _stack: Array[Dictionary]
+var _effects: Dictionary
+var _output: PackedStringArray
+var _output_stripped: PackedStringArray
+var _context_node: Node
+var _expression_error := OK
+var _links: Dictionary[int, String]
+var _offset: int
+var _waypoints: Dictionary[int, String]
+
+@export_group("Test", "test_")
+@export_multiline var test_string := ""
+@export_multiline var test_string_output := ""
+@export_multiline var test_string_output_stripped := ""
+@export_tool_button("Test") var test_button := func(): parse(test_string)
+
+@export var colors_custom: Dictionary[StringName, Color]
+@export var colors_allow_builtin := true ## Use built in colors?
+
+@export var bbcode_shortcuts: Dictionary[StringName, String] ## Merge many tags into an easy to remember tag: [mytag] -> [b;custom_font;red]
+
+## Pre-parsers run before anything else happens.
+@export var regexes: Array[RTxtParserRegex]
+@export_dir var custom_effects_dir := "res://assets/richer_text_effects"
+
+#region Font
+## Resource that stores font paths for easy picking.
+var font_db: FontDB = FontDB.get_default()
+
+## Primary font to use.
+var font_default: StringName:
+	set(f):
+		font_default = f
+		changed_font.emit()
+
+## Default color used.
+var font_color := Color.WHITE:
+	set(c):
+		font_color = c
+		changed_font.emit()
+
+## Default size.
+## Use float tags [2.0] to resize relative.
+## Use int tags [32] to resize absolute.
+var font_size := 32:
+	set(x):
+		font_size = clampi(x, FONT_SIZE_MIN, FONT_SIZE_MAX)
+		changed_font_size.emit()
+
+## Custom font thickness when using bold tag.
+var font_bold_weight := 1.5:
+	set(f):
+		font_bold_weight = f
+		changed_font.emit()
+		
+## Custom font slant when using italics tag. (Can be negative.)
+var font_italics_slant := 0.25:
+	set(f):
+		font_italics_slant = f
+		changed_font.emit()
+
+## Custom font thickness when using italics tag.
+var font_italics_weight := -.25:
+	set(f):
+		font_italics_weight = f
+		changed_font.emit()
+#endregion
+
+#region Emoji
+## Path to emoji font.
+var emoji_font: String
+
+## Relative to font_size.
+## Used with bbcode :banana:.
+var emoji_scale := 1.0:
+	set(x):
+		emoji_scale = x
+		changed.emit()
+
+## Allow using the :emoji: pattern for including images.
+var emoji_images := true
+
+## Directory to look for images inside of. 
+var emoji_images_dir := "res://"
+
+#endregion
+
+#region Outline
+var outline_size := 0:
+	set(o):
+		outline_size = o
+		changed.emit()
+		changed_outline.emit()
+
+## Automatically colorize outlines based on font color.
+var outline_mode: OutlineMode = OutlineMode.DARKEN:
+	set(o):
+		outline_mode = o
+		changed.emit()
+		changed_outline.emit()
+		notify_property_list_changed()
+
+## Used with OutlineMode.CUSTOM, OutlineMode.CUSTOM_DARKEN, OutlineMode.CUSTOM_LIGHTEN.
+var outline_color := Color.BLACK:
+	set(x):
+		outline_color = x
+		changed.emit()
+		changed_outline.emit()
+		#_update_theme_outline()
+
+## How much to shift outline color.
+var outline_adjust := 0.8:
+	set(x):
+		outline_adjust = x
+		changed.emit()
+		changed_outline.emit()
+		#_update_theme_outline()
+
+## Nudges the tint of the outline so it isn't identical to the font.
+## Produces more contrast.
+var outline_hue_adjust := 0.0125:
+	set(x):
+		outline_hue_adjust = x
+		changed.emit()
+		changed_outline.emit()
+		#_update_theme_outline()
+#endregion
+
+#region Markdown
+var markdown_enabled := true
+var markdown_custom: Dictionary[String, String] = {
+	"*": "[i]%s]",
+	"**": "[b]%s]",
+	"***": "[b;i]%s]",
+	"~": "[s]%s]",
+	'"': "“%s”"
+}
+#endregion
+
+#region Context
+## Uses @pattern and {pattern} to replace text with state data.
+## Can be call a method: "I have @player.item_count("coins") coins."
+## Even array elements: "Slot 3 has @slots[3] in it.
+## When only a method name is passed it will be automatically called.
+var context_enabled := false
+## The main node to get properties from.
+var context_path: NodePath = ^"/root/State"
+## Access autoloads like in regular gdscript: @Global.get_tree().get_nodes_in_group("chars")
+var context_allow_autoloads := true
+## Access classes like in regular gdscript.
+var context_allow_global_classes := true
+## Access `Engine` and other built in singletons.
+var context_allow_engine_singletons := true
+## Allowed globals. If none set all will be allowed.
+var context_classes_allowed: PackedStringArray
+## Blocked globals. If none set all will be allowed.
+var context_classes_blocked: PackedStringArray
+## Extra properties you can access inside the expressions.
+var context_state: Dictionary[StringName, Variant]
+## Will attempt to call `to_richtext()` on objects.
+## If that doesn't work it looks for a `name` property.
+## Otherwise `to_string()` is used.
+var context_rich_objects := true
+## Will automatically add commas to integers: 1234 -> 1,234
+var context_rich_ints := true
+## Will display an array as comma seperated items.
+## Uses rich_objects and rich_ints if they are enabled.
+var context_rich_array := true
+#endregion
+
+#region Link
+var link_effect: RTxtLinkEffect ## Effect to animated links on hover & clicked.
+var link_cursor := Input.CURSOR_POINTING_HAND
+var link_tooltip_cursor := Input.CURSOR_HELP
+var link_tooltip_scene: String ## TODO: Not implemented. Custom scene to load instead of the default tooltip.
+var link_audio_enabled := true ## Enable audio for link on hover & clicked.
+var link_audio_path_hovered := "" ## Sound played on hovered.
+var link_audio_path_unhovered := "" ## Sound played on unhovered.
+var link_audio_path_clicked := "" ## Sound played on clicked.
+var link_audio_path_right_clicked := "" ## Sound played on right clicked.
+var link_audio_path_tooltip_hovered := "" ## Sound played on tooltip hovered.
+var link_audio_path_tooltip_unhovered := "" ## Sound played on tooltip unhovered.
+#endregion
+
+## Try to find a default parser resource in the "res://assets/" folder.
+static func get_default() -> RTxtParser:
+	if Engine.is_editor_hint():
+		if not FileAccess.file_exists(PATH_DEFAULT_PARSER):
+			if not DirAccess.dir_exists_absolute(PATH_DEFAULT_PARSER.get_base_dir()):
+				DirAccess.make_dir_recursive_absolute(PATH_DEFAULT_PARSER.get_base_dir())
+			var parser := RTxtParser.new()
+			var err := ResourceSaver.save(parser, PATH_DEFAULT_PARSER)
+			if err != OK:
+				push_error("Parser: ", error_string(err))
+	return load(PATH_DEFAULT_PARSER)
+
+func parse(input: String, context_node: Node = null, links: Dictionary[int, String] = {}) -> String:
+	_context_node = context_node
+	_links = links
+	_links.clear()
+	_offset = 0
+	_waypoints.clear()
+	
+	started.emit()
+	
+	var output := input
+	
+	# Replace any links that may already exist.
+	output = _replace(output, REGEX_URL, func(rm: RegExMatch):
+		var link_index := _add_link(rm.strings[1])
+		return "[link id=%s]%s[/link]" % [link_index, rm.strings[3]])
+	
+	# Replace Godot node and object strings
+	# Label:<MyLabel#32152512341241>
+	# <MyObject#5324326132309>
+	output = _replace(output, REGEX_NODE_OR_OBJECT, func(rm: RegExMatch): return "@%s" % rm.strings[3])
+	
+	# User defined parsers.
+	for rep in regexes:
+		output = rep._run(output, self)
+	
+	# Context replace.
+	if context_enabled and _context_node:
+		# @pattern
+		output = _replace(output, REGEX_REPLACE_CONTEXT, func(rm: RegExMatch): return _expression_rich(rm.strings[0], rm.strings[0].trim_prefix("@")))
+		
+		# {} pattern
+		output = _replace(output, REGEX_REPLACE_CONTEXT_2, func(rm: RegExMatch): return _expression_rich(rm.strings[0], str_unwrap(rm.strings[0], "{}")))
+	
+	# Emojis
+	output = _replace(output, REGEX_EMOJI, func(rm: RegExMatch):
+		var emoji_id := rm.strings[0].trim_prefix("~")
+		for ext in EXT_IMAGE:
+			var img_path := "%s%s.%s" % [emoji_images_dir, emoji_id, ext]
+			if FileAccess.file_exists(img_path):
+				var height := font_size * emoji_scale
+				return "[img height=%s]%s[/img]" % [height, img_path]
+		var json := FileAccess.get_file_as_string(PATH_EMOJIS)
+		var data := JSON.parse_string(json)
+		if data and emoji_id in data.named:
+			return data.named[emoji_id]
+		return rm.strings[0])
+	
+	if markdown_enabled:
+		var keys := markdown_custom.keys()
+		keys.sort_custom(func(a, b): return a.length() > b.length())
+		for key in keys:
+			output = _replace_wrapped(output, key, markdown_custom[key])
+	
+	_clear()
+	var i := 0
+	var n := output.length()
+	while i < n:
+		var ch := output[i]
+		if ch == "[":
+			var j := i+1
+			var closed := false
+			while j < n:
+				var chj := output[j]
+				if chj == "]":
+					closed = true
+					break
+				j += 1
+			var inner := output.substr(i+1, j-i-1)
+			if closed:
+				_tags(inner)
+			else:
+				_add_text(inner)
+			i = j
+		elif ch == "]":
+			if _stack:
+				_pop_last()
+		elif ch == "<":
+			var j := i+1
+			var closed := false
+			while j < n:
+				var chj := output[j]
+				if chj == ">":
+					closed = true
+					break
+				j += 1
+			var inner := output.substr(i+1, j-i-1)
+			if closed:
+				_waypoints[_offset] = inner
+			else:
+				_add_text(inner)
+			i = j
+		else:
+			_add_text(ch)
+		i += 1
+	output = "".join(_output)
+	
+	test_string_output = output
+	test_string_output_stripped = "".join(_output_stripped)
+	_clear()
+	_context_node = null
+	_links = {}
+	
+	return output
+
+func prnt(...args):
+	print_rich(parse("".join(args)))
+
+func prnts(...args):
+	print_rich(parse(" ".join(args)))
+
+func _clear():
+	_state = {}
+	_stack = []
+	_output = []
+	_output_stripped = []
+	_effects.clear()
+
+func _pop_last():
+	if _stack:
+		var keys := _stack[-1].keys()
+		for i in range(keys.size()-1, -1, -1):
+			_remove_tag(keys[i])
+		_stack.pop_back()
+
+func _add_tag(tag: String, is_first_tag := false, tag_state: Variant = null) -> bool:
+	if not tag in _state:
+		if is_first_tag:
+			_stack.append({})
+			is_first_tag = false
+		_state[tag] = tag_state
+		_stack[-1][tag] = tag_state
+		if tag_state is String:
+			_output.append("[%s]" % tag_state)
+		elif tag_state is Dictionary:
+			_output.append("[%s]" % (_state_to_tag_str(tag_state)))
+		else:
+			_output.append("[%s]" % tag)
+	return is_first_tag
+
+func _remove_tag(tag: String):
+	if tag in _state:
+		_state.erase(tag)
+	for i in range(_stack.size()-1, -1, -1):
+		if tag in _stack[i]:
+			_stack[i].erase(tag)
+			_output.append("[/%s]" % tag)
+			break
+
+func _add_text(txt: String):
+	_output.append(txt)
+	_output_stripped.append(txt)
+	_offset += txt.length()
+
+func _tags(tag_str: String):
+	var tags: PackedStringArray
+	for tag in tag_str.split(";"):
+		if tag in bbcode_shortcuts:
+			tags.append_array(bbcode_shortcuts[tag].split(";"))
+		else:
+			tags.append(tag)
+	
+	var is_first_tag := true
+	for full_tag in tags:
+		var rm := RegEx.create_from_string(r"^[/=!]?[^\]\s]+").search(full_tag)
+		var tag := rm.strings[0] if rm else ""
+		if not rm:
+			_add_text(full_tag)
+		elif tag == "":
+			_pop_last()
+		elif tag.begins_with("="):
+			var index := _add_link(full_tag.substr(1))
+			is_first_tag = _add_tag("link", is_first_tag, "link id=%s" % index)
+		elif tag.begins_with("/"):
+			var open_tag := tag.substr(1)
+			if open_tag in BBCODE_BUILTIN:
+				_remove_tag(open_tag)
+			else:
+				var state := _get_tag_state(open_tag, full_tag.substr(1))
+				if state:
+					for item in (state if state is Array else [state]):
+						_remove_tag(item.tag)
+				else:
+					_add_text("[%s]" % full_tag)
+		else:
+			if tag in BBCODE_BUILTIN:
+				is_first_tag = _add_tag(tag, is_first_tag, full_tag)
+			else:
+				var state := _get_tag_state(tag, full_tag)
+				if state:
+					for item in (state if state is Array else [state]):
+						is_first_tag = _add_tag(item.tag, is_first_tag, item)
+				else:
+					_add_text("[%s]" % full_tag)
+
+func _add_link(data: Variant) -> int:
+	var link_index := _links.size()
+	if data is Object:
+		_links[link_index] = "id:%s" % (data as Object).get_instance_id()
+	elif not data is String:
+		_links[link_index] = JSON.stringify(data, "", false)
+	else:
+		_links[link_index] = data
+	return link_index
+
+## Returns a Dictionary or Array of Dictionaries.
+func _get_tag_state(tag: String, full_tag: String) -> Variant:
+	# Links to functions.
+	if tag.begins_with("!"):
+		var parts := tag.trim_prefix("!").split(" ")
+		var method: Callable = _expression(parts[0])
+		var obj_id := method.get_object_id()
+		var meth_name := method.get_method()
+		var meth_args := "&".join(parts.slice(1))
+		var link_index := _add_link("call:%s:%s:%s" % [obj_id, meth_name, meth_args])
+		return [{ tag="link", id=link_index }]
+	
+	# Effects.
+	var effect := _to_effect(tag)
+	if effect != null:
+		if tag != "link" and not tag in _effects:
+			_effects[tag] = true
+			install_effect.emit(effect)
+		return { tag=tag, _rest=full_tag }
+	
+	var flt := _to_float(tag)
+	if flt != null:
+		return { tag="font_size", font_size=int(font_size * flt) }
+	
+	if tag.is_valid_int():
+		return { tag="font_size", font_size=font_size+int(tag) }
+	
+	var fnt := null if not font_db else font_db.paths.get(tag, null)
+	if fnt != null:
+		return { tag="font", font=fnt }
+	
+	var clr := _to_color(tag)
+	if clr != Color.TRANSPARENT:
+		if " " in full_tag:
+			var clr2_str := tag.split(" ", true, 1)[-1]
+			var clr2 := _to_color(clr2_str)
+			if clr2 == Color.TRANSPARENT:
+				# ERROR: Color was malformed.
+				clr2 = clr.darkened(0.5)
+			if outline_size == 0:
+				return [
+					{ tag="outline_size", outline_size=4 },
+					{ tag="color", color=clr },
+					{ tag="outline_color", outline_color=clr2 } ]
+			else:
+				return [
+					{ tag="color", color=clr },
+					{ tag="outline_color", outline_color=clr2 } ]
+		else:
+			if outline_size != 0:
+				return [
+					{ tag="color", color=clr },
+					{ tag="outline_color", outline_color=clr.darkened(0.5) }
+				]
+			else:
+				return { tag="color", color=clr }
+	
+	return {}
+
+func _state_to_tag_str(state: Dictionary) -> String:
+	if "_rest" in state:
+		return state._rest
+	
+	var out: PackedStringArray = []
+	if not state.tag in state:
+		out.append(state.tag)
+	for key in state:
+		if key != &"tag":
+			match typeof(state[key]):
+				TYPE_COLOR: out.append("%s=#%s" % [key, (state[key] as Color).to_html(false)])
+				_: out.append("%s=%s" % [key, state[key]])
+	return " ".join(out)
+
+func _to_effect(tag: String) -> RichTextEffect:
+	for dir in [DIR_TEXT_EFFECTS, DIR_TEXT_ANIMATIONS, DIR_TEXT_MODIFIERS, custom_effects_dir]:
+		if not dir:
+			continue
+		for ext in ["gd", "gdc"]:
+			var path = dir.path_join("rte_%s.%s" % [tag, ext])
+			if FileAccess.file_exists(path):
+				var effect: RichTextEffect = load(path).new()
+				effect.resource_name = tag
+				effect.setup_local_to_scene()
+				return effect
+	return null
+	
+func _to_float(tag: String) -> Variant:
+	if "." in tag:
+		for c in tag:
+			if not c in "0123456789.":
+				return null
+		return float(tag)
+	return null
+
+func _to_color(tag: String, default := Color.TRANSPARENT) -> Color:
+	# Check if raw color was passed.
+	if tag.begins_with("(") and tag.ends_with(")"):
+		var floats := str_unwrap(tag, "()").split_floats(",")
+		return Color(floats[0], floats[1], floats[2], floats[3])
+	# 1st check custom colors.
+	if tag in colors_custom:
+		return colors_custom[tag]
+	# 2nd check builtin colors.
+	if colors_allow_builtin:
+		return Color().from_string(tag, default)
+	return default
+
+func _regex_escape(s: String) -> String:
+	var specials := ".*+?^${}()|[]\\"
+	var out := ""
+	for c in s:
+		if specials.find(c) != -1:
+			out += "\\" + c
+		else:
+			out += c
+	return out
+
+func _rich_variant(thing: Variant) -> String:
+	if thing is Callable:
+		return _rich_variant(thing.call())
+	if context_rich_ints and typeof(thing) == TYPE_INT:
+		return str_commas(thing)
+	if context_rich_objects and typeof(thing) == TYPE_OBJECT:
+		var output := ""
+		if thing.has_method(&"to_richtext"):
+			output = thing.to_richtext()
+		elif &"name" in thing:
+			output = thing.name
+		else:
+			output = str(thing)
+		
+		var is_link := false
+		if thing.has_method(&"_richtext_clicked"):
+			var link_index := _add_link(thing)
+			output = "[link id=%s]%s[/link]" % [link_index, output]
+			is_link = true
+		
+		if not is_link and &"tooltip_text" in thing:
+			output = "[hint=%s]%s[/hint]" % [thing.tooltip_text, output]
+		
+		return output
+	if context_rich_array and typeof(thing) == TYPE_ARRAY:
+		return ", ".join(Array(thing).map(_rich_variant))
+	return str(thing)
+
+func _expression_rich(exp: String, exp_clean: String, state2 := {}) -> String:
+	var value: Variant
+	# Passed an instance id number?
+	if exp_clean.is_valid_int():
+		value = instance_from_id(int(exp_clean))
+	# Property or method of instance id number?
+	elif "." in exp_clean and exp_clean.split(".", true, 1)[0].is_valid_int():
+		var parts := exp_clean.split(".", true, 1)
+		var instance := instance_from_id(int(parts[0]))
+		var new_exp_clean := "_MYINST_.%s" % parts[1]
+		value = _expression(new_exp_clean, { _MYINST_=instance })
+	else:
+		value = _expression(exp_clean, state2)
+	return _rich_variant(value) if _expression_error == OK else ("[red]%s]" % exp)
+
+func _replace(text: String, re: RegEx, call: Callable) -> String:
+	var offset := 0
+	var output: PackedStringArray
+	while offset < text.length() and re:
+		var rm := re.search(text, offset)
+		if rm:
+			output.append(text.substr(offset, rm.get_start() - offset))
+			output.append(call.call(rm))
+			offset = rm.get_end()
+		else:
+			output.append(text.substr(offset))
+			offset = text.length()
+	return "".join(output)
+
+func _replace_wrapped(text: String, tag: String, format: String) -> String:
+	return _replace_between(text, tag, tag, func(rm: RegExMatch): return format % rm.get_string(1))
+
+func _replace_between(text: String, head: String, tail: String, call: Callable) -> String:
+	var esc_head := _regex_escape(head)
+	var esc_tail := _regex_escape(tail)
+	var re := RegEx.create_from_string(esc_head + r"(.*?)" + esc_tail)
+	return _replace(text, re, func(rm: RegExMatch): return call.call(rm))
+
+func _expression(ex: String, state2 := {}) -> Variant:
+	var context: Object = null
+	if _context_node and _context_node.is_inside_tree():
+		context = _context_node.get_tree().root.get_node(context_path)
+	else:
+		var local := get_local_scene()
+		if local:
+			context = local.get_node(context_path)
+	
+	if not context:
+		return "???"
+	
+	# If a pipe is present.
+	if "|" in ex:
+		# Get all pipes.
+		var pipes := ex.split("|")
+		var ex_prepipe := pipes[0]
+		# Get initial value of expression.
+		var got: Variant = _expression(ex_prepipe)
+		for i in range(1, len(pipes)):
+			var pipe_parts := pipes[i].split(" ")
+			# First arg is pipe method name.
+			var pipe_meth := pipe_parts[0]
+			# Rest are arguments. Convert to an array.
+			# Does method exist in context node?
+			if context and context.has_method(pipe_meth):
+				var arg_str := "[%s]" % [", ".join(pipe_parts.slice(1))]
+				var pipe_args: Array = [got] + _expression(arg_str)
+				got = context.callv(pipe_meth, pipe_args)
+			else:
+				var s2 := { "_GOT_": got }
+				var arg_str := []
+				for j in len(pipe_parts)-1:
+					var key := "_ARG%s_" % j
+					s2[key] = _expression(pipe_parts[j+1])
+					arg_str.append(key)
+				var p_exp := "_GOT_.%s(%s)" % [pipe_meth, ", ".join(arg_str)]
+				got = _expression(p_exp, s2)
+		return got
+	
+	_expression_error = OK
+	var e := Expression.new()
+	var returned: Variant = null
+	var con_args := context_state.keys() if context_state else []
+	var con_vals := context_state.values() if context_state else []
+	
+	if state2:
+		con_args = con_args + state2.keys()
+		con_vals = con_vals + state2.values()
+	
+	#TODO: Cache all these references.
+	
+	if context_allow_engine_singletons:
+		for name in Engine.get_singleton_list():
+			if context_classes_blocked and name in context_classes_blocked:
+				continue
+			if not context_classes_allowed or name in context_classes_allowed:
+				con_args.append(name)
+				con_vals.append(Engine.get_singleton(name))
+	
+	if context_allow_autoloads:
+		for child in context.get_node("/root/").get_children():
+			if "@" in child.name:
+				continue
+			if context_classes_blocked and child.name in context_classes_blocked:
+				continue
+			if not context_classes_allowed or child.name in context_classes_allowed:
+				con_args.append(child.name)
+				con_vals.append(child)
+	
+	if context_allow_global_classes:
+		for data in ProjectSettings.get_global_class_list():
+			if context_classes_blocked and data.class in context_classes_blocked:
+				continue
+			if not context_classes_allowed or data.class in context_classes_allowed:
+				con_args.append(data.class)
+				con_vals.append(load(data.path))
+	
+	_expression_error = e.parse(ex, con_args)
+	if _expression_error == OK:
+		returned = e.execute(con_vals, context, false)
+	
+	if e.has_execute_failed():
+		_expression_error = FAILED
+		push_error(e.get_error_text())
+		return null
+	
+	return returned
+
+
+
+#region String
+static func str_unwrap(t: String, w: String) -> String:
+	return t.trim_prefix(w[0]).trim_suffix(w[-1])
+
+# 1234567 => 1,234,567
+static func str_commas(number: Variant) -> String:
+	var string := str(number)
+	var is_neg := string.begins_with("-")
+	if is_neg:
+		string = string.substr(1)
+	var mod = len(string) % 3
+	var out = ""
+	for i in len(string):
+		if i != 0 and i % 3 == mod:
+			out += ","
+		out += string[i]
+	return "-" + out if is_neg else out
+#endregion
+
+#region Editor
+func _property_can_revert(property: StringName) -> bool:
+	return RTxtParser.new().get(property) != null
+
+func _property_get_revert(property: StringName) -> Variant:
+	return RTxtParser.new().get(property)
+
+func _get_property_list():
+	var props := EditorProperties.new()\
+		.group("Font", "font_")\
+		.res(&"font_db", "FontDB")\
+		.string_enum(&"font_default", [] if not font_db else font_db.paths.keys())\
+		.integer(&"font_size")\
+		.color(&"font_color")\
+		.number(&"font_bold_weight")\
+		.number(&"font_italics_slant")\
+		.number(&"font_italics_weight")
+	
+	props.group("Emoji", "emoji_")\
+		#.file(&"emoji_font", EXT_FONT)\
+		.number_range(&"emoji_scale", 0.1, 2.0)\
+		.boolean(&"emoji_images_enabled")\
+		.dir(&"emoji_images_dir")
+		
+	props.group("Outline", "outline_")\
+		.integer(&"outline_size")\
+		.integer_enum(&"outline_mode", OutlineMode)
+	if outline_mode in [OutlineMode.CUSTOM, OutlineMode.CUSTOM_DARKEN, OutlineMode.CUSTOM_LIGHTEN]:
+		props.color(&"outline_color")
+	if outline_mode in [OutlineMode.DARKEN, OutlineMode.LIGHTEN, OutlineMode.CUSTOM_DARKEN, OutlineMode.CUSTOM_LIGHTEN]:
+		props.number_range(&"outline_adjust")
+		props.number_range(&"outline_hue_adjust")
+	
+	props.group("Context", "context_")\
+		.boolean(&"context_enabled")\
+		.node_path(&"context_path")\
+		.dict(&"context_state", "StringName;Variant")\
+		.boolean(&"context_allow_autoloads")\
+		.boolean(&"context_allow_global_classes")\
+		.boolean(&"context_allow_engine_singletons")\
+		.prop(&"context_classes_allowed", TYPE_PACKED_STRING_ARRAY)\
+		.prop(&"context_classes_blocked", TYPE_PACKED_STRING_ARRAY)\
+		.boolean(&"context_rich_objects")\
+		.boolean(&"context_rich_ints")\
+		.boolean(&"context_rich_array")
+	
+	props.group("Link", "link_")\
+		.res(&"link_effect", "RTxtLinkEffect")\
+		.enum_cursor(&"link_cursor")\
+		.enum_cursor(&"link_tooltip_cursor")\
+		.file(&"link_tooltip_scene", ["scn", "tscn"])\
+		.boolean(&"link_audio_enabled")\
+		.subgroup("Audio Paths", "link_audio_path_")\
+		.file(&"link_audio_path_hovered", EXT_AUDIO)\
+		.file(&"link_audio_path_unhovered", EXT_AUDIO)\
+		.file(&"link_audio_path_clicked", EXT_AUDIO)\
+		.file(&"link_audio_path_right_clicked", EXT_AUDIO)\
+		.file(&"link_audio_path_tooltip_hovered", EXT_AUDIO)\
+		.file(&"link_audio_path_tooltip_unhovered", EXT_AUDIO)
+	
+	return props.end()
+	
+#endregion
+
+static func _add_signal(name: StringName, var_types := {}):
+	var targ: Object = RTxtParser
+	if not targ.has_signal(name):
+		var args := []
+		for var_name in var_types:
+			args.append({ "name": var_name, "type": var_types[var_name] })
+		targ.add_user_signal(name, args)
+	return Signal(RTxtParser, name)
+
+```
+
+# res://addons/richer_text/scripts/rtxt_parser_regex.gd
+```gd
+@tool
+class_name RTxtParserRegex extends Resource
+
+## Optional. TODO
+@export var id: StringName
+## Disable to prevent parsing.
+@export var enabled := true
+## Pattern to search for.
+@export var regex: String
+## Returns something to replace the matched regex.
+## Access the match with `rm`
+## Example: "< %s >" % rm.strings[0]
+@export_custom(PROPERTY_HINT_EXPRESSION, "") var expression: String
+## Helpful hint at what is happening.
+@export_multiline var comment: String
+
+@export_group("Test", "test_")
+@export_custom(PROPERTY_HINT_EXPRESSION, "") var test_input: String
+@export_tool_button("Test") var test_button := func():
+	var parser := RTxtParser.new()
+	parser.regexes.append(self)
+	test_output = parser.parse(test_input)
+	
+@export_custom(PROPERTY_HINT_EXPRESSION, "") var test_output: String
+
+func _run(input: String, parser: RTxtParser) -> String:
+	if not enabled or not regex or not expression:
+		push_error("Skipping [%s] [%s] [%s]" % [not enabled, not regex, not expression])
+		return input
+	var reg := RegEx.create_from_string(regex)
+	return parser._replace(input, reg, func(rm: RegExMatch):
+		if expression.strip_edges().count("\n") > 0:
+			var gd := GDScript.new()
+			var lines := expression.split("\n")
+			lines[-1] = "return " + lines[-1]
+			gd.source_code = "static func _run(rm: RegExMatch):\n\t" + "\n\t".join(lines)
+			var err := gd.reload()
+			if err == OK:
+				return str(gd.call(&"_run", rm))
+			push_error("Modifier Error: ", error_string(err), expression)
+			return "???"
+		return parser._expression_rich("return " + expression, expression, { rm=rm }))
+
+```
+
+# res://addons/richer_text/scripts/rtxt_revealer.gd
+```gd
+@tool
+class_name RTxtRevealer extends RTxtModifier
+## TODO: Shorts a short text unless hovered, then displays longer.
+
+@export var visible := false
+@export_range(0.0, 1.0, 0.01) var amount := 0.0:
+	set(a):
+		amount = a
+		label.queue_redraw()
+@export var style_box: StyleBoxFlat
+
+#func _preparse(bbcode: String) -> String:
+	#var id := get_instance_id()
+	#var lines := bbcode.strip_edges().split("\n")
+	#for i in lines.size():
+		#var parts := lines[i].split(";", true, 0)
+		#var short := parts[0].strip_edges()
+		#var long := parts[1].strip_edges()
+		#lines[i] = "[revel id=%s x=true y=%s]%s]\n[revel id=%s x=false y=%s]%s]" % [id, i, short, id, i, long]
+	#return "\n".join(lines)
+
+func  _debug_draw(rtl: RicherTextLabel):
+	var y := 0.0
+	for i in rtl.get_line_count():
+		var h := rtl.get_line_height(i)
+		rtl.draw_style_box(style_box, Rect2(0.0, y, rtl.size.x, h))
+		y += h
+
+func _pressed():
+	print("Selected")
+
+```
+
+# res://addons/richer_text/scripts/rtxt_scatterer.gd
+```gd
+@tool
+class_name RTxtScatterer extends RTxtModifier
+
+## Automatically repeats the bbcode multiple times, so you can draw the same text in multiple places.
+@export_range(0, 3) var repeat_input := 0
+@export var nodes: Array[NodePath]
+@export var horizontal_alignment := HORIZONTAL_ALIGNMENT_CENTER
+@export var vertical_alignment := VERTICAL_ALIGNMENT_CENTER
+## Attempt to clamp text to the viewport. Doesn't quite work with rotations.
+@export var viewport_clamp := true
+@export var viewport_margin := Vector2i(16, 16)
+## Copy the rotation of the nodes.
+@export var copy_rotation := true
+@export var copy_scale := true
+
+var _rects: Array[Rect2]
+var _char_bounds: Array[PackedVector2Array]
+var _line_height: float
+
+func _preparse(bbcode: String) -> String:
+	label.clip_contents = false ## Needed for if characters are out of rect.
+	label.clip_children = CanvasItem.CLIP_CHILDREN_DISABLED ## Needed for when tooltip is out of rect.
+	label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
+	
+	var lines := bbcode.split("\n")
+	if lines.size() == 1 and repeat_input != 0:
+		for i in repeat_input:
+			lines.append(lines[0])
+	
+	var id := get_instance_id()
+	for i in lines.size():
+		var target: Node
+		if i < nodes.size() and nodes[i]:
+			target = label.get_node(nodes[i])
+		if not target and i < label.get_child_count():
+			target = label.get_child(i)
+		if target:
+			lines[i] = "[scatr id=%s pid=%s ln=%s]%s]" % [id, target.get_instance_id(), i, lines[i]]
+	
+	return "\n".join(lines)
+
+func _finished():
+	var fnt := label.get_theme_font(&"normal_font")
+	var fnt_size := label.get_theme_font_size(&"normal_font_size")
+	var lines := label.get_parsed_text().split("\n")
+	_rects.resize(lines.size())
+	_char_bounds.resize(label.get_parsed_text().length())
+	_line_height = fnt.get_ascent(fnt_size) + fnt.get_descent(fnt_size)
+	for i in lines.size():
+		var size := fnt.get_string_size(lines[i], HORIZONTAL_ALIGNMENT_LEFT, -1, fnt_size)
+		_rects[i] = Rect2(0.0, 0.0, size.x, size.y)
+
+```
+
+# res://addons/richer_text/scripts/rtxt_shadow.gd
+```gd
+@tool
+class_name RTxtShadow extends Resource
+## Handles shadow settings for easy reuse.
+
+@export var enabled: bool = true:
+	set(e):
+		enabled = e
+		changed.emit()
+
+## In pixels.
+@export_range(0.0, 16.0, 0.1, "suffix:pixels") var distance := 4.0:
+	set(o):
+		distance = o
+		changed.emit()
+
+@export_range(-180.0, 180.0, 0.1, "radians_as_degrees") var angle := PI*.25:
+	set(d):
+		angle = d
+		changed.emit()
+
+@export_color_no_alpha var color := Color.BLACK:
+	set(c):
+		color = c
+		changed.emit()
+
+@export_range(0.0, 1.0) var alpha := 0.25:
+	set(a):
+		alpha = a
+		changed.emit()
+
+## Relative to font_size.
+@export var outline_size := 0.1:
+	set(o):
+		outline_size = o
+		changed.emit()
+
+```
+
+# res://addons/richer_text/scripts/rtxt_ticker.gd
+```gd
+@tool
+class_name RTxtTicker extends RTxtModifier
+
+@export var speed := 1.0
+@export var reverse := false
+@export var divider := "   ●   "
+
+func _preparse(bbcode: String) -> String:
+	return "[ticker id=%s]%s]" % [get_instance_id(), divider.join(bbcode.split("\n")) + divider]
+
+```
+
+# res://addons/richer_text/scripts/sound.gd
+```gd
+class_name Sound extends Resource
+
+@export_file("*.mp3", "*.wav", "*.ogg") var paths: PackedStringArray
+@export var pitch_rand_min := 0.95
+@export var pitch_rand_max := 1.05
+@export var volume_rand_min := -0.05
+@export var volume_rand_max := 0.05
+
+func play(node: Node):
+	var path := Array(paths).pick_random()
+	if not path or not FileAccess.file_exists(path):
+		return
+	var snd := AudioStreamPlayer.new()
+	node.add_child(snd)
+	snd.stream = load(path)
+	snd.pitch_scale = randf_range(pitch_rand_min, pitch_rand_max)
+	snd.volume_linear = randf_range(volume_rand_min, volume_rand_max)
+	snd.play()
+	snd.finished.connect(snd.queue_free)
+
+```
+
+# res://addons/richer_text/scripts/urichtext.gd
+```gd
+class_name URichText extends RefCounted
+## Various RichText helpers.
+
+## For use with print_rich.
+static func to_rich_string(value: Variant, indent := "\t") -> String:
+	return _pretty(value, indent)
+
+static func _pretty(value: Variant, indent_str: String, indent := 0) -> String:
+	var out := ""
+	var prefix := indent_str.repeat(indent)
+	match typeof(value):
+		TYPE_OBJECT:
+			out += "Object(%s)\n" % [wrap_color((value as Object).get_instance_id(), Color.PURPLE)]
+		TYPE_DICTIONARY:
+			out += prefix + "\n"
+			for key in value.keys():
+				out += prefix + wrap_color("[i]%s[/i]" % key, Color.WHITE) + ": " + _pretty(value[key], indent_str, indent + 1)
+		TYPE_ARRAY:
+			out += prefix + "\n"
+			for item in value:
+				out += prefix + "- " + _pretty(item, indent_str, indent + 1)
+		TYPE_BOOL, TYPE_NIL, TYPE_INT, TYPE_FLOAT:
+			out += wrap_color(value) + "\n"
+		TYPE_STRING:
+			out += wrap_color('"' + value + '"') + "\n"
+		TYPE_VECTOR2, TYPE_VECTOR2I:
+			out += "Vector(%s, %s)\n" % [wrap_color(value.x), wrap_color(value.y)]
+		TYPE_VECTOR3, TYPE_VECTOR3I:
+			out += "Vector(%s, %s)\n" % [wrap_color(value.x), wrap_color(value.y), wrap_color(value.z)]
+		TYPE_COLOR:
+			out += "Color(%s)\n" % [wrap_color("#" + (value as Color).to_html(), value)]
+		_:
+			out += str(value) + "\n"
+	return out
+
+static func wrap_color(text: Variant, color: Variant = null) -> String:
+	if color == null:
+		match typeof(text):
+			TYPE_STRING: color = Color.ORANGE
+			TYPE_BOOL, TYPE_NIL: color = Color.TOMATO#EditorInterface.get_editor_settings().get_setting("color")
+			TYPE_FLOAT, TYPE_INT: color = Color.CYAN#EditorInterface.get_editor_settings().get_setting("text_editor/theme/highlighting/number_color")
+			_: color = Color.WHITE
+	return "[color=#%s]%s[/color]" % [color.to_html(), text]
+
+```
+
+# res://addons/richer_text/text_effects/anims/rte_back.gd
+```gd
+@tool
+extends RTxtEffect
+## Bounces text in.
+
+## Syntax: [back scale=8.0][]
+var bbcode = "back"
+
+func _process_custom_fx(c: CharFXTransform):
+	var a := 1.0 - delta
+	var scale := get_float(&"scale", 1.0)
+	offset.y += ease_back(a) * font_size * scale
+	alpha *= (1.0 - a)
+	_send_transform_back()
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/anims/rte_console.gd
+```gd
+@tool
+extends RTxtEffect
+
+## Syntax: [console][]
+var bbcode = "console"
+
+const SPACE := " "
+const CURSOR := "█"
+const CURSOR_COLOR := Color.GREEN_YELLOW
+
+func _update() -> bool:
+	var lbl := label
+	
+	if lbl.progress == 1.0:
+		if lbl.visible_character-1 == absolute_index and sin(time * 16.0) > 0.0:
+			chr = CURSOR
+			color = CURSOR_COLOR
+			offset = Vector2.ZERO
+	
+	else:
+		if lbl.visible_character == absolute_index:
+			if chr == SPACE:
+				alpha = 0.0
+			else:
+				chr = CURSOR
+				color = CURSOR_COLOR
+				offset = Vector2.ZERO
+		
+		else:
+			alpha *= delta
+	
+	_send_transform_back()
+	return super()
+
+```
+
+# res://addons/richer_text/text_effects/anims/rte_fader.gd
+```gd
+@tool
+extends RTxtEffect
+## Fades words in one at a time.
+
+## Syntax: [fader][/fader]
+var bbcode := "fader"
+
+func _update() -> bool:
+	alpha *= delta
+	_send_transform_back()
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/anims/rte_fallin.gd
+```gd
+@tool
+extends RTxtEffect
+## Characters fall in one at a time.
+
+## Syntax: [fallin][]
+var bbcode = "fallin"
+
+func _update() -> bool:
+	var delta: float = ease_back_out(delta)
+	alpha *= delta
+	var cs := size * Vector2(0.5, -0.25)
+	transform *= Transform2D.IDENTITY.translated(cs)
+	transform *= Transform2D.IDENTITY.scaled(Vector2.ONE * (1.0 + (1.0 - delta) * 2.0))
+	transform *= Transform2D.IDENTITY.translated(-cs)
+	_send_transform_back()
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/anims/rte_focus.gd
+```gd
+@tool
+extends RTxtEffect
+
+## Syntax: [focus color][]
+var bbcode = "focus"
+
+func _update() -> bool:
+	var a := 1.0 - delta
+	var scale := get_float(&"scale", 1.0)
+	color.s = lerp(color.s, 0.0, a)
+	color.a = lerp(color.a, 0.0, a)
+	var r = hash(text[absolute_index]) * 33.33 + absolute_index * 4545.5454 * TAU
+	offset += Vector2(cos(r), sin(r)) * label.size * scale * (a * a)
+	_send_transform_back()
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/anims/rte_fromcursor.gd
+```gd
+@tool
+extends RTxtEffect
+## Fades words in one at a time.
+
+## Syntax: [cfac][]
+var bbcode = "fromcursor"
+
+func _update() -> bool:
+	# Send position back early so ctc isn't weird.
+	_send_transform_back()
+	alpha *= delta
+	position = mouse.lerp(position, pow(delta, 0.25))
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/anims/rte_growin.gd
+```gd
+@tool
+extends RTxtEffect
+## Grows characters in one at a time.
+
+## Syntax: [growin][]
+var bbcode = "growin"
+
+func _update() -> bool:
+	var d := ease_back_out(delta, 2.0)
+	alpha *= d
+	var cs := size * Vector2(0.5, -0.25)
+	transform *= Transform2D.IDENTITY.translated(cs)
+	transform *= Transform2D.IDENTITY.scaled(Vector2.ONE * d)
+	transform *= Transform2D.IDENTITY.translated(-cs)
+	_send_transform_back()
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/anims/rte_offin.gd
+```gd
+@tool
+extends RTxtEffect
+## Characters are offset into place.
+
+## Syntax: [offin][]
+var bbcode = "offin"
+
+func _update() -> bool:
+	alpha *= delta
+	offset.x = -size.x * (1.0 - delta)
+	_send_transform_back()
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/anims/rte_prickle.gd
+```gd
+@tool
+extends RTxtEffect
+## Fades characters in more randomly.
+## You should set 'fade_speed' to a low value for this to look right. 
+
+## Syntax: [prickle pow=2][]
+var bbcode = "prickle"
+
+func _update() -> bool:
+	var power := get_float(&"pow", 2.0)
+	var a := delta
+	a = clamp(a * 2.0 - rnd(), 0.0, 1.0)
+	a = pow(a, power)
+	alpha = a
+	_send_transform_back()
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/anims/rte_redact.gd
+```gd
+@tool
+extends RTxtEffect
+
+## Syntax: [redact freq wave][]
+var bbcode = "redact"
+
+const SPACE := " "
+const BLOCK := "█"
+const MID_BLOCK := "▓"
+
+func _update() -> bool:
+	var a := delta
+	if a == 0 and (chr != SPACE or index % 2 == 0):
+		#var freq := get_float("freq", 1.0)
+		#var scale := get_float("scale", 1.0)
+		chr = "X"
+		color = Color.BLACK
+	_send_transform_back()
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/anims/rte_wfc.gd
+```gd
+@tool
+extends RTxtEffect
+## Simulates a "Wave Function Collapse" for each character.
+
+## Syntax: [wfc][]
+var bbcode = "wfc"
+
+const SPACE := " "
+const SYMBOLS := "10"
+
+func _update() -> bool:
+	var a := delta
+	var aa := a + rnd() * a
+	if aa < 1.0 and chr != SPACE:
+		chr = SYMBOLS[rnd_time(8.0) * len(SYMBOLS)]
+		color.v -= .5
+	alpha = a
+	_send_transform_back()
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_beat.gd
+```gd
+@tool
+extends RTxtEffect
+## Pulses it's scale and color every second.
+
+## [beat][]
+var bbcode := "beat"
+
+func _update() -> bool:
+	var cs := size * Vector2(0.5, -0.3)
+	var speed := 2.0
+	var pulse := pow(maxf(sin(time * speed), 0.0) * maxf(sin(time * 2.0 * speed), 0.0), 4.0)
+	_char_fx.transform *= Transform2D.IDENTITY.translated(cs)
+	_char_fx.transform *= Transform2D.IDENTITY.scaled(Vector2.ONE + Vector2(1.4, 0.8) * pulse)
+	_char_fx.transform *= Transform2D.IDENTITY.translated(-cs)
+	color = lerp(Color.WHITE, color, pulse * 2.)
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_clown.gd
+```gd
+@tool
+extends RTxtEffect
+
+var bbcode := "clown"
+
+func _update() -> bool:
+	_char_fx.outline
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_curspull.gd
+```gd
+@tool
+extends RTxtEffect
+## Pulls or pushes characters away from the cursor.
+## Use a negative number for reverse effect.
+
+## Syntax: [curspull 1.0][]
+const bbcode = "curspull"
+
+func _update() -> bool:
+	var pull := get_float("pull", 1.0)
+	var dif := position - mouse
+	var dis := dif.length()
+	var nrm := dif.normalized() * -pull
+	position += nrm * clampf(pow(dis * .1, 4.0), 0.1, 4.0)
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_cuss.gd
+```gd
+@tool
+extends RTxtEffect
+## "Censors" a word by replacing vowels with symbols.
+
+## Syntax: [cuss][]
+const bbcode = "cuss"
+
+const VOWELS := "aeiouAEIOU"
+const CUSS_CHARS := "&$!@*#%"
+const IGNORE := " !?.,;\""
+
+func _update() -> bool:
+	# Never censor first letter.
+	if index != 0:
+		# Always censor vowels.
+		if chr in VOWELS:
+			chr = CUSS_CHARS[int(rnd_smooth(5.0) * len(CUSS_CHARS))]
+			color = Color.RED
+		# Don't censor last letter.
+		elif absolute_index + 1 < len(text) and not text[absolute_index + 1] in IGNORE:
+			# Sometimes censor other letters.
+			if rnd_time() > TAU * 0.75:
+				chr = CUSS_CHARS[int(rnd_smooth(5.0) * len(CUSS_CHARS))]
+				color = Color.RED
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_glow.gd
+```gd
+@tool
+class_name RTE_Glow extends RTxtEffect
+## TODO: Unfinished test class
+
+@export var glow_color := Color.TOMATO
+@export var glow_outline_color := Color.GREEN_YELLOW
+@export var glow_speed := 1.0
+
+func _update() -> bool:
+	color = lerp(glow_color, glow_outline_color, sin(time * glow_speed))
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_heart.gd
+```gd
+@tool
+extends RTxtEffect
+## Hear beat jumping, and turning into a heart shape.
+
+## Syntax: [heart scale=1.0 freq=8.0][]
+var bbcode = "heart"
+
+const TO_CHANGE := "oOaA"
+
+func _update() -> bool:
+	var scale := get_float("scale", 16.0)
+	var freq := get_float("freq", 2.0)
+	var x = index / scale - time * freq
+	var t = abs(cos(x)) * max(0.0, smoothstep(0.712, 0.99, sin(x))) * 2.5;
+	color = color.lerp(Color.BLUE.lerp(Color.RED, t), t)
+	offset.y -= t * 4.0
+	
+	if offset.y < -1.0:
+		if chr in TO_CHANGE and label.parser.emoji_font:
+			var efont: Font = load(label.parser.emoji_font)
+			if efont:
+				font = efont.get_rids()[0]
+				transform *= Transform2D.IDENTITY.scaled(Vector2.ONE * 0.6)
+				offset.y -= 6.0
+				chr = "❤️"
+			else:
+				chr = "•"
+	
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_jit.gd
+```gd
+# Makes words shake around.
+@tool
+extends RTxtEffect
+
+# Syntax: [jit scale=1.0 freq=8.0][]
+var bbcode = "jit"
+
+const SPLITTERS := " .!?,-"
+
+var _word := 0.0
+var _last := ""
+var _offset := 0
+
+func _update() -> bool:
+	if index == 0:
+		_word = 0
+		_offset = absolute_index
+	
+	var scale := get_float("scale", 2.0)
+	var freq := get_float("jit", 1.0)
+	
+	if text[absolute_index] in SPLITTERS or _last in SPLITTERS:
+		_word += PI * .33
+	
+	var s := fmod((_word + time + _offset) * PI * 1.25, TAU)
+	var p := sin(time * freq * 16.0) * .5
+	offset.x += sin(s) * p * scale
+	offset.y += cos(s) * p * scale
+	_last = text[absolute_index]
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_jit2.gd
+```gd
+@tool
+extends RTxtEffect
+## Makes words shake around.
+
+## Syntax: [jit2 scale=1.0 freq=8.0][]
+var bbcode = "jit2"
+
+func _update() -> bool:
+	var scale := get_float("scale", 1.0)
+	var freq := get_float("freq", 16.0)
+	var s := fmod((index + time) * PI * 1.25, TAU)
+	var p := sin(time * freq + absolute_index) * .33
+	offset.x += sin(s) * p * scale
+	offset.y += cos(s) * p * scale
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_jump.gd
+```gd
+@tool
+class_name RTE_Jump extends RTxtEffect
+## Jumps up and down.
+
+## Syntax: [jump angle=45]]
+var bbcode := "jump"
+
+const SPLITTERS := " .,"
+
+@export_range(-180.0, 180.0, 1.0, "radians_as_degrees") var jump_angle := 0.0
+@export_range(0.0, 1.0, 0.01) var jump_scale := 1.0
+
+var _w_char = 0
+var _last = 999
+
+func _update() -> bool:
+	if absolute_index < _last or chr in SPLITTERS:
+		_w_char = absolute_index
+	
+	_last = absolute_index
+	var a := jump_angle + deg_to_rad(get_float(&"angle", 0.0))
+	var s := -absf(sin(-time * 6.0 + _w_char * PI * .025))
+	s *= jump_scale * get_float(&"scale", 1.0) * font_size * .125 * weight
+	position += Vector2(sin(a), cos(a)) * s
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_jump2.gd
+```gd
+@tool
+extends RTxtEffect
+
+## Syntax: [jump2 angle=45][]
+var bbcode := "jump2"
+
+func _update() -> bool:
+	var a := deg_to_rad(get_float(&"angle", 0.0))
+	var s := sin(-time * 4.0 + index * PI * .125)
+	s = -abs(pow(s, 4.0)) * 2.0
+	s *= get_float(&"size", 1.0) * font_size * .125
+	position += Vector2(sin(a), cos(a)) * s
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_l33t.gd
+```gd
+@tool
+extends RTxtEffect
+## Converts numbers to letters in a way that is still readable with effort.
+
+## Syntax: [l33t][]
+var bbcode = "l33t"
+
+var leet = {
+	"L": "1",
+	"l": "1",
+	"I": "1",
+	"i": "1",
+	"E": "3",
+	"e": "3",
+	"T": "7",
+	"t": "7",
+	"S": "5",
+	"s": "5",
+	"A": "4",
+	"a": "4",
+	"O": "0",
+	"o": "0",
+}
+
+func _update() -> bool:
+	if chr in leet:
+		if rnd_time() > .2:
+			chr = leet[chr]
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_mega.gd
+```gd
+@tool
+class_name RTE_Mega extends RTxtEffect
+## Add noise or a simple sway to the position, rotation, scale, or skew.
+
+## Syntax: [meta][/meta]
+## Meant to be used by JuicyText.
+var bbcode := "meta"
+
+@export_group("Color", "mega_color_")
+@export var mega_color_enabled := true ## Animate colors?
+@export var mega_color_include_own := true ## Will blend between it's own and the list.
+@export var mega_color_list: PackedColorArray ## List of colors to blend between.
+@export_range(0.0, 1.0) var mega_color_freq := 1.0
+@export_range(0.0, 1.0) var mega_color_noise := 1.0
+@export var mega_color_speed := 1.0
+
+@export_group("Position", "mega_position_")
+@export var mega_position_enabled := true ## Animate position?
+@export var mega_position_scale := Vector2(0.0, 0.2) ## Scaled to font_size.
+@export_range(0.0, 1.0) var mega_position_freq := 1.0
+@export_range(0.0, 1.0) var mega_position_noise := 1.0
+@export var mega_position_speed := 1.0
+
+@export_group("Rotation", "mega_rotation_")
+@export var mega_rotation_enabled := true
+@export_range(0.0, 1.0) var mega_rotation_scale := 0.1
+@export_range(0.0, 1.0) var mega_rotation_freq := 1.0
+@export_range(0.0, 1.0) var mega_rotation_noise := 1.0
+@export var mega_rotation_speed := 1.0
+
+@export_group("Scale", "mega_scale_")
+@export var mega_scale_enabled := true
+@export var mega_scale_scale := Vector2(0.1, 0.1)
+@export_range(0.0, 1.0) var mega_scale_freq := 1.0
+@export_range(0.0, 1.0) var mega_scale_noise := 1.0
+@export var mega_scale_speed := 1.0
+
+@export_group("Skew", "mega_skew_")
+@export var mega_skew_enabled := true
+@export_range(0.0, 1.0) var mega_skew_scale := 0.1
+@export_range(0.0, 1.0) var mega_skew_freq := 1.0
+@export_range(0.0, 1.0) var mega_skew_noise := 1.0
+@export var mega_skew_speed := 1.0
+## center = (0.5, 0.5)
+## bottom = (0.5, 1.0)
+## top = (0.5, 0.0)
+@export var mega_skew_pivot := Vector2(0.5, 0.5)
+
+func _update() -> bool:
+	if mega_position_enabled:
+		var x := rnd_noise(mega_position_noise, mega_position_speed, mega_position_freq, PI)
+		var y := rnd_noise(mega_position_noise, mega_position_speed, mega_position_freq, TAU)
+		position += Vector2(x, y) * mega_position_scale * font_size  * weight
+	
+	if mega_rotation_enabled:
+		rotation = rnd_noise(mega_rotation_noise, mega_rotation_speed, mega_rotation_freq, 0.0) * TAU * mega_rotation_scale * weight
+	
+	if mega_scale_enabled:
+		scale = Vector2.ONE + mega_scale_scale * rnd_noise(mega_scale_noise, mega_scale_speed, mega_scale_freq, 3.0) * weight
+	
+	if mega_skew_enabled:
+		skew_pivoted(rnd_noise(mega_skew_noise, mega_skew_speed, mega_skew_freq, 2.0) * mega_skew_scale * weight, mega_skew_pivot)
+	
+	if mega_color_enabled:
+		var new_color: Color
+		# TODO: Improve this. I just guessed around.
+		var t := time * mega_color_speed + index * mega_color_freq
+		t += lerpf(0.0, rnd(mega_color_freq, 321), mega_color_noise)
+		if mega_color_include_own:
+			new_color = cycle_colors(mega_color_list + PackedColorArray([color]), t, color)
+		else:
+			new_color = cycle_colors(mega_color_list, t, color)
+		color = lerp_hsv(color, new_color, weight)
+	
+
+	
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_off.gd
+```gd
+@tool
+extends RTxtEffect
+## Offsets characters by an amount.
+
+## Syntax: [off][]
+var bbcode = "off"
+
+func to_float(s: String):
+	if s.begins_with("."):
+		return ("0" + s).to_float()
+	return s.to_float()
+
+func _update() -> bool:
+	var off := get_var(&"off", Vector2.ZERO)
+	match typeof(off):
+		TYPE_FLOAT, TYPE_INT: offset.y += off
+		TYPE_VECTOR2: offset += off
+		TYPE_ARRAY: offset += Vector2(off[0], off[1])
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_rain.gd
+```gd
+@tool
+extends RTxtEffect
+
+## Syntax: [rain][]
+var bbcode = "rain"
+
+func _update() -> bool:
+	var r = fmod(cos(rnd_time() * .125 + sin(index * .5 + time * .6) * .25) + time * .5, 1.0)
+	offset.y += (r - .25) * 8.0
+	alpha = lerp(alpha, 0.0, r)
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_secret.gd
+```gd
+@tool
+extends RTxtEffect
+## Invisible unless cursor is near it.
+
+## Syntax: [secret][]
+const bbcode = "secret"
+
+func _update() -> bool:
+	var dif := transform.origin - mouse
+	var dis := dif.length()
+	alpha = clampf(8.0 - (dis / 8.0), 0.0, 1.0)
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_sin.gd
+```gd
+@tool
+class_name RTE_Sin extends RTxtEffect
+## Sine wave effect.
+
+## [sin sin=float speed=float freq=float skew=float][/sin]
+var bbcode := "sin"
+
+@export var sin_scale := 1.0
+@export var freq := 0.5
+@export var speed := 1.0
+@export var skew_scale := 0.2
+
+func _update() -> bool:
+	var t := time * get_float(&"speed", speed)
+	t += range.x * get_float(&"freq", freq) * font_size
+	position.y += sin(t) * font_size * .25 * get_float(&"sin", sin_scale) * weight
+	skew_y = cos(t) * get_float(&"skew", skew_scale) * weight
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_sparkle.gd
+```gd
+@tool
+extends RTxtEffect
+
+## [sparkle]]
+var bbcode := "sparkle"
+
+func _update() -> bool:
+	var s = 1.0 - color.s
+	color.h = wrapf(color.h + sin(-time * 4.0 + _char_fx.glyph_index * 2.0) * s * .033, 0.0, 1.0)
+	color.v = clamp(color.v + sin(time * 4.0 + _char_fx.glyph_index) * .25, 0.0, 1.0)
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_sway.gd
+```gd
+@tool
+class_name RTE_Sway extends RTxtEffect
+## Sways the character back and forth.
+
+## [sway][/sway]
+var bbcode := "sway"
+
+func _update():
+	var sway := sin(time * 2.0) * 0.25
+	var s := size * Vector2(0.5, -0.25)
+	if _juicy:
+		skew = sway
+	else:
+		transform *= Transform2D.IDENTITY.translated(s)
+		transform *= Transform2D(0.0, Vector2.ONE, sway, Vector2.ZERO)
+		transform *= Transform2D.IDENTITY.translated(-s)
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_sweep.gd
+```gd
+@tool
+extends RTxtEffect
+
+var bbcode := "sweep"
+
+func _update() -> bool:
+	var interval := 2.5
+	var band_width := 0.15
+	var total := text.length() - 1.0
+	if total <= 0:
+		return true
+	
+	var progress := fmod(time, interval) / interval
+	var norm_index := float(range.x) / total
+	
+	if absf(norm_index - progress) < band_width:
+		var strength := 1.0 - (absf(norm_index - progress) / band_width)
+		color = color.lerp(Color(1, 1, 1), strength)
+	
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_uwu.gd
+```gd
+@tool
+extends RTxtEffect
+## Makes text cuter.
+## "R" & "L" become "W" -> Royal Rumble = Woyaw Wumbwe.
+## Ideally a monospaced font should be used.
+
+## Syntax: [uwu][]
+var bbcode = "uwu"
+
+func _update() -> bool:
+	match chr:
+		"r", "l": chr = "w"
+		"R", "L": chr = "W"
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_wack.gd
+```gd
+@tool
+extends RTxtEffect
+## Wacky random animations.
+## Randomly scales and rotates characters.
+
+var bbcode := "wack"
+
+func _update() -> bool:
+	var cs := size * Vector2(0.5, -0.3)
+	var r := rnd()
+	transform *= Transform2D.IDENTITY.translated(cs)
+	transform *= Transform2D.IDENTITY.rotated((cos(index + time) + sin(r + time * 3.0)) * .125)
+	transform *= Transform2D.IDENTITY.scaled(Vector2.ONE * (1.0 + cos(r * .5 + index * 3.0 + time * 1.3) * .125))
+	transform *= Transform2D.IDENTITY.translated(-cs)
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_wave.gd
+```gd
+@tool
+extends RTxtEffect
+
+## Syntax: [wave][]
+var bbcode = "www"
+
+func _update() -> bool:
+	var wave := get_float(&"wave", 1.0)
+	var freq := get_float(&"freq", 1.0)
+	
+#	c.offset.y += sin(c.elapsed_time + c.absolute_index * f) * t.size * 32
+	
+#	var scale:float = char_fx.env.get("scale", 16.0)
+#	var freq:float = char_fx.env.get("freq", 2.0)
+#
+#	var x =  char_fx.absolute_index / scale - char_fx.elapsed_time * freq
+#	var t = abs(cos(x)) * max(0.0, smoothstep(0.712, 0.99, sin(x))) * 2.5;
+#	char_fx.color = lerp(char_fx.color, lerp(Color.blue, Color.red, t), t)
+#	char_fx.offset.y -= t * 4.0
+#
+#	var c = char_fx.character
+#	if char_fx.offset.y < -1.0:
+#		if char_fx.character in TO_CHANGE:
+#			char_fx.character = HEART
+#
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/effects/rte_woo.gd
+```gd
+@tool
+class_name RTE_Woo extends RTxtEffect
+
+## Syntax: [woo scale=1.0 freq=8.0][/woo]
+var bbcode = "woo"
+
+func _update() -> bool:
+	var spd := get_float(&"spd", 2.0)
+	var freq := get_float(&"freq", 2.0)
+	if rnd_smooth(spd, freq) > 0.5:
+		var c := chr
+		chr = c.to_upper() if c == c.to_lower() else c.to_upper()
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/mods/rte_curve.gd
+```gd
+@tool
+extends RTxtEffect
+## Used by the RichTextCurve modifier.
+
+## [curve id=richer text curve instance id]]
+var bbcode := "curve"
+
+var path: Path2D
+
+func _update():
+	var curve: RTxtCurver = get_instance()
+	if not path and curve and curve.curve:
+		path = label.get_node(curve.curve)
+	if path:
+		var coffset := curve._sizes[index]
+		coffset.x += curve.offset * (path.curve.get_baked_length() - label.get_content_width())
+		var trans := path.curve.sample_baked_with_rotation(coffset.x)
+		position = trans.origin + path.global_position - label.global_position
+		#position.y += coffset.y
+		if curve.rotate:
+			rotate(trans.get_rotation())
+		if curve.skew:
+			skew = trans.get_rotation()
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/mods/rte_link.gd
+```gd
+@tool
+class_name RTxtLinkEffect extends RTxtEffect
+## Customize animation by overriding _update_unhovered() _update_hovered() and _update_clicked()
+## Change timing.
+
+const PROPS: PackedStringArray = ["color", "elapsed_time", "glyph_count", "glyph_flags", "glyph_index", "outline", "range", "relative_index", "transform", "offset", "font"]
+
+@export var hover_duration := 0.2
+@export var hover_trans := Tween.TRANS_LINEAR
+@export var hover_ease := Tween.EASE_IN_OUT
+
+@export var unhover_duration := 0.1
+@export var unhover_trans := Tween.TRANS_LINEAR
+@export var unhover_ease := Tween.EASE_IN_OUT
+
+@export var clicked_in_duration := 0.2
+@export var clicked_in_trans := Tween.TRANS_LINEAR
+@export var clicked_in_ease := Tween.EASE_IN_OUT
+@export var clicked_wait := 0.5
+@export var clicked_out_duration := 0.2
+@export var clicked_out_trans := Tween.TRANS_LINEAR
+@export var clicked_out_ease := Tween.EASE_IN_OUT
+
+var bbcode := "link"
+var _states: Dictionary[int, float]
+var _states_clicked: Dictionary[int, float]
+var _clicked: Dictionary[int, bool]
+var _tweens: Dictionary[int, Tween]
+var _tweens_clicked: Dictionary[int, Tween]
+var _hovered := -1
+
+func _clear():
+	_states.clear()
+	_states_clicked.clear()
+	_clicked.clear()
+	_tweens.clear()
+	_tweens_clicked.clear()
+	_hovered = -1
+
+## Override for unhovered state animation.
+func _update_unhovered() -> bool:
+	color = Color.HOT_PINK
+	return true
+
+## Override for hovered state animation.
+func _update_hovered() -> bool:
+	color = Color.GREEN_YELLOW
+	return true
+
+## Override for clicked state animation.
+func _update_clicked() -> bool:
+	color = Color.DEEP_SKY_BLUE
+	return true
+
+func _get_rank_order() -> int:
+	return 100
+
+func _tween(index: int, from: float, to: float, duration: float, trans: int, ease: int):
+	var tween: Tween = _tweens.get(index)
+	if tween: tween.kill()
+	tween = label.create_tween()
+	tween.tween_method(func(x): _states[index] = x, _states.get(index, from), to, duration).set_trans(trans).set_ease(ease)
+	_tweens[index] = tween
+	return tween
+	
+func _link_hovered(index: int):
+	_tween(index, 0.0, 1.0, hover_duration, hover_trans, hover_ease)
+	
+func _link_unhovered(index: int):
+	_tween(index, 1.0, 0.0, unhover_duration, unhover_trans, unhover_ease)
+
+func _link_clicked(index: int):
+	var tween: Tween = _tweens_clicked.get(index)
+	if tween: tween.kill()
+	_clicked[index] = true
+	tween = label.create_tween()
+	tween.tween_method(func(x): _states_clicked[index] = x, _states_clicked.get(index, 0.0), 1.0, clicked_in_duration).set_trans(clicked_in_trans).set_ease(clicked_in_ease)
+	tween.tween_interval(clicked_wait)
+	tween.tween_method(func(x): _states_clicked[index] = x, 1.0, 0.0, clicked_out_duration).set_trans(clicked_out_trans).set_ease(clicked_out_ease)
+	tween.tween_callback(func(): _clicked[index] = false)
+	_tweens_clicked[index] = tween
+
+func _duplicate(c: CharFXTransform) -> CharFXTransform:
+	var out := CharFXTransform.new()
+	for prop in PROPS:
+		out[prop] = c[prop]
+	return out
+
+func _update() -> bool:
+	var link_index := get_int()
+	var cfx := _char_fx
+	var amount := _states.get(link_index, 0.0)
+	
+	if amount == 0.0:
+		_update_unhovered()
+	elif amount == 1.0:
+		_update_hovered()
+	else:
+		var a := _duplicate(cfx)
+		_char_fx = a
+		_update_unhovered()
+		var b := _duplicate(cfx)
+		_char_fx = b
+		_update_hovered()
+		
+		cfx.color = lerp(a.color, b.color, amount)
+		cfx.transform = a.transform.interpolate_with(b.transform, amount)
+		cfx.offset = lerp(a.offset, b.offset, amount)
+	
+	if _clicked.get(link_index, false):
+		var a := _duplicate(cfx)
+		_char_fx = a
+		_update_clicked()
+		
+		var amount_clicked := _states_clicked.get(link_index, 0.0)
+		cfx.color = lerp(cfx.color, a.color, amount_clicked)
+		cfx.transform = cfx.transform.interpolate_with(a.transform, amount_clicked)
+		cfx.offset = lerp(cfx.offset, a.offset, amount_clicked)
+	
+	if not label:
+		return false #????
+	
+	# HACK: Record which character is part of which link.
+	var link_data := label._link_regions
+	if not link_index in link_data:
+		link_data[link_index] = PackedInt32Array()
+	if not range.x in link_data[link_index]:
+		link_data[link_index].append(range.x)
+	
+	## TODO: Apply transform.
+	var poly := PackedVector2Array([
+		Vector2(position.x, position.y),
+		Vector2(position.x + size.x, position.y),
+		Vector2(position.x + size.x, position.y - font_size),
+		Vector2(position.x, position.y - font_size)
+	])
+	if index == 0:
+		#label.add_draw(func(c: RicherTextLabel):
+			#var ply := label._link_rects[link_index]
+			#var clrs: PackedColorArray
+			#clrs.resize(ply.size())
+			#clrs.fill(Color(Color.RED, 0.1))
+			#c.draw_polygon(ply, clrs))
+		label._link_rects[link_index] = poly
+	else:
+		label._link_rects[link_index] = Geometry2D.convex_hull(label._link_rects[link_index] + poly)
+	
+	return true
+
+## Called by RicherTextLabel in _input().
+func _check_mouse_over(lbl: RicherTextLabel, mouse_position: Vector2):
+	var link_data: Dictionary = lbl._link_regions
+	var hovering := -1
+	var scatter: RTxtScatterer = lbl.get_modifier(RTxtScatterer)
+	if scatter:
+		for link_index in link_data:
+			var link_list: PackedInt32Array = link_data[link_index]
+			for i in link_list:
+				if i < scatter._char_bounds.size():
+					var bounds: PackedVector2Array = scatter._char_bounds[i]
+					if Geometry2D.is_point_in_polygon(mouse_position, bounds):
+						hovering = link_index
+	else:
+		for link_index in label._link_rects:
+			var bounds := label._link_rects[link_index]
+			if Geometry2D.is_point_in_polygon(mouse_position, bounds):
+				hovering = link_index
+	label.hovered_link = hovering
+
+```
+
+# res://addons/richer_text/text_effects/mods/rte_revel.gd
+```gd
+extends RTxtEffect
+
+var bbcode := "revel"
+
+var xpos := 0.0
+
+func _update() -> bool:
+	var re := get_instance()
+	var x := get_bool("x")
+	var y := get_int("y")
+	#_char_fx.visible = x != re.visible
+	alpha = (1.0 - re.amount) if x else re.amount
+	if not x:
+		position.y -= font_height
+	position.y -= font_height * y
+	#if index == 0:
+		#xpos = position.x * .5
+	#if not x:
+		#position.x -= label.get_content_width() * .5
+		#position.x -= xpos
+	#position.x += label.size.x * .5
+	#position.x -= label.size.x * .5
+	#position.x -= label.size.x * .5
+	
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/mods/rte_scatr.gd
+```gd
+@tool
+extends RTxtEffect
+## Draws text at a nodes position. Allowing for a single label to draw in multiple places.
+
+## [scatr id=node instance id]]
+var bbcode := "scatr"
+
+func _update() -> bool:
+	var scatter: RTxtScatterer = get_instance()
+	var opos := _char_fx.transform.origin
+	
+	var point: Node = get_instance(&"pid")
+	var line_index: int = get_float("ln")
+	var rect := scatter._rects[line_index]
+	var point_rotation := 0.0
+	var point_scale := Vector2.ONE
+	
+	if point:
+		if point is CanvasItem:
+			rect.position -= point.global_position
+			if point is Node2D:
+				if scatter.copy_rotation:
+					point_rotation = (point as Node2D).rotation
+				if scatter.copy_scale:
+					point_scale = (point as Node2D).scale
+		elif point is Node3D:
+			var vp := label.get_viewport()
+			var cam := vp.get_camera_3d()
+			var pos := cam.unproject_position(point.global_position)
+			rect.position += pos
+		
+		match scatter.horizontal_alignment:
+			HORIZONTAL_ALIGNMENT_CENTER: rect.position.x += rect.size.x * .5
+			HORIZONTAL_ALIGNMENT_RIGHT: rect.position.x += rect.size.x
+		
+		match scatter.vertical_alignment:
+			VERTICAL_ALIGNMENT_CENTER: rect.position.y += rect.size.y * .5
+			VERTICAL_ALIGNMENT_BOTTOM: rect.position.y += rect.size.y
+		
+		if scatter.viewport_clamp:
+			var min_x := -scatter.viewport_margin.x
+			var min_y := -scatter.viewport_margin.y
+			var max_x: int = ProjectSettings.get("display/window/size/viewport_width") - scatter.viewport_margin.x
+			var max_y: int = ProjectSettings.get("display/window/size/viewport_height") - scatter.viewport_margin.y
+			if rect.position.x > min_x: rect.position.x = min_x
+			if rect.position.x - rect.size.x < -max_x: rect.position.x = -max_x + rect.size.x
+			if rect.position.y > min_y: rect.position.y = min_y
+			if rect.position.y - scatter._line_height < -max_y: rect.position.y = -max_y + scatter._line_height
+			
+		rect.position += label.global_position
+		
+		if point_rotation != 0.0 or point_scale != Vector2.ONE:
+			var pivot := rect.size * 0.5
+			var rel := position - pivot - Vector2(0.0, scatter._line_height * line_index)
+			rel = rel * point_scale
+			rel = rel.rotated(point_rotation)
+			
+			var new_origin := pivot + rel
+			_char_fx.transform = Transform2D(point_rotation, new_origin)
+		else:
+			rect.position.y += scatter._line_height * line_index
+		
+		if point_scale != Vector2.ONE:
+			_char_fx.transform = _char_fx.transform.scaled_local(point_scale)
+		
+		position -= rect.position
+	
+	var r := Rect2(Vector2.ZERO, Vector2(size.x, -label.font_size))
+	r = r.grow_individual(1, 0, 1, 0)
+	var rect_points: PackedVector2Array = [
+		r.position, Vector2(r.position.x, r.end.y), r.end, Vector2(r.end.x, r.position.y)
+	]
+	rect_points *= Transform2D(0.0, _char_fx.transform.get_scale(), 0.0, Vector2.ZERO)
+	rect_points *= Transform2D(_char_fx.transform.get_rotation(), Vector2.ONE, 0.0, _char_fx.transform.get_origin()).affine_inverse()
+	scatter._char_bounds[_char_fx.range.x] = rect_points
+	
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/mods/rte_ticker.gd
+```gd
+extends RTxtEffect
+
+var bbcode := "ticker"
+
+func _update() -> bool:
+	var ticker: RTxtTicker = get_instance()
+	var w := label.get_content_width()
+	var x := time * ticker.speed * weight * (-1 if ticker.reverse else 1) * font_size
+	position.x = wrapf(position.x - x, -font_size, w - font_size)
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/outlines/rtoe_hypno.gd
+```gd
+@tool
+class_name RTxtOE_Hypno extends RTxtOutlineEffect
+
+func _update() -> bool:
+	var list: Array = _char_fx.outline_states
+	var n := list.size()
+	for i in n:
+		var phase := fmod(time + float(i), 1.0)
+		var osize := lerp(i*10, i*10+10, phase)
+		var is_odd := int(fmod(time + float(i), 2.)) % 2 == 0
+		var ocolr := Color.GREEN_YELLOW if is_odd else Color.DEEP_PINK
+		if i == n-1:
+			ocolr.a = 1.0-phase
+		list[i].size = osize
+		list[i].color = ocolr
+	return true
+
+```
+
+# res://addons/richer_text/text_effects/outlines/rtoe_rainbow.gd
+```gd
+@tool
+class_name RTxtOE_Rainbow extends RTxtOutlineEffect
+
+@export_group("Rainbow", "rainbow_")
+@export_range(0.0, 1.0) var rainbow_saturation := 1.0
+@export_range(0.0, 1.0) var rainbow_lightness := 0.8
+@export_range(0.0, 1.0) var rainbow_frequency := 0.01
+@export_range(0.0, 8.0) var rainbow_speed := 1.0
+@export_range(1.0, 32.0) var rainbow_size := 8.0
+
+func _update() -> bool:
+	var list: Array = _char_fx.outline_states
+	var n := list.size()
+	for i in n:
+		list[i].size = (1+i) * rainbow_size
+		list[i].color = Color.from_ok_hsl(
+			rnd_smoothu(rainbow_speed, rainbow_frequency, 123.41),
+			rainbow_saturation,
+			rainbow_lightness,
+			1.0 - (i+1.0) / float(n))
+	return true
 
 ```
 
@@ -1634,30 +6129,43 @@ signal unhovered()
 signal focused()
 signal unfocused()
 
+@export var mouse_hoverable := true: set=set_mouse_hoverable
+
 func _init() -> void:
 	if not Engine.is_editor_hint():
-		if (self as Object) is Control:
-			var con: Control = (self as Object)
-			con.mouse_entered.connect(_hovered)
-			con.mouse_exited.connect(_unhovered)
-			con.focus_entered.connect(_focused)
-			con.focus_exited.connect(_unfocused)
+		if is_control():
+			var con := as_control()
+			con.focus_entered.connect(focus)
+			con.focus_exited.connect(unfocus)
 
-func _hovered():
-	if (self as Object) is Button:
-		if not (self as Object as Button).disabled: hovered.emit()
+func set_mouse_hoverable(h: bool):
+	mouse_hoverable = h
+	var con := as_control()
+	if mouse_hoverable:
+		con.mouse_entered.connect(hover)
+		con.mouse_exited.connect(unhover)
+	else:
+		con.mouse_entered.disconnect(hover)
+		con.mouse_exited.disconnect(unhover)
 
-func _unhovered():
-	if (self as Object) is Button:
-		if not (self as Object as Button).disabled: unhovered.emit()
+func is_button() -> bool: return (self as Object) is Button
+func as_button() -> Button: return (self as Object) as Button
 
-func _focused():
-	if (self as Object) is Button:
-		if not (self as Object as Button).disabled: focused.emit()
+func hover():
+	if is_button():
+		if not as_button().disabled: hovered.emit()
 
-func _unfocused():
-	if (self as Object) is Button:
-		if not (self as Object as Button).disabled: unfocused.emit()
+func unhover():
+	if is_button():
+		if not as_button().disabled: unhovered.emit()
+
+func focus():
+	if is_button():
+		if not as_button().disabled: focused.emit()
+
+func unfocus():
+	if is_button():
+		if not as_button().disabled: unfocused.emit()
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var parent := get_parent()
@@ -1677,33 +6185,64 @@ signal selected(node: Node)
 @export var disable_on_pressed := false
 @export var focus_on_hovered := true
 @export var focus_highlight: Control
+var hovered := -1: set=set_hovered
+var buttons: Array[TweeButton]
 
 func _init() -> void:
 	if not Engine.is_editor_hint():
-		remove_child(focus_highlight)
+		#remove_child(focus_highlight)
 		child_entered_tree.connect(_child_entered)
 		child_exiting_tree.connect(_child_exited)
 
+func clear():
+	for i in range(buttons.size()-1, -1, -1):
+		remove_child(buttons[i])
+		buttons[i].queue_free()
+	buttons.clear()
+	hovered = -1
+
+func select() -> bool:
+	if hovered != -1:
+		_pressed(buttons[hovered])
+		return true
+	return false
+
+func set_hovered(h: int) -> void:
+	h = wrapi(h, 0, buttons.size())
+	if hovered == h: return
+	var last_hovered := hovered
+	hovered = h
+	for i in buttons.size():
+		var node := buttons[i]
+		if i == hovered: node.hover()
+		elif i == last_hovered: node.unhover()
+
 func _child_entered(child: Node):
+	if not child is TweeButton: return
+	if not child in buttons: buttons.append(child)
 	if child is Button:
 		var btn := child as Object as Button
 		btn.pressed.connect(_pressed.bind(child))
 		btn.focused.connect(_focused.bind(child))
 		btn.unfocused.connect(_unfocused.bind(child))
 
-func _child_exited(child: Control):
+func _child_exited(child: Node):
+	if not child is TweeButton: return
+	if child in buttons: buttons.erase(child)
 	if child is Button:
 		var btn := child as Object as Button
 		btn.pressed.disconnect(_pressed)
 
-func _unfocused(node: Control):
-	focus_highlight.modulate.a = 0.1
+func _unfocused(node: TweeButton):
+	if focus_highlight:
+		focus_highlight.modulate.a = 0.1
 	
-func _focused(node: Control):
-	focus_highlight.global_position = node.global_position
-	focus_highlight.modulate.a = 1.0
+func _focused(node: TweeButton):
+	if focus_highlight:
+		focus_highlight.global_position = node.global_position
+		focus_highlight.modulate.a = 1.0
 
-func _pressed(node: Control):
+func _pressed(node: TweeButton):
 	for child in get_children():
 		if child is TweeButton:
 			if child == node:
@@ -1730,6 +6269,7 @@ func quit():
 # res://addons/twee/nodes/twee_node.gd
 ```gd
 @tool
+@icon("res://addons/twee/icon.svg")
 class_name TweeNode extends Node
 ## Applies a list of Twees to a Node.
 
@@ -1785,6 +6325,12 @@ func kill():
 		if meta_key.begins_with("tweeny"):
 			set_meta(meta_key, null)
 
+func is_control() -> bool:
+	return (self as Object) is Control
+
+func as_control() -> Control:
+	return (self as Object) as Control
+
 #region Editor
 
 func _get(property: StringName) -> Variant:
@@ -1830,6 +6376,7 @@ func _get_property_list() -> Array[Dictionary]:
 # res://addons/twee/resources/twee.gd
 ```gd
 @tool
+@icon("res://addons/twee/icon.svg")
 class_name Twee extends Resource
 
 const Tokenizer := preload("../builder/twee_tokenizer.gd")
@@ -2097,11 +6644,12 @@ func _create_tween(node: Node, tween_prop: Variant, steps: Array[Dictionary], ro
 	return twn
 
 static func get_object_and_property(node: Node, prop: String) -> Array:
+	var subnode: Node = node
 	if prop.begins_with("%"):
 		var parts := prop.split(":", true, 1)
-		node = node.get_node_or_null(parts[0])
+		subnode = node.get_node_or_null(parts[0])
 		prop = parts[1]
-	var node_and_resource := node.get_node_and_resource(prop)
+	var node_and_resource := subnode.get_node_and_resource(prop)
 	var n: Node = node_and_resource[0]
 	var r: Resource = node_and_resource[1]
 	var p: NodePath = node_and_resource[2]
@@ -7997,7 +12545,7 @@ class Saver extends ResourceFormatSaver:
 
 ```
 
-# res://ai/tasks/choose_random_position.gd
+# res://assets/ai/tasks/choose_random_position.gd
 ```gd
 extends BTAction
 
@@ -8010,7 +12558,7 @@ func _tick(_delta: float) -> Status:
 
 ```
 
-# res://ai/tasks/flee.gd
+# res://assets/ai/tasks/flee.gd
 ```gd
 extends BTAction
 
@@ -8020,7 +12568,7 @@ func _tick(delta: float) -> Status:
 
 ```
 
-# res://ai/tasks/move_to_position.gd
+# res://assets/ai/tasks/move_to_position.gd
 ```gd
 extends BTAction
 
@@ -8032,2753 +12580,191 @@ func _tick(delta: float) -> Status:
 
 ```
 
-# res://demo/agents/fireball/fireball.gd
+# res://scenes/widgits/awards.gd
 ```gd
-#*
-#* fireball.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-extends Node2D
-## Fireball
-
-const SPEED := 800.0
-const DEAD_SPEED := 400.0
-
-@export var dir: float = 1.0
-
-var _is_dead: bool = false
-
-@onready var fireball_sprite: Sprite2D = $Root/Fireball
-@onready var death: GPUParticles2D = $FX/Death
-@onready var collision_shape_2d: CollisionShape2D = $Hitbox/CollisionShape2D
-@onready var root: Node2D = $Root
-@onready var trail: GPUParticles2D = $FX/Trail
-
-
-func _ready() -> void:
-	var tween := create_tween().set_loops()
-	tween.tween_property(fireball_sprite, ^"rotation", PI * signf(dir), 1.0).as_relative()
-
-	var tween2 := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-	tween2.tween_property(fireball_sprite, "position:y", -10.0, 0.5).as_relative().set_ease(Tween.EASE_OUT)
-	tween2.tween_property(fireball_sprite, "position:y", 0.0, 1.0)
-	tween2.tween_callback(_die)
-
-
-func _physics_process(delta: float) -> void:
-	var speed: float = SPEED if not _is_dead else DEAD_SPEED
-	position += Vector2.RIGHT * speed * dir * delta
-
-
-func _die() -> void:
-	if _is_dead:
-		return
-	_is_dead = true
-	trail.emitting = false
-	root.hide()
-	collision_shape_2d.set_deferred(&"disabled", true)
-	death.emitting = true
-	await death.finished
-	queue_free()
-
-
-func _on_hitbox_area_entered(_area: Area2D) -> void:
-	_die()
-
-```
-
-# res://demo/agents/ninja_star/ninja_star.gd
-```gd
-#*
-#* ninja_star.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-extends Node2D
-
-const SPEED := 800.0
-const DEAD_SPEED := 400.0
-
-@export var dir: float = 1.0
-
-var _is_dead: bool = false
-
-@onready var ninja_star: Sprite2D = $Root/NinjaStar
-@onready var death: GPUParticles2D = $Death
-@onready var collision_shape_2d: CollisionShape2D = $Hitbox/CollisionShape2D
-@onready var root: Node2D = $Root
-
-
-func _ready() -> void:
-	var tween := create_tween().set_loops()
-	tween.tween_property(ninja_star, ^"rotation", TAU * signf(dir), 1.0).as_relative()
-
-	var tween2 := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-	tween2.tween_property(ninja_star, "position:y", -10.0, 0.5).as_relative().set_ease(Tween.EASE_OUT)
-	tween2.tween_property(ninja_star, "position:y", 0.0, 1.0)
-	tween2.tween_callback(_die)
-
-
-func _physics_process(delta: float) -> void:
-	var speed: float = SPEED if not _is_dead else DEAD_SPEED
-	position += Vector2.RIGHT * speed * dir * delta
-
-
-func _die() -> void:
-	if _is_dead:
-		return
-	_is_dead = true
-	root.hide()
-	collision_shape_2d.set_deferred(&"disabled", true)
-	death.emitting = true
-	await death.finished
-	queue_free()
-
-
-func _on_hitbox_area_entered(_area: Area2D) -> void:
-	_die()
-
-```
-
-# res://demo/agents/player/player.gd
-```gd
-#*
-#* player.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-extends "res://demo/agents/scripts/agent_base.gd"
-
-## Player.
-
-@export var dodge_cooldown: float = 0.4
-
-@onready var hsm: LimboHSM = $LimboHSM
-@onready var idle_state: LimboState = $LimboHSM/IdleState
-@onready var move_state: LimboState = $LimboHSM/MoveState
-@onready var attack_state: LimboState = $LimboHSM/AttackState
-@onready var dodge_state: LimboState = $LimboHSM/DodgeState
-
-var can_dodge: bool = true
-var attack_pressed: bool = false
-
-
-func _ready() -> void:
-	super._ready()
-	can_dodge = true
-	_init_input_events()
-	_init_state_machine()
-	death.connect(func(): remove_from_group(&"player"))
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_echo():
-		return
-	if event.is_action_pressed("attack"):
-		attack_pressed = true
-		_process_attack_input()
-	if event.is_action_pressed("dodge"):
-		hsm.dispatch("dodge!")
-
-
-func _process_attack_input() -> void:
-	if not attack_pressed or hsm.get_active_state() == attack_state:
-		return
-	hsm.dispatch("attack!")
-	attack_pressed = false
-
-
-func _init_state_machine() -> void:
-	hsm.add_transition(idle_state, move_state, idle_state.EVENT_FINISHED)
-	hsm.add_transition(move_state, idle_state, move_state.EVENT_FINISHED)
-	hsm.add_transition(idle_state, attack_state, "attack!")
-	hsm.add_transition(move_state, attack_state, "attack!")
-	hsm.add_transition(attack_state, move_state, attack_state.EVENT_FINISHED)
-	hsm.add_transition(hsm.ANYSTATE, dodge_state, "dodge!")
-	hsm.add_transition(dodge_state, move_state, dodge_state.EVENT_FINISHED)
-
-	dodge_state.set_guard(_can_dodge)
-	attack_state.set_guard(attack_state.can_enter)
-
-	# Process attack input buffer when move_state is entered.
-	# This way we can buffer the attack button presses and chain the attacks.
-	move_state.call_on_enter(_process_attack_input)
-
-	hsm.initialize(self)
-	hsm.set_active(true)
-
-
-func _init_input_events() -> void:
-	# Note: Ensures that input events are present even if project.godot wasn't imported.
-	_add_action(&"move_left", KEY_A)
-	_add_action(&"move_right", KEY_D)
-	_add_action(&"move_up", KEY_W)
-	_add_action(&"move_down", KEY_S)
-	_add_action(&"dodge", KEY_SPACE)
-	_add_action(&"attack", KEY_ENTER, KEY_F)
-
-
-func _add_action(p_action: StringName, p_key: Key, p_alt: Key = KEY_NONE) -> void:
-	if not InputMap.has_action(p_action):
-		InputMap.add_action(p_action)
-		var event := InputEventKey.new()
-		event.keycode = p_key
-		InputMap.action_add_event(p_action, event)
-		if p_alt != KEY_NONE:
-			var alt := InputEventKey.new()
-			alt.keycode = p_alt
-			InputMap.action_add_event(p_action, alt)
-
-
-func set_victorious() -> void:
-	idle_state.idle_animation = &"dance"
-
-
-func _can_dodge() -> bool:
-	if can_dodge:
-		can_dodge = false
-		get_tree().create_timer(dodge_cooldown).timeout.connect(func(): can_dodge = true)
-		return true
-	return false
-
-```
-
-# res://demo/agents/player/states/attack_state.gd
-```gd
-#*
-#* attack_state.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-extends LimboState
-
-## Attack state: Perform 3-part combo attack for as long as player hits attack button.
-
-@export var animation_player: AnimationPlayer
-@export var animations: Array[StringName]
-@export var hitbox: Hitbox
-
-## Cooldown duration after third attack in the combo is complete.
-@export var combo_cooldown: float = 0.1
-
-var anim_index: int = 0
-var last_attack_msec: int = -10000
-var _can_enter: bool = true
-
-
-## This func is used to prevent entering this state using LimboState.set_guard().
-## Entry is denied for a short duration after the third attack in the combo is complete.
-func can_enter() -> bool:
-	return _can_enter
-
-
-func _enter() -> void:
-	if (Time.get_ticks_msec() - last_attack_msec) < 200:
-		# Perform next attack animation in the 3-part combo, if an attack was recently performed.
-		anim_index = (anim_index + 1) % 3
-	else:
-		anim_index = 0
-
-	var horizontal_move: float = Input.get_axis(&"move_left", &"move_right")
-	if not is_zero_approx(horizontal_move):
-		agent.face_dir(horizontal_move)
-
-	hitbox.damage = 2 if anim_index == 2 else 1  # deal 2 damage on a third attack in the combo
-	animation_player.play(animations[anim_index])
-
-	await animation_player.animation_finished
-	if is_active():
-		get_root().dispatch(EVENT_FINISHED)
-
-
-func _exit() -> void:
-	hitbox.damage = 1
-	last_attack_msec = Time.get_ticks_msec()
-	if anim_index == 2 and _can_enter:
-		# Prevent entering this state for a short duration after the third attack
-		# in the combo sequence is complete.
-		_can_enter = false
-		await get_tree().create_timer(combo_cooldown).timeout
-		_can_enter = true
-
-```
-
-# res://demo/agents/player/states/dodge_state.gd
-```gd
-#*
-#* dodge_state.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-extends LimboState
-## Dodge state.
-
-
-@export var animation_player: AnimationPlayer
-@export var animation: StringName
-@export var duration: float = 0.4
-@export var dodge_speed: float = 1000.0
-@export var hurtbox_collision: CollisionShape2D
-
-var move_dir: Vector2
-var elapsed_time: float
-
-
-func _enter() -> void:
-	elapsed_time = 0.0
-	hurtbox_collision.disabled = true
-
-	var horizontal_move: float = Input.get_axis(&"move_left", &"move_right")
-	if is_zero_approx(horizontal_move):
-		move_dir = Vector2.RIGHT * agent.get_facing()
-	else:
-		move_dir = Vector2.RIGHT * signf(horizontal_move)
-	agent.face_dir(move_dir.x)
-
-	animation_player.play(animation, 0.1)
-
-
-func _exit() -> void:
-	hurtbox_collision.set_deferred(&"disabled", false)
-
-
-func _update(p_delta: float) -> void:
-	elapsed_time += p_delta
-	var desired_velocity: Vector2 = move_dir * dodge_speed
-	agent.move(desired_velocity)
-	if elapsed_time > duration:
-		get_root().dispatch(EVENT_FINISHED)
-
-```
-
-# res://demo/agents/player/states/idle_state.gd
-```gd
-#*
-#* idle_state.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-extends LimboState
-## Idle state.
-
-
-@export var animation_player: AnimationPlayer
-@export var idle_animation: StringName
-
-
-func _enter() -> void:
-	animation_player.play(idle_animation, 0.1)
-
-
-func _update(_delta: float) -> void:
-	var horizontal_move: float = Input.get_axis(&"move_left", &"move_right")
-	var vertical_move: float = Input.get_axis(&"move_up", &"move_down")
-	if horizontal_move != 0.0 or vertical_move != 0.0:
-		get_root().dispatch(EVENT_FINISHED)
-
-```
-
-# res://demo/agents/player/states/move_state.gd
-```gd
-#*
-#* move_state.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-extends LimboState
-## Move state.
-
-
-const VERTICAL_FACTOR := 0.8
-
-@export var animation_player: AnimationPlayer
-@export var animation: StringName
-@export var speed: float = 500.0
-
-
-func _enter() -> void:
-	animation_player.play(animation, 0.1)
-
-
-func _update(_delta: float) -> void:
-	var horizontal_move: float = Input.get_axis(&"move_left", &"move_right")
-	var vertical_move: float = Input.get_axis(&"move_up", &"move_down")
-
-	if not is_zero_approx(horizontal_move):
-		agent.face_dir(horizontal_move)
-
-	var desired_velocity := Vector2(horizontal_move, vertical_move * VERTICAL_FACTOR) * speed
-	agent.move(desired_velocity)
-
-	if horizontal_move == 0.0 and vertical_move == 0.0:
-		get_root().dispatch(EVENT_FINISHED)
-
-```
-
-# res://demo/agents/scripts/agent_base.gd
-```gd
-#*
-#* agent_base.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-extends CharacterBody2D
-## Base agent script that is shared by all agents.
-
-signal death
-
-# Resource file to use in summon_minion() method.
-const MINION_RESOURCE := "res://demo/agents/03_agent_imp.tscn"
-
-# Projectile resource.
-const NinjaStar := preload("res://demo/agents/ninja_star/ninja_star.tscn")
-const Fireball := preload("res://demo/agents/fireball/fireball.tscn")
-
-var summon_count: int = 0
-
-var _frames_since_facing_update: int = 0
-var _is_dead: bool = false
-var _moved_this_frame: bool = false
-
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var health: Health = $Health
-@onready var root: Node2D = $Root
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
-@onready var summoning_effect: GPUParticles2D = $FX/Summoned
-
-
-func _ready() -> void:
-	health.damaged.connect(_damaged)
-	health.death.connect(die)
-
-
-func _physics_process(_delta: float) -> void:
-	_post_physics_process.call_deferred()
-
-
-func _post_physics_process() -> void:
-	if not _moved_this_frame:
-		velocity = lerp(velocity, Vector2.ZERO, 0.5)
-	_moved_this_frame = false
-
-
-func move(p_velocity: Vector2) -> void:
-	velocity = lerp(velocity, p_velocity, 0.2)
-	move_and_slide()
-	_moved_this_frame = true
-
-
-## Update agent's facing in the velocity direction.
-func update_facing() -> void:
-	_frames_since_facing_update += 1
-	if _frames_since_facing_update > 3:
-		face_dir(velocity.x)
-
-## Face specified direction.
-func face_dir(dir: float) -> void:
-	if dir > 0.0 and root.scale.x < 0.0:
-		root.scale.x = 1.0;
-		_frames_since_facing_update = 0
-	if dir < 0.0 and root.scale.x > 0.0:
-		root.scale.x = -1.0;
-		_frames_since_facing_update = 0
-
-## Returns 1.0 when agent is facing right.
-## Returns -1.0 when agent is facing left.
-func get_facing() -> float:
-	return signf(root.scale.x)
-
-
-func throw_ninja_star() -> void:
-	var ninja_star := NinjaStar.instantiate()
-	ninja_star.dir = get_facing()
-	get_parent().add_child(ninja_star)
-	ninja_star.global_position = global_position + Vector2.RIGHT * 100.0 * get_facing()
-
-
-func spit_fire() -> void:
-	var fireball := Fireball.instantiate()
-	fireball.dir = get_facing()
-	get_parent().add_child(fireball)
-	fireball.global_position = global_position + Vector2.RIGHT * 100.0 * get_facing()
-
-
-func summon_minion(p_position: Vector2) -> void:
-	var minion: CharacterBody2D = load(MINION_RESOURCE).instantiate()
-	get_parent().add_child(minion)
-	minion.position = p_position
-	minion.play_summoning_effect()
-	summon_count += 1
-	minion.death.connect(func(): summon_count -= 1)
-
-
-## Method is used when this agent is summoned from the dungeons of the castle AaaAaaAAAAAaaAAaaaaaa
-func play_summoning_effect() -> void:
-	summoning_effect.emitting = true
-
-
-## Is specified position inside the arena (not inside an obstacle)?
-func is_good_position(p_position: Vector2) -> bool:
-	var space_state := get_world_2d().direct_space_state
-	var params := PhysicsPointQueryParameters2D.new()
-	params.position = p_position
-	params.collision_mask = 1 # Obstacle layer has value 1
-	var collision := space_state.intersect_point(params)
-	return collision.is_empty()
-
-
-## When agent is damaged...
-func _damaged(_amount: float, knockback: Vector2) -> void:
-	apply_knockback(knockback)
-	animation_player.play(&"hurt")
-	var btplayer := get_node_or_null(^"BTPlayer") as BTPlayer
-	if btplayer:
-		btplayer.set_active(false)
-	var hsm := get_node_or_null(^"LimboHSM")
-	if hsm:
-		hsm.set_active(false)
-	await animation_player.animation_finished
-	if btplayer and not _is_dead:
-		btplayer.restart()
-	if hsm and not _is_dead:
-		hsm.set_active(true)
-
-
-## Push agent in the knockback direction for the specified number of physics frames.
-func apply_knockback(knockback: Vector2, frames: int = 10) -> void:
-	if knockback.is_zero_approx():
-		return
-	for i in range(frames):
-		move(knockback)
-		await get_tree().physics_frame
-
-
-func die() -> void:
-	if _is_dead:
-		return
-	death.emit()
-	_is_dead = true
-	root.process_mode = Node.PROCESS_MODE_DISABLED
-	animation_player.play(&"death")
-	collision_shape_2d.set_deferred(&"disabled", true)
-
-	for child in get_children():
-		if child is BTPlayer or child is LimboHSM:
-			child.set_active(false)
-
-	if get_tree():
-		await get_tree().create_timer(10.0).timeout
-		queue_free()
-
-
-func get_health() -> Health:
-	return health
-
-```
-
-# res://demo/agents/scripts/health.gd
-```gd
-#*
-#* health.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-class_name Health
 extends Node
-## Tracks health and emits signal when damaged or dead.
 
-## Emitted when health is reduced to 0.
-signal death
+```
 
-## Emitted when health is damaged.
-signal damaged(amount: float, knockback: Vector2)
+# res://scenes/widgits/caption.gd
+```gd
+@tool
+extends Widget
 
-## Initial health value.
-@export var max_health: float = 10.0
+@export var text: String: set=set_text
 
-var _current: float
+func set_text(t: String):
+	%label.text = t
 
-
-func _ready() -> void:
-	_current = max_health
-
-
-func take_damage(amount: float, knockback: Vector2) -> void:
-	if _current <= 0.0:
-		return
-
-	_current -= amount
-	_current = max(_current, 0.0)
-
-	if _current <= 0.0:
-		death.emit()
+func _cinematic_step(gen: FlowPlayerGenerator, step: Dictionary):
+	var speaker := ""
+	var caption := ""
+	match step.type:
+		FlowToken.KEYV:
+			speaker = step.key
+			caption = step.val
+		FlowToken.TEXT:
+			caption = step.text
+		
+	if speaker:
+		caption = "%s: %s" % [speaker, caption]
 	else:
-		damaged.emit(amount, knockback)
-
-
-## Returns current health.
-func get_current() -> float:
-	return _current
+		caption = caption
+	
+	var caption_count: int = gen.get_state(&"caption_count", 0)
+	gen.set_state(&"caption_count", caption_count + 1)
+	var t_visible := gen.add_track(self, "visible")
+	var t_text := gen.add_track(self, "text")
+	if caption_count == 0:
+		gen.add_key(t_text, 0, "")
+	gen.add_key(t_visible, gen.get_time(), true)
+	gen.add_key(t_text, gen.get_time(), caption)
+	gen.add_checkpoint()
+	gen.add_time(0.05)
+	gen.add_key(t_visible, gen.get_time(), false)
 
 ```
 
-# res://demo/agents/scripts/hitbox.gd
+# res://scenes/widgits/context_menu.gd
 ```gd
-#*
-#* hitbox.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-class_name Hitbox
-extends Area2D
-## Area that deals damage.
+extends Widget
 
-## Damage value to apply.
-@export var damage: float = 1.0
+@onready var button_parent: VBoxContainer = %button_parent
+@onready var button_prefab: Button = %button_prefab
+@onready var blur: ColorRect = %blur
+@onready var panel: PanelContainer = %panel
 
-## Push back the victim.
-@export var knockback_enabled: bool = false
+var options: Array[Dictionary]
+var hovered: Node
+var buttons: Array[Button]
 
-## Desired pushback speed.
-@export var knockback_strength: float = 500.0
-
+var _tween: Tween
 
 func _ready() -> void:
-	area_entered.connect(_area_entered)
-
-
-func _area_entered(hurtbox: Hurtbox) -> void:
-	if hurtbox.owner == owner:
-		return
-	hurtbox.take_damage(damage, get_knockback(), self)
-
-
-func get_knockback() -> Vector2:
-	var knockback: Vector2
-	if knockback_enabled:
-		knockback = Vector2.RIGHT.rotated(global_rotation) * knockback_strength
-	return knockback
-
-```
-
-# res://demo/agents/scripts/hurtbox.gd
-```gd
-#*
-#* hurtbox.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-class_name Hurtbox
-extends Area2D
-## Area that registers damage.
-
-@export var health: Health
-
-var last_attack_vector: Vector2
-
-
-func take_damage(amount: float, knockback: Vector2, source: Hitbox) -> void:
-	last_attack_vector = owner.global_position - source.owner.global_position
-	health.take_damage(amount, knockback)
-
-```
-
-# res://demo/ai/tasks/arrive_pos.gd
-```gd
-#*
-#* arrive_pos.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-@tool
-extends BTAction
-## Moves the agent to the specified position, favoring horizontal movement. [br]
-## Returns [code]SUCCESS[/code] when close to the target position (see [member tolerance]);
-## otherwise returns [code]RUNNING[/code].
-
-## Blackboard variable that stores the target position (Vector2)
-@export var target_position_var := &"pos"
-
-## Variable that stores desired speed (float)
-@export var speed_var := &"speed"
-
-## How close should the agent be to the target position to return SUCCESS.
-@export var tolerance := 50.0
-
-## Specifies the node to avoid (valid Node2D is expected).
-## If not empty, agent will circle around the node while moving into position.
-@export var avoid_var: StringName
-
-
-func _generate_name() -> String:
-	return "Arrive  pos: %s%s" % [
-		LimboUtility.decorate_var(target_position_var),
-		"" if avoid_var.is_empty() else "  avoid: " + LimboUtility.decorate_var(avoid_var)
-	]
-
-
-func _tick(_delta: float) -> Status:
-	var target_pos: Vector2 = blackboard.get_var(target_position_var, Vector2.ZERO)
-	if target_pos.distance_to(agent.global_position) < tolerance:
-		return SUCCESS
-
-	var speed: float = blackboard.get_var(speed_var, 10.0)
-	var dist: float = absf(agent.global_position.x - target_pos.x)
-	var dir: Vector2 = agent.global_position.direction_to(target_pos)
-
-	# Prefer horizontal movement:
-	var vertical_factor: float = remap(dist, 200.0, 500.0, 1.0, 0.0)
-	vertical_factor = clampf(vertical_factor, 0.0, 1.0)
-	dir.y *= vertical_factor
-
-	# Avoid the node specified by `avoid_var`.
-	# I.e., if `avoid_var` is set, agent will circle around that node while moving into position.
-	if not avoid_var.is_empty():
-		var avoid_node: Node2D = blackboard.get_var(avoid_var)
-		if is_instance_valid(avoid_node):
-			var distance_vector: Vector2 = avoid_node.global_position - agent.global_position
-			if dir.dot(distance_vector) > 0.0:
-				var side := dir.rotated(PI * 0.5).normalized()
-				# The closer we are to the avoid target, the stronger is the avoidance.
-				var strength: float = remap(distance_vector.length(), 200.0, 400.0, 1.0, 0.0)
-				strength = clampf(strength, 0.0, 1.0)
-				var avoidance := side * signf(-side.dot(distance_vector)) * strength
-				dir += avoidance
-
-	var desired_velocity: Vector2 = dir.normalized() * speed
-	agent.move(desired_velocity)
-	agent.update_facing()
-	return RUNNING
-
-```
-
-# res://demo/ai/tasks/back_away.gd
-```gd
-#*
-#* back_away.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-@tool
-extends BTAction
-## Moves the agent in the opposite direction of its current facing. [br]
-## Returns [code]RUNNING[/code] always.
-
-## Blackboard variable that stores desired speed.
-@export var speed_var: StringName = &"speed"
-
-## How much can we deviate from the "away" direction (in radians).
-@export var max_angle_deviation: float = 0.7
-
-var _dir: Vector2
-var _desired_velocity: Vector2
-
-
-# Called each time this task is entered.
-func _enter() -> void:
-	# Determine "away" direction and desired velocity
-	_dir = Vector2.LEFT * agent.get_facing()
-	var speed: float = blackboard.get_var(speed_var, 200.0)
-	var rand_angle = randf_range(-max_angle_deviation, max_angle_deviation)
-	_desired_velocity = _dir.rotated(rand_angle) * speed
-
-
-# Called each time this task is ticked (aka executed).
-func _tick(_delta: float) -> Status:
-	agent.move(_desired_velocity)
-	agent.face_dir(-signf(_dir.x))
-	return RUNNING
-
-```
-
-# res://demo/ai/tasks/face_target.gd
-```gd
-#*
-#* face_target.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-@tool
-extends BTAction
-## Flips the agent to face the target, returning [code]SUCCESS[/code]. [br]
-## Returns [code]FAILURE[/code] if [member target_var] is not a valid [Node2D] instance.
-
-## Blackboard variable that stores our target (expecting Node2D).
-@export var target_var: StringName = &"target"
-
-# Display a customized name (requires @tool).
-func _generate_name() -> String:
-	return "FaceTarget " + LimboUtility.decorate_var(target_var)
-
-
-# Called each time this task is ticked (aka executed).
-func _tick(_delta: float) -> Status:
-	var target: Node2D = blackboard.get_var(target_var)
-	if not is_instance_valid(target):
-		return FAILURE
-	var dir: float = target.global_position.x - agent.global_position.x
-	agent.velocity = Vector2.ZERO
-	agent.face_dir(dir)
-	return SUCCESS
-
-```
-
-# res://demo/ai/tasks/get_first_in_group.gd
-```gd
-#*
-#* get_first_in_group.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-@tool
-extends BTAction
-## Stores the first node in the [member group] on the blackboard, returning [code]SUCCESS[/code]. [br]
-## Returns [code]FAILURE[/code] if the group contains 0 nodes.
-
-## Name of the SceneTree group.
-@export var group: StringName
-
-## Blackboard variable in which the task will store the acquired node.
-@export var output_var: StringName = &"target"
-
-
-func _generate_name() -> String:
-	return "GetFirstNodeInGroup \"%s\"  ➜%s" % [
-		group,
-		LimboUtility.decorate_var(output_var)
-		]
-
-func _tick(_delta: float) -> Status:
-	var nodes: Array[Node] = agent.get_tree().get_nodes_in_group(group)
-	if nodes.size() == 0:
-		return FAILURE
-	blackboard.set_var(output_var, nodes[0])
-	return SUCCESS
-
-```
-
-# res://demo/ai/tasks/in_range.gd
-```gd
-#*
-#* in_range.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-@tool
-extends BTCondition
-## InRange condition checks if the agent is within a range of target,
-## defined by [member distance_min] and [member distance_max]. [br]
-## Returns [code]SUCCESS[/code] if the agent is within the given range;
-## otherwise, returns [code]FAILURE[/code].
-
-## Minimum distance to target.
-@export var distance_min: float
-
-## Maximum distance to target.
-@export var distance_max: float
-
-## Blackboard variable that holds the target (expecting Node2D).
-@export var target_var: StringName = &"target"
-
-var _min_distance_squared: float
-var _max_distance_squared: float
-
-
-# Called to generate a display name for the task.
-func _generate_name() -> String:
-	return "InRange (%d, %d) of %s" % [distance_min, distance_max,
-		LimboUtility.decorate_var(target_var)]
-
-
-# Called to initialize the task.
-func _setup() -> void:
-	## Small performance optimization
-	_min_distance_squared = distance_min * distance_min
-	_max_distance_squared = distance_max * distance_max
-
-
-# Called when the task is executed.
-func _tick(_delta: float) -> Status:
-	var target: Node2D = blackboard.get_var(target_var, null)
-	if not is_instance_valid(target):
-		return FAILURE
-
-	var dist_sq: float = agent.global_position.distance_squared_to(target.global_position)
-	if dist_sq >= _min_distance_squared and dist_sq <= _max_distance_squared:
-		return SUCCESS
-	else:
-		return FAILURE
-
-```
-
-# res://demo/ai/tasks/is_aligned_with_target.gd
-```gd
-#*
-#* is_aligned_with_target.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-@tool
-extends BTCondition
-## Checks if the agent is horizontally aligned with the target. [br]
-## Returns [code]SUCCESS[/code] if the agent is horizontally aligned with the target.
-## Returns [code]FAILURE[/code] if not aligned or if target is not a valid node instance.
-
-
-@export var target_var: StringName = &"target"
-@export var tolerance: float = 30.0
-
-
-# Display a customized name (requires @tool).
-func _generate_name() -> String:
-	return "IsAlignedWithTarget " + LimboUtility.decorate_var(target_var)
-
-
-# Called each time this task is ticked (aka executed).
-func _tick(_delta: float) -> Status:
-	var target := blackboard.get_var(target_var) as Node2D
-	if not is_instance_valid(target):
-		return FAILURE
-	var y_diff: float = absf(target.global_position.y - agent.global_position.y)
-	if y_diff < tolerance:
-		return SUCCESS
-	return FAILURE
-
-```
-
-# res://demo/ai/tasks/move_forward.gd
-```gd
-#*
-#* move_forward.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-@tool
-extends BTAction
-## Applies velocity in the direction the agent is facing on each tick
-## until the [member duration] is exceeded. [br]
-## Returns [code]SUCCESS[/code] if the elapsed time exceeds [member duration]. [br]
-## Returns [code]RUNNING[/code] if the elapsed time does not exceed [member duration]. [br]
-
-## Blackboard variable that stores desired speed.
-@export var speed_var: StringName = &"speed"
-
-## How long to perform this task (in seconds).
-@export var duration: float = 0.1
-
-# Display a customized name (requires @tool).
-func _generate_name() -> String:
-	return "MoveForward  speed: %s  duration: %ss" % [
-		LimboUtility.decorate_var(speed_var),
-		duration]
-
-# Called each time this task is ticked (aka executed).
-func _tick(_delta: float) -> Status:
-	var facing: float = agent.get_facing()
-	var speed: float = blackboard.get_var(speed_var, 100.0)
-	var desired_velocity: Vector2 = Vector2.RIGHT * facing * speed
-	agent.move(desired_velocity)
-	agent.update_facing()
-	if elapsed_time > duration:
-		return SUCCESS
-	return RUNNING
-
-```
-
-# res://demo/ai/tasks/pursue.gd
-```gd
-#*
-#* pursue.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-@tool
-extends BTAction
-## Move towards the target until the agent is flanking it. [br]
-## Returns [code]RUNNING[/code] while moving towards the target but not yet at the desired position. [br]
-## Returns [code]SUCCESS[/code] when at the desired position relative to the target (flanking it). [br]
-## Returns [code]FAILURE[/code] if the target is not a valid [Node2D] instance. [br]
-
-## How close should the agent be to the desired position to return SUCCESS.
-const TOLERANCE := 30.0
-
-## Blackboard variable that stores our target (expecting Node2D).
-@export var target_var: StringName = &"target"
-
-## Blackboard variable that stores desired speed.
-@export var speed_var: StringName = &"speed"
-
-## Desired distance from target.
-@export var approach_distance: float = 100.0
-
-var _waypoint: Vector2
-
-
-# Display a customized name (requires @tool).
-func _generate_name() -> String:
-	return "Pursue %s" % [LimboUtility.decorate_var(target_var)]
-
-
-# Called each time this task is entered.
-func _enter() -> void:
-	var target: Node2D = blackboard.get_var(target_var, null)
-	if is_instance_valid(target):
-		# Movement is performed in smaller steps.
-		# For each step, we select a new waypoint.
-		_select_new_waypoint(_get_desired_position(target))
-
-
-# Called each time this task is ticked (aka executed).
-func _tick(_delta: float) -> Status:
-	var target: Node2D = blackboard.get_var(target_var, null)
-	if not is_instance_valid(target):
-		return FAILURE
-
-	var desired_pos: Vector2 = _get_desired_position(target)
-	if agent.global_position.distance_to(desired_pos) < TOLERANCE:
-		return SUCCESS
-
-	if agent.global_position.distance_to(_waypoint) < TOLERANCE:
-		_select_new_waypoint(desired_pos)
-
-	var speed: float = blackboard.get_var(speed_var, 200.0)
-	var desired_velocity: Vector2 = agent.global_position.direction_to(_waypoint) * speed
-	agent.move(desired_velocity)
-	agent.update_facing()
-	return RUNNING
-
-
-## Get the closest flanking position to target.
-func _get_desired_position(target: Node2D) -> Vector2:
-	var side: float = signf(agent.global_position.x - target.global_position.x)
-	var desired_pos: Vector2 = target.global_position
-	desired_pos.x += approach_distance * side
-	return desired_pos
-
-
-## Select an intermidiate waypoint towards the desired position.
-func _select_new_waypoint(desired_position: Vector2) -> void:
-	var distance_vector: Vector2 = desired_position - agent.global_position
-	var angle_variation: float = randf_range(-0.2, 0.2)
-	_waypoint = agent.global_position + distance_vector.limit_length(150.0).rotated(angle_variation)
-
-```
-
-# res://demo/ai/tasks/select_flanking_pos.gd
-```gd
-#*
-#* select_flanking_pos.gd
-#* =============================================================================
-#* Copyright (c) 2023-present Serhii Snitsaruk and the LimboAI contributors.
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-@tool
-extends BTAction
-## Selects a position on the target's side and stores it on the
-## blackboard, returning [code]SUCCESS[/code]. [br]
-## Returns [code]FAILURE[/code] if the target is not valid.
-
-enum AgentSide {
-	CLOSEST,
-	FARTHEST,
-	BACK,
-	FRONT,
-}
-
-## Blackboard variable that holds current target (should be a Node2D instance).
-@export var target_var: StringName = &"target"
-
-## Which agent's side should we flank?
-@export var flank_side: AgentSide = AgentSide.CLOSEST
-
-## Minimum range relative to the target.
-@export var range_min: int = 300
-
-## Maximum range relative to the target.
-@export var range_max: int = 400
-
-## Blackboard variable that will be used to store selected position.
-@export var position_var: StringName = &"pos"
-
-
-# Display a customized name (requires @tool).
-func _generate_name() -> String:
-	return "SelectFlankingPos  target: %s  range: [%s, %s]  side: %s  ➜%s" % [
-		LimboUtility.decorate_var(target_var),
-		range_min,
-		range_max,
-		AgentSide.keys()[flank_side],
-		LimboUtility.decorate_var(position_var)]
-
-
-# Called each time this task is ticked (aka executed).
-func _tick(_delta: float) -> Status:
-	var target := blackboard.get_var(target_var) as Node2D
-	if not is_instance_valid(target):
-		return FAILURE
-
-	var dir: float  # 1.0 is right, -1.0 is left (relative to target)
-	match flank_side:
-		AgentSide.FARTHEST:
-			dir = signf(target.global_position.x - agent.global_position.x)
-		AgentSide.CLOSEST :
-			dir = -signf(target.global_position.x - agent.global_position.x)
-		AgentSide.BACK:
-			dir = -target.get_facing()
-		AgentSide.FRONT:
-			dir = target.get_facing()
-
-	var flank_pos: Vector2
-	var offset := Vector2(dir * randf_range(range_min, range_max), 0.0)
-	flank_pos = target.global_position + offset
-	if not agent.is_good_position(flank_pos):
-		# Choose the opposite side if the preferred side is not good (i.e., inside a collision shape).
-		flank_pos = target.global_position - offset
-	blackboard.set_var(position_var, flank_pos)
-	return SUCCESS
-
-```
-
-# res://demo/ai/tasks/select_random_nearby_pos.gd
-```gd
-@tool
-extends BTAction
-## Selects a random position nearby within the specified range and stores it on the blackboard. [br]
-## Returns [code]SUCCESS[/code].
-
-## Minimum distance to the desired position.
-@export var range_min: float = 300.0
-
-## Maximum distance to the desired position.
-@export var range_max: float = 500.0
-
-## Blackboard variable that will be used to store the desired position.
-@export var position_var: StringName = &"pos"
-
-
-# Display a customized name (requires @tool).
-func _generate_name() -> String:
-	return "SelectRandomNearbyPos  range: [%s, %s]  ➜%s" % [
-		range_min, range_max,
-		LimboUtility.decorate_var(position_var)]
-
-
-# Called each time this task is ticked (aka executed).
-func _tick(_delta: float) -> Status:
-	var pos: Vector2
-	var is_good_position: bool = false
-	while not is_good_position:
-		# Randomize until we find a good position (good position == not outside the arena).
-		var angle: float = randf() * TAU
-		var rand_distance: float = randf_range(range_min, range_max)
-		pos = agent.global_position + Vector2(sin(angle), cos(angle)) * rand_distance
-		is_good_position = agent.is_good_position(pos)
-	blackboard.set_var(position_var, pos)
-	return SUCCESS
-
-```
-
-# res://demo/props/dummy.gd
-```gd
-extends CharacterBody2D
-
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var hurtbox: Hurtbox = $Hurtbox
-@onready var root: Node2D = $Root
-
-
-func _on_health_damaged(_amount: float, _knockback: Vector2) -> void:
-	root.scale.x = -signf(hurtbox.last_attack_vector.x)
-	animation_player.clear_queue()
-	animation_player.play(&"hurt", 0.1)
-
-
-func get_facing() -> float:
-	return signf(root.scale.x)
-
-```
-
-# res://demo/props/gong.gd
-```gd
-extends StaticBody2D
-
-signal gong_struck
-
-var enabled: bool = true
-
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-
-
-func _on_health_damaged(_amount: float, _knockback: Vector2) -> void:
-	if not enabled:
-		return
-	animation_player.play(&"struck")
-	gong_struck.emit()
-	enabled = false
-
-```
-
-# res://demo/scenes/base/code_edit.gd
-```gd
-#*
-#* code_edit.gd
-#* =============================================================================
-#* Copyright 2024 Serhii Snitsaruk
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-
-extends CodeEdit
-
-const RESERVED_WORDS := [
-		# Control flow.
-		"break",
-		"continue",
-		"elif",
-		"else",
-		"for",
-		"if",
-		"match",
-		"pass",
-		"return",
-		"when",
-		"while",
-		# Declarations.
-		"class",
-		"class_name",
-		"const",
-		"enum",
-		"extends",
-		"func",
-		"namespace",
-		"signal",
-		"static",
-		"trait",
-		"var",
-		# Other keywords.
-		"await",
-		"breakpoint",
-		"self",
-		"super",
-		"yield",
-		# Operators.
-		"and",
-		"as",
-		"in",
-		"is",
-		"not",
-		"or",
-		# Special values.
-		"false",
-		"null",
-		"true",
-		# Constants.
-		"INF",
-		"NAN",
-		"PI",
-		"TAU",
-		# Functions.
-		"assert",
-		"preload",
-]
-
-const TYPE_WORDS := [
-	"bool",
-	"int",
-	"float",
-	"void",
-	"String",
-	"Vector2",
-	"Vector2i",
-	"Rect2",
-	"Rect2i",
-	"Vector3",
-	"Vector3i",
-	"Transform2D",
-	"Vector4",
-	"Vector4i",
-	"Plane",
-	"Quaternion",
-	"AABB",
-	"Basis",
-	"Transform3D",
-	"Projection",
-	"Color",
-	"StringName",
-	"NodePath",
-	"RID",
-	"Callable",
-	"Signal",
-	"Dictionary",
-	"Array",
-	"PackedByteArray",
-	"PackedInt32Array",
-	"PackedInt64Array",
-	"PackedFloat32Array",
-	"PackedFloat64Array",
-	"PackedStringArray",
-	"PackedVector2Array",
-	"PackedVector3Array",
-	"PackedColorArray",
-	# Other types
-	"Status",
-]
-
-
-func _ready() -> void:
-	var highlighter := CodeHighlighter.new()
-	syntax_highlighter = highlighter
-	highlighter.number_color = Color.AQUAMARINE
-	highlighter.symbol_color = Color.CORNFLOWER_BLUE
-	highlighter.function_color = Color.DEEP_SKY_BLUE
-	highlighter.member_variable_color = Color.LIGHT_BLUE
-
-	# Engine types
-	for c in ClassDB.get_class_list():
-		syntax_highlighter.add_keyword_color(c, Color.AQUAMARINE)
-
-	syntax_highlighter.add_color_region("#", "", Color.DIM_GRAY, true)
-	syntax_highlighter.add_color_region("@", " ", Color.GOLDENROD)
-	syntax_highlighter.add_color_region("\"", "\"", Color.GOLD)
-
-	for keyword in RESERVED_WORDS:
-		syntax_highlighter.add_keyword_color(keyword, Color.INDIAN_RED)
-
-	for typeword in TYPE_WORDS:
-		syntax_highlighter.add_keyword_color(typeword, Color.AQUAMARINE)
-
-
-func set_source_code(source_code: String) -> void:
-	# Hide license header
-	var idx: int = source_code.find("#*")
-	while idx != - 1:
-		source_code = source_code.substr(0, idx) + source_code.substr(source_code.findn("\n", idx) + 1)
-		idx = source_code.findn("#*", idx)
-
-	text = "" # Workaround
-	text = source_code
-
-```
-
-# res://demo/scenes/base/toggle_fullscreen.gd
-```gd
-extends Button
-
-
-func _ready() -> void:
-	pressed.connect(_toggle_fullscreen)
-
-	# Set scaling properties and base resolution
-	get_window().mode = Window.MODE_FULLSCREEN
-	get_window().content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
-	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
-	get_window().content_scale_size = Vector2i(1920,1080)
-
-
-func _toggle_fullscreen() -> void:
-	if get_window().mode != Window.MODE_FULLSCREEN:
-		get_window().mode = Window.MODE_FULLSCREEN
-	else:
-		get_window().mode = Window.MODE_MAXIMIZED
-
-```
-
-# res://demo/scenes/game.gd
-```gd
-extends Node2D
-
-const Simple := preload("res://demo/agents/01_agent_melee_simple.tscn")
-const Charger := preload("res://demo/agents/02_agent_charger.tscn")
-const Imp := preload("res://demo/agents/03_agent_imp.tscn")
-const Skirmisher := preload("res://demo/agents/04_agent_skirmisher.tscn")
-const Ranged := preload("res://demo/agents/05_agent_ranged.tscn")
-const Combo := preload("res://demo/agents/06_agent_melee_combo.tscn")
-const Nuanced := preload("res://demo/agents/07_agent_melee_nuanced.tscn")
-const Demon := preload("res://demo/agents/08_agent_demon.tscn")
-const Summoner := preload("res://demo/agents/09_agent_summoner.tscn")
-
-const WAVES: Array = [
-	[Simple, Simple, Nuanced],
-	[Simple, Nuanced, Charger],
-	[Simple, Simple, Simple, Ranged, Nuanced],
-	[Simple, Simple, Summoner],
-	[Ranged, Skirmisher, Nuanced, Simple, Simple],
-	[Nuanced, Nuanced, Combo, Ranged, Simple],
-	[Demon, Charger, Simple, Simple, Simple, Skirmisher],
-	[Demon, Demon, Nuanced, Combo],
-	[Summoner, Ranged, Nuanced, Nuanced, Ranged, Skirmisher, Simple],
-	[Demon, Demon, Summoner, Skirmisher, Nuanced, Nuanced, Combo],
-]
-
-@export var wave_index: int = -1
-@export var agents_alive: int = 0
-
-@onready var gong: StaticBody2D = $Gong
-@onready var player: CharacterBody2D = $Player
-@onready var spawn_points: Node2D = $SpawnPoints
-@onready var hp_bar: TextureProgressBar = %HPBar
-@onready var round_counter: Label = %RoundCounter
-
-
-func _ready() -> void:
-	hp_bar.max_value = player.get_health().max_health
-	player.get_health().damaged.connect(func(_a,_b): hp_bar.value = player.get_health().get_current())
-	player.death.connect(_on_player_death)
-
-
-func _update_round_counter() -> void:
-	round_counter.text = "Round %s/%s" % [wave_index + 1, WAVES.size()]
-
-
-func _on_gong_gong_struck() -> void:
-	_start_round()
-
-
-func _start_round() -> void:
-	wave_index += 1
-	if wave_index >= WAVES.size():
-		player.set_victorious()
-		round_counter.text = "Victorious!"
-		return
-
-	await get_tree().create_timer(3.0).timeout
-	_update_round_counter()
-
-	var spawns: Array = spawn_points.get_children()
-	spawns.shuffle()
-	for i in WAVES[wave_index].size():
-		var agent_resource: PackedScene = WAVES[wave_index][i]
-		var agent: CharacterBody2D = agent_resource.instantiate()
-		add_child(agent)
-		agent.global_position = spawns[i].global_position
-		agent.death.connect(_on_agent_death)
-		agent.play_summoning_effect()
-		agents_alive += 1
-
-
-func _on_agent_death() -> void:
-	agents_alive -= 1
-	if agents_alive == 0:
-		_start_round()
-
-
-func _on_player_death() -> void:
-	await get_tree().create_timer(3.0).timeout
-	get_tree().reload_current_scene()
-
-
-func _on_switch_to_showcase_pressed() -> void:
-	get_tree().change_scene_to_file("res://demo/scenes/showcase.tscn")
-
-```
-
-# res://demo/scenes/showcase.gd
-```gd
-#*
-#* showcase.gd
-#* =============================================================================
-#* Copyright 2024 Serhii Snitsaruk
-#*
-#* Use of this source code is governed by an MIT-style
-#* license that can be found in the LICENSE file or at
-#* https://opensource.org/licenses/MIT.
-#* =============================================================================
-#*
-
-extends Node2D
-
-@onready var behavior_tree_view: BehaviorTreeView = %BehaviorTreeView
-@onready var camera: Camera2D = $Camera2D
-@onready var agent_selection: MenuButton = %AgentSelection
-@onready var previous: Button = %Previous
-@onready var next: Button = %Next
-@onready var minimize_description: Button = %MinimizeDescription
-@onready var description: RichTextLabel = %Description
-@onready var begin_tutorial: Button = %BeginTutorial
-@onready var navigation_hint: Label = %NavigationHint
-@onready var scene_title: Label = %SceneTitle
-@onready var code_popup = %CodePopup
-@onready var code_edit = %CodeEdit
-
-var bt_player: BTPlayer
-var selected_tree_index: int = -1
-var agent_files: Array[String]
-var agents_dir: String
-var is_tutorial: bool = false
-
-
-func _ready() -> void:
-	code_popup.hide()
-
-	agent_selection.get_popup().id_pressed.connect(_on_agent_selection_id_pressed)
-	previous.pressed.connect(func(): _on_agent_selection_id_pressed(selected_tree_index - 1))
-	next.pressed.connect(func(): _on_agent_selection_id_pressed(selected_tree_index + 1))
-
-	_initialize()
-
-
-func _physics_process(_delta: float) -> void:
-	var inst: BTInstance = bt_player.get_bt_instance()
-	var bt_data: BehaviorTreeData = BehaviorTreeData.create_from_bt_instance(inst)
-	behavior_tree_view.update_tree(bt_data)
-
-
-func _initialize() -> void:
-	if is_tutorial:
-		_populate_agent_files("res://demo/agents/tutorial/")
-		begin_tutorial.text = "End Tutorial"
-		navigation_hint.text = "Navigate ➤"
-		scene_title.text = "Tutorial"
-		_on_agent_selection_id_pressed(0)
-	else:
-		_populate_agent_files("res://demo/agents/")
-		begin_tutorial.text = "Begin Tutorial"
-		navigation_hint.text = "Select Agent ➤"
-		scene_title.text = "Showcase"
-		_on_agent_selection_id_pressed(0)
-
-
-func _attach_camera(agent: CharacterBody2D) -> void:
-	await get_tree().process_frame
-	camera.get_parent().remove_child(camera)
-	agent.add_child(camera)
-	camera.position = Vector2(400.0, 0.0)
-
-
-func _populate_agent_files(p_path: String = "res://demo/agents/") -> void:
-	var popup: PopupMenu = agent_selection.get_popup()
-	popup.clear()
-	popup.reset_size()
-	agent_files.clear()
-	agents_dir = p_path
-
-	var dir := DirAccess.open(p_path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name: String = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir() or file_name.begins_with("agent_base"):
-				file_name = dir.get_next()
-				continue
-			agent_files.append(file_name.get_file().trim_suffix(".remap"))
-			file_name = dir.get_next()
-	dir.list_dir_end()
-
-	agent_files.sort()
-	for i in agent_files.size():
-		popup.add_item(agent_files[i], i)
-
-
-func _load_agent(file_name: String) -> void:
-	var agent_res := load(file_name) as PackedScene
-	assert(agent_res != null)
-
-	for child in get_children():
-		if child is CharacterBody2D and child.name != "Dummy":
-			child.die()
-
-	var agent: CharacterBody2D = agent_res.instantiate()
-	add_child(agent)
-	bt_player = agent.find_child("BTPlayer")
-	description.text = _parse_description(bt_player.behavior_tree.description)
-	_attach_camera(agent)
-
-
-func _parse_description(p_desc: String) -> String:
-	return p_desc \
-			.replace("[SUCCESS]", "[color=PaleGreen]SUCCESS[/color]") \
-			.replace("[FAILURE]", "[color=IndianRed]FAILURE[/color]") \
-			.replace("[RUNNING]", "[color=orange]RUNNING[/color]") \
-			.replace("[comp]", "[color=CornflowerBlue][b]") \
-			.replace("[/comp]", "[/b][/color]") \
-			.replace("[act]", "[color=white][b]") \
-			.replace("[/act]", "[/b][/color]") \
-			.replace("[dec]", "[color=MediumOrchid][b]") \
-			.replace("[/dec]", "[/b][/color]") \
-			.replace("[con]", "[color=orange][b]") \
-			.replace("[/con]", "[/b][/color]")
-
-
-func _on_agent_selection_id_pressed(id: int) -> void:
-	assert(id >= 0 and id < agent_files.size())
-	selected_tree_index = id
-	_load_agent(agents_dir.path_join(agent_files[id]))
-	agent_selection.text = bt_player.behavior_tree.resource_path.get_file()
-	if agent_selection.text.to_lower() != agent_selection.text:
-		# Treat filename as a title
-		agent_selection.text = agent_selection.text.trim_suffix(".tres")
-	previous.disabled = id == 0
-	next.disabled = id == (agent_files.size() - 1)
-
-
-func _on_switch_to_game_pressed() -> void:
-	get_tree().change_scene_to_file("res://demo/scenes/game.tscn")
-
-
-func _on_minimize_description_button_down() -> void:
-	description.visible = not description.visible
-	minimize_description.text = "-" if description.visible else "+"
-
-
-func _on_tutorial_pressed() -> void:
-	is_tutorial = not is_tutorial
-	_initialize()
-
-
-func _on_behavior_tree_view_task_selected(_type_name: String, p_script_path: String) -> void:
-	if not p_script_path.is_empty():
-		var sc: Script = load(p_script_path)
-		code_edit.set_source_code(sc.source_code)
-		code_popup.popup.call_deferred()
-
-```
-
-# res://examples_dd3d/DebugDrawDemoScene.gd
-```gd
-@tool
-extends Node3D
-
-@export var custom_font : Font
-@export var custom_3d_font : Font
-@export var zylann_example := false
-@export var update_in_physics := false
-@export var test_text := true
-@export var more_test_cases := true
-@export var draw_3d_text := true
-@export var draw_array_of_boxes := false
-@export var draw_text_with_boxes := false
-@export var draw_1m_boxes := false
-@export_range(0, 5, 0.001) var debug_thickness := 0.1
-@export_range(0, 1, 0.001) var debug_center_brightness := 0.8
-@export_range(0, 1) var camera_frustum_scale := 0.9
-
-@export_group("Text groups", "text_groups")
-@export var text_groups_show_examples := true
-@export var text_groups_show_hints := true
-@export var text_groups_show_stats := false
-@export var text_groups_show_stats_2d := false
-@export var text_groups_position := DebugDraw2DConfig.POSITION_LEFT_TOP
-@export var text_groups_offset := Vector2i(8, 8)
-@export var text_groups_padding := Vector2i(3, 1)
-@export_range(1, 100) var text_groups_default_font_size := 15
-@export_range(1, 100) var text_groups_title_font_size := 20
-@export_range(1, 100) var text_groups_text_font_size := 17
-
-@export_group("Tests", "tests")
-@export var tests_use_threads := false
-var test_thread : Thread = null
-var test_thread_closing := false
-
-var button_presses := {}
-var frame_rendered := false
-var physics_tick_processed := false
-
-var timer_1 := 0.0
-var timer_cubes := 0.0
-var timer_3 := 0.0
-var timer_text := 0.0
-
-
-func _process(delta) -> void:
-	#print("Label3Ds count: %d" % get_child(0).get_child_count() if Engine.is_editor_hint() else get_tree().root.get_child(0).get_child_count())
-
-	$OtherWorld.mesh.material.set_shader_parameter("albedo_texture", $OtherWorld/SubViewport.get_texture())
-	
-	physics_tick_processed = false
-	if not update_in_physics:
-			main_update(delta)
-			_update_timers(delta)
-	
-	_call_from_thread()
-
-
-## Since physics frames may not be called every frame or may be called multiple times in one frame,
-## there is an additional check to ensure that a new frame has been drawn before updating the data.
-func _physics_process(delta: float) -> void:
-	if not physics_tick_processed:
-		physics_tick_processed = true
-		if update_in_physics:
-			main_update(delta)
-			_update_timers(delta)
-		
-		# Physics specific:
-		if not zylann_example:
-			DebugDraw3D.draw_line($"Lines/8".global_position, $Lines/Target.global_position, Color.YELLOW)
-			
-			if more_test_cases:
-				_draw_rays_casts()
-
-			## Additional drawing in the Viewport
-			if true:
-				var _w1 = DebugDraw3D.new_scoped_config().set_viewport(%OtherWorldBox.get_viewport()).set_thickness(0.01).set_center_brightness(1).set_no_depth_test(true)
-				DebugDraw3D.draw_box_xf(Transform3D(Basis()
-				.scaled(Vector3.ONE*0.3)
-				.rotated(Vector3(0,0,1), PI/4)
-				.rotated(Vector3(0,1,0), wrapf(Time.get_ticks_msec() / -1500.0, 0, TAU) - PI/4), %OtherWorldBox.global_transform.origin),
-				Color.BROWN, true, 0.4)
-
-
-func main_update(delta: float) -> void:
-	DebugDraw3D.scoped_config().set_thickness(debug_thickness).set_center_brightness(debug_center_brightness)
-	
-	_update_keys_just_press()
-	
-	if _is_key_just_pressed(KEY_F1):
-		zylann_example = !zylann_example
-	
-	# Zylann's example :D
-	if zylann_example:
-		var _time = Time.get_ticks_msec() / 1000.0
-		var box_pos = Vector3(0, sin(_time * 4), 0)
-		var line_begin = Vector3(-1, sin(_time * 4), 0)
-		var line_end = Vector3(1, cos(_time * 4), 0)
-		
-		DebugDraw3D.draw_box(box_pos, Quaternion.IDENTITY, Vector3(1, 2, 1), Color(0, 1, 0))
-		DebugDraw3D.draw_line(line_begin, line_end, Color(1, 1, 0))
-		DebugDraw2D.set_text("Time", _time)
-		DebugDraw2D.set_text("Frames drawn", Engine.get_frames_drawn())
-		DebugDraw2D.set_text("FPS", Engine.get_frames_per_second())
-		DebugDraw2D.set_text("delta", delta)
-		
-		$HitTest.visible = false
-		$LagTest.visible = false
-		$PlaneOrigin.visible = false
-		$OtherWorld.visible = false
-		%ZDepthTestCube.visible = false
-		return
-	
-	$HitTest.visible = true
-	$LagTest.visible = true
-	$PlaneOrigin.visible = true
-	$OtherWorld.visible = true
-	%ZDepthTestCube.visible = true
-	
-	# Testing the rendering layers by showing the image from the second camera inside the 2D panel
-	DebugDraw3D.config.geometry_render_layers = 1 if not Input.is_key_pressed(KEY_ALT) else 0b10010
-	$Panel.visible = Input.is_key_pressed(KEY_ALT)
-	DebugDraw2D.custom_canvas = %CustomCanvas if Input.is_key_pressed(KEY_ALT) else null
-	
-	# More property toggles
-	DebugDraw3D.config.freeze_3d_render = Input.is_key_pressed(KEY_DOWN)
-	DebugDraw3D.config.visible_instance_bounds = Input.is_key_pressed(KEY_RIGHT)
-	
-	# Regenerate meshes
-	if Input.is_action_just_pressed("ui_end"):
-		DebugDraw3D.regenerate_geometry_meshes()
-	
-	# Some property toggles
-	if _is_key_just_pressed(KEY_LEFT):
-		DebugDraw3D.config.use_frustum_culling = !DebugDraw3D.config.use_frustum_culling
-	if _is_key_just_pressed(KEY_UP):
-		DebugDraw3D.config.force_use_camera_from_scene = !DebugDraw3D.config.force_use_camera_from_scene
-	if _is_key_just_pressed(KEY_CTRL):
-		if not Engine.is_editor_hint():
-			get_viewport().msaa_3d = Viewport.MSAA_DISABLED if get_viewport().msaa_3d == Viewport.MSAA_4X else Viewport.MSAA_4X
-	
-	if not Engine.is_editor_hint():
-		if _is_key_just_pressed(KEY_1):
-			DebugDraw3D.debug_enabled = !DebugDraw3D.debug_enabled
-		if _is_key_just_pressed(KEY_2):
-			DebugDraw2D.debug_enabled = !DebugDraw2D.debug_enabled
-		if _is_key_just_pressed(KEY_3):
-			DebugDrawManager.debug_enabled = !DebugDrawManager.debug_enabled
-	
-	
-	DebugDraw3D.config.frustum_length_scale = camera_frustum_scale
-	
-	# Zones with black borders
-	for z in $Zones.get_children():
-		DebugDraw3D.draw_box_xf(z.global_transform, Color.BLACK)
-	
-	# Spheres
-	_draw_zone_title(%SpheresBox, "Spheres")
-	
-	DebugDraw3D.draw_sphere_xf($Spheres/SphereTransform.global_transform, Color.CRIMSON)
-	if true:
-		var _shd = DebugDraw3D.new_scoped_config().set_hd_sphere(true)
-		DebugDraw3D.draw_sphere_xf($Spheres/SphereHDTransform.global_transform, Color.ORANGE_RED)
-	
-	## Delayed spheres
-	if timer_1 < 0:
-		DebugDraw3D.draw_sphere($Spheres/SpherePosition.global_position, 2.0, Color.BLUE_VIOLET, 2.0)
-		var _shd = DebugDraw3D.new_scoped_config().set_hd_sphere(true)
-		DebugDraw3D.draw_sphere($Spheres/SpherePosition.global_position + Vector3.FORWARD * 4, 2.0, Color.CORNFLOWER_BLUE, 2.0)
-		timer_1 = 2
-	
-	# Cylinders
-	_draw_zone_title(%CylindersBox, "Cylinders")
-	
-	DebugDraw3D.draw_cylinder($Cylinders/Cylinder1.global_transform, Color.CRIMSON)
-	DebugDraw3D.draw_cylinder(Transform3D(Basis.IDENTITY.scaled(Vector3(1,2,1)), $Cylinders/Cylinder2.global_position), Color.RED)
-	DebugDraw3D.draw_cylinder_ab($"Cylinders/Cylinder3/1".global_position, $"Cylinders/Cylinder3/2".global_position, 0.7)
-	
-	# Boxes
-	_draw_zone_title(%BoxesBox, "Boxes")
-	
-	DebugDraw3D.draw_box_xf($Boxes/Box1.global_transform, Color.MEDIUM_PURPLE)
-	DebugDraw3D.draw_box($Boxes/Box2.global_position, Quaternion.from_euler(Vector3(0, deg_to_rad(45), deg_to_rad(45))), Vector3.ONE, Color.REBECCA_PURPLE)
-	DebugDraw3D.draw_box_xf(Transform3D(Basis(Vector3.UP, PI * 0.25).scaled(Vector3.ONE * 2), $Boxes/Box3.global_position), Color.ROSY_BROWN)
-	
-	DebugDraw3D.draw_aabb(AABB($Boxes/AABB_fixed.global_position, Vector3(2, 1, 2)), Color.AQUA)
-	DebugDraw3D.draw_aabb_ab($Boxes/AABB/a.global_position, $Boxes/AABB/b.global_position, Color.DEEP_PINK)
-	
-	# Boxes AB
-	DebugDraw3D.draw_arrow($Boxes/BoxAB.global_position, $Boxes/BoxAB/o/up.global_position, Color.GOLD, 0.1, true)
-	DebugDraw3D.draw_box_ab($Boxes/BoxAB/a.global_position, $Boxes/BoxAB/b.global_position, $Boxes/BoxAB/o/up.global_position - $Boxes/BoxAB.global_position, Color.PERU)
-	
-	DebugDraw3D.draw_arrow($Boxes/BoxABEdge.global_position, $Boxes/BoxABEdge/o/up.global_position, Color.DARK_RED, 0.1, true)
-	DebugDraw3D.draw_box_ab($Boxes/BoxABEdge/a.global_position, $Boxes/BoxABEdge/b.global_position, $Boxes/BoxABEdge/o/up.global_position - $Boxes/BoxABEdge.global_position, Color.DARK_OLIVE_GREEN, false)
-	
-	# Lines
-	_draw_zone_title(%LinesBox, "Lines")
-	
-	var target = $Lines/Target
-	DebugDraw3D.draw_square(target.global_position, 0.5, Color.RED)
-	
-	DebugDraw3D.draw_line($"Lines/1".global_position, target.global_position, Color.FUCHSIA)
-	DebugDraw3D.draw_ray($"Lines/3".global_position, (target.global_position - $"Lines/3".global_position).normalized(), 3.0, Color.CRIMSON)
-	
-	if timer_3 < 0:
-		DebugDraw3D.draw_line($"Lines/6".global_position, target.global_position, Color.FUCHSIA, 2.0)
-		timer_3 = 2
-	
-	# Test UP vector
-	DebugDraw3D.draw_line($"Lines/7".global_position, target.global_position, Color.RED)
-	
-	# Lines with Arrow
-	DebugDraw3D.draw_arrow($"Lines/2".global_position, target.global_position, Color.BLUE, 0.5, true)
-	DebugDraw3D.draw_arrow_ray($"Lines/4".global_position, (target.global_position - $"Lines/4".global_position).normalized(), 8.0, Color.LAVENDER, 0.5, true)
-	
-	DebugDraw3D.draw_line_hit_offset($"Lines/5".global_position, target.global_position, true, abs(sin(Time.get_ticks_msec() / 1000.0)), 0.25, Color.AQUA)
-	
-	# Paths
-	_draw_zone_title(%PathsBox, "Paths")
-	
-	## preparing data
-	var points: PackedVector3Array = []
-	var points_below: PackedVector3Array = []
-	var points_below2: PackedVector3Array = []
-	var points_below3: PackedVector3Array = []
-	var points_below4: PackedVector3Array = []
-	var lines_above: PackedVector3Array = []
-	
-	for c in $LinePath.get_children():
-		if not c is Node3D:
-			break
-		points.append(c.global_position)
-		points_below.append(c.global_position + Vector3.DOWN)
-		points_below2.append(c.global_position + Vector3.DOWN * 2)
-		points_below3.append(c.global_position + Vector3.DOWN * 3)
-		points_below4.append(c.global_position + Vector3.DOWN * 4)
-	
-	for x in points.size()-1:
-		lines_above.append(points[x] + Vector3.UP)
-		lines_above.append(points[x+1] + Vector3.UP)
-	
-	## drawing lines
-	DebugDraw3D.draw_lines(lines_above)
-	DebugDraw3D.draw_line_path(points, Color.BEIGE)
-	DebugDraw3D.draw_points(points_below, DebugDraw3D.POINT_TYPE_SQUARE, 0.2, Color.DARK_GREEN)
-	DebugDraw3D.draw_point_path(points_below2, DebugDraw3D.POINT_TYPE_SQUARE, 0.25, Color.BLUE, Color.TOMATO)
-	DebugDraw3D.draw_arrow_path(points_below3, Color.GOLD, 0.5)
-	if true:
-		var _sl = DebugDraw3D.new_scoped_config().set_thickness(0.05)
-		DebugDraw3D.draw_point_path(points_below4, DebugDraw3D.POINT_TYPE_SPHERE, 0.25, Color.MEDIUM_SEA_GREEN, Color.MEDIUM_VIOLET_RED)
-	
-	# Misc
-	_draw_zone_title(%MiscBox, "Misc")
-	
-	if Engine.is_editor_hint():
-		#for i in 1000:
-		var _a11 = DebugDraw3D.new_scoped_config().set_thickness(0)
-		DebugDraw3D.draw_camera_frustum($Camera, Color.DARK_ORANGE)
-	
-	if true:
-		var _s123 = DebugDraw3D.new_scoped_config().set_center_brightness(0.1)
-		DebugDraw3D.draw_arrowhead($Misc/Arrow.global_transform, Color.YELLOW_GREEN)
-	
-	DebugDraw3D.draw_square($Misc/Billboard.global_position, 0.5, Color.GREEN)
-	
-	DebugDraw3D.draw_position($Misc/Position.global_transform, Color.BROWN)
-	
-	DebugDraw3D.draw_gizmo($Misc/GizmoTransform.global_transform, DebugDraw3D.empty_color, true)
-	DebugDraw3D.draw_gizmo($Misc/GizmoOneColor.global_transform, Color.BROWN, true)
-	if true:
-		var _s123 = DebugDraw3D.new_scoped_config().set_center_brightness(0.5).set_no_depth_test(true)
-		DebugDraw3D.draw_gizmo($Misc/GizmoNormal.global_transform.orthonormalized(), DebugDraw3D.empty_color, false)
-	
-	# Grids
-	_draw_zone_title_pos($Grids/GridCentered.global_position + Vector3(0, 1.5, 0), "Grids", 96, 36)
-	
-	var tg : Transform3D = $Grids/Grid.global_transform
-	var tn : Vector3 = $Grids/Grid/Subdivision.transform.origin
-	DebugDraw3D.draw_grid(tg.origin, tg.basis.x, tg.basis.z, Vector2i(int(tn.x*10), int(tn.z*10)), Color.LIGHT_CORAL, false)
-	
-	var tn1 = $Grids/GridCentered/Subdivision.transform.origin
-	DebugDraw3D.draw_grid_xf($Grids/GridCentered.global_transform, Vector2i(tn1.x*10, tn1.z*10))
-	
-	if true:
-		var _s32 = DebugDraw3D.new_scoped_config().set_thickness(0.05)
-		DebugDraw3D.draw_box_xf($PostProcess.global_transform, Color.SEA_GREEN)
-	
-	# Local transform
-	_draw_local_xf_box(%LocalTransformRecursiveOrigin.global_transform, 0.05, 10)
-	
-	# 2D
-	DebugDraw2D.config.text_default_size = text_groups_default_font_size
-	DebugDraw2D.config.text_block_offset = text_groups_offset
-	DebugDraw2D.config.text_block_position = text_groups_position
-	DebugDraw2D.config.text_padding = text_groups_padding
-	
-	DebugDraw2D.config.text_custom_font = custom_font
-	
-	if test_text:
-		_text_tests()
-	
-	# Lag Test
-	var lag_test_pos = $LagTest/RESET.get_animation("RESET").track_get_key_value(0,0)
-	_draw_zone_title_pos(lag_test_pos, "Lag test")
-	
-	$LagTest.position = lag_test_pos + Vector3(sin(Time.get_ticks_msec() / 100.0) * 2.5, 0, 0)
-	DebugDraw3D.draw_box($LagTest.global_position, Quaternion.IDENTITY, Vector3.ONE * 2.01, Color.CHOCOLATE, true)
-	
-	if more_test_cases:
-		for ray in $HitTest/RayEmitter.get_children():
-			ray.set_physics_process_internal(true)
-		
-		_more_tests()
-	else:
-		for ray in $HitTest/RayEmitter.get_children():
-			ray.set_physics_process_internal(false)
-	
-	_draw_other_world()
-	
-	if draw_array_of_boxes:
-		_draw_array_of_boxes()
-
-
-func _text_tests():
-	DebugDraw2D.set_text("FPS", "%.2f" % Engine.get_frames_per_second(), 0, Color.GOLD)
-	
-	if text_groups_show_examples:
-		if timer_text < 0:
-			DebugDraw2D.set_text("Some delayed text", "for 2.5s", -1, Color.BLACK, 2.5) # it's supposed to show text for 2.5 seconds
-			timer_text = 5
-		
-		DebugDraw2D.begin_text_group("-- First Group --", 2, Color.LIME_GREEN, true, text_groups_title_font_size, text_groups_text_font_size)
-		DebugDraw2D.set_text("Simple text")
-		DebugDraw2D.set_text("Text", "Value", 0, Color.AQUAMARINE)
-		DebugDraw2D.set_text("Text out of order", null, -1, Color.SILVER)
-		DebugDraw2D.begin_text_group("-- Second Group --", 1, Color.BEIGE)
-		DebugDraw2D.set_text("Rendered frames", Engine.get_frames_drawn())
-		DebugDraw2D.end_text_group()
-	
-	if text_groups_show_stats or text_groups_show_stats_2d:
-		DebugDraw2D.begin_text_group("-- Stats --", 3, Color.WHEAT)
-		
-		var render_stats := DebugDraw3D.get_render_stats()
-		if render_stats && text_groups_show_stats:
-			DebugDraw2D.set_text("Total", render_stats.total_geometry)
-			DebugDraw2D.set_text("Instances", render_stats.instances + render_stats.instances_physics, 1)
-			DebugDraw2D.set_text("Lines", render_stats.lines + render_stats.lines_physics, 2)
-			DebugDraw2D.set_text("Total Visible", render_stats.total_visible, 3)
-			DebugDraw2D.set_text("Visible Instances", render_stats.visible_instances, 4)
-			DebugDraw2D.set_text("Visible Lines", render_stats.visible_lines, 5)
-			
-			DebugDraw2D.set_text("---", null, 12)
-			
-			DebugDraw2D.set_text("Culling time", "%.2f ms" % (render_stats.total_time_culling_usec / 1000.0), 13)
-			DebugDraw2D.set_text("Filling instances buffer", "%.2f ms" % (render_stats.time_filling_buffers_instances_usec / 1000.0), 14)
-			DebugDraw2D.set_text("Filling lines buffer", "%.2f ms" % (render_stats.time_filling_buffers_lines_usec / 1000.0), 15)
-			DebugDraw2D.set_text("Filling time", "%.2f ms" % (render_stats.total_time_filling_buffers_usec / 1000.0), 16)
-			DebugDraw2D.set_text("Total time", "%.2f ms" % (render_stats.total_time_spent_usec / 1000.0), 17)
-			
-			DebugDraw2D.set_text("----", null, 32)
-			
-			DebugDraw2D.set_text("Total Label3D", render_stats.nodes_label3d_exists_total, 33)
-			DebugDraw2D.set_text("Visible Label3D", render_stats.nodes_label3d_visible + render_stats.nodes_label3d_visible_physics, 34)
-			
-			DebugDraw2D.set_text("-----", null, 48)
-			
-			DebugDraw2D.set_text("Created scoped configs", "%d" % render_stats.created_scoped_configs, 49)
-		
-		if text_groups_show_stats && text_groups_show_stats_2d:
-			DebugDraw2D.set_text("------", null, 64)
-		
-		var render_stats_2d := DebugDraw2D.get_render_stats()
-		if render_stats_2d && text_groups_show_stats_2d:
-			DebugDraw2D.set_text("Text groups", render_stats_2d.overlay_text_groups, 96)
-			DebugDraw2D.set_text("Text lines", render_stats_2d.overlay_text_lines, 97)
-			
-		DebugDraw2D.end_text_group()
-	
-	if text_groups_show_hints:
-		DebugDraw2D.begin_text_group("controls", 1024, Color.WHITE, false)
-		if not Engine.is_editor_hint():
-			DebugDraw2D.set_text("WASD QE, LMB", "To move", 0)
-		DebugDraw2D.set_text("Alt: change render layers", DebugDraw3D.config.geometry_render_layers, 1)
-		if not OS.has_feature("web"):
-			DebugDraw2D.set_text("Ctrl: toggle anti-aliasing", "MSAA 4x" if get_viewport().msaa_3d == Viewport.MSAA_4X else "Disabled", 2)
-		DebugDraw2D.set_text("Down: freeze render", DebugDraw3D.config.freeze_3d_render, 3)
-		if Engine.is_editor_hint():
-			DebugDraw2D.set_text("Up: use scene camera", DebugDraw3D.config.force_use_camera_from_scene, 4)
-		DebugDraw2D.set_text("1,2,3: toggle debug", "%s, %s 😐, %s 😏" % [DebugDraw3D.debug_enabled, DebugDraw2D.debug_enabled, DebugDrawManager.debug_enabled], 5)
-		DebugDraw2D.set_text("Left: toggle frustum culling", DebugDraw3D.config.use_frustum_culling, 6)
-		DebugDraw2D.set_text("Right: draw bounds for culling", DebugDraw3D.config.visible_instance_bounds, 7)
-		DebugDraw2D.end_text_group()
-
-
-func _draw_zone_title(node: Node3D, title: String):
-	if draw_3d_text:
-		var _s1 = DebugDraw3D.new_scoped_config().set_text_outline_size(72)
-		DebugDraw3D.draw_text(node.global_position + node.global_basis.y * 0.85, title, 128)
-
-
-func _draw_zone_title_pos(pos: Vector3, title: String, font_size: int = 128, outline: int = 72):
-	if draw_3d_text:
-		var _s1 = DebugDraw3D.new_scoped_config().set_text_outline_size(outline)
-		DebugDraw3D.draw_text(pos, title, font_size)
-
-
-const _local_mul := 0.45
-const _local_mul_vec := Vector3(_local_mul, _local_mul, _local_mul)
-var __local_lines_cross_recursive = PackedVector3Array([Vector3(-0.5, -0.5, -0.5), Vector3(0.5, -0.5, 0.5), Vector3(-0.5, -0.5, 0.5), Vector3(0.5, -0.5, -0.5)])
-var __local_box_recursive = Transform3D.IDENTITY.rotated_local(Vector3.UP, deg_to_rad(30)).translated(Vector3(-0.25, -0.55, 0.25)).scaled(_local_mul_vec)
-var __local_sphere_recursive = Transform3D.IDENTITY.translated(Vector3(0.5, 0.55, -0.5)).scaled(_local_mul_vec)
-
-func _draw_local_xf_box(xf: Transform3D, thickness: float, max_depth: int, depth: int = 0):
-	if depth >= max_depth:
-		return
-	
-	var _s1 = DebugDraw3D.new_scoped_config().set_thickness(thickness).set_transform(xf)
-	
-	# a box with a small offset
-	DebugDraw3D.draw_box_xf(Transform3D(Basis(), Vector3(0, 0.001, 0)), Color.BROWN)
-	# a box and a stand for the next depth
-	DebugDraw3D.draw_box_xf(__local_box_recursive, Color.CHARTREUSE)
-	# just a sphere and lines
-	DebugDraw3D.draw_sphere_xf(__local_sphere_recursive, Color.DARK_ORANGE)
-	_s1.set_thickness(0)
-	DebugDraw3D.draw_lines(__local_lines_cross_recursive, Color.CRIMSON)
-	
-	# A simple animation generator with descent into the depth of the scene
-	if false:
-		var anim: Animation = %RecursiveTransformTest.get_animation("recursive")
-		# clear keys
-		if depth == 0: for i in anim.track_get_key_count(0): anim.track_remove_key(0, 0); anim.track_remove_key(1, 0)
-		
-		var time = depth * 2
-		var s_xf = xf * __local_sphere_recursive
-		var next_s_xf = (xf * __local_box_recursive.translated(__local_box_recursive.basis.y)) * __local_sphere_recursive
-		var get_sphere_pos = func(l_xf): return l_xf.origin + (l_xf).basis.y
-		anim.position_track_insert_key(0, time, get_sphere_pos.call(s_xf))
-		anim.rotation_track_insert_key(1, time, Transform3D(Basis(), get_sphere_pos.call(s_xf)).looking_at(get_sphere_pos.call(next_s_xf), xf.basis.y).basis.get_rotation_quaternion())
-	
-	_draw_local_xf_box(xf * __local_box_recursive.translated(__local_box_recursive.basis.y), thickness * _local_mul, max_depth, depth + 1)
-
-
-func _draw_other_world():
-	var _w1 = DebugDraw3D.new_scoped_config().set_viewport(%OtherWorldBox.get_viewport())
-	DebugDraw3D.draw_box_xf(%OtherWorldBox.global_transform.rotated_local(Vector3(1,1,-1).normalized(), wrapf(Time.get_ticks_msec() / 1000.0, 0, TAU)), Color.SANDY_BROWN)
-	DebugDraw3D.draw_box_xf(%OtherWorldBox.global_transform.rotated_local(Vector3(-1,1,-1).normalized(), wrapf(Time.get_ticks_msec() / -1000.0, 0, TAU) - PI/4), Color.SANDY_BROWN)
-	
-	if draw_3d_text:
-		var angle = wrapf(Time.get_ticks_msec() / 1000.0, 0, TAU)
-		if true:
-			var _w2 = DebugDraw3D.new_scoped_config().set_text_font(custom_3d_font)
-			DebugDraw3D.draw_text(%OtherWorldBox.global_position + Vector3(cos(angle), -0.25, sin(angle)), "Hello world!", 32, Color.CRIMSON, 0)
-		
-		if true:
-			var _w3 = DebugDraw3D.new_scoped_config().set_no_depth_test(true).set_text_outline_color(Color.INDIAN_RED).set_text_outline_size(6)
-			DebugDraw3D.draw_text(%OtherWorldBox.global_position + Vector3(cos(angle), +0.25, sin(-angle)), "World without depth", 20, Color.PINK, 0)
-
-
-func _draw_rays_casts():
-	# Line hits render
-	_draw_zone_title_pos(%HitTestSphere.global_position, "Line hits", 96, 36)
-	
-	for ray in $HitTest/RayEmitter.get_children():
-		if ray is RayCast3D:
-			ray.force_raycast_update()
-			DebugDraw3D.draw_line_hit(ray.global_position, ray.to_global(ray.target_position), ray.get_collision_point(), ray.is_colliding(), 0.3)
-
-
-func _more_tests():
-	# Delayed line render
-	if true:
-		var _a12 = DebugDraw3D.new_scoped_config().set_thickness(0.035)
-		DebugDraw3D.draw_line($LagTest.global_position + Vector3.UP, $LagTest.global_position + Vector3(0,3,sin(Time.get_ticks_msec() / 50.0)), DebugDraw3D.empty_color, 0.35)
-		
-		if draw_3d_text:
-			DebugDraw3D.draw_text($LagTest.global_position + Vector3(0,3,sin(Time.get_ticks_msec() / 50.0)), "%.1f" % sin(Time.get_ticks_msec() / 50.0), 16, DebugDraw3D.empty_color, 0.35)
-	
-	# Draw plane
-	if true:
-		var _s11 = DebugDraw3D.new_scoped_config().set_thickness(0.02).set_plane_size(10)
-		
-		var pl_node: Node3D = $PlaneOrigin
-		var xf: Transform3D = pl_node.global_transform
-		var normal: = xf.basis.y.normalized()
-		var plane = Plane(normal, xf.origin.dot(normal))
-		
-		var vp: Viewport = get_viewport()
-		if Engine.is_editor_hint() and Engine.get_singleton(&"EditorInterface").get_editor_viewport_3d(0):
-			vp = Engine.get_singleton(&"EditorInterface").get_editor_viewport_3d(0)
-		
-		var cam = vp.get_camera_3d()
-		if cam:
-			var dir = vp.get_camera_3d().project_ray_normal(vp.get_mouse_position())
-			var intersect = plane.intersects_ray(cam.global_position, dir)
-			
-			DebugDraw3D.draw_plane(plane, Color.CORAL * Color(1,1,1, 0.4), pl_node.global_position)
-			if intersect and intersect.distance_to(pl_node.global_position) < _s11.get_plane_size() * 0.5:
-				# Need to test different colors on both sides of the plane
-				var col = Color.FIREBRICK if plane.is_point_over(cam.global_position) else Color.AQUAMARINE
-				DebugDraw3D.draw_sphere(intersect, 0.3, col)
-
-
-func _draw_array_of_boxes():
-	# Lots of boxes to check performance..
-	var x_size := 50
-	var y_size := 50
-	var z_size := 3
-	var mul := 1
-	var cubes_max_time := 1.25
-	var show_text := draw_text_with_boxes
-	var cfg = DebugDraw3D.new_scoped_config()
-	
-	if draw_1m_boxes:
-		x_size = 100
-		y_size = 100
-		z_size = 100
-		mul = 4
-		cubes_max_time = 60
-		show_text = false
-	
-	var size := Vector3.ONE
-	var half_size := size * 0.5
-	
-	if timer_cubes < 0:
-		var _start_time = Time.get_ticks_usec()
-		for x in x_size:
-			for y in y_size:
-				for z in z_size:
-					cfg.set_thickness(randf_range(0, 0.1))
-					var pos := Vector3(x * mul, (-4-z) * mul, y * mul) + global_position
-					DebugDraw3D.draw_box(pos, Quaternion.IDENTITY, size, DebugDraw3D.empty_color, false, cubes_max_time)
-					
-					if show_text and z == 0:
-						DebugDraw3D.draw_text(pos + half_size, str(pos), 32, DebugDraw3D.empty_color, cubes_max_time)
-		#print("Draw Cubes: %.3fms" % ((Time.get_ticks_usec() - _start_time) / 1000.0))
-		timer_cubes = cubes_max_time
-
-
-func _ready() -> void:
-	_update_keys_just_press()
-	
-	await get_tree().process_frame
-	
-	# this check is required for inherited scenes, because an instance of this 
-	# script is created first, and then overridden by another
-	if not is_inside_tree():
-		return
-	
-	DebugDraw2D.config.text_background_color = Color(0.3, 0.3, 0.3, 0.8)
-
-
-func _is_key_just_pressed(key):
-	if (button_presses[key] == 1):
-		button_presses[key] = 2
-		return true
-	return false
-
-
-func _update_keys_just_press():
-	var set_key = func (k: Key): 
-		if Input.is_key_pressed(k) and button_presses.has(k):
-			if button_presses[k] == 0:
-				return 1
-			else:
-				return button_presses[k]
+	button_parent.remove_child(button_prefab)
+	
+	blur.modulate.a = 0.0
+	_tween = create_tween()
+	_tween.tween_property(blur, "modulate:a", 1.0, 0.2)
+	
+	if hovered:
+		var vpsize := Global.view_size
+		if hovered is Control:
+			var rect := (hovered as Control).get_global_rect()
+			ShadMat.new(blur, {
+				start=rect.position / vpsize,
+				end=rect.end / vpsize
+			})
 		else:
-			return 0
-	button_presses[KEY_LEFT] = set_key.call(KEY_LEFT)
-	button_presses[KEY_UP] = set_key.call(KEY_UP)
-	button_presses[KEY_CTRL] = set_key.call(KEY_CTRL)
-	button_presses[KEY_F1] = set_key.call(KEY_F1)
-	button_presses[KEY_1] = set_key.call(KEY_1)
-	button_presses[KEY_2] = set_key.call(KEY_2)
-	button_presses[KEY_3] = set_key.call(KEY_3)
-
-
-func _update_timers(delta : float):
-	timer_1 -= delta
-	timer_cubes -= delta
-	timer_3 -= delta
-	timer_text -= delta
-
-
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_EDITOR_PRE_SAVE or what == NOTIFICATION_EXIT_TREE:
-		_thread_stop()
-
-
-func _call_from_thread():
-	if tests_use_threads and (not test_thread or not test_thread.is_alive()):
-		test_thread_closing = false
-		test_thread = Thread.new()
-		test_thread.start(_thread_body)
-	elif not tests_use_threads and (test_thread and test_thread.is_alive()):
-		_thread_stop()
-
-
-func _thread_stop():
-	if test_thread and test_thread.is_alive():
-		tests_use_threads = false
-		test_thread_closing = true
-		test_thread.wait_to_finish()
-
-
-func _thread_body():
-	print("Thread started!")
-	while not test_thread_closing:
-		DebugDraw3D.draw_box(Vector3(0,-1,0), Quaternion.IDENTITY, Vector3.ONE, Color.BROWN, true, 0.016)
-		
-		var boxes = 10
-		for y in boxes:
-			var offset := sin(TAU/boxes * y + wrapf(Time.get_ticks_msec() / 100.0, 0, TAU))
-			var pos := Vector3(offset, y, 0)
-			DebugDraw3D.draw_box(pos, Quaternion.IDENTITY, Vector3.ONE, Color.GREEN_YELLOW, true, 0.016)
-			DebugDraw3D.draw_text(pos, str(y), 64, Color.WHITE , 0.016)
-			
-			if y == 0:
-				DebugDraw2D.set_text("thread. sin", offset)
-		
-		OS.delay_msec(16)
-	print("Thread finished!")
-
-```
-
-# res://examples_dd3d/addon_icon.gd
-```gd
-@tool
-extends Node3D
-
-func _process(delta: float) -> void:
-	var a = DebugDraw3D.new_scoped_config().set_thickness(0.015)
-	DebugDraw3D.draw_box_xf($box.global_transform, Color.GREEN)
-	DebugDraw3D.draw_gizmo($gizmo.global_transform)
-	DebugDraw3D.draw_grid_xf($gizmo/grid.global_transform, Vector2i(2,2), DebugDraw3D.empty_color, false)
-	DebugDraw3D.draw_sphere_xf($sphere.global_transform, Color.RED)
-	DebugDraw3D.draw_cylinder($cylinder.global_transform, Color.BLUE)
-	DebugDraw3D.draw_line_hit_offset($"line/1".global_transform.origin, $"line/2".global_transform.origin, true, 0.3, 0.1)
-
-```
-
-# res://examples_dd3d/demo_camera_movement.gd
-```gd
-extends Camera3D
-
-@export var mouse_sensitivity := 0.25
-@export var camera_speed := 10.0
-@export var camera_speed_fast := 30.0
-
-var btn_clicked := false
-const hPI := PI/2
-var rot_x := 0.0
-var rot_y := 0.0
-
-
-func _ready():
-	reset_input_rotation()
-
-
-func _unhandled_input(event) -> void:
-	if event is InputEventMouseButton:
-		btn_clicked = event.pressed
-
-
-func reset_input_rotation():
-	rot_x = rotation.y
-	rot_y = rotation.x
-
-
-func _input(event) -> void:
-	if btn_clicked:
-		if event is InputEventMouseMotion:
-			if event.button_mask == MOUSE_BUTTON_LEFT:
-				rot_x += -deg_to_rad(event.relative.x * mouse_sensitivity)
-				rot_y += -deg_to_rad(event.relative.y * mouse_sensitivity)
-				rot_y = clamp(rot_y, -hPI, hPI)
-				
-				transform.basis = Basis()
-				rotate_object_local(Vector3.UP, rot_x)
-				rotate_object_local(Vector3.RIGHT, rot_y)
-
-
-func get_axis(neg : Array[Key], pos : Array[Key]) -> float:
-	var pressed = func (arr: Array[Key]):
-		var p: float = 0
-		for k in arr:
-			if Input.is_physical_key_pressed(k):
-				p = 1
-				break
-		return p
+			ShadMat.new(blur, { start=Vector2.ONE, end=Vector2.ONE })
 	
-	return pressed.call(pos) - pressed.call(neg)
-
-
-func _process(delta) -> void:
-	var motion := Vector2(get_axis([KEY_S], [KEY_W]), get_axis([KEY_A], [KEY_D]))
-	var lift := get_axis([KEY_Q, KEY_CTRL], [KEY_E, KEY_SPACE])
-	var speed := camera_speed_fast if Input.is_physical_key_pressed(KEY_SHIFT) else camera_speed
-	motion = motion.limit_length()
+	var index := 0
+	for op in options:
+		var btn := button_prefab.duplicate()
+		button_parent.add_child(btn)
+		btn.text = op.get("text", "NO_TEXT")
+		btn.pressed.connect(_pressed_option.bind(index))
+		index += 1
 	
-	var b := global_transform.basis
-	var v := (-b.z * motion.x) + (b.x * motion.y) + (b.y * lift)
-	global_position += v.limit_length() * speed * delta
+	panel.position = get_viewport().get_mouse_position()
 
-```
-
-# res://examples_dd3d/demo_music_visualizer.gd
-```gd
-@tool
-extends VBoxContainer
-
-@export_range(1, 128)  var bars_count := 32
-var transform: Transform3D:
-	get:
-		return %AudioVisualizer.global_transform
-@export_exp_easing("inout") var motion_smoothing := 0.025
-@export_range(0, 0.5) var bar_thickness := 0.065
-@export_range(0, 10) var bars_separation := 0.325
-@export_exp_easing("inout") var color_offset_speed := 0.4
-@export var colors: Gradient = null
-
-var MusicAnalyzerBus := &"MusicAnalyzer"
-var MasterBus := &"Master"
-var MAX_HZ := 16000.0
-var MIN_HZ := 20.0
-var MIN_DB := 60.0
-var spectrum: AudioEffectSpectrumAnalyzerInstance = null
-
-var smoothed_energy: Array[float] = []
-var color_offset := 0.0
-
-var _on_data_loaded_callback = null
-
-
-func _ready():
-	var bus = AudioServer.get_bus_index(MusicAnalyzerBus)
-	if bus == -1:
-		print("'MusicVisualizer' audio bus not found.\nSet 'VisualizerAudioBus.tres' as the default bus to use the audio visualizer.")
-	
-	spectrum = AudioServer.get_bus_effect_instance(bus, 0)
-	%MuteMaster.button_pressed = AudioServer.is_bus_mute(AudioServer.get_bus_index(MasterBus))
-	%VolumeSlider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index(MasterBus)))
-	
-	if OS.has_feature('web'):
-		motion_smoothing = motion_smoothing * 1.5
-		
-		_on_data_loaded_callback = JavaScriptBridge.create_callback(_on_data_loaded)
-		# Retrieve the 'gd_callbacks' object
-		var gdcallbacks: JavaScriptObject = JavaScriptBridge.get_interface("gd_callbacks")
-		# Assign the callbacks
-		gdcallbacks.dataLoaded = _on_data_loaded_callback
-
-
-func _process(_delta):
-	if %MusicPlayer.playing:
-		draw_spectrum()
-
+func is_pauser() -> bool:
+	return true
 
 func _pressed():
-	var open_file = func(filepath: String):
-		print("Opening '%s'" % filepath)
-		var file = FileAccess.open(filepath, FileAccess.READ)
-		var data = file.get_buffer(file.get_length())
-		open_stream(filepath.get_extension(), data)
-	
-	if DisplayServer.has_feature(DisplayServer.FEATURE_NATIVE_DIALOG):
-		DisplayServer.file_dialog_show("Select audio file", "", "", true, DisplayServer.FILE_DIALOG_MODE_OPEN_FILE, ["*.mp3"], 
-			func (status: bool, selected: PackedStringArray, _fileter: int):
-				if status and selected.size():
-					open_file.call(selected[0])
-		)
-	elif OS.has_feature('web'):
-		JavaScriptBridge.eval("loadData()")
-	else:
-		var fd := FileDialog.new()
-		add_child(fd)
-		
-		fd.title = "Select audio file"
-		fd.access = FileDialog.ACCESS_FILESYSTEM
-		fd.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-		fd.current_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)
-		fd.add_filter("*.mp3")
-		fd.popup_centered_ratio(0.8)
-		
-		fd.file_selected.connect(func(path: String):
-			open_file.call(path)
-		)
-		
-		fd.visibility_changed.connect(func():
-			if not fd.visible:
-				fd.queue_free()
-		)
+	for button in buttons:
+		button.disabled = true
+	if _tween: _tween.kill()
+	_tween = create_tween()
+	_tween.tween_property(blur, "modulate:a", 0.0, 0.1)
+	#_tween.tween_callback(close)
 
-
-func _on_data_loaded(data: Array) -> void:
-	# Make sure there is something
-	if (data.size() == 0):
-		return
-	
-	var file_name: String = data[0]
-	print("Opening '%s'" % file_name)
-	
-	var arr: PackedByteArray = JavaScriptBridge.eval("gd_callbacks.dataLoadedResult;")
-	open_stream(file_name.get_extension(), arr)
-
-
-func open_stream(file_ext: String, data: PackedByteArray):
-	var stream: AudioStream = null
-	if file_ext == "mp3":
-		stream = AudioStreamMP3.new()
-		stream.data = data
-		
-		if not stream.data:
-			print("Failed to load MP3!")
-			return
-	
-	if not stream:
-		print("Failed to load music!")
-		return
-	
-	%MusicPlayer.stream = stream
-	%MusicPlayer.bus = MusicAnalyzerBus
-	%MusicPlayer.play()
-	
-	# Debugging frequencies
-	for ih in range(1, bars_count + 1):
-		var _hz: float = log_freq(ih / float(bars_count), MIN_HZ, MAX_HZ)
-		#print("%.0f hz %.2f" % [_hz, ih / float(bars_count)])
-
-
-func draw_spectrum():
-	var _s1 = DebugDraw3D.scoped_config().set_thickness(bar_thickness).set_center_brightness(0.9)
-	var prev_hz = MIN_HZ
-	smoothed_energy.resize(bars_count)
-	
-	var xf := transform
-	var y := xf.basis.y
-	var h := y.length()
-	var x := xf.basis.x
-	var z := xf.basis.z
-	var origin := xf.origin - (x * bars_count + (x * bars_separation) * (bars_count - 1)) * 0.5
-	var sum := 0.0
-	
-	for ih in range(1, bars_count + 1):
-		var i := ih - 1
-		var hz: float = log_freq(ih / float(bars_count), MIN_HZ, MAX_HZ)
-		var magnitude: float = spectrum.get_magnitude_for_frequency_range(prev_hz, hz, AudioEffectSpectrumAnalyzerInstance.MAGNITUDE_AVERAGE).length()
-		var energy: float = clampf((MIN_DB + linear_to_db(magnitude)) / MIN_DB, 0, 1)
-		var e: float = lerp(smoothed_energy[i], energy, clampf(get_process_delta_time() / motion_smoothing if motion_smoothing else 1.0, 0, 1))
-		smoothed_energy[i] = e
-		var height: float = e * h
-		sum += e
-		
-		var s := x * bars_separation
-		
-		var a := origin + x * i + s * i + (z * 0.5)
-		var b := origin + x * (i + 1) + s * i + (z * -0.5) + xf.basis.y.normalized() * clampf(height, 0.001, h)
-		var c := Color.HOT_PINK
-		if colors:
-			c = colors.sample(wrapf(float(ih) / bars_count + color_offset, 0, 1))
-			c.s = clamp(c.s - smoothed_energy[i] * 0.3, 0, 1.0)
-		
-		DebugDraw3D.draw_box_ab(a, b, y, c)
-		
-		prev_hz = hz
-	
-	color_offset = wrapf(color_offset + sum / smoothed_energy.size() * clampf(get_process_delta_time() / color_offset_speed if color_offset_speed else 1.0, 0, 1), 0, 1)
-
-
-func log10(val: float) -> float:
-	return log(val) / 2.302585
-
-
-func log_freq(pos: float, min_hz: float, max_hz: float) -> float:
-	return pow(10, log10(min_hz) + (log10(max_hz) - log10(min_hz)) * pos)
-
-
-func _on_volume_slider_value_changed(value):
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MasterBus), linear_to_db(value))
-
-
-func _on_mute_master_toggled(toggled_on):
-	AudioServer.set_bus_mute(AudioServer.get_bus_index(MasterBus), toggled_on)
+func _pressed_option(index: int):
+	_pressed()
+	var op := options[index]
+	op.call.call()
 
 ```
 
-# res://examples_dd3d/demo_settings_panel.gd
+# res://scenes/widgits/interaction_label.gd
 ```gd
-@tool
-extends Control
+extends Widget
 
-@export var switch_to_scene = ""
-var is_ready := false
+@onready var label: RichTextLabel = %label
+var agent: Agent
+var interactive: Interactive
 
-func _ready():
-	if Engine.is_editor_hint():
-		return
-	
-	if ProjectSettings.has_setting("application/config/no_csharp_support"):
-		%SwitchLang.visible = false
-	
-	%SwitchLang.disabled = true
-	
-	%ThicknessSlider.value = get_parent().debug_thickness
-	%FrustumScaleSlider.value = get_parent().camera_frustum_scale
-	%UpdateInPhysics.text = "Update in physics (%d Ticks) *" % ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
-	%UpdateInPhysics.button_pressed = get_parent().update_in_physics
-	
-	%ShowText.button_pressed = get_parent().test_text
-	%ShowExamples.button_pressed = get_parent().text_groups_show_examples
-	%ShowStats.button_pressed = get_parent().text_groups_show_stats
-	%ShowHints.button_pressed = get_parent().text_groups_show_hints
-	%Draw3DText.button_pressed = get_parent().draw_3d_text
-	
-	%DrawBoxes.button_pressed = get_parent().draw_array_of_boxes
-	%Draw1MBoxes.button_pressed = get_parent().draw_1m_boxes
-	%DrawBoxesAddText.button_pressed = get_parent().draw_text_with_boxes
-	
-	if get_tree():
-		await get_tree().create_timer(0.2).timeout
-	
-	%SwitchLang.disabled = false
-	is_ready = true
+func _ready() -> void:
+	set_visible(false)
+	set_process(false)
 
+func set_agent(ag: Agent):
+	agent = ag
+	agent.interactive_changed.connect(_interactive_changed)
 
-func _on_Button_pressed() -> void:
-	get_tree().call_deferred("change_scene_to_file", switch_to_scene)
-
-
-func _on_hide_show_panel_pressed():
-	if %SettingsPanel.visible:
-		%SettingsPanel.hide()
-		%HideShowPanelButton.text = "Show panel"
+func _interactive_changed():
+	var inter := agent._interactive
+	if inter:
+		set_process(true)
+		label.text = inter.label
+		modulate.a = 0.0
+		visible = true
+		interactive = inter
+		UTween.parallel(self, { "modulate:a": 1.0 }, 0.2)
 	else:
-		%SettingsPanel.show()
-		%HideShowPanelButton.text = "Hide panel"
+		UTween.parallel(self, { "modulate:a": 0.0 }, 0.2)\
+			.finished.connect(func():
+				visible = false
+				interactive = null
+				set_process(false))
 
-
-func _on_thickness_slider_value_changed(value):
-	if not is_ready: return
+func _process(_delta: float) -> void:
+	if not interactive: return
+	var vp := Controllers.player.viewport
+	var cam := vp.get_camera_3d()
+	var pos_3d := interactive.global_position + interactive.label_world_space_offset
+	var pos := cam.unproject_position(pos_3d)
+	pos -= size * .5
+	pos.x = clampf(pos.x, 0.0, vp.size.x)
+	pos.y = clampf(pos.y, 0.0, vp.size.y)
+	position = pos
 	
-	get_parent().debug_thickness = value
-
-
-func _on_frustum_scale_slider_value_changed(value):
-	if not is_ready: return
-	
-	get_parent().camera_frustum_scale = value
-
-
-func _on_update_in_physics_toggled(toggled_on):
-	get_parent().update_in_physics = toggled_on
-
-
-func _on_show_text_toggled(toggled_on: bool) -> void:
-	get_parent().test_text = toggled_on
-
-
-func _on_show_examples_toggled(toggled_on: bool) -> void:
-	get_parent().text_groups_show_examples = toggled_on
-
-
-func _on_show_stats_toggled(toggled_on):
-	get_parent().text_groups_show_stats = toggled_on
-
-
-func _on_show_hints_toggled(toggled_on: bool) -> void:
-	get_parent().text_groups_show_hints = toggled_on
-
-
-func _on_draw_3d_text_toggled(toggled_on: bool) -> void:
-	get_parent().draw_3d_text = toggled_on
-
-
-func _on_draw_boxes_toggled(toggled_on):
-	get_parent().draw_array_of_boxes = toggled_on
-	
-	DebugDraw3D.clear_all()
-	get_parent().timer_cubes = 0
-
-
-func _on_draw_1m_boxes_toggled(toggled_on):
-	get_parent().draw_1m_boxes = toggled_on
-	
-	if get_parent().draw_array_of_boxes:
-		DebugDraw3D.clear_all()
-		get_parent().timer_cubes = 0
-
-
-func _on_add_text_to_boxes_toggled(toggled_on: bool) -> void:
-	get_parent().draw_text_with_boxes = toggled_on
 
 ```
 
-# res://examples_dd3d/demo_web_docs_version_select.gd
+# res://scenes/widgits/inventory.gd
 ```gd
-extends HBoxContainer
+extends Widget
 
-var _on_versions_loaded_callback = null
-@onready var btn: OptionButton = $OptionButton
+@onready var slot_parent: Control = %slots
+@onready var slot_prefab: Control = %slot_prefab
 
-func _enter_tree():
-	hide()
-
-
-func _ready():
-	if OS.has_feature('web'):
-		_on_versions_loaded_callback = JavaScriptBridge.create_callback(_on_versions_loaded)
-		var versions_callbacks: JavaScriptObject = JavaScriptBridge.get_interface("versions_callbacks")
-		versions_callbacks.loaded = _on_versions_loaded_callback
+func _ready() -> void:
+	slot_parent.remove_child(slot_prefab)
+	
+	await get_tree().process_frame
+	
+	var inv := Inventory.new()
+	inv.gain_everything()
+	
+	for item: InventoryItem in inv:
+		var btn: Control = slot_prefab.duplicate()
+		btn.name = item.item
+		btn.get_node("%label").text = item.item
+		slot_parent.add_child(btn)
 		
-		JavaScriptBridge.eval("loadVersions()")
+	slot_parent.selected.connect(_selected)
+	
+	if slot_parent.get_child_count() > 0:
+		(slot_parent.get_child(0) as Control).grab_focus.call_deferred()
 
-
-func _on_versions_loaded(args: Array) -> void:
-	if (args.size() == 0):
-		return
-	
-	var current_version: String = args[0]
-	
-	var versions_str: String = JavaScriptBridge.eval("versions_callbacks.versions;")
-	var version_urls_str: String = JavaScriptBridge.eval("versions_callbacks.version_urls;")
-	var versions: PackedStringArray = versions_str.split(";", false)
-	var version_urls: PackedStringArray = version_urls_str.split(";", false)
-	
-	if versions:
-		show()
-		btn.clear()
-		btn.item_selected.connect(func(idx):
-			# move to another version
-			JavaScriptBridge.eval("window.location.href = \"%s\"" % version_urls[idx])
-		)
-		
-		for i in range(versions.size()):
-			btn.add_item(versions[i], i)
-			
-			if versions[i] == current_version:
-				btn.select(i)
+func _selected(node: Node):
+	print(node)
+	Global.wait(1.5, get_tree().quit)
 
 ```
 
-# res://scenes/screens/main_menu.gd
+# res://scenes/widgits/main_menu.gd
 ```gd
 extends Node
 
@@ -10793,11 +12779,356 @@ func _ready() -> void:
 
 ```
 
+# res://scenes/widgits/menu_choice.gd
+```gd
+@tool
+class_name MenuChoiceButton extends TweeButton
+
+@export var choice: Dictionary: set=set_choice
+
+func set_choice(c):
+	choice = c
+	%label.text = choice.get(&"text", "NO_TEXT")
+	if &"icon" in choice:
+		pass
+	
+	var btn := as_button()
+	btn.size = %margin.size
+	btn.pivot_offset = btn.size * .5
+
+```
+
+# res://scenes/widgits/menu_widget.gd
+```gd
+@tool
+class_name MenuWidget extends Widget
+
+signal selected(choice: Dictionary)
+signal selected_index(index: int)
+
+@export var choices: Array: set=set_choices
+
+func get_choice_prefab() -> PackedScene:
+	return preload("uid://bl1wu7da5ih3s")
+
+func set_choices(c: Array) -> void:
+	var buttons: TweeButtonList = %choice_parent
+	buttons.clear()
+	
+	choices = c
+	
+	var index := 0
+	var choice_prefab := get_choice_prefab()
+	for choice in choices:
+		var node := choice_prefab.instantiate()
+		buttons.add_child(node)
+		node.name = "choice_%s" % index
+		node.choice = choice
+		index += 1
+
+func select() -> void:
+	var buttons: TweeButtonList = %choice_parent
+	if buttons.select():
+		print("closing")
+		selected.emit(choices[buttons.hovered])
+		selected_index.emit(buttons.hovered)
+		Global.wait(0.5, close)
+
+func _cinematic_step(gen: FlowPlayerGenerator, step: Dictionary) -> void:
+	var menu_choices: Array[Dictionary]
+	for substep in step.tabbed:
+		if "tabbed" in substep:
+			menu_choices.append({
+				"text": substep.text,
+				"anim": gen.add_branch_queued(substep.tabbed) })
+	
+	var count: int = gen.get_state(&"menu_count", 0)
+	gen.set_state(&"menu_count", count + 1)
+	
+	var t_choices := gen.add_track(self, "choices")
+	var t_visible := gen.add_track(self, "visible")
+	# Start hidden.
+	if count == 0:
+		gen.add_key(t_visible, 0.0, false)
+	gen.add_key(t_visible, gen.get_time(), true)
+	gen.add_key(t_choices, gen.get_time(), menu_choices)
+	gen.add_checkpoint()
+	gen.add_time()
+	gen.add_key(t_visible, gen.get_time(), false)
+
+```
+
+# res://scenes/widgits/quest_log.gd
+```gd
+extends Widget
+
+@onready var quest_list_parent: Container = %quest_list_parent
+@onready var quest_list_prefab: VBoxContainer = %quest_list_prefab
+@onready var quest_button_prefab: Container = %quest_button_prefab
+@onready var quest_info: RichTextLabel = %quest_info
+@onready var tick_prefab: Control = %tick_prefab
+@onready var tick_parent: Control = %tick_parent
+var quest: QuestInfo
+
+func _ready() -> void:
+	quest_button_prefab.get_parent().remove_child(quest_button_prefab)
+	quest_list_parent.remove_child(quest_list_prefab)
+	tick_parent.remove_child(tick_prefab)
+	
+	await get_tree().process_frame
+	
+	for q: QuestInfo in State.quests:
+		q.changed.connect(_refresh)
+		for tick_id in q.ticks:
+			q.ticks[tick_id].changed.connect(_refresh)
+	
+	_refresh()
+	_select_quest(State.quests._objects.values()[0])
+
+func is_pauser() -> bool: return true
+
+func _refresh():
+	_refresh_quest_list()
+	_refresh_quest_info()
+
+func _refresh_quest_list():
+	var quest_lists := {}
+	
+	for child in quest_list_parent.get_children():
+		quest_list_parent.remove_child(child)
+		child.queue_free()
+	
+	for q: QuestInfo in State.quests:
+		var state: StringName = QuestInfo.QuestState.keys()[q.state]
+		if not state in quest_lists:
+			var list := quest_list_prefab.duplicate()
+			quest_list_parent.add_child(list)
+			list.get_node("label").text = state
+			quest_lists[state] = list
+		
+		var quest_button: Node = quest_button_prefab.duplicate()
+		quest_lists[state].get_node("list").add_child(quest_button)
+		var btn := quest_button.get_node("button")
+		btn.name = q.id
+		btn.text = q.name
+		btn.modulate = QuestInfo.get_state_color(q.state)
+		btn.pressed.connect(_select_quest.bind(q))
+
+func _refresh_quest_info():
+	UNode.remove_children(tick_parent)
+	
+	if quest:
+		quest_info.text = "%s\n[i]%s" % [quest.name, quest.desc]
+		
+		for tick_id: StringName in quest.ticks:
+			var tick := quest.ticks[tick_id]
+			var tk := tick_prefab.duplicate()
+			tick_parent.add_child(tk)
+			tk.text = "%s/%s %s" % [tick.tick, tick.max_ticks, tick.name]
+			tk.modulate = QuestInfo.get_state_color(tick.state)
+	else:
+		quest_info.text = ""
+
+func _select_quest(q: QuestInfo):
+	print("Selected quest ", q)
+	quest = q
+	_refresh_quest_info()
+
+#func _descend(quest: Quest):
+	#for goal in quest:
+		#quest_info.text += "\t[i]%s[/i]: [i]%s[/i]\n" % [goal.name, goal.desc]
+		#_descend(goal)
+
+```
+
+# res://scenes/widgits/radial_menu.gd
+```gd
+@tool
+class_name RadialMenu extends MenuWidget
+
+enum InputMode { KEYBOARD, MOUSE, GAME_PAD }
+
+@export var radius := 120.0 ## How far to keep buttons from each other.
+@export var input_mode := InputMode.MOUSE
+@export var mouse_deadzone: float = 5.0 # Pixels; ignore small movements
+@export var mouse_sensitivity: float = 1.0 # Scale delta for snappier feel
+@export_range(-PI, PI, 0.01, "radians_as_degrees") var rotation_offset := 0.0
+
+var spacing: float:
+	get: return TAU / float(choices.size())
+
+func _unhandled_input(event: InputEvent) -> void:
+	super(event)
+	var cont := get_controller()
+	var buttons: TweeButtonList = %choice_parent
+	
+	if cont.is_action_pressed(&"interact"):
+		select()
+	
+	match input_mode:
+		InputMode.KEYBOARD:
+			if cont.is_action_pressed(&"move_left"):
+				buttons.hovered -= 1
+			elif cont.is_action_pressed(&"move_right"):
+				buttons.hovered += 1
+		
+		InputMode.MOUSE:
+			if event is InputEventMouseMotion:
+				var delta: Vector2 = event.relative * mouse_sensitivity 
+				if delta.length() < mouse_deadzone:
+					return
+				var mouse_dir := delta.normalized()
+				var mouse_angle := mouse_dir.angle()
+				var closest_index := 0
+				var min_diff := INF
+				for i in choices.size():
+					var angle := i * spacing + rotation_offset
+					var diff := absf(angle_difference(mouse_angle, angle))
+					if diff < min_diff:
+						min_diff = diff
+						closest_index = i
+				buttons.hovered = closest_index
+		
+		InputMode.GAME_PAD:
+			Global.warn("RadialMenu", "Gamepad not implemented.")
+
+func set_choices(c: Array) -> void:
+	super(c)
+	
+	var buttons: TweeButtonList = %choice_parent
+	for i in choices.size():
+		var angle := i * spacing + rotation_offset
+		var distance := radius
+		var node := buttons.buttons[i]
+		node.position = Vector2(cos(angle), sin(angle)) * distance\
+			- node.size * .5
+
+```
+
+# res://scenes/widgits/simple_toast.gd
+```gd
+extends PanelContainer
+
+signal finished()
+
+@export var mono := false ## Only one can show at a time.
+@export var v_align := VERTICAL_ALIGNMENT_TOP
+@export var h_align := HORIZONTAL_ALIGNMENT_RIGHT
+@export var data: Dictionary: set=set_data
+var _tween: Tween
+
+func _enter_tree() -> void:
+	modulate.a = 0.0
+	_tween = create_tween()
+	_tween.set_trans(Tween.TRANS_SINE)
+	_tween.tween_property(self, "modulate:a", 1.0, 0.5)
+	_tween.tween_interval(2.0)
+	_tween.tween_property(self, "modulate:a", 0.0, 0.2)
+	_tween.tween_callback(finished.emit)
+
+func set_data(d: Dictionary):
+	data = d
+	%label.text = data.get(&"text", "NO TEXT")
+	%icon.texture = load(data.get(&"icon", "res://icon.svg"))
+
+```
+
+# res://scenes/widgits/toast_manager.gd
+```gd
+extends Widget
+
+var _active: Dictionary[StringName, Array]
+var _queued: Dictionary[StringName, Array]
+
+func _ready() -> void:
+	State.TOAST.connect_to(_event)
+
+func _event(ev: Event) -> void:
+	if not ev == State.TOAST: return
+	var type: StringName = ev.get_str_name(&"type")
+	#var player: int = ev.get_int(&"player")
+	var data: Dictionary = ev.get_dict(&"data")
+	
+	var toast := Assets.create_scene(type, null, { data=data })
+	var mono: bool = toast.mono
+	if mono:
+		if type in _active and _active[type].size() > 0:
+			_queued[type].append(toast)
+		else:
+			_show_toast(toast, type)
+	else:
+		_show_toast(toast, type)
+
+func _show_toast(toast: Control, type: StringName):
+	add_child(toast)
+	if not type in _active:
+		_active[type] = []
+	_active[type].append(toast)
+	var h_align: HorizontalAlignment = toast.h_align
+	toast.position = Global.view_size - toast.size - Vector2(8, 8)
+	match h_align:
+		HORIZONTAL_ALIGNMENT_RIGHT:
+			toast.position.y = 0.0
+			for other in _active[type]:
+				if other == toast: continue
+				other.position.y += toast.size.y + 8
+	var v_align: VerticalAlignment = toast.v_align
+	match v_align:
+		VERTICAL_ALIGNMENT_BOTTOM:
+			toast.position.x = 0.0
+	
+	toast.finished.connect(_hide_toast.bind(toast, type))
+
+func _hide_toast(toast: Control, type: StringName):
+	remove_child(toast)
+	toast.queue_free()
+	_active[type].erase(toast)
+	
+	if type in _queued and _queued[type].size() > 0:
+		var next_toast: Control = _queued[type].pop_front()
+		_show_toast(next_toast, type)
+
+```
+
+# res://scenes/widgits/transition.gd
+```gd
+@tool
+class_name Transition extends ColorRect
+
+@export var fade_duration := 0.5
+@export_range(0.0, 1.0, 0.01) var amount := 0.0: set=set_amount
+var _tween: Tween
+
+func set_amount(a: float):
+	amount = a
+	modulate.a = amount
+
+func fade_out(duration := fade_duration) -> Signal:
+	if _tween: _tween.kill()
+	_tween = create_tween()
+	_tween.tween_property(self, ^"amount", 1.0, duration)\
+		.set_trans(Tween.TRANS_SINE)
+	return _tween.finished
+
+func fade_in(duration := fade_duration) -> Signal:
+	if _tween: _tween.kill()
+	_tween = create_tween()
+	_tween.tween_property(self, ^"amount", 0.0, duration)\
+		.set_trans(Tween.TRANS_SINE)
+	return _tween.finished
+
+```
+
 # res://scripts/autoloads/assets.gd
 ```gd
+@tool
 extends Node
 
-var assets: AssetsDB
+var assets: AssetsDB:
+	get:
+		if not assets:
+			assets = load("res://assets/assets.tres")
+		return assets
 
 func _init() -> void:
 	assets = load("res://assets/assets.tres")
@@ -10819,11 +13150,11 @@ func create_audio_player(id: StringName) -> Node:
 	player.stream = stream
 	return player
 
-func create_prefab(id: StringName, parent: Variant = null, props := {}) -> Node:
-	if not id in assets.prefabs:
-		push_error("No %s in prefabs. %s." % [id, assets.prefabs.values()])
+func create_scene(id: StringName, parent: Variant = null, props := {}) -> Node:
+	if not id in assets.scenes:
+		push_error("No %s in scenes. %s." % [id, assets.scenes.values()])
 		return null
-	var full_path := "res://scenes/prefabs".path_join(assets.prefabs[id])
+	var full_path := "res://scenes".path_join(assets.scenes[id])
 	var node: Node = load(full_path).instantiate()
 	node.name = id
 	
@@ -10868,6 +13199,7 @@ func _ready() -> void:
 ```gd
 extends Node
 
+signal event(id: StringName, data: Variant)
 signal started()
 signal ended()
 
@@ -10875,13 +13207,15 @@ var _queue: Array[Array]
 var _current: FlowPlayer
 var _state: Dictionary[StringName, Variant]
 
+func _event(id: StringName, data: Variant):
+	event.emit(id, data)
+
 func queue(scene: Variant, state: Dictionary[StringName, Variant] = {}):
 	if is_playing():
 		_queue.append([scene, state])
 	else:
-		print("CINEMA STARTED")
-		get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
 		started.emit()
+		State.add_pauser(self)
 		_play(scene, state)
 
 func _play(scene: Variant, state: Dictionary[StringName, Variant]):
@@ -10901,7 +13235,7 @@ func _play(scene: Variant, state: Dictionary[StringName, Variant]):
 	_current.play(id + "/ROOT")
 
 func _cinematic_ended():
-	ended.emit()
+	print("CINEMA ENDED ", _current, " QUEUE ", _queue)
 	remove_child(_current)
 	_current.queue_free()
 	_current = null
@@ -10909,9 +13243,8 @@ func _cinematic_ended():
 		var next: Array = _queue.pop_front()
 		_play(next[0], next[1])
 	else:
-		get_tree().current_scene.process_mode = Node.PROCESS_MODE_INHERIT
+		State.remove_pauser(self)
 		ended.emit()
-		print("CINEMA ENDED")
 
 func is_playing() -> bool:
 	return _current != null
@@ -10969,7 +13302,13 @@ func _ready() -> void:
 	_toggle_1_player()
 	
 	get_tree().current_scene.get_viewport().disable_3d = true
-	
+
+func get_player(index: int) -> ControllerPlayer:
+	match index:
+		0: return player
+		1: return player2
+	return null
+
 func _toggle_1_player():
 	player.visible = true
 	player.set_size.call_deferred(size)
@@ -11080,6 +13419,7 @@ func _input(event: InputEvent) -> void:
 
 # res://scripts/autoloads/global.gd
 ```gd
+@tool
 extends Node
 
 var view_size: Vector2:
@@ -11091,7 +13431,7 @@ func wait(time: float, method: Callable) -> Signal:
 	return sig
 
 func change_scene(next_scene: Variant):
-	var trans := Assets.create_prefab(&"transition", self)
+	var trans := Assets.create_scene(&"transition", self)
 	await trans.fade_out()
 	if next_scene is PackedScene:
 		get_tree().change_scene_to_packed(next_scene)
@@ -11142,7 +13482,7 @@ func disable(id: StringName):
 	if id in enabled: enabled.erase(id)
 
 func get_enabled() -> Array[ModInfo]:
-	return [load("res://assets/mods/main/mymod.tres")]
+	return [load("res://assets/mods/main.tres")]
 
 ```
 
@@ -11164,13 +13504,13 @@ func play_queued(_id: StringName):
 ```gd
 extends Node
 
-@export var achievements: AchievementDB
-@export var unlocks: VarDB
+@export var awards: AwardDB
+@export var unlocks: StatDB
 @export var donor := false ## Donated to development?
 
 func _ready() -> void:
-	achievements = AchievementDB.new()
-	unlocks = VarDB.new()
+	awards = AwardDB.new()
+	unlocks = StatDB.new()
 	
 	unlocks.add_flag(&"start_mall") # Alloow starting in the mall.
 	unlocks.add_flag(&"start_costco") # Allow spawning in costco.
@@ -11255,117 +13595,6 @@ func close(id: StringName):
 ```gd
 extends StateBase
 
-### Handles state of world in a way where non-loaded content can be set/get.
-#
-#@warning_ignore("unused_signal") signal event(event: Event)
-#
-#var ZONE_ENTERED := Event.new({ zone=ZoneInfo, who=CharInfo }, event)
-#var ZONE_EXITED := Event.new({ zone=ZoneInfo, who=CharInfo }, event)
-#var QUEST_STARTED := Event.new({ quest=QuestInfo }, event)
-#var QUEST_TICKED := Event.new({ quest=QuestInfo }, event)
-#
-#@export var objects: StateObjects
-#@export var _conditions_errored: Array[StringName]
-#@export var _conditions_script: GDScript
-#var dbs: Array[Database]
-#
-#func _ready() -> void:
-	#reload()
-	#
-	#var items := objects.items
-	#items.add(&"apple", "Apple")
-	#items.add(&"pear", "Pear")
-	#items.add(&"pineapple", "Pineapple")
-	#items.add(&"banana", "Banana")
-	#items.add(&"grape", "Grape")
-	#items.add(&"peach", "Peach")
-	#items.add(&"watermelon", "Watermelon")
-	#items.add(&"kiwi", "Kiwi")
-	#items.add(&"strawberry", "Strawberry")
-	#items.add(&"orange", "Orange")
-	#
-	##var quests := objects.quests
-	##var q := QuestInfo.new()
-	##quests._add("q1", q)
-	##q.name = "First Quest"
-	##var tick1 := QuestTick.new()
-	##q.ticks.append(tick1)
-	##tick1.id = "find_apples"
-	##tick1.name = "Find Apples"
-	##var tick2 := QuestTick.new()
-	##q.ticks.append(tick2)
-	##tick2.id = "find_bananas"
-	##tick2.name = "Find Bananas"
-	#
-	##var q2 := QuestInfo.new()
-	##quests._add("q2", q2)
-	##q2.name = "2nd Quest"
-	##var qtick := QuestTick.new()
-	##qtick.name = "Kill Enemy"
-	##q2.ticks.append(qtick)
-#
-#func reload():
-	#objects = StateObjects.new()
-	#dbs = objects.get_dbs()
-	#_conditions_script = GDScript.new()
-	#_conditions_errored.clear()
-	#
-	#var mods := Mods.get_enabled()
-	#var vars := []
-	#
-	#for mod: ModInfo in mods:
-		## Compile conditions script.
-		#_conditions_script.source_code += mod._debug_gdscript.source_code + "\n"
-		## Add items.
-		#for prop in StateObjects.ORDER:
-			#var db1: Database = objects[prop]
-			#var db2: Database = mod[prop]
-			#db1.merge(db2)
-		## Collect unique variables used in conditions script.
-		#for v in mod._debug_vars:
-			#if not v in vars:
-				#vars.append([v, mod._debug_vars[v]])
-	#
-	## For variables that don't exist in any database, block their functions.
-	#for v in vars:
-		#if not v[0] in self:
-			#push_error("No property %s in state. Ignoring: %s." % [v[0], ",".join(v[1])])
-			#_conditions_errored.append_array(v[1])
-	#
-	#for db in dbs:
-		#db.connect_signals()
-	#
-	#Global.msg("State", "Reloaded", [objects.get_counts_string()])
-#
-#func find_char(id: StringName) -> CharInfo: return objects.chars.find(id)
-#func find_item(id: StringName) -> ItemInfo: return objects.items.find(id)
-#func find_zone(id: StringName) -> ItemInfo: return objects.zones.find(id)
-#func find_equipment_slot(id: StringName) -> EquipmentSlotInfo: return objects.equipment_slots.find(id)
-#func find_attribute(id: StringName) -> AttributeInfo: return objects.attributes.find(id)
-#func find_quest(id: StringName) -> QuestInfo: return objects.quests.find(id)
-#
-#func test_condition(condition_method: StringName) -> bool:
-	#if not _conditions_script.has_method(condition_method):
-		#push_error("No condition method %s." % condition_method)
-		#return false
-	#if condition_method in _conditions_errored:
-		#push_error("Skipping %s as it has non-existing variables." % [condition_method])
-		#return false
-	#return _conditions_script.call(condition_method)
-	#
-#func _get(property: StringName) -> Variant:
-	#for db in dbs:
-		#if db.has(property):
-			#return db.get(property)
-	#return null
-#
-#func _set(property: StringName, value: Variant) -> bool:
-	#for db in dbs:
-		#if db.has(property):
-			#db.set(property, value)
-			#return true
-	#return false
-
 ```
 
 # res://scripts/autoloads/state_base.gd
@@ -11373,18 +13602,73 @@ extends StateBase
 @abstract class_name StateBase extends Node
 ## Handles state of world in a way where non-loaded content can be set/get.
 
+signal paused()
+signal unpaused()
 @warning_ignore("unused_signal") signal event(event: Event)
 
-var ZONE_ENTERED := Event.new({ zone=ZoneInfo, who=CharInfo })
-var ZONE_EXITED := Event.new({ zone=ZoneInfo, who=CharInfo })
-var QUEST_STARTED := Event.new({ quest=QuestInfo })
-var QUEST_TICKED := Event.new({ quest=QuestInfo })
-var ACHIEVEMENT := Event.new({ achievement=AchievementInfo })
+class PawnEvent extends Event:
+	var pawn: Pawn
+	var posessed: Pawn
+	var controller: Controller
 
-var TOAST := Event.new({ type=TYPE_STRING_NAME, player=TYPE_INT, data=TYPE_DICTIONARY })
+class QuestEvent extends Event:
+	var quest: QuestInfo
+
+class CharEvent extends Event:
+	var who: CharInfo
+
+class ZoneEvent extends Event:
+	var zone: ZoneInfo
+	var who: CharInfo
+
+class QuestTickEvent extends QuestEvent:
+	var tick: QuestTick
+
+class ToastEvent extends Event:
+	var type: StringName
+	var player: int
+	var icon: String
+	var title: String
+	var subtitle: String
+	var data: Dictionary[StringName, Variant]
+
+class StatEvent extends Event:
+	var stat: StatInfo
+	var old: Variant
+	var new: Variant
+	func is_decreased() -> bool: return new < old
+	func is_increased() -> bool: return new > old
+	func is_reset() -> bool: return new == stat.default
+
+class AwardEvent extends Event:
+	var award: AwardInfo
+
+#region Events.
+var PAWN_ENTERED := PawnEvent.new()
+var PAWN_EXITED := PawnEvent.new()
+
+var ZONE_ENTERED := ZoneEvent.new()
+var ZONE_EXITED := ZoneEvent.new()
+
+var STAT_CHANGED := StatEvent.new()
+
+var QUEST_STARTED := QuestEvent.new()
+var QUEST_TICKED := QuestTickEvent.new()
+var QUEST_TICK_COMPLETED := QuestTickEvent.new()
+var QUEST_TICK_PASSED := QuestTickEvent.new()
+var QUEST_TICK_FAILED := QuestTickEvent.new()
+var QUEST_PASSED := QuestEvent.new()
+var QUEST_FAILED := QuestEvent.new()
+
+var AWARD_UNLOCKED := AwardEvent.new()
+var AWARD_PROGRESSED := AwardEvent.new()
+
+var TOAST := ToastEvent.new()
+#endregion
 
 @export var objects: StateObjects
 var dbs: Array[Database]
+var _pausers: Array[Object]
 
 var chars: CharDB:
 	get: return objects.chars
@@ -11392,6 +13676,8 @@ var items: ItemDB:
 	get: return objects.items
 var zones: ZoneDB:
 	get: return objects.zones
+var stats: StatDB:
+	get: return objects.stats
 var quests: QuestDB:
 	get: return objects.quests
 
@@ -11401,36 +13687,86 @@ func _init() -> void:
 	if get_script().resource_path == "res://_state_.gd":
 		_true_reload()
 
+#╒─══════──═─══☰☰☰☰☰☰☰═☰[░░░░]☰☰☰☰☰☰☰☰☰══─═──════─══╕
+const LOGO := r"""
+⌡╭─╮┌─╮╮ ╷╭─╮╭─╮╭─╴╮ ╷  ┌─╴┌─╮╭─╮╭┬╮╭─╴╮╷╷╭─╮┌─╮╷ ╷⌡
+ │ │≈ │╰┼╯╰─╮╰─╮├─ ╰┼╯  ├─ ├┬╯├─┤│││├─ ││││ │├┬╯├┬╯
+⌠╰─╯└─╯ ╵ ╰─╯╰─╯╰─╴ ╵   ╵  ╵╰╴╯ ╵╵╵╵╰─╴╰┴╯╰─╯╵╰╴╯╰ ⌠
+╘══════──═─═══════☰═☰(◟ v{version} ◝)☰═☰═════─═─═════════╛
+"""
+
+func print_logo() -> void:
+	var c1 := Color.DEEP_SKY_BLUE
+	var c2 := Color.GOLDENROD
+	var logo := ""
+	for row in LOGO.format({version="0.1"}).trim_prefix("\n").trim_suffix("\n").split("\n"):
+		var i := 0
+		for col in row:
+			logo += "[color=#%s]%s[/color]" % [c1.lerp(c2, i / 54.0).to_html(), col]
+			i += 1
+		logo += "\n"
+	print_rich(logo)
+
 func _ready() -> void:
+	print_logo()
 	reload()
 
+func add_pauser(obj: Object):
+	if obj in _pausers: return
+	_pausers.append(obj)
+	if _pausers.size() == 1:
+		_pause.call_deferred()
+
+func remove_pauser(obj: Object):
+	if not obj in _pausers: return
+	_pausers.erase(obj)
+	if _pausers.size() == 0:
+		_unpause.call_deferred()
+
+func _pause():
+	get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	paused.emit()
+	
+func _unpause():
+	get_tree().current_scene.process_mode = Node.PROCESS_MODE_INHERIT
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	unpaused.emit()
+
 func reload():
+	objects = StateObjects.new()
+	
 	var mods := Mods.get_enabled()
-	var vars := []
 	var code := []
 	
-	var score := VarInfo.new()
+	var score := StatInfo.new()
 	score.default = 0
 	score.value = 0
-	mods[0].vars._add("score", score)
+	mods[0].stats._add("score", score)
 	
 	for mod: ModInfo in mods:
 		# Compile conditions script.
-		code.append_array(mod._script_exprs)
-		code.append_array(mod._script_conds)
-	
-		for db_id in StateObjects.ORDER:
-			var db: Database = mod[db_id]
+		for meth_name in mod._script_exprs:
+			code.append("func %s() -> void: %s" % [meth_name, mod._script_exprs[meth_name]])
+		for meth_name in mod._script_conds:
+			var cond := mod._script_conds[meth_name]
+			if not cond: cond = "true" # TODO: Fix.
+			code.append("func %s() -> bool: return %s" % [meth_name, cond])
+		
+		#prints(mod.mod_name, mod.mod_version, len(mod._script_exprs), len(mod._script_conds))
+		
+		for db in mod.get_dbs():
+			var db_id := UObj.get_class_name(db).trim_suffix("DB").to_snake_case().to_lower() + "s"
 			code.append("\n####\n## %s x%s\n####" % [db_id.to_upper(), db.size()])
 			for obj in db:
 				var prop_id: String = obj.id.replace("#", "__")
 				if "#" in obj.id: continue
-				if obj is VarInfo:
+				if obj is StatInfo:
 					var prop_type: String = type_string(typeof(obj.default))
-					code.append("var %s: %s:\n\tget: return objects.%s[&\"%s\"].value\n\tset(v): objects.%s[&\"%s\"].value = v" % [prop_id, prop_type, db_id, obj.id, db_id, obj.id])
+					code.append("var %s: %s:\n\tget: return %s[&\"%s\"].value\n\tset(v): %s[&\"%s\"].value = v" % [prop_id, prop_type, db_id, obj.id, db_id, obj.id])
 				else:
-					var prop_class: String = obj.get_class_name()
-					code.append("var %s: %s:\n\tget: return objects.%s[&\"%s\"]" % [prop_id, prop_class, db_id, obj.id])
+					var prop_class: String = UObj.get_class_name(obj)
+					code.append("var %s: %s:\n\tget: return %s[&\"%s\"]" % [prop_id, prop_class, db_id, obj.id])
 	
 	var scr := GDScript.new()
 	code = [
@@ -11443,20 +13779,27 @@ func reload():
 	ResourceSaver.save(scr, "res://_state_.gd")
 	set_script.call_deferred(load("res://_state_.gd"))
 	
-	for db in dbs:
-		db.connect_signals()
-	
-	Global.msg("Changing script...")
+	Global.msg("State", "Reloading script...")
 
 func _true_reload():
 	objects = StateObjects.new()
 	dbs = objects.get_dbs()
+	
 	var mods := Mods.get_enabled()
 	for mod in mods:
-		for prop in StateObjects.ORDER:
-			var db1: Database = objects[prop]
-			var db2: Database = mod[prop]
-			db1.merge(db2)
+		var mod_dbs := mod.get_dbs()
+		for i in dbs.size():
+			dbs[i].merge(mod_dbs[i])
+	
+	for db in dbs:
+		db.connect_signals()
+	
+	# Pass Events their variable name.
+	for prop in get_property_list():
+		if UBit.is_enabled(prop.usage, PROPERTY_USAGE_SCRIPT_VARIABLE):
+			if prop.type == TYPE_OBJECT and self[prop.name] is Event:
+				self[prop.name].id = prop.name
+	
 	Global.msg("State", "Reloaded", [objects.get_counts_string()])
 	
 func find_char(id: StringName) -> CharInfo: return objects.chars.find(id)
@@ -11465,15 +13808,6 @@ func find_zone(id: StringName) -> ItemInfo: return objects.zones.find(id)
 func find_equipment_slot(id: StringName) -> EquipmentSlotInfo: return objects.equipment_slots.find(id)
 func find_attribute(id: StringName) -> AttributeInfo: return objects.attributes.find(id)
 func find_quest(id: StringName) -> QuestInfo: return objects.quests.find(id)
-
-#func test_condition(condition_method: StringName) -> bool:
-	#if not _conditions_script.has_method(condition_method):
-		#push_error("No condition method %s." % condition_method)
-		#return false
-	#if condition_method in _conditions_errored:
-		#push_error("Skipping %s as it has non-existing variables." % [condition_method])
-		#return false
-	#return _conditions_script.call(condition_method)
 	
 func _get(property: StringName) -> Variant:
 	for db in dbs:
@@ -11498,6 +13832,41 @@ enum Mode { FIRST_PERSON, THIRD_PERSON }
 
 static func set_mode(mode: Mode):
 	print(mode)
+
+```
+
+# res://scripts/editor/REBUILD_ASSET_DB.gd
+```gd
+@tool
+class_name EditorRebuildAssetDB extends EditorScript
+
+func _run() -> void:
+	var ass := AssetsDB.new()
+	ass.reload()
+	ResourceSaver.save(ass, "res://assets/assets.tres")
+	EditorInterface.get_resource_filesystem().scan()
+	EditorInterface.get_resource_filesystem().update_file("res://assets/assets.tres")
+	EditorInterface.get_resource_filesystem().reimport_files(["res://assets/assets.tres"])
+
+```
+
+# res://scripts/editor/REBUILD_MODS.gd
+```gd
+@tool
+class_name EditorRebuildMods extends EditorScript
+
+const MOD_DIR := "res://assets/mods"
+
+func _run() -> void:
+	for dir in DirAccess.get_directories_at(MOD_DIR):
+		var mod := ModInfo.new()
+		mod.load_dir(MOD_DIR.path_join(dir))
+		var res_path := MOD_DIR.path_join(dir + ".tres")
+		ResourceSaver.save(mod, res_path)
+		var fs := EditorInterface.get_resource_filesystem()
+		fs.scan.call_deferred()
+		fs.update_file.call_deferred(res_path)
+		fs.reimport_files.call_deferred([res_path])
 
 ```
 
@@ -12010,12 +14379,12 @@ class_name CameraTopDown extends CameraTarget
 
 @onready var cursor: MeshInstance3D = %cursor
 
-func _enter_tree() -> void:
-	make_current()
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
-func _exit_tree() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+#func _enter_tree() -> void:
+	#make_current()
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+#
+#func _exit_tree() -> void:
+	#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 #func _process(delta: float) -> void:
 	#var move := _c.get_move_vector()
@@ -12080,7 +14449,6 @@ enum ViewState { None, FirstPerson, ThirdPerson, TopDown }
 @onready var camera_master: CameraMaster = %camera_master
 var input_remap: Dictionary[StringName, StringName] # TODO: Move to some global area?
 var _widgits: Dictionary[StringName, Widget]
-var _pausers: Array[Widget]
 var _event: InputEvent
 var _focused_control: Control
 
@@ -12115,44 +14483,32 @@ func get_move_vector_camera() -> Vector2:
 func is_widgit_visible(id: StringName) -> bool:
 	return id in _widgits
 
-func toggle_widgit(id: StringName) -> Node:
+func toggle_widgit(id: StringName, props := {}) -> Node:
 	if is_widgit_visible(id):
 		hide_widgit(id)
 		return null
 	else:
-		return show_widgit(id)
+		return show_widgit(id, props)
 
 func show_widgit(id: StringName, props := {}) -> Widget:
 	var widgit: Widget = _widgits.get(id)
 	if not widgit:
-		widgit = Assets.create_prefab(id, self, props)
-		if widgit.is_pauser() and not widgit in _pausers:
-			_pausers.append(widgit)
-			if _pausers.size() == 1:
-				pause()
+		widgit = Assets.create_scene(id, self, props)
+		if widgit.is_pauser():
+			State.add_pauser(widgit)
 		_widgits[id] = widgit
 	return widgit
 
 func hide_widgit(id: StringName) -> bool:
 	var widgit: Widget = _widgits.get(id)
 	if widgit:
-		if widgit in _pausers:
-			_pausers.erase(widgit)
-			if _pausers.size() == 0:
-				unpause()
+		if widgit.is_pauser():
+			State.remove_pauser(widgit)
 		remove_child(widgit)
 		widgit.queue_free()
 		_widgits.erase(id)
 		return true
 	return false
-
-func pause():
-	get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-
-func unpause():
-	get_tree().current_scene.process_mode = Node.PROCESS_MODE_INHERIT
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func is_action_pressed(action: StringName, allow_echo := false, exact_match := false) -> bool:
 	return _event.is_action_pressed(input_remap.get(action, action), allow_echo, exact_match)
@@ -12277,7 +14633,7 @@ func _body_shape_exited(b):
 class_name DetectableSound extends Area3D
 
 static func create(sound: StringName, at: Vector3, distance := 5.0, duration := 1.0) -> DetectableSound:
-	var node: DetectableSound = Assets.create_prefab(&"detectable_sound")
+	var node: DetectableSound = Assets.create_scene(&"detectable_sound")
 	Global.get_tree().current_scene.add_child(node)
 	node.name = "detsound_" + sound
 	node.global_position = at
@@ -12442,46 +14798,6 @@ extends Node3D
 		#pass
 	#else:
 		#mount.controllable = con
-
-```
-
-# res://scripts/nodes/event_area.gd
-```gd
-extends Area3D
-
-@export var trigger_zone := true
-@export var zone_id: StringName
-
-@export var toast_on_enter := true
-@export var toast_on_exit := false
-
-func _ready() -> void:
-	body_entered.connect(_body_entered)
-	body_exited.connect(_body_exited)
-
-func _body_entered(body: Node3D):
-	if not body is Agent: return
-	var agent: Agent = body
-	if trigger_zone and zone_id:
-		var zone := State.find_zone(zone_id)
-		var who := agent.char_info
-		if not zone or not who: return
-		State.ZONE_ENTERED.emit({ zone=zone, who=who })
-		if toast_on_enter:
-			var msg := "%s entered %s" % [who.name, zone.name]
-			State.TOAST.emit({ type="simple_toast", data={text=msg} })
-
-func _body_exited(body: Node3D):
-	if not body is Agent: return
-	var agent: Agent = body
-	if trigger_zone and zone_id:
-		var zone := State.find_zone(zone_id)
-		var who := agent.char_info
-		if not zone or not who: return
-		State.ZONE_EXITED.emit({ zone=zone, who=who }) 
-		if toast_on_exit:
-			var msg := "%s exited %s" % [who.name, zone.name]
-			State.TOAST.emit({ type="simple_toast", data={text=msg} })
 
 ```
 
@@ -12926,7 +15242,7 @@ class_name Marker extends Node3D
 	#visibility_changed.connect(func(): (Controllers.EV_SHOW_MARKER if visible else Controllers.EV_HIDE_MARKER).emit(self))
 	#tree_entered.connect(Controllers.EV_SHOW_MARKER.emit.bind(self))
 	#tree_exited.connect(Controllers.EV_HIDE_MARKER.emit.bind(self))
-	#Controllers.EV_SHOW_MARKER.emit.call_deferred(self)
+	#Controllers.EV_SHOW_MARKER.fire.call_deferred(self)
 
 ```
 
@@ -13493,35 +15809,6 @@ func _execute_script(expr: String):
 
 ```
 
-# res://scripts/nodes/transition.gd
-```gd
-@tool
-class_name Transition extends ColorRect
-
-@export var fade_duration := 0.5
-@export_range(0.0, 1.0, 0.01) var amount := 0.0: set=set_amount
-var _tween: Tween
-
-func set_amount(a: float):
-	amount = a
-	modulate.a = amount
-
-func fade_out(duration := fade_duration) -> Signal:
-	if _tween: _tween.kill()
-	_tween = create_tween()
-	_tween.tween_property(self, ^"amount", 1.0, duration)\
-		.set_trans(Tween.TRANS_SINE)
-	return _tween.finished
-
-func fade_in(duration := fade_duration) -> Signal:
-	if _tween: _tween.kill()
-	_tween = create_tween()
-	_tween.tween_property(self, ^"amount", 0.0, duration)\
-		.set_trans(Tween.TRANS_SINE)
-	return _tween.finished
-
-```
-
 # res://scripts/nodes/vehicle.gd
 ```gd
 class_name Vehicle extends VehicleBody3D
@@ -13544,7 +15831,9 @@ func brake_stop():
 
 # res://scripts/nodes/widget.gd
 ```gd
-class_name Widget extends Control
+@abstract class_name Widget extends Control
+
+var player_index := 0
 
 ## Is only one allowed.
 func is_exclusive() -> bool: return true
@@ -13555,16 +15844,74 @@ func is_pauser() -> bool: return false
 ## Will stay visible when a cinematic is playing. (Captions, Choice Menu...)
 func is_visible_in_cinematic() -> bool: return false
 
-func close():
-	pass
+func close() -> void:
+	Controllers.get_player(player_index).hide_widgit(name)
 
-## Used by FlowPlayerGenerator.
+func get_controller() -> ControllerPlayer:
+	return Controllers.get_player(player_index)
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	get_controller()._event = event
+
+## Used by FlowPlayerGenerator to create keyframes.
 func _cinematic_step(_gen: FlowPlayerGenerator, _step: Dictionary) -> void:
 	pass
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action(&"exit"):
 		(get_parent() as ControllerPlayer).hide_widgit(name)
+
+```
+
+# res://scripts/nodes/zone_area_node.gd
+```gd
+extends Area3D
+
+@export var trigger_zone := true
+@export var zone_id: StringName
+
+@export var toast_on_enter := true
+@export var toast_on_exit := false
+
+var bodies: Array[Node3D]
+var disabled := false
+
+func _ready() -> void:
+	body_entered.connect(_body_entered)
+	body_exited.connect(_body_exited)
+
+func _body_entered(body: Node3D):
+	if disabled: return
+	disabled = true
+	Global.wait(3.0, func(): disabled = false)
+	
+	if not body is Agent: return
+	if body in bodies: return
+	bodies.append(body)
+	var agent: Agent = body
+	if trigger_zone and zone_id:
+		var zone := State.find_zone(zone_id)
+		var who := agent.char_info
+		if not zone or not who: return
+		State.ZONE_ENTERED.fire({ zone=zone, who=who })
+		var msg := "%s entered %s" % [who.name, zone.name]
+		print(msg)
+		if toast_on_enter:
+			State.TOAST.fire({ type="simple_toast", data={text=msg} })
+		
+func _body_exited(body: Node3D):
+	if not body is Agent: return
+	if not body in bodies: return
+	bodies.erase(body)
+	var agent: Agent = body
+	if trigger_zone and zone_id:
+		var zone := State.find_zone(zone_id)
+		var who := agent.char_info
+		if not zone or not who: return
+		State.ZONE_EXITED.fire({ zone=zone, who=who }) 
+		if toast_on_exit:
+			var msg := "%s exited %s" % [who.name, zone.name]
+			State.TOAST.fire({ type="simple_toast", data={text=msg} })
 
 ```
 
@@ -13594,83 +15941,48 @@ static var main_menu_options: Array[Dictionary] = [
 
 ```
 
-# res://scripts/resources/achievement_db.gd
-```gd
-class_name AchievementDB extends Database
-
-func connect_signals() -> void:
-	State.event.connect(_event)
-	
-	for ach: AchievementInfo in objects():
-		for event_id in ach.events:
-			var ev: Event = State[event_id]
-			ev.connect_to(ach._ev)
-
-func _event(event: Event):
-	match event:
-		pass
-
-func get_field_script() -> GDScript:
-	return AchievementInfo
-
-```
-
-# res://scripts/resources/achievement_info.gd
-```gd
-class_name AchievementInfo extends DatabaseObject
-
-@export var desc: String
-@export var tick := 0
-@export var max_ticks := 1
-@export var unlocked: bool:
-	get: return tick >= max_ticks
-	set(t): tick = max_ticks if t else 0
-
-@export var events: Dictionary[StringName, StringName]
-
-func connect_signals():
-	for event_id in events:
-		var event: Event = State[event_id]
-		event.connect_to(_event)
-
-func _event(e: Event):
-	match e:
-		pass
-
-func set_unlocked(u: bool):
-	if unlocked == u: return
-	unlocked = u
-	
-	State.ACHIEVEMENT.emit()
-	for event_id in events:
-		State[event_id].disconnect(_event)
-
-```
-
 # res://scripts/resources/assets_db.gd
 ```gd
 @tool
 class_name AssetsDB extends Resource
 
 @warning_ignore("unused_private_class_variable")
-@export_tool_button("Update") var _tb_update := _update
+@export_tool_button("Reload") var _tb_update := reload
 
 @export var audio: Dictionary[StringName, String]
 @export var music: Dictionary[StringName, String]
-@export var prefabs: Dictionary[StringName, String]
+@export var scenes: Dictionary[StringName, String]
 @export var materials: Dictionary[StringName, String]
 
-func _update() -> void:
-	for d in [audio, music, prefabs, materials]:
+func reload() -> void:
+	for d in [audio, music, scenes, materials]:
 		d.clear()
-	
+	var old_audio := len(audio)
+	var old_music := len(music)
+	var old_scenes := len(scenes)
+	var old_materials := len(materials)
 	_scan_dir(audio, "res://assets/audio/", "res://assets/audio", [ "mp3", "wav", "ogg" ])
 	_scan_dir(music, "res://assets/music/", "res://assets/music")
-	_scan_dir(prefabs, "res://scenes/prefabs/", "res://scenes/prefabs", [ "tscn", "scn" ])
+	_scan_dir(scenes, "res://scenes/", "res://scenes", [ "tscn", "scn" ])
 	_scan_dir(materials, "res://assets/materials/", "res://assets/materials", [ "tres" ])
 	
-	ResourceSaver.save(self, "res://assets/assets.tres")
-	print("Prefabs: %s, Audio: %s, Music: %s, Materials: %s" % [len(prefabs), len(audio), len(music), len(materials)])
+	var new_audio := len(audio)
+	var new_music := len(music)
+	var new_scenes := len(scenes)
+	var new_materials := len(materials)
+	var dif_audio := new_audio - old_audio
+	var dif_music := new_music - old_music
+	var dif_scenes := new_scenes - old_scenes
+	var dif_materials := new_materials - old_materials
+	var str_audio := "" if dif_audio == 0 else ((" [color=red]-%s[/color]" if dif_audio < 0 else " [color=green]+%s[/color]") % dif_audio)
+	var str_music := "" if dif_music == 0 else ((" [color=red]-%s[/color]" if dif_music < 0 else " [color=green]+%s[/color]") % dif_audio)
+	var str_scenes := "" if dif_scenes == 0 else ((" [color=red]-%s[/color]" if dif_scenes < 0 else " [color=green]+%s[/color]") % dif_audio)
+	var str_materials := "" if dif_materials == 0 else ((" [color=red]-%s[/color]" if dif_materials < 0 else " [color=green]+%s[/color]") % dif_audio)
+	print_rich("Prefabs: [i]%s[/i]%s, Audio: [i]%s[/i]%s, Music: [i]%s[/i]%s, Materials: [i]%s[/i]%s" % [
+		new_scenes, str_scenes,
+		new_audio, str_audio,
+		new_music, str_music,
+		new_materials, str_materials])
 
 func _scan_dir(paths: Dictionary[StringName, String], head: String, dir: String, ext: Array[String] = []):
 	for subdir in DirAccess.get_directories_at(dir):
@@ -13700,6 +16012,71 @@ class_name AttributeInfo extends DatabaseObject
 
 ```
 
+# res://scripts/resources/award_db.gd
+```gd
+class_name AwardDB extends Database
+
+func connect_signals() -> void:
+	State.event.connect(_event)
+	
+	for ach: AwardInfo in objects():
+		for event_id in ach.events:
+			var ev: Event = State[event_id]
+			ev.connect_to(ach._ev)
+
+func _event(event: Event):
+	match event:
+		pass
+
+func get_field_script() -> GDScript:
+	return AwardInfo
+
+```
+
+# res://scripts/resources/award_info.gd
+```gd
+class_name AwardInfo extends DatabaseObject
+
+@export var desc: String
+@export var icon: String
+@export var hint: String ## Text shown when locked.
+@export var events: Array[StringName] ## Events to check condition on.
+@export var cond: String ## Condition that when true will unlock.
+@export var expr_progress := "" ## Expression for calculating progress.
+@export var expr_max_progress := "" ## Expression for calculating max progress.
+@export var unlocked: bool
+@export var unlocked_date: String = ""
+@export var progress: float = -1.0
+
+func connect_signals():
+	for event_id in events:
+		var event: Event = State[event_id]
+		event.connect_to(_event)
+
+func _event(e: Event):
+	if unlocked: return
+	if not e.id in events: return
+	if not State.test(cond): return
+	var new_progress: float = State.expression(expr_progress)
+	if new_progress == progress: return
+	State.AWARD_PROGRESSED.fire({ award=self, old=progress, new=new_progress })
+	progress = new_progress
+	var max_progress: float = State.expression(expr_max_progress)
+	if progress <= max_progress: return
+	unlocked = true
+	unlocked_date = "TODO"
+	State.AWARD_UNLOCKED.fire({ award=self })
+	
+func set_unlocked(u: bool):
+	if unlocked == u: return
+	unlocked = u
+	
+	State.AWARD_UNLOCKED.fire()
+	for event_id in events:
+		State[event_id].disconnect(_event)
+
+```
+
 # res://scripts/resources/char_db.gd
 ```gd
 class_name CharDB extends Database
@@ -13709,12 +16086,46 @@ func get_object_script() -> GDScript:
 
 ```
 
+# res://scripts/resources/char_group_db.gd
+```gd
+class_name CharGroupDB extends Database
+
+func get_object_script() -> GDScript:
+	return CharGroupInfo
+
+```
+
+# res://scripts/resources/char_group_info.gd
+```gd
+class_name CharGroupInfo extends DatabaseObject
+
+@export var desc: String
+
+func get_chars(id: StringName) -> Array[CharInfo]:
+	var out: Array[CharInfo]
+	for ch: CharInfo in State.chars:
+		if id in ch.groups:
+			out.append(ch)
+	return out
+
+```
+
 # res://scripts/resources/char_info.gd
 ```gd
 class_name CharInfo extends Equipment
 
-@export var attributes: AttributeDB
-#@export var bond: Dictionary[StringName, BondInfo]
+@export var desc: String
+@export var zone: ZoneInfo
+@export var following: CharInfo ## ID of Character being followed.
+@export var occupying: StringName ## Furniture, vehicles, traps, machines...
+@export var groups: Dictionary[StringName, StatDB]
+
+func add_to_group(group: CharGroupInfo):
+	groups[group.id] = StatDB.new()
+
+func remove_from_group(group: CharGroupInfo):
+	if not group.id in groups: return
+	groups.erase(group.id)
 
 ```
 
@@ -13810,7 +16221,7 @@ func merge(db: Database):
 func _add(id: StringName, obj: DatabaseObject, props := {}, silent := false) -> DatabaseObject:
 	if id in _objects:
 		push_warning("Replacing %s." % [id])
-	_objects[id] = UObj.set_properties(obj, props)
+	_objects[id] = UObj.set_properties(obj, props, silent)
 	obj.id = id
 	return obj
 
@@ -13842,12 +16253,24 @@ func objects() -> Array[DatabaseObject]:
 
 @export var id: StringName
 @export var name: String
+@export var tags: Array[PackedStringArray]
 
+## Used with RichTextLabels.
 func _to_rich_string() -> String:
 	return "%s" % [name]
 
 func _to_string() -> String:
-	return "%s(%s)" % [get_class_name(), id]
+	return "%s(%s)" % [UObj.get_class_name(self), id]
+
+## Has any tag?
+func tagged_any(...tgs: Array) -> bool:
+	for tag in tgs: if tag in tags: return true
+	return false
+
+## Has all tags?
+func tagged(...tgs: Array) -> bool:
+	for tag in tgs: if not tag in tags: return false
+	return true
 
 ## Override. Will mark in database as having had a state change.
 func has_notification() -> bool: return false
@@ -13855,16 +16278,12 @@ func has_notification() -> bool: return false
 func clear_notification(): pass
 func mark_notification(): pass
 
-func get_class_name() -> String:
-	var rm := RegEx.create_from_string(r'class_name\s+(\w+)').search(get_script().source_code)
-	var clss_name := rm.strings[1]
-	return clss_name
-
 func get_state() -> Dictionary[StringName, Variant]:
 	var out: Dictionary[StringName, Variant]
 	for prop in get_property_list():
-		if prop.usage & PROPERTY_USAGE_STORAGE and not (prop.usage & PROPERTY_USAGE_EDITOR):
-			out[prop.name] = self[prop.name]
+		if not UBit.is_enabled(prop.usage, PROPERTY_USAGE_STORAGE): continue
+		if UBit.is_enabled(prop.usage, PROPERTY_USAGE_EDITOR): continue
+		out[prop.name] = self[prop.name]
 	return out
 
 ```
@@ -13932,8 +16351,9 @@ class_name EquipmentSlotInfo extends DatabaseObject
 ```gd
 class_name Event extends RefCounted
 
-signal emitted(ev: Event)
+signal fired(ev: Event)
 
+var id: StringName ## Set by state base.
 var _default: Dictionary[StringName, Variant]
 var _current: Dictionary[StringName, Variant]
 
@@ -13957,7 +16377,7 @@ func get_dict(property: StringName, default := {}) -> Dictionary: return _curren
 func get_array(property: StringName, default := []) -> Array: return _current.get(property, default)
 
 func connect_to(method: Callable):
-	emitted.connect(method)
+	fired.connect(method)
 
 func test(props: Dictionary) -> bool:
 	for prop in props:
@@ -13967,14 +16387,21 @@ func test(props: Dictionary) -> bool:
 		elif _current[prop] != props[prop]: return false
 	return true
 
-func emit(kwargs: Dictionary = {}):
+func fire(kwargs: Dictionary = {}):
 	for prop in kwargs:
 		if prop in _default:
 			_current[prop] = kwargs[prop]
 		else:
-			push_warning("Event has no property %s. (%s)" % [prop, self])
+			push_warning("Event %s has no property %s. (%s)" % [get_state_property_name(), prop, self])
 	State.event.emit(self)
-	emitted.emit(self)
+	fired.emit(self)
+
+func get_state_property_name() -> StringName:
+	for prop in State.get_property_list():
+		if not UBit.is_enabled(prop.usage, PROPERTY_USAGE_SCRIPT_VARIABLE): continue
+		if prop.type == TYPE_OBJECT and State[prop.name] == self:
+			return prop.name
+	return &""
 
 ```
 
@@ -13995,7 +16422,7 @@ signal item_gained(id: ItemInfo, amount: int)
 signal item_lost(id: ItemInfo, amount: int)
 
 @export var items: Array[InventoryItem]
-@export var vars := VarDB.new()
+@export var stats := StatDB.new()
 
 # TODO: var max_items: int
 # TODO: var max_slots: int
@@ -14106,6 +16533,29 @@ func count_currency(currency: StringName) -> int:
 
 ```
 
+# res://scripts/resources/inventory_db.gd
+```gd
+class_name InventoryDB extends Database
+
+const EVENT_GAIN_ITEM := &"GAIN_ITEM"
+const EVENT_LOSE_ITEM := &"LOSE_ITEM"
+const ALL_EVENTS := [EVENT_GAIN_ITEM, EVENT_LOSE_ITEM]
+
+func connect_signals() -> void:
+	Cinema.event.connect(_cinema_event)
+
+func _cinema_event(ev: StringName, data: String):
+	if not ev in ALL_EVENTS: return
+	var _data_args := data # TODO
+	match ev:
+		EVENT_GAIN_ITEM: pass
+		EVENT_LOSE_ITEM: pass
+
+func get_object_script() -> GDScript:
+	return Inventory
+
+```
+
 # res://scripts/resources/inventory_item.gd
 ```gd
 class_name InventoryItem extends Resource
@@ -14174,7 +16624,7 @@ class_name ItemInfo extends DatabaseObject
 @export var cells: Array[Vector2i] = [Vector2i.ZERO] ## TODO: How wide and high it is.
 @export var default_state: Dictionary[StringName, Variant] = {} ## Setting this will mark the item as a special one.
 @export var scene_held: PackedScene
-@export var vars: VarDB
+@export var stats: StatDB
 
 # TODO: weight: float
 # TODO: types: Array[StringName]
@@ -14242,36 +16692,39 @@ class_name MinimapData extends Resource
 class_name ModInfo extends StateObjects
 
 @export var mod_name := "Unnamed Mod"
+@export var mod_desc := "Adds features."
 @export var mod_author := "Author"
 @export var mod_version := "0.0.1"
 @export_global_dir var data_dir: String: ## Directory to scan for data files.
 	get: return data_dir if data_dir else resource_path.get_base_dir()
 @export_multiline var _debug_info := ""
-@export var _script_conds: Array[String]
-@export var _script_exprs: Array[String]
+@export var _script_conds: Dictionary[StringName, String]
+@export var _script_exprs: Dictionary[StringName, String]
 
-@warning_ignore("unused_private_class_variable")
-@export_tool_button("Regen") var _tb_regen := func():
-	clear()
-	_script_conds.clear()
-	_script_exprs.clear()
-	
-	_scan_dir(data_dir)
+@export var awards: AwardDB
+
+func clear() -> void:
+	super()
+	awards = AwardDB.new()
+
+func get_persistent_dbs() -> Array[Database]:
+	return [awards]
+
+func load_dir(dir: String) -> void:
+	data_dir = dir
+	_load_dir(dir)
 	_debug_info = get_counts_string("\n")
-	
-	# Resave to disk.
-	ResourceSaver.save(self, resource_path)
-	
-func _scan_dir(dir: String):
+
+func _load_dir(dir: String) -> void:
 	for subdir in DirAccess.get_directories_at(dir):
-		_scan_dir(dir.path_join(subdir))
+		_load_dir(dir.path_join(subdir))
 	for file in DirAccess.get_files_at(dir):
 		var path := dir.path_join(file)
 		match file.get_extension():
 			"json": _load_json(path)
 			"yaml": _load_yaml(path)
 
-func _load_yaml(file: String):
+func _load_yaml(file: String) -> void:
 	var yaml_str := FileAccess.get_file_as_string(file)
 	var yaml_result := YAML.parse(yaml_str)
 	if yaml_result.has_error():
@@ -14280,12 +16733,12 @@ func _load_yaml(file: String):
 	var data: Variant = yaml_result.get_data()
 	_load_data(data)
 
-func _load_json(file: String):
+func _load_json(file: String) -> void:
 	var json := FileAccess.get_file_as_string(file)
 	var data: Variant = JSON.parse_string(json)
 	_load_data(data)
 
-func _process_flow(flow_script: FlowScript):
+func _process_flow(flow_script: FlowScript) -> void:
 	var parsed := flow_script.get_parsed()
 	for step in parsed.tabbed:
 		if step.type == FlowToken.CMND:
@@ -14296,13 +16749,13 @@ func _process_flow(flow_script: FlowScript):
 				&"ELSE": _add_cond("true")
 
 func _add_cond(st: String) -> StringName:
-	var meth_name := "_cond_%s" % hash(st)
-	_script_conds.append("func %s() -> bool: return %s" % [meth_name, st])
+	var meth_name := StringName("_cond_%s" % hash(st))
+	_script_conds[meth_name] = st
 	return meth_name
 
 func _add_expr(st: String) -> StringName:
-	var meth_name := "_expr_%s" % hash(st)
-	_script_exprs.append("func %s() -> void: %s" % [meth_name, st])
+	var meth_name := StringName("_expr_%s" % hash(st))
+	_script_exprs[meth_name] = st
 	return meth_name
 
 func _load_data(data: Variant):
@@ -14310,6 +16763,12 @@ func _load_data(data: Variant):
 	for dict: Dictionary in data:
 		var type: StringName = dict.get(&"TYPE", &"")
 		match type:
+			&"mod_info":
+				mod_name = dict.get(&"name", mod_name)
+				mod_desc = dict.get(&"desc", mod_desc)
+				mod_author = dict.get(&"author", mod_author)
+				mod_version = dict.get(&"version", mod_version)
+				
 			&"char", &"character":
 				var id: StringName = dict.get(&"ID", &"")
 				chars._add(id, CharInfo.new(), dict)
@@ -14332,43 +16791,57 @@ func _load_data(data: Variant):
 				var zone_list: Dictionary = dict.get(type)
 				for id in zone_list:
 					zones.add(id, zone_list[id])
-				
+			
+			&"award":
+				var id: StringName = dict.get(&"ID", &"")
+				awards.add(id, dict)
+			
 			&"quest":
 				var id: StringName = dict.get(&"ID", &"")
 				var quest := QuestInfo.new()
-				var tick_data: Dictionary = UDict.pop(dict, &"ticks", {})
-				var triggers: Dictionary = UDict.pop(dict, &"triggers", {})
-				UObj.set_properties(quest, dict)
-				for tick_id in tick_data:
-					var tick := QuestTick.new()
-					UObj.set_properties(tick, tick_data[tick_id])
-					quest.ticks[tick_id] = tick
-				for state_id in triggers:
-					var state: QuestInfo.QuestState = QuestInfo.QuestState.keys().find(state_id) as QuestInfo.QuestState
-					quest.triggers[state] = []
-					var trigger_index := 0
-					for trigger_data in triggers[state_id]:
-						var trigger := TriggerInfo.new()
-						trigger.event = UDict.pop(trigger_data, &"event")
-						trigger.state.assign(UDict.pop(trigger_data, &"state"))
-						trigger.condition = _add_cond(UDict.pop(trigger_data, &"cond"))
-						UObj.set_properties(trigger, trigger_data)
-						quest.triggers[state].append(trigger)
-						
-						var path := data_dir.path_join("_dbg-%s-%s-%s" % [ id, state_id, trigger_index])
-						var flow_script := FlowScript.new()
-						flow_script.code = trigger_data.flow.replace("  ", "\t")
-						trigger.flow_script = flow_script
-						_process_flow(flow_script)
-						ResourceSaver.save(flow_script, path + ".tres")
-						
-						var player := FlowPlayerGenerator.generate([load(path + ".tres")])
-						var packed := PackedScene.new()
-						packed.pack(player)
-						ResourceSaver.save(packed, path + ".tscn")
-						trigger_index += 1
-						
 				quests._add(id, quest)
+				
+				var ticks: Dictionary = UDict.pop(dict, &"ticks", {})
+				var triggers: Dictionary = UDict.pop(dict, &"triggers", {})
+				_init_triggers(id, quest.triggers, triggers)
+				UObj.set_properties(quest, dict)
+				
+				for tick_id in ticks:
+					var tick_data: Dictionary = ticks[tick_id]
+					var tick := QuestTick.new()
+					quest.ticks[tick_id] = tick
+					var tick_triggers: Dictionary = UDict.pop(tick_data, &"triggers", {})
+					_init_triggers(id + "#" + tick_id, tick.triggers, tick_triggers)
+					UObj.set_properties(tick, tick_data)
+					tick.id = tick_id
+					tick.quest_id = id
+
+func _init_triggers(id: StringName, triggers: Dictionary[QuestInfo.QuestState, Array], json: Dictionary):
+	for state_id in json:
+		var state: QuestInfo.QuestState = QuestInfo.QuestState.keys().find(state_id) as QuestInfo.QuestState
+		triggers[state] = []
+		var trigger_index := 0
+		for trigger_data in json[state_id]:
+			var trigger := TriggerInfo.new()
+			trigger.event = UDict.pop(trigger_data, &"event", &"")
+			trigger.state.assign(UDict.pop(trigger_data, &"state", {}))
+			trigger.condition = _add_cond(UDict.pop(trigger_data, &"cond", ""))
+			UObj.set_properties(trigger, trigger_data)
+			triggers[state].append(trigger)
+			
+			var path := data_dir.path_join("_dbg-%s-%s-%s" % [ id, state_id, trigger_index])
+			var flow_script := FlowScript.new()
+			flow_script.code = trigger_data.flow
+			print_rich("[color=cyan]" + flow_script.code)
+			trigger.flow_script = flow_script
+			_process_flow(flow_script)
+			ResourceSaver.save(flow_script, path + ".tres")
+			
+			var player := FlowPlayerGenerator.generate([load(path + ".tres")])
+			var packed := PackedScene.new()
+			packed.pack(player)
+			ResourceSaver.save(packed, path + ".tscn")
+			trigger_index += 1
 
 ```
 
@@ -14376,18 +16849,70 @@ func _load_data(data: Variant):
 ```gd
 class_name QuestDB extends Database
 
-func connect_signals() -> void:
-	State.event.connect(_event)
+const EVENT_START := &"QUEST_START"
+const EVENT_PASS := &"QUEST_PASS"
+const EVENT_FAIL := &"QUEST_FAIL"
+const EVENT_TICK := &"QUEST_TICK"
+const EVENT_SHOW := &"QUEST_SHOW"
+const EVENT_HIDE := &"QUEST_HIDE"
+const ALL_EVENTS := [EVENT_START, EVENT_PASS, EVENT_FAIL, EVENT_TICK, EVENT_SHOW, EVENT_HIDE]
 
-func _event(e: Event):
+func connect_signals() -> void:
+	State.event.connect(_state_event)
+	Cinema.event.connect(_cinema_event)
+
+func _cinema_event(id: StringName, data: String) -> void:
+	if not id in ALL_EVENTS: return
+	var quest_id: StringName = data
+	var tick_id: StringName = &""
+	if "#" in data:
+		var parts := data.split("#", true, 1)
+		quest_id = parts[0]
+		tick_id = parts[1]
+	var quest: QuestInfo = find(quest_id)
+	if not quest:
+		push_error("No quest ", data)
+		return
+	var tick: QuestTick
+	if tick_id:
+		tick = quest.find_tick(tick_id)
+		if not tick:
+			push_error("No quest tick ", data)
+			return
+	
+	match id:
+		EVENT_START: quest.start()
+		EVENT_PASS: quest.set_passed()
+		EVENT_FAIL: quest.set_failed()
+		EVENT_TICK: tick.tick += 1
+		EVENT_SHOW: tick.show()
+		EVENT_HIDE: push_warning("Quest hiding not implemented. Just don't call show().")
+
+func _check_triggers(obj: Object, event: Event):
+	var state: QuestInfo.QuestState = obj.state
+	var triggers: Dictionary[QuestInfo.QuestState, Array] = obj.triggers
+	if not state in triggers: return
+	for trigger: TriggerInfo in triggers[state]:
+		if trigger.check(event):
+			Cinema.queue(trigger.flow_script)
+
+func _state_event(e: Event):
 	for quest: QuestInfo in _objects.values():
-		if quest.state in quest.triggers:
-			for trigger: TriggerInfo in quest.triggers[quest.state]:
-				if trigger.check(e):
-					Cinema.queue(trigger.cinematic)
+		# Check for state event triggers.
+		_check_triggers(quest, e)
+		# Check for tick event triggers.
+		for tick_id in quest.ticks:
+			var tick := quest.ticks[tick_id]
+			_check_triggers(tick, e)
+		
 	match e:
-		State.QUEST_STARTED: Audio.play(&"quest_log_updated")
-		State.QUEST_TICKED: Audio.play(&"quest_log_updated")
+		State.QUEST_STARTED:
+			Audio.play(&"quest_log_updated")
+			State.TOAST.fire({ data={text="Quest Started"} })
+			
+		State.QUEST_TICKED:
+			Audio.play(&"quest_log_updated")
+			State.TOAST.fire({ data={text="Quest Updated"} })
 
 func get_object_script() -> GDScript:
 	return QuestInfo
@@ -14413,14 +16938,14 @@ static func get_state_color(s := QuestState.HIDDEN) -> Color:
 		QuestState.FAILED: return Color.TOMATO
 	return Color.PURPLE
 
-#@export var fmods: Array[QuestFMod]
+@export var desc: String
+@export var types: Array[StringName]
 @export var ticks: Dictionary[StringName, QuestTick]
 @export var state := QuestState.HIDDEN: set=set_state
-@export var vars := VarDB.new()
-@export var hidden := false
+@export var stats := StatDB.new()
 @export var triggers: Dictionary[QuestState, Array]
+@export var visible := true ## Sometimes invisible quests are wanted. They shouldn't create toasts.
 @export var marked_for_notification := false
-var desc: String
 
 func has_notification() -> bool:
 	for tick in ticks.values():
@@ -14452,12 +16977,35 @@ func set_state(s: QuestState):
 			#options[-1].call = set_style.bind(s)
 	#return options
 
+func start():
+	if state == QuestState.HIDDEN:
+		state = QuestState.ACTIVE
+		State.QUEST_STARTED.fire({ quest=self })
+
+func set_passed():
+	if state != QuestState.PASSED:
+		state = QuestState.PASSED
+		State.QUEST_PASSED.fire({ quest=self })
+		
+func set_failed():
+	if state != QuestState.FAILED:
+		state = QuestState.FAILED
+		State.QUEST_FAILED.fire({ quest=self })
+
+func ticked(...tick_ids) -> bool:
+	for tid in tick_ids:
+		if not tid in ticks:
+			push_error("No tick %s in quest %s." % [tid, id])
+			return false
+		if not ticks[tid].completed: return false
+	return true
+
 func _get(property: StringName) -> Variant:
 	for tick_id in ticks:
 		if tick_id == property:
 			return ticks[tick_id]
-	if vars.has(property):
-		return vars.get(property)
+	if stats.has(property):
+		return stats.get(property)
 	return null
 
 func _set(property: StringName, value: Variant) -> bool:
@@ -14465,8 +17013,8 @@ func _set(property: StringName, value: Variant) -> bool:
 		if tick_id == property:
 			push_error("Can't set tick as property.", self, property)
 			return true
-	if vars.has(property):
-		vars.set(property, value)
+	if stats.has(property):
+		stats.set(property, value)
 		return true
 	return false
 
@@ -14491,16 +17039,20 @@ func get_db() -> Database:
 class_name QuestTick extends Resource
 
 @export var id: StringName
+@export var quest_id: StringName
 @export var state := QuestInfo.QuestState.HIDDEN: set=set_state
-@export var tick := 0
+@export var tick := 0: set=set_tick
 @export var max_ticks := 1
 @export var name := ""
 @export var desc := ""
-@export var quest: QuestInfo
 @export var need: Array[StringName] ## Must all be true for any triggers to check.
 @export var mark: Array[StringName] ## Highlights characts, zones, items...
-@export var triggers: Array[TriggerInfo] ## Event that triggers this tick.
+@export var triggers: Dictionary[QuestInfo.QuestState, Array] ## Event that triggers this tick.
 @export var mark_for_notification := false
+@export var visible := true ## Sometimes a hidden tick is desired.
+
+var quest: QuestInfo:
+	get: return State.quests.find(quest_id)
 
 var completed: bool:
 	get: return tick == max_ticks
@@ -14517,8 +17069,21 @@ func set_state(s := QuestInfo.QuestState.HIDDEN):
 	mark_for_notification = true
 	changed.emit()
 
+func set_tick(t: int):
+	if tick == t: return
+	tick = t
+	show()
+	State.QUEST_TICKED.fire({ tick=self })
+	if completed:
+		state = QuestInfo.QuestState.PASSED
+		State.QUEST_TICK_COMPLETED.fire({ tick=self })
+
+func show() -> void:
+	if state == QuestInfo.QuestState.HIDDEN:
+		state = QuestInfo.QuestState.ACTIVE
+
 func _to_string() -> String:
-	return "QuestTick(%s#%s)" % [quest.name, name]
+	return "QuestTick(%s#%s)" % [quest_id, id]
 
 #func _get_devmode() -> Array:
 	#var options := []
@@ -14584,48 +17149,111 @@ func _node_reload(node: ItemNode) -> bool:
 
 ```
 
+# res://scripts/resources/stat_db.gd
+```gd
+class_name StatDB extends Database
+
+func _get(property: StringName) -> Variant:
+	if has(property):
+		var prop: StatInfo = _objects[property]
+		return prop.value
+	return null
+
+func _set(property: StringName, value: Variant) -> bool:
+	if has(property):
+		var prop: StatInfo = _objects[property]
+		prop.set_value(value)
+		return true
+	return false
+
+func add_range(id: StringName, default: Variant, minn: Variant = 0, maxx: Variant = 100, desc := "") -> StatInfo:
+	var prop := StatInfo.new()
+	prop.default = default
+	prop.value = default
+	prop.minimum = minn
+	prop.maximum = maxx
+	prop.desc = desc
+	return _add(id, prop)
+	
+func add_flag(id: StringName, default: Variant = false, allowed := [true, false], desc := "") -> StatInfo:
+	var prop := StatInfo.new()
+	prop.default = default
+	prop.value = default
+	prop.allowed.assign(allowed)
+	prop.desc = desc
+	return _add(id, prop)
+
+func get_object_script() -> GDScript:
+	return StatInfo
+
+```
+
+# res://scripts/resources/stat_info.gd
+```gd
+class_name StatInfo extends DatabaseObject
+
+@export var value: Variant: set=set_value
+@export var desc: String
+@export var allowed: Array[Variant]
+@export var minimum: Variant = null
+@export var maximum: Variant = null
+@export var default: Variant
+
+func set_value(v: Variant) -> bool:
+	var type := typeof(default)
+	var converted: Variant = type_convert(v, type)
+	if minimum: converted = min(minimum, converted)
+	if maximum: converted = min(maximum, converted)
+	if allowed and not converted in allowed:
+		push_error("Couldn't set %s to %s. Only %s allowed." % [id, v, allowed])
+		return false
+	if value == converted: return false
+	var old: Variant = value
+	value = converted
+	State.STAT_CHANGED.fire({ stat=self, old=old, new=value })
+	return true
+
+```
+
 # res://scripts/resources/state_objects.gd
 ```gd
 class_name StateObjects extends Resource
 
-const ORDER := [&"chars", &"items", &"zones", &"vars", &"quests"]
-
 @export var chars: CharDB
+@export var char_groups: CharGroupDB
 @export var items: ItemDB
 @export var zones: ZoneDB
-@export var vars: VarDB
+@export var stats: StatDB
 @export var quests: QuestDB
 @export var attributes: AttributeDB
-@export var inventories: Database
+@export var inventories: InventoryDB
 @export var equip_slots: Database
 
 func _init() -> void:
 	clear()
 
+func get_dbs() -> Array[Database]:
+	return [chars, items, zones, stats, quests]
+
 func get_counts_string(join_str := ", ") -> String:
 	var counts := []
-	for prop in ORDER:
-		var size: int = self[prop].size()
+	for db in get_dbs():
+		var size: int = db.size()
 		if size > 0:
-			counts.append([size, prop])
+			counts.append([size, UObj.get_class_name(db)])
 	counts.sort_custom(func(a, b): return a[0] > b[0])
 	return join_str.join(counts.map(func(a): return "%sx %s" % a))
 
-func clear():
+func clear() -> void:
 	chars = CharDB.new()
+	char_groups = CharGroupDB.new()
 	items = ItemDB.new()
 	zones = ZoneDB.new()
-	vars = VarDB.new()
+	stats = StatDB.new()
 	quests = QuestDB.new()
 	attributes = AttributeDB.new()
-	inventories = Database.new()
+	inventories = InventoryDB.new()
 	equip_slots = Database.new()
-
-func get_dbs() -> Array[Database]:
-	var out: Array[Database]
-	for item in ORDER:
-		out.append(self[item])
-	return out
 
 ```
 
@@ -14653,71 +17281,7 @@ class_name TriggerInfo extends Resource
 func check(evnt: Event) -> bool:
 	if not State[event] == evnt: return false
 	if not evnt.test(state): return false
-	if condition and not State.test_condition(condition): return false
-	return true
-
-```
-
-# res://scripts/resources/var_db.gd
-```gd
-class_name VarDB extends Database
-
-func _get(property: StringName) -> Variant:
-	if has(property):
-		var prop: VarInfo = _objects[property]
-		return prop.value
-	return null
-
-func _set(property: StringName, value: Variant) -> bool:
-	if has(property):
-		var prop: VarInfo = _objects[property]
-		prop.set_value(value)
-		return true
-	return false
-
-func add_range(id: StringName, default: Variant, minn: Variant = 0, maxx: Variant = 100, desc := "") -> VarInfo:
-	var prop := VarInfo.new()
-	prop.default = default
-	prop.value = default
-	prop.minimum = minn
-	prop.maximum = maxx
-	prop.desc = desc
-	return _add(id, prop)
-	
-func add_flag(id: StringName, default: Variant = false, allowed := [true, false], desc := "") -> VarInfo:
-	var prop := VarInfo.new()
-	prop.default = default
-	prop.value = default
-	prop.allowed.assign(allowed)
-	prop.desc = desc
-	return _add(id, prop)
-
-func get_object_script() -> GDScript:
-	return VarInfo
-
-```
-
-# res://scripts/resources/var_info.gd
-```gd
-class_name VarInfo extends DatabaseObject
-
-@export var value: Variant: set=set_value
-@export var desc: String
-@export var allowed: Array[Variant]
-@export var minimum: Variant = null
-@export var maximum: Variant = null
-@export var default: Variant
-
-func set_value(v: Variant) -> bool:
-	var type := typeof(default)
-	var converted: Variant = type_convert(v, type)
-	if minimum: converted = min(minimum, converted)
-	if maximum: converted = min(maximum, converted)
-	if allowed and not converted in allowed:
-		push_error("Couldn't set %s to %s. Only %s allowed." % [id, v, allowed])
-		return false
-	if value == converted: return false
-	value = converted
+	if condition and not State.call(condition): return false
 	return true
 
 ```
@@ -15028,7 +17592,7 @@ func _enable() -> void:
 	#agent.interactive_detector.visible_changed.connect(agent.interactive_changed.emit)
 	get_player_controller().view_state_changed.connect(_view_state_changed)
 	if not camera:
-		camera = Assets.create_prefab(&"camera_follow", true)
+		camera = Assets.create_scene(&"camera_follow", true)
 		camera.target = agent
 		get_player_controller().camera_master.target = camera.camera
 		camera.get_node("%head_remote").remote_path = agent.get_node("%head").get_path()
@@ -15070,7 +17634,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	super(event)
 	get_player_controller()._event = event
 	
-	if is_action_pressed(&"toggle_quest_log"):
+	if is_action_pressed(&"quick_equip_menu"):
+		get_player_controller().toggle_widgit(&"radial_menu", { choices=[
+			{ text="Yes"},
+			{ text="No" },
+			{ text="Maybe"}
+		]})
+		handle_input()
+		
+	elif is_action_pressed(&"toggle_quest_log"):
 		get_player_controller().toggle_widgit(&"quest_log")
 	
 	elif is_action_pressed(&"interact"):
@@ -15595,6 +18167,13 @@ static func remove_children(n: Node, qfree := true):
 # res://scripts/util/uobj.gd
 ```gd
 class_name UObj extends RefCounted
+
+static func get_class_name(obj: Object) -> String:
+	var scr: GDScript = obj.get_script()
+	var scode := scr.source_code
+	var rm := RegEx.create_from_string(r'class_name\s+(\w+)').search(scode)
+	var clss_name := rm.strings[1]
+	return clss_name
 
 static func set_properties(obj: Object, props: Dictionary, silent := true) -> Object:
 	for prop in props:

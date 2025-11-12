@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="RTxtParser" load_steps=4 format=3 uid="uid://bf8stcbogl2sh"]
+
+[ext_resource type="Resource" uid="uid://bx2h77etc5b18" path="res://assets/font_db.tres" id="1_kc75r"]
+[ext_resource type="Script" uid="uid://mpbek0u0mm3a" path="res://addons/richer_text/scripts/rtxt_parser_regex.gd" id="2_ovy5i"]
+[ext_resource type="Script" uid="uid://cnki5b5jn5aln" path="res://addons/richer_text/scripts/rtxt_parser.gd" id="3_wtw2f"]
+
+[resource]
+script = ExtResource("3_wtw2f")
+test_string_output = "[fader id=-9223328173897114661]Once upon a time...[/fader]"
+test_string_output_stripped = "Once upon a time..."
+font_db = ExtResource("1_kc75r")
+font_default = &""
+font_size = 32
+font_color = Color(1, 1, 1, 1)
+font_bold_weight = 1.5
+font_italics_slant = 0.25
+font_italics_weight = -0.25
+emoji_scale = 1.0
+emoji_images_enabled = null
+emoji_images_dir = "res://"
+outline_size = 0
+outline_mode = 1
+outline_adjust = 0.8
+outline_hue_adjust = 0.0125
+context_enabled = false
+context_path = NodePath("/root/State")
+context_state = Dictionary[StringName, Variant]({})
+context_allow_autoloads = true
+context_allow_global_classes = true
+context_allow_engine_singletons = true
+context_classes_allowed = PackedStringArray()
+context_classes_blocked = PackedStringArray()
+context_rich_objects = true
+context_rich_ints = true
+context_rich_array = true
+link_cursor = 2
+link_tooltip_cursor = 16
+link_tooltip_scene = ""
+link_audio_enabled = true
+link_audio_path_hovered = ""
+link_audio_path_unhovered = ""
+link_audio_path_clicked = ""
+link_audio_path_right_clicked = ""
+link_audio_path_tooltip_hovered = ""
+link_audio_path_tooltip_unhovered = ""

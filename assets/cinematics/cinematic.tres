@@ -1,15 +1,10 @@
-[gd_resource type="Resource" script_class="CinemaScript" load_steps=2 format=3 uid="uid://be3kln23ocndb"]
+[gd_resource type="Resource" script_class="FlowScript" load_steps=2 format=3 uid="uid://be3kln23ocndb"]
 
 [ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://addons/odyssey/flow/flow_script.gd" id="1_p47si"]
 
 [resource]
 script = ExtResource("1_p47si")
 code = "SHOW paul
-CODE:
-	if score > 20:
-		reset()
-		
-		archer.upgrade(\"Stats\")
 
 MENU
 	What is everyone talking about!?

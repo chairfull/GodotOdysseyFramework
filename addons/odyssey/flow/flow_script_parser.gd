@@ -18,17 +18,20 @@ static func parse(str: String, dbg_file := "") -> Dictionary:
 	var lines := str.split("\n")
 	var i := 0
 	while i < lines.size():
-		var deep := 0
+		var k := 0
+		var spaces := 0
 		var line := lines[i]
 		# Tabs or YAML style two-spaces.
-		while deep < line.length():
-			if line[deep] == "\t":
-				deep += 2
-			elif line[deep] == " ":
-				deep += 1
+		while k < line.length():
+			if line[k] == "\t":
+				spaces += 2
+				k += 1
+			elif line[k] == " ":
+				spaces += 1
+				k += 1
 			else:
 				break
-		deep = deep / 2
+		var deep := spaces / 2
 		var comment := line.rfind("# ")
 		var stripped := line.substr(deep, comment).strip_edges()
 		if stripped:

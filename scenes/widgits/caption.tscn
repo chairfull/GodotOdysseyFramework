@@ -1,24 +1,128 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsa17lrw23t4"]
+[gd_scene load_steps=11 format=3 uid="uid://dsa17lrw23t4"]
 
-[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption_widgit.gd" id="1_6jtro"]
+[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption.gd" id="1_6jtro"]
+[ext_resource type="Script" uid="uid://txkny8gbicbb" path="res://addons/richer_text/scripts/richer_text_label.gd" id="2_cp8ea"]
+[ext_resource type="Script" uid="uid://5hv4pjs1xcht" path="res://addons/richer_text/text_effects/anims/rte_fader.gd" id="2_tnyv5"]
+[ext_resource type="Script" uid="uid://y1yusvaqyc5p" path="res://addons/richer_text/scripts/rtxt_indicator_arrow.gd" id="3_2e5ni"]
+[ext_resource type="Script" uid="uid://bldl63e7m5f0m" path="res://addons/richer_text/scripts/rtxt_modifier.gd" id="3_6gsr5"]
+[ext_resource type="Resource" uid="uid://bf8stcbogl2sh" path="res://assets/richer_text_parser.tres" id="3_cqsqy"]
+[ext_resource type="Script" uid="uid://das5454qddsvf" path="res://addons/richer_text/scripts/rtxt_animator.gd" id="4_tnyv5"]
+[ext_resource type="Texture2D" uid="uid://cvqiwepgya3ua" path="res://icon.svg" id="7_5oimg"]
 
-[node name="caption" type="PanelContainer"]
+[sub_resource type="RichTextEffect" id="RichTextEffect_qjtsd"]
+resource_local_to_scene = true
+resource_name = "fader"
+script = ExtResource("2_tnyv5")
+metadata/rt = 51259411393404
+
+[sub_resource type="Resource" id="Resource_5oimg"]
+script = ExtResource("4_tnyv5")
+_total_chars = 19
+_total_words = 3
+_alphas = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+_chars = PackedInt32Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18)
+_words = PackedInt32Array(0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 3, 3, 3)
+_lines = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+enabled = true
+animation = &"fader"
+progress = 1.0
+unit = 2
+duration = 1.0
+delay = 0.2
+new_line_style = 1
+trans = 1
+ease = 2
+alphas_0 = 1.0
+alphas_1 = 1.0
+alphas_2 = 1.0
+alphas_3 = 1.0
+alphas_4 = 1.0
+alphas_5 = 1.0
+alphas_6 = 1.0
+alphas_7 = 1.0
+alphas_8 = 1.0
+alphas_9 = 1.0
+alphas_10 = 1.0
+alphas_11 = 1.0
+alphas_12 = 1.0
+alphas_13 = 1.0
+alphas_14 = 1.0
+alphas_15 = 1.0
+alphas_16 = 1.0
+alphas_17 = 1.0
+alphas_18 = 1.0
+label = Object(RichTextLabel,"_import_path":NodePath(""),"unique_name_in_owner":true,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":2,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":2,"size_flags_horizontal":1,"size_flags_vertical":1,"size_flags_stretch_ratio":1.0,"localize_numeral_system":true,"tooltip_text":"","tooltip_auto_translate_mode":0,"focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":3,"focus_behavior_recursive":0,"mouse_filter":0,"mouse_behavior_recursive":0,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"accessibility_name":"","accessibility_description":"","accessibility_live":0,"accessibility_controls_nodes":Array[NodePath]([]),"accessibility_described_by_nodes":Array[NodePath]([]),"accessibility_labeled_by_nodes":Array[NodePath]([]),"accessibility_flow_to_nodes":Array[NodePath]([]),"theme":null,"theme_type_variation":&"","theme_override_font_sizes/normal_font_size":32,"theme_override_font_sizes/bold_font_size":32,"theme_override_font_sizes/bold_italics_font_size":32,"theme_override_font_sizes/italics_font_size":32,"bbcode_enabled":true,"text":"[fader id=-9223328173897114661]Once upon a time...[/fader]","fit_content":true,"scroll_active":true,"scroll_following":false,"scroll_following_visible_characters":false,"autowrap_mode":0,"autowrap_trim_flags":192,"tab_size":4,"context_menu_enabled":false,"shortcut_keys_enabled":true,"horizontal_alignment":1,"vertical_alignment":1,"justification_flags":163,"tab_stops":PackedFloat32Array(),"custom_effects":[SubResource("RichTextEffect_qjtsd")],"meta_underlined":true,"hint_underlined":true,"threaded":false,"progress_bar_delay":1000,"selection_enabled":false,"deselect_on_focus_loss_enabled":true,"drag_and_drop_selection_enabled":true,"visible_characters":-1,"visible_characters_behavior":0,"visible_ratio":1.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":ExtResource("2_cp8ea"),"bbcode_head":"","bbcode":"Once upon a time...","_image_keys":PackedInt32Array(),"effect_weight":1.0,"modifiers":Array[ExtResource("3_6gsr5")]([SubResource("Resource_5oimg")]),"shadow":null,"font":null,"font_size":32.0,"link_content":Dictionary[int, String]({}),"_link_regions":Dictionary[int, PackedInt32Array]({}),"_link_rects":Dictionary[int, PackedVector2Array]({}),"hovered_link":-1,"parser":ExtResource("3_cqsqy"),"_debug_commands":Array[Callable]([]))
+
+enabled = true
+metadata/_custom_type_script = "uid://das5454qddsvf"
+
+[node name="caption" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_6jtro")
 
-[node name="margin" type="MarginContainer" parent="."]
+[node name="container" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -125.0
+offset_right = 190.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="PanelContainer" type="PanelContainer" parent="container"]
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="container/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
+theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="margin"]
-layout_mode = 2
-
-[node name="label" type="RichTextLabel" parent="margin/VBoxContainer"]
+[node name="label" type="RichTextLabel" parent="container/PanelContainer/margin"]
 unique_name_in_owner = true
+clip_contents = false
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
 bbcode_enabled = true
+text = "[fader id=-9223328173897114661]Once upon a time...[/fader]"
 fit_content = true
 autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_qjtsd")]
+script = ExtResource("2_cp8ea")
+bbcode = "Once upon a time..."
+modifiers = Array[ExtResource("3_6gsr5")]([SubResource("Resource_5oimg")])
+parser = ExtResource("3_cqsqy")
+
+[node name="click_to_continue" type="TextureRect" parent="." node_paths=PackedStringArray("label")]
+layout_mode = 0
+offset_left = 716.0
+offset_top = 567.0
+offset_right = 756.0
+offset_bottom = 607.0
+texture = ExtResource("7_5oimg")
+expand_mode = 2
+script = ExtResource("3_2e5ni")
+label = NodePath("../container/PanelContainer/margin/label")
+offset = Vector2(16, 20)
+alignment = 4

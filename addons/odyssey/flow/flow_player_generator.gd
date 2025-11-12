@@ -107,7 +107,6 @@ func _add_branch(branch_id: StringName, steps: Array[Dictionary]):
 							var hash_index := hash(cond.rest)
 							var branch := _add_branch_queued(cond.tabbed)
 							args.append([hash_index, branch])
-						print("IFELFO", args)
 						add_method(&"_cond", [args])
 						add_time(0.1)
 					&"ELIF", &"ELSE":

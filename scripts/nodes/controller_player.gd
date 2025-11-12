@@ -46,12 +46,12 @@ func get_move_vector_camera() -> Vector2:
 func is_widgit_visible(id: StringName) -> bool:
 	return id in _widgits
 
-func toggle_widgit(id: StringName) -> Node:
+func toggle_widgit(id: StringName, props := {}) -> Node:
 	if is_widgit_visible(id):
 		hide_widgit(id)
 		return null
 	else:
-		return show_widgit(id)
+		return show_widgit(id, props)
 
 func show_widgit(id: StringName, props := {}) -> Widget:
 	var widgit: Widget = _widgits.get(id)

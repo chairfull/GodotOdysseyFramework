@@ -1,8 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://jk2x74byqo2s"]
+[gd_scene load_steps=32 format=3 uid="uid://jk2x74byqo2s"]
 
 [ext_resource type="PackedScene" uid="uid://p7rqgmtls5qk" path="res://scenes/prefabs/controllables/humanoid.tscn" id="1_k3ref"]
 [ext_resource type="Script" uid="uid://b6xwvcd1c6hpm" path="res://scripts/nodes/zone_node.gd" id="1_suy51"]
 [ext_resource type="Material" uid="uid://2qm2hgj36a7m" path="res://assets/materials/debug_green.tres" id="3_anyd7"]
+[ext_resource type="Resource" uid="uid://cp2fj786xxl53" path="res://assets/cinematics/stranger.tres" id="3_ju5gt"]
 [ext_resource type="Material" uid="uid://dkb2fsjtxhblu" path="res://assets/materials/debug_black.tres" id="3_nvj10"]
 [ext_resource type="Material" uid="uid://c3my8ictc2w4b" path="res://assets/materials/debug_orange.tres" id="4_0xgc2"]
 [ext_resource type="PackedScene" uid="uid://c4cky3lenwdnj" path="res://scenes/prefabs/toggle.tscn" id="4_havs6"]
@@ -21,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://clrhwkbmx84kt" path="res://scenes/prefabs/primitive_stairs_2.tscn" id="12_dwl5u"]
 [ext_resource type="Script" uid="uid://dfwpyddi4qity" path="res://scripts/nodes/pawn.gd" id="17_bjv75"]
 [ext_resource type="PackedScene" uid="uid://b1e5tur6memej" path="res://scenes/prefabs/controllables/simple_car.tscn" id="21_bjv75"]
-[ext_resource type="Script" uid="uid://04yw3wvvilr0" path="res://scripts/nodes/event_area.gd" id="23_4ctnv"]
+[ext_resource type="Script" uid="uid://04yw3wvvilr0" path="res://scripts/nodes/zone_area_node.gd" id="23_4ctnv"]
 [ext_resource type="Script" uid="uid://lis64ohqgas0" path="res://scripts/nodes/mount.gd" id="24_ju5gt"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_wdhyl"]
@@ -61,6 +62,7 @@ char_id = &"paul"
 [node name="npc_paul" parent="." instance=ExtResource("1_k3ref")]
 transform = Transform3D(-0.8740267, 0, 0.48587787, 0, 1, 0, -0.48587787, 0, -0.8740267, -8.336996, -0.50000286, 2.5986118)
 floor_max_angle = 1.2217305
+flow_script = ExtResource("3_ju5gt")
 
 [node name="master" type="Node" parent="."]
 

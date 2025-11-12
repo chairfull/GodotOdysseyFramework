@@ -1,0 +1,12 @@
+TYPE: award
+ID: quest1_completed
+name: Quest Completer
+desc: You completed the first quest.
+triggers:
+  - event: QUEST_COMPLETED
+    state: { quest: my_quest }
+  - event: CHAR_KILLED
+    state: { who:  }
+conds:
+  - my_quest.is_passed()
+  - killed_enemies > 0

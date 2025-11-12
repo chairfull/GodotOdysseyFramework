@@ -9,30 +9,51 @@ signal unhovered()
 signal focused()
 signal unfocused()
 
+@export var mouse_hoverable := true: set=set_mouse_hoverable
+var button_list: TweeButtonList:
+	get: return get_parent()
+var index: int:
+	get: return button_list.buttons.find(self)
+
 func _init() -> void:
 	if not Engine.is_editor_hint():
-		if (self as Object) is Control:
-			var con: Control = (self as Object)
-			con.mouse_entered.connect(_hovered)
-			con.mouse_exited.connect(_unhovered)
-			con.focus_entered.connect(_focused)
-			con.focus_exited.connect(_unfocused)
+		if is_control():
+			var con := as_control()
+			con.focus_entered.connect(focus)
+			con.focus_exited.connect(unfocus)
 
-func _hovered():
-	if (self as Object) is Button:
-		if not (self as Object as Button).disabled: hovered.emit()
+func set_mouse_hoverable(h: bool):
+	mouse_hoverable = h
+	var con := as_control()
+	if mouse_hoverable:
+		con.mouse_entered.connect(hover)
+		con.mouse_exited.connect(unhover)
+	else:
+		con.mouse_entered.disconnect(hover)
+		con.mouse_exited.disconnect(unhover)
 
-func _unhovered():
-	if (self as Object) is Button:
-		if not (self as Object as Button).disabled: unhovered.emit()
+func is_button() -> bool: return (self as Object) is Button
+func as_button() -> Button: return (self as Object) as Button
 
-func _focused():
-	if (self as Object) is Button:
-		if not (self as Object as Button).disabled: focused.emit()
+func hover():
+	if is_button():
+		if not as_button().disabled:
+			button_list.hovered = index
+			hovered.emit()
 
-func _unfocused():
-	if (self as Object) is Button:
-		if not (self as Object as Button).disabled: unfocused.emit()
+func unhover():
+	if is_button():
+		if not as_button().disabled:
+			button_list.hovered = -1
+			unhovered.emit()
+
+func focus():
+	if is_button():
+		if not as_button().disabled: focused.emit()
+
+func unfocus():
+	if is_button():
+		if not as_button().disabled: unfocused.emit()
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var parent := get_parent()

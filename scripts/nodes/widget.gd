@@ -14,7 +14,13 @@ func is_visible_in_cinematic() -> bool: return false
 func close() -> void:
 	Controllers.get_player(player_index).hide_widgit(name)
 
-## Used by FlowPlayerGenerator.
+func get_controller() -> ControllerPlayer:
+	return Controllers.get_player(player_index)
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	get_controller()._event = event
+
+## Used by FlowPlayerGenerator to create keyframes.
 func _cinematic_step(_gen: FlowPlayerGenerator, _step: Dictionary) -> void:
 	pass
 

@@ -1,0 +1,8 @@
+{
+	"TYPE": "stats",
+	"stats": {
+		"score": {
+			"default": 0,
+		}
+	}
+}

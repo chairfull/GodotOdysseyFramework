@@ -13,7 +13,7 @@ signal item_gained(id: ItemInfo, amount: int)
 signal item_lost(id: ItemInfo, amount: int)
 
 @export var items: Array[InventoryItem]
-@export var vars := VarDB.new()
+@export var stats := StatDB.new()
 
 # TODO: var max_items: int
 # TODO: var max_slots: int

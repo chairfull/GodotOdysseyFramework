@@ -4,9 +4,51 @@ extends Node3D
 @export var humanoid: Humanoid: set=set_humanoid
 @export var highlightable: Array[MeshInstance3D]
 @export var highlight := false: set=set_highlight
+#@onready var _ik_left_leg: GodotIK = %ik_left_leg
+#@onready var _ik_left_leg_target: GodotIKEffector = %ik_left_leg_target
+#@onready var _ik_right_leg: GodotIK = %ik_right_leg
+#@onready var _ik_right_leg_target: GodotIKEffector = %ik_right_leg_target
 @onready var _tree: AnimationTree = %animation_tree
 var _walk_blend := 0.0
 var _highlight_material: Material
+
+#region IK Properties
+@export_range(0.0, 1.0) var ik_left_hand_weight := 0.0:
+	get: return %ik_left_hand.influence
+	set(w):
+		%ik_left_hand.influence = clampf(w, 0.0, 1.0)
+		%ik_left_hand.active = %ik_left_hand.influence != 0.0
+@export var ik_left_hand_position: Vector3:
+	get: return %ik_left_hand_target.global_position
+	set(p): if is_inside_tree(): %ik_left_hand_target.global_position = p
+
+@export_range(0.0, 1.0) var ik_right_hand_weight := 0.0:
+	get: return %ik_right_hand.influence
+	set(w):
+		%ik_right_hand.influence = clampf(w, 0.0, 1.0)
+		%ik_right_hand.active = %ik_right_hand.influence != 0.0
+@export var ik_right_hand_position: Vector3:
+	get: return %ik_right_hand_target.global_position
+	set(p): if is_inside_tree(): %ik_right_hand_target.global_position = p
+
+@export_range(0.0, 1.0) var ik_left_foot_weight := 0.0:
+	get: return %ik_left_foot.influence
+	set(w):
+		%ik_left_foot.influence = clampf(w, 0.0, 1.0)
+		%ik_left_foot.active = %ik_left_foot.influence != 0.0
+@export var ik_left_foot_position: Vector3:
+	get: return %ik_left_foot_target.global_position
+	set(p): if is_inside_tree(): %ik_left_foot_target.global_position = p
+
+@export_range(0.0, 1.0) var ik_right_foot_weight := 0.0:
+	get: return %ik_right_foot.influence
+	set(w):
+		%ik_right_foot.influence = clampf(w, 0.0, 1.0)
+		%ik_right_foot.active = %ik_right_foot.influence != 0.0
+@export var ik_right_foot_position: Vector3:
+	get: return %ik_right_foot_target.global_position
+	set(p): if is_inside_tree(): %ik_right_foot_target.global_position = p
+#endregion
 
 func _ready() -> void:
 	if Engine.is_editor_hint():

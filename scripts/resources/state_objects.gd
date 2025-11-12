@@ -1,11 +1,10 @@
 class_name StateObjects extends Resource
 
-const ORDER := [&"chars", &"items", &"zones", &"vars", &"quests"]
-
 @export var chars: CharDB
+@export var char_groups: CharGroupDB
 @export var items: ItemDB
 @export var zones: ZoneDB
-@export var vars: VarDB
+@export var stats: StatDB
 @export var quests: QuestDB
 @export var attributes: AttributeDB
 @export var inventories: InventoryDB
@@ -14,27 +13,25 @@ const ORDER := [&"chars", &"items", &"zones", &"vars", &"quests"]
 func _init() -> void:
 	clear()
 
+func get_dbs() -> Array[Database]:
+	return [chars, items, zones, stats, quests]
+
 func get_counts_string(join_str := ", ") -> String:
 	var counts := []
-	for prop in ORDER:
-		var size: int = self[prop].size()
+	for db in get_dbs():
+		var size: int = db.size()
 		if size > 0:
-			counts.append([size, prop])
+			counts.append([size, UObj.get_class_name(db)])
 	counts.sort_custom(func(a, b): return a[0] > b[0])
 	return join_str.join(counts.map(func(a): return "%sx %s" % a))
 
-func clear():
+func clear() -> void:
 	chars = CharDB.new()
+	char_groups = CharGroupDB.new()
 	items = ItemDB.new()
 	zones = ZoneDB.new()
-	vars = VarDB.new()
+	stats = StatDB.new()
 	quests = QuestDB.new()
 	attributes = AttributeDB.new()
 	inventories = InventoryDB.new()
 	equip_slots = Database.new()
-
-func get_dbs() -> Array[Database]:
-	var out: Array[Database]
-	for item in ORDER:
-		out.append(self[item])
-	return out

@@ -1,0 +1,2 @@
+- Fixed RTEAnims.
+	- Added `ease_back` `ease_back_in`.

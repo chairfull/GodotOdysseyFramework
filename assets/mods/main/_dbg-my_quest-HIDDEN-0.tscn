@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_qctjt"]
 [ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_aq4bm"]
-[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption_widgit.gd" id="3_m4p48"]
+[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption.gd" id="3_m4p48"]
 
 [sub_resource type="Animation" id="Animation_qctjt"]
-length = 1.101
+length = 0.20099999
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -13,16 +13,16 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
+"times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [1777536727],
 "method": &"_meth"
 }, {
-"args": [1777536732],
+"args": [2824137196],
 "method": &"_meth"
 }, {
-"args": [1777537816],
+"args": [1777536728],
 "method": &"_meth"
 }]
 }
@@ -33,7 +33,7 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
+"times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, true, false]
@@ -45,14 +45,14 @@ tracks/2/path = NodePath("./caption:text")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": ["You entered the location.", "paul: This is the spot."]
 }
 
 [sub_resource type="Animation" id="Animation_aq4bm"]
-length = 0.501
+length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -74,7 +74,7 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -93,7 +93,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_m4p48"]
-length = 0.501
+length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -115,7 +115,7 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -134,7 +134,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_0m8dx"]
-length = 0.501
+length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -156,7 +156,7 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -191,13 +191,20 @@ script = ExtResource("1_qctjt")
 method_calls = Dictionary[int, Array]({
 1093617520: [[&"wait", []]],
 1777536727: [[&"wait", []]],
-1777536732: [[&"wait", []]],
-1777537816: [[&"_event", ["QUEST_START", "my_quest"]], [&"_event", ["QUEST_TICK", "my_quest#area"]], [&"_event", ["QUEST_SHOW", "my_quest#find_apple"]], [&"_event", ["QUEST_SHOW", "my_quest#find_pear"]], [&"_event", ["QUEST_SHOW", "my_quest#find_banana"]], [&"_cond", [[[520882869, &"branch_795717765"], [2636823051, &"branch_1587431775"], [5381, &"branch_1327478925"]]]]],
+1777536728: [[&"_event", ["QUEST_START", "my_quest"]], [&"_event", ["QUEST_TICK", "my_quest#area"]], [&"_event", ["QUEST_SHOW", "my_quest#find_apple"]], [&"_event", ["QUEST_SHOW", "my_quest#find_pear"]], [&"_event", ["QUEST_SHOW", "my_quest#find_banana"]], [&"_cond", [[[520882869, &"branch_795717765"], [2636823051, &"branch_1587431775"], [5381, &"branch_1327478925"]]]]],
 2404065456: [[&"wait", []]],
+2824137196: [[&"wait", []]],
 3571044998: [[&"wait", []]]
 })
 
 [node name="screens" type="CanvasLayer" parent="."]
 
-[node name="caption" type="PanelContainer" parent="." instance=ExtResource("2_aq4bm")]
+[node name="caption" type="Control" parent="." instance=ExtResource("2_aq4bm")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("3_m4p48")

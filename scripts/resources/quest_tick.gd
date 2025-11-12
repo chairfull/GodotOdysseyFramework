@@ -35,10 +35,10 @@ func set_tick(t: int):
 	if tick == t: return
 	tick = t
 	show()
-	State.QUEST_TICKED.emit({ tick=self })
+	State.QUEST_TICKED.fire({ tick=self })
 	if completed:
 		state = QuestInfo.QuestState.PASSED
-		State.QUEST_TICK_COMPLETED.emit({ tick=self })
+		State.QUEST_TICK_COMPLETED.fire({ tick=self })
 
 func show() -> void:
 	if state == QuestInfo.QuestState.HIDDEN:

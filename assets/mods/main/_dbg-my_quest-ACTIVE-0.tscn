@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://b5q234bb25srj"]
 
-[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_mg0lm"]
-[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_n42i5"]
-[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption_widgit.gd" id="3_n42i5"]
+[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_n42i5"]
+[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_m6pof"]
+[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption.gd" id="3_yjh80"]
 
 [sub_resource type="Animation" id="Animation_n42i5"]
 length = 0.101
@@ -22,7 +22,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_m6pof"]
-length = 0.501
+length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -30,13 +30,13 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [2894167511],
 "method": &"_meth"
 }, {
-"args": [2894167516],
+"args": [1018247404],
 "method": &"_meth"
 }]
 }
@@ -47,7 +47,7 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -66,7 +66,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_yjh80"]
-length = 0.501
+length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -88,7 +88,7 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -107,7 +107,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ag57d"]
-length = 0.501
+length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -129,7 +129,7 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -148,7 +148,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_d6n8h"]
-length = 0.501
+length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -170,7 +170,7 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -189,7 +189,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_28rmy"]
-length = 0.501
+length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -211,7 +211,7 @@ tracks/1/path = NodePath("./caption:visible")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -244,18 +244,25 @@ root_node = NodePath(".")
 libraries = {
 &"_dbg-my_quest-ACTIVE-0": SubResource("AnimationLibrary_cboc8")
 }
-script = ExtResource("1_mg0lm")
+script = ExtResource("1_n42i5")
 method_calls = Dictionary[int, Array]({
 256312446: [[&"wait", []]],
 264718165: [[&"wait", []]],
+1018247404: [[&"_event", ["QUEST_PASS", "my_quest"]]],
 1777536727: [[&"_cond", [[[1190937198, &"branch_2882915596"], [4194837085, &"branch_3451350117"], [2590090614, &"branch_1526383200"], [1916210732, &"branch_952356893"], [2090815788, &"branch_3929484761"]]]]],
 2849222914: [[&"wait", []]],
 2894167511: [[&"wait", []]],
-2894167516: [[&"_event", ["QUEST_PASS", "my_quest"]]],
 3549328158: [[&"wait", []]]
 })
 
 [node name="screens" type="CanvasLayer" parent="."]
 
-[node name="caption" type="PanelContainer" parent="." instance=ExtResource("2_n42i5")]
-script = ExtResource("3_n42i5")
+[node name="caption" type="Control" parent="." instance=ExtResource("2_m6pof")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_yjh80")

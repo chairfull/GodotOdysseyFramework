@@ -1,12 +1,7 @@
-```
-╭─╮┌─╮╷ ╷╭─╮╭─╮╭─╴╮ ╷   ┌─╴┌─╮╭─╮╭┬╮╭─╴╮╷╷╭─╮┌─╮╷ ╷
-│ │≈ │╰┼╯╰─╮╰─╮├─ ╰┼╯   ├─ ├┬╯├─┤│││├─ ││││ │├┬╯├┬╯
-╰─╯└─╯ ╵ ╰─╯╰─╯╰─╴ ╵    ╵  ╵╰╴╯ ╵╵╵╵╰─╴╰┴╯╰─╯╵╰╴╯╰
-╘═══════════════════( v0.1 )══════════════════════╛
-```
-
-![Alt text](./addons/odyssey/icon_of.svg)
-<img src="./addons/odyssey/icon_of.svg">
+![Odysset Framework](./addons/odyssey/icon_of.svg)
+# v0.1.1
+![Godot](https://img.shields.io/badge/Godot-4.x-blue.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) (LICENSE)
 
 Simplify development of FPS, RPG, ImSims.
 
@@ -14,7 +9,9 @@ Simplify development of FPS, RPG, ImSims.
 - [Little Camera Preview](https://github.com/anthonyec/godot_little_camera_preview)
 - [LimboAI](https://github.com/limbonaut/limboai)
 - [YAML](https://github.com/fimbul-works/godot-yaml)
+- [GodotIK](https://github.com/monxa/GodotIK)
 - [Twee](https://github.com/chair_full/GodotTwee)
+- [RicherTextLabels](https://github.com/chairfull/GodotRichTextLabel2/tree/v2dev)
 
 # Controls
 
@@ -25,9 +22,6 @@ Simplify development of FPS, RPG, ImSims.
 |`Ctrl`+`3`| Toggle top-down view|
 
 # Design Goal
-- AFAP: As few components as possible:
-	- Player & npc share most scripts
-	- Weapons/items share most components
 - Gameplay over cinema:
 	- Max interaction: Everything interactive w everything
 	- Most cinematics skippable/ffwdable
@@ -44,6 +38,9 @@ Simplify development of FPS, RPG, ImSims.
 	- [ ] UI buttons animate/communicate on hover, click, unhover
 	- [ ] Landing causes camera to tilt based on impact
 	- [ ] Sounds change based on object movement speed
+- AFAP: As few components as possible:
+	- Player & npc share most scripts
+	- Weapons/items share most components
 	
 # Todo
 
@@ -80,6 +77,14 @@ Simplify development of FPS, RPG, ImSims.
 - [ ] Pulling
 - [ ] Climbing
 - [ ] God-Mode/Flying
+- [x] IK: Inverse Kinematics
+	- [x] Hands
+		- [ ] 1st Person: Hold items
+		- [ ] Press buttons/interactives in world space
+		- [ ] Align to objects (Ladders)
+		- [ ] Hold hands w NPCs
+	- [x] Feet
+		- [ ] Align to floor
 
 ## Third Person
 - [ ] God-Mode

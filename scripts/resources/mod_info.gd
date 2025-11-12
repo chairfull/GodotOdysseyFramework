@@ -2,36 +2,39 @@
 class_name ModInfo extends StateObjects
 
 @export var mod_name := "Unnamed Mod"
+@export var mod_desc := "Adds features."
 @export var mod_author := "Author"
 @export var mod_version := "0.0.1"
 @export_global_dir var data_dir: String: ## Directory to scan for data files.
 	get: return data_dir if data_dir else resource_path.get_base_dir()
 @export_multiline var _debug_info := ""
-@export var _script_conds: Dictionary[StringName, String]
-@export var _script_exprs: Dictionary[StringName, String]
+@export var _script_conds: Dictionary[int, String]
+@export var _script_exprs: Dictionary[int, String]
 
-@warning_ignore("unused_private_class_variable")
-@export_tool_button("Regen") var _tb_regen := func():
-	clear()
-	_script_conds.clear()
-	_script_exprs.clear()
-	
-	_scan_dir(data_dir)
+@export var awards: AwardDB
+
+func clear() -> void:
+	super()
+	awards = AwardDB.new()
+
+func get_persistent_dbs() -> Array[Database]:
+	return [awards]
+
+func load_dir(dir: String) -> void:
+	data_dir = dir
+	_load_dir(dir)
 	_debug_info = get_counts_string("\n")
-	
-	# Resave to disk.
-	ResourceSaver.save(self, resource_path)
-	
-func _scan_dir(dir: String):
+
+func _load_dir(dir: String) -> void:
 	for subdir in DirAccess.get_directories_at(dir):
-		_scan_dir(dir.path_join(subdir))
+		_load_dir(dir.path_join(subdir))
 	for file in DirAccess.get_files_at(dir):
 		var path := dir.path_join(file)
 		match file.get_extension():
 			"json": _load_json(path)
 			"yaml": _load_yaml(path)
 
-func _load_yaml(file: String):
+func _load_yaml(file: String) -> void:
 	var yaml_str := FileAccess.get_file_as_string(file)
 	var yaml_result := YAML.parse(yaml_str)
 	if yaml_result.has_error():
@@ -40,36 +43,22 @@ func _load_yaml(file: String):
 	var data: Variant = yaml_result.get_data()
 	_load_data(data)
 
-func _load_json(file: String):
+func _load_json(file: String) -> void:
 	var json := FileAccess.get_file_as_string(file)
 	var data: Variant = JSON.parse_string(json)
 	_load_data(data)
-
-func _process_flow(flow_script: FlowScript):
-	var parsed := flow_script.get_parsed()
-	for step in parsed.tabbed:
-		if step.type == FlowToken.CMND:
-			match step.cmnd:
-				&"CODE": _add_expr(step.rest)
-				&"IF": _add_cond(step.rest)
-				&"ELIF": _add_cond(step.rest)
-				&"ELSE": _add_cond("true")
-
-func _add_cond(st: String) -> StringName:
-	var meth_name := StringName("_cond_%s" % hash(st))
-	_script_conds[meth_name] = st
-	return meth_name
-
-func _add_expr(st: String) -> StringName:
-	var meth_name := StringName("_expr_%s" % hash(st))
-	_script_exprs[meth_name] = st
-	return meth_name
 
 func _load_data(data: Variant):
 	if data is Dictionary: data = [data]
 	for dict: Dictionary in data:
 		var type: StringName = dict.get(&"TYPE", &"")
 		match type:
+			&"mod_info":
+				mod_name = dict.get(&"name", mod_name)
+				mod_desc = dict.get(&"desc", mod_desc)
+				mod_author = dict.get(&"author", mod_author)
+				mod_version = dict.get(&"version", mod_version)
+				
 			&"char", &"character":
 				var id: StringName = dict.get(&"ID", &"")
 				chars._add(id, CharInfo.new(), dict)
@@ -85,6 +74,14 @@ func _load_data(data: Variant):
 				for id in item_list:
 					items._add(id, ItemInfo.new(), item_list[id])
 			
+			&"stat":
+				var id: StringName = dict.get(&"ID", &"")
+				stats._add(id, StatInfo.new(), dict)
+			&"stats":
+				var stat_list: Dictionary = dict.get(type)
+				for id in stat_list:
+					stats._add(id, StatInfo.new(), stat_list[id])
+			
 			&"zone":
 				var id: StringName = dict.get(&"ID", &"")
 				zones.add(id, dict)
@@ -92,7 +89,11 @@ func _load_data(data: Variant):
 				var zone_list: Dictionary = dict.get(type)
 				for id in zone_list:
 					zones.add(id, zone_list[id])
-				
+			
+			&"award":
+				var id: StringName = dict.get(&"ID", &"")
+				awards._add(id, AwardInfo.new(), dict)
+			
 			&"quest":
 				var id: StringName = dict.get(&"ID", &"")
 				var quest := QuestInfo.new()
@@ -113,6 +114,11 @@ func _load_data(data: Variant):
 					tick.id = tick_id
 					tick.quest_id = id
 
+func _add_cond(cond: String) -> int:
+	var hindex := hash(cond)
+	_script_conds[hindex] = cond
+	return hindex
+
 func _init_triggers(id: StringName, triggers: Dictionary[QuestInfo.QuestState, Array], json: Dictionary):
 	for state_id in json:
 		var state: QuestInfo.QuestState = QuestInfo.QuestState.keys().find(state_id) as QuestInfo.QuestState
@@ -131,7 +137,7 @@ func _init_triggers(id: StringName, triggers: Dictionary[QuestInfo.QuestState, A
 			flow_script.code = trigger_data.flow
 			print_rich("[color=cyan]" + flow_script.code)
 			trigger.flow_script = flow_script
-			_process_flow(flow_script)
+			flow_script.collect_expressions(_script_conds, _script_exprs)
 			ResourceSaver.save(flow_script, path + ".tres")
 			
 			var player := FlowPlayerGenerator.generate([load(path + ".tres")])

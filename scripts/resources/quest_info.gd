@@ -19,7 +19,7 @@ static func get_state_color(s := QuestState.HIDDEN) -> Color:
 @export var types: Array[StringName]
 @export var ticks: Dictionary[StringName, QuestTick]
 @export var state := QuestState.HIDDEN: set=set_state
-@export var vars := VarDB.new()
+@export var stats := StatDB.new()
 @export var triggers: Dictionary[QuestState, Array]
 @export var visible := true ## Sometimes invisible quests are wanted. They shouldn't create toasts.
 @export var marked_for_notification := false
@@ -57,18 +57,17 @@ func set_state(s: QuestState):
 func start():
 	if state == QuestState.HIDDEN:
 		state = QuestState.ACTIVE
-		State.QUEST_STARTED.emit({ quest=self })
-		print("STARTED!")
+		State.QUEST_STARTED.fire({ quest=self })
 
 func set_passed():
 	if state != QuestState.PASSED:
 		state = QuestState.PASSED
-		State.QUEST_PASSED.emit({ quest=self })
+		State.QUEST_PASSED.fire({ quest=self })
 		
 func set_failed():
 	if state != QuestState.FAILED:
 		state = QuestState.FAILED
-		State.QUEST_FAILED.emit({ quest=self })
+		State.QUEST_FAILED.fire({ quest=self })
 
 func ticked(...tick_ids) -> bool:
 	for tid in tick_ids:
@@ -82,8 +81,8 @@ func _get(property: StringName) -> Variant:
 	for tick_id in ticks:
 		if tick_id == property:
 			return ticks[tick_id]
-	if vars.has(property):
-		return vars.get(property)
+	if stats.has(property):
+		return stats.get(property)
 	return null
 
 func _set(property: StringName, value: Variant) -> bool:
@@ -91,8 +90,8 @@ func _set(property: StringName, value: Variant) -> bool:
 		if tick_id == property:
 			push_error("Can't set tick as property.", self, property)
 			return true
-	if vars.has(property):
-		vars.set(property, value)
+	if stats.has(property):
+		stats.set(property, value)
 		return true
 	return false
 

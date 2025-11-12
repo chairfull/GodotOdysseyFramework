@@ -9,4 +9,4 @@ func disable(id: StringName):
 	if id in enabled: enabled.erase(id)
 
 func get_enabled() -> Array[ModInfo]:
-	return [load("res://assets/mods/main/mymod.tres")]
+	return [load("res://assets/mods/main.tres")]

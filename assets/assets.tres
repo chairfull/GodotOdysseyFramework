@@ -78,6 +78,7 @@ audio = Dictionary[StringName, String]({
 &"wood_9": "footsteps/wood/wood_9.wav"
 })
 scenes = Dictionary[StringName, String]({
+&"awards": "widgits/awards.tscn",
 &"barrel": "prefabs/barrel.tscn",
 &"bike": "prefabs/controllables/bike.tscn",
 &"bird": "prefabs/controllables/bird.tscn",
@@ -109,6 +110,7 @@ scenes = Dictionary[StringName, String]({
 &"primitive_stairs_2": "prefabs/primitive_stairs_2.tscn",
 &"quadruped": "prefabs/controllables/quadruped.tscn",
 &"quest_log": "widgits/quest_log.tscn",
+&"radial_menu": "widgits/radial_menu.tscn",
 &"shooter": "prefabs/shooter.tscn",
 &"simple_car": "prefabs/controllables/simple_car.tscn",
 &"simple_toast": "widgits/simple_toast.tscn",
@@ -127,4 +129,3 @@ materials = Dictionary[StringName, String]({
 &"debug_pink": "debug_pink.tres",
 &"highlighted": "highlighted.tres"
 })
-metadata/_custom_type_script = "uid://cj5hkgjt1tbqo"

@@ -4,3 +4,5 @@ char_list:
     name: Paul
   mary:
     name: Mary
+  archer:
+    name: Archer

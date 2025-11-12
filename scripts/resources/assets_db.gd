@@ -2,14 +2,14 @@
 class_name AssetsDB extends Resource
 
 @warning_ignore("unused_private_class_variable")
-@export_tool_button("Update") var _tb_update := _update
+@export_tool_button("Reload") var _tb_update := reload
 
 @export var audio: Dictionary[StringName, String]
 @export var music: Dictionary[StringName, String]
 @export var scenes: Dictionary[StringName, String]
 @export var materials: Dictionary[StringName, String]
 
-func _update() -> void:
+func reload() -> void:
 	for d in [audio, music, scenes, materials]:
 		d.clear()
 	var old_audio := len(audio)
@@ -20,9 +20,6 @@ func _update() -> void:
 	_scan_dir(music, "res://assets/music/", "res://assets/music")
 	_scan_dir(scenes, "res://scenes/", "res://scenes", [ "tscn", "scn" ])
 	_scan_dir(materials, "res://assets/materials/", "res://assets/materials", [ "tres" ])
-	
-	ResourceSaver.save(self, "res://assets/assets.tres")
-	EditorInterface.get_resource_filesystem().reimport_files(["res://assets/assets.tres"])
 	
 	var new_audio := len(audio)
 	var new_music := len(music)

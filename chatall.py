@@ -22,6 +22,11 @@ def main():
     files.sort()
 
     with OUTPUT.open("w", encoding="utf-8") as md:
+        readme_content = Path("./README.md").read_text(encoding="utf-8", errors="ignore")
+        total_tokens += estimate_tokens(readme_content)
+        md.write(readme_content)
+        md.write("\n")
+
         for file_path in files:
             rel_path = file_path.relative_to(ROOT)
             content = file_path.read_text(encoding="utf-8", errors="ignore")
