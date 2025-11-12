@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b0ukqy4jodqpj" path="res://scenes/widgits/awards.gd" id="1_inu23"]
 [ext_resource type="Texture2D" uid="uid://cvqiwepgya3ua" path="res://icon.svg" id="2_r1ipp"]
 
-[node name="Awards" type="Control"]
+[node name="awards" type="Control" unique_id=277813766]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_inu23")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=258603091]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,29 +20,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="award_parent" type="VBoxContainer" parent="ScrollContainer"]
+[node name="award_parent" type="VBoxContainer" parent="ScrollContainer" unique_id=949366920]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="award_prefab" type="PanelContainer" parent="ScrollContainer/award_parent"]
+[node name="award_prefab" type="PanelContainer" parent="ScrollContainer/award_parent" unique_id=2926239]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/award_parent/award_prefab"]
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/award_parent/award_prefab" unique_id=568368335]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/award_parent/award_prefab/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/award_parent/award_prefab/MarginContainer" unique_id=1267072073]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="ScrollContainer/award_parent/award_prefab/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/award_parent/award_prefab/MarginContainer/HBoxContainer" unique_id=603171411]
 layout_mode = 2
 texture = ExtResource("2_r1ipp")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/award_parent/award_prefab/MarginContainer/HBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/award_parent/award_prefab/MarginContainer/HBoxContainer" unique_id=55370812]
 layout_mode = 2
 bbcode_enabled = true
 text = "Award Label

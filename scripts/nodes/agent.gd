@@ -1,4 +1,4 @@
-class_name Agent extends CharacterBody3D
+class_name Agent extends Controllable
 
 signal damage_dealt(info: DamageInfo)
 signal damage_taken(info: DamageInfo)
@@ -24,13 +24,14 @@ enum ProneState { Stand, Crouch, Kneel, Crawl }
 @onready var node_seeing: Detector = %seeing
 @onready var node_hearing: Detector = %hearing
 @onready var nav_agent: NavigationAgent3D = %nav_agent
+
 @export var flow_script: FlowScript
 @export_range(-180, 180, 0.01, "radians_as_degrees") var direction: float: get=get_direction, set=set_direction
 @export var char_id: StringName
 var char_info: CharInfo:
 	get: return null if not char_id else State.find_char(char_id)
 var movement := Vector2.ZERO
-var body: CharacterBody3D = convert(self, TYPE_OBJECT)
+var body: CharacterBody3D = (self as Object as CharacterBody3D)
 var _equipped: Dictionary[StringName, ItemNode]
 var prone_state := ProneState.Stand:
 	set(ps):
@@ -76,6 +77,7 @@ var jump_force := 6.0
 var _footstep_time := 0.0
 
 func _ready() -> void:
+	super()
 	fix_direction()
 	if %nav_agent:
 		(%nav_agent as NavigationAgent3D).navigation_finished.connect(func(): movement = Vector2.ZERO)
@@ -159,11 +161,11 @@ func _physics_process(delta: float) -> void:
 	body.move_and_slide()
 	_last_position = body.global_position
 
-func _interacted(pawn: Pawn, form: Interactive.Form) -> void:
+func _interacted(with: Pawn, form: Interactive.Form) -> void:
 	if flow_script:
 		Cinema.queue(flow_script)
 	else:
-		prints(pawn.name, "interacted with", name, "FORM:", form)
+		prints(with.name, "interacted with", name, "FORM:", form)
 
 func fix_direction() -> void:
 	# Transfer rotation to proper node.
@@ -197,16 +199,16 @@ func focus_stop():
 	_focusing = false
 	focus_stopped.emit()
 
-func interact_start(pawn: Pawn) -> bool:
+func interact_start(with: Pawn) -> bool:
 	if _interactive:#interactive_detector.is_detecting():
 		_interacting = _interactive#interactive_detector.get_nearest() as Interactive
-		_interacting.interact(pawn)
+		_interacting.interact(with)
 		return true
 	return false
 
-func interact_stop(pawn: Pawn) -> bool:
+func interact_stop(with: Pawn) -> bool:
 	if _interacting:
-		_interacting.cancel(pawn)
+		_interacting.cancel(with)
 		_interacting = null
 		return true
 	return false
@@ -245,12 +247,12 @@ func is_crawling() -> bool: return prone_state == ProneState.Crawl or _next_pron
 func is_standing() -> bool: return prone_state == ProneState.Stand or _next_prone_state == ProneState.Stand
 
 func freeze() -> void:
-	collision_mask = 0
+	body.collision_mask = 0
 	set_process(false)
 	set_physics_process(false)
 
 func unfreeze() -> void:
-	collision_mask = 1
+	body.collision_mask = 1
 	set_process(true)
 	set_physics_process(true)
 

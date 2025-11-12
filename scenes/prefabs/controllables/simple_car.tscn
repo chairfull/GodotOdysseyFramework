@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b1e5tur6memej"]
+[gd_scene load_steps=18 format=3 uid="uid://b1e5tur6memej"]
 
 [ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/nodes/interactive.gd" id="1_51xss"]
 [ext_resource type="Script" uid="uid://c6fwss4rippt7" path="res://scripts/nodes/simple_car.gd" id="1_ls0ui"]
@@ -6,6 +6,16 @@
 [ext_resource type="AudioStream" uid="uid://bn584unj1f8sf" path="res://assets/audio/vehicle/engine.mp3" id="3_wkwv2"]
 [ext_resource type="AudioStream" uid="uid://jxlogpucylmw" path="res://assets/audio/vehicle/horn.mp3" id="6_eu13v"]
 [ext_resource type="ArrayMesh" uid="uid://dlnu11aabyafl" path="res://assets/model/vehicles/SportsCar.obj" id="7_eu13v"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_3g0rj"]
+
+[sub_resource type="BTWait" id="BTWait_eu13v"]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_rftf1"]
+blackboard_plan = SubResource("BlackboardPlan_3g0rj")
+root_task = SubResource("BTWait_eu13v")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_a4ghq"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1l2sd"]
 
@@ -39,10 +49,15 @@ script = ExtResource("1_ls0ui")
 suspension_stiff_value = 50.0
 pawn = NodePath("drivers_seat")
 
-[node name="drivers_seat" type="Node3D" parent="." unique_id=847504585 node_paths=PackedStringArray("node", "rider_interact", "rider_unmount_area")]
+[node name="BTPlayer" type="BTPlayer" parent="." unique_id=1101905958]
+behavior_tree = SubResource("BehaviorTree_rftf1")
+blackboard_plan = SubResource("BlackboardPlan_a4ghq")
+
+[node name="drivers_seat" type="Node3D" parent="." unique_id=847504585 node_paths=PackedStringArray("node", "behavior", "rider_interact", "rider_unmount_area")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4729668, 0.24864864, -0.7694926)
 script = ExtResource("3_rftf1")
 node = NodePath("..")
+behavior = NodePath("../BTPlayer")
 rider_interact = NodePath("../door_driver")
 rider_unmount_area = NodePath("exit")
 metadata/_custom_type_script = "uid://dfwpyddi4qity"

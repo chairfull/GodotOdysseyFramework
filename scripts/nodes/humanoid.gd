@@ -1,5 +1,10 @@
 class_name Humanoid extends Agent
 
+var camera: CameraTarget ## TODO: Move to controller...
+var _crouch_hold_time := 0.0
+var _crouch_held := false
+var _interactive_hud: Widget
+
 func pickup(_item_node: ItemNode):
 	print("TODO: PICKUP")
 	#var dummy := MeshInstance3D.new()
@@ -59,3 +64,173 @@ func crawl():
 		"%collision_shape:shape:height": 0.5}, 0.2, &"prone").finished.connect(func():
 		prone_state = ProneState.Crawl
 		prone_state_changed.emit())
+
+func _controlled(con: Controller) -> void:
+	super(con)
+	
+	#agent.interactive_detector.visible_changed.connect(agent.interactive_changed.emit)
+	controller.view_state_changed.connect(_view_state_changed)
+	if not camera:
+		camera = Assets.create_scene(&"camera_follow", true)
+		camera.target = self
+		controller.camera_master.target = camera.camera
+		camera.get_node("%head_remote").remote_path = %head.get_path()
+		
+		var remote := RemoteTransform3D.new()
+		remote.name = "camera_target"
+		remote.update_position = true
+		remote.update_rotation = false
+		remote.update_scale = false
+		%head.add_child(remote)
+		remote.remote_path = camera.get_path()
+		
+		_view_state_changed()
+	controller.show_widgit(&"toast_manager")
+	_interactive_hud = controller.show_widgit(&"interaction_label")
+	_interactive_hud.set_agent(self)
+	
+	print("CONTROLLED ", con, camera)
+
+func _uncontrolled(con: Controller) -> void:
+	super(con)
+	
+	_interactive_hud = null
+	#agent.interactive_detector.visible_changed.disconnect(agent.interactive_changed.emit)
+	controller.view_state_changed.disconnect(_view_state_changed)
+	controller.hide_widgit(&"interaction_label")
+	controller.hide_widgit(&"toast_manager")
+
+func _view_state_changed():
+	match controller.view_state:
+		Controller.ViewState.FirstPerson:
+			Global.wait(0.35, controller.show_fps_viewport)
+			await camera.set_first_person()
+			%model.visible = false
+		Controller.ViewState.ThirdPerson:
+			controller.hide_fps_viewport()
+			camera.set_third_person()
+			%model.visible = true
+
+func _on_controller_input(event: InputEvent) -> void:
+	super(event)
+	
+	if is_action_pressed(&"quick_equip_menu"):
+		controller.show_widgit(&"menu", { choices=[
+			{ text="Yes"},
+			{ text="No" },
+			{ text="Maybe"}
+		]})
+		handle_input()
+		
+	elif is_action_pressed(&"toggle_quest_log"):
+		controller.toggle_widgit(&"quest_log")
+	
+	elif is_action_pressed(&"interact"):
+		if interact_start(pawn):
+			handle_input()
+	elif is_action_released(&"interact"):
+		if interact_stop(pawn):
+			handle_input()
+	
+	elif is_action_both(&"fire", fire_start, fire_stop): pass
+	elif is_action_both(&"reload", reload_start, reload_stop): pass
+	
+	elif is_action_pressed(&"jump"):
+		if prone_state in [Humanoid.ProneState.Crouch, Humanoid.ProneState.Crawl]:
+			stand()
+		else:
+			jump_start()
+		handle_input()
+	elif is_action_released(&"jump"):
+		if jump_stop():
+			handle_input()
+	
+	elif is_action_pressed(&"drop"):
+		if drop():
+			handle_input()
+	
+	elif is_action_both(&"aim", focus_start, focus_stop): pass
+	#elif is_action_pressed(&"aim"):
+		#agent.focus_start()
+		#camera.focus()
+		#handle_input()
+	#elif is_action_released(&"aim"):
+		#agent.focus_stop()
+		#camera.unfocus()
+		#handle_input()
+		
+	elif is_action_pressed(&"crouch", false, true):
+		_crouch_held = true
+		if is_standing():
+			crouch()
+		elif is_crawling():
+			crouch()
+		handle_input()
+	elif is_action_released(&"crouch", true):
+		_crouch_held = false
+		_crouch_hold_time = 0.0
+		if is_crouching():
+			stand()
+		handle_input()
+	
+	elif is_action_both(&"sprint", sprint_start, sprint_stop): pass
+
+func _on_controller_update(delta: float) -> void:
+	#camera.get_node("%pivot").position.y = humanoid.get_node("%head").position.y
+	#humanoid.get_node("%head").global_rotation = camera.camera.global_rotation
+	
+	if _crouch_held:
+		_crouch_hold_time += delta
+		if _crouch_hold_time > 0.5:
+			if not is_crawling():
+				crawl()
+	
+	var inter: Interactive
+	if controller.is_third_person():
+		var pos := interactive_detector.global_position
+		inter = interactive_detector.get_nearest(pos)
+	elif controller.is_first_person():
+		inter = interactive_detector.get_nearest(looking_at)
+	
+	if inter != _interactive:
+		if _interactive:
+			_interactive.highlight = Interactive.Highlight.NONE
+		_interactive = inter
+		if _interactive:
+			_interactive.highlight = Interactive.Highlight.FOCUSED
+	
+	var input_dir := controller.get_move_vector_camera()
+	
+	if is_focusing():
+		var cam_dir := camera.camera.global_rotation.y
+		direction = lerp_angle(direction, cam_dir, delta * 10.0)
+	else:
+		if input_dir:
+			direction = lerp_angle(direction, -input_dir.angle() - PI * .5, delta * 10.0)
+	
+	movement = input_dir
+	
+	var cam := camera.camera
+	var mp := cam.get_viewport().get_mouse_position()
+	var from := cam.project_ray_origin(mp)
+	var to := from + cam.project_ray_normal(mp) * 1000.0
+	var space := cam.get_world_3d().direct_space_state
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [body.get_rid()]
+	var hit := space.intersect_ray(query)
+	var target_pos = hit.position if hit else to
+	
+	looking_at = target_pos
+	
+	if inter:
+		head_looking_at = inter.global_position + inter.humanoid_lookat_offset
+		head_looking_amount = 1.0
+	elif is_focusing():
+		head_looking_at = target_pos
+		head_looking_amount = 1.0
+	else:
+		var node: Node3D = %direction
+		var forward := -node.global_transform.basis.z
+		var front_pos := node.global_position + forward * 2.0 + Vector3.UP * 1.3
+		head_looking_at = front_pos
+		head_looking_amount = 0.0

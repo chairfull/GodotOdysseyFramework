@@ -12,10 +12,10 @@ func is_pauser() -> bool: return false
 func is_visible_in_cinematic() -> bool: return false
 
 func close() -> void:
-	Controllers.get_player(player_index).hide_widgit(name)
+	Controllers.get_controller(player_index).hide_widgit(name)
 
-func get_controller() -> ControllerPlayer:
-	return Controllers.get_player(player_index)
+func get_controller() -> Controller:
+	return Controllers.get_controller(player_index)
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	get_controller()._event = event
@@ -26,4 +26,4 @@ func _cinematic_step(_gen: FlowPlayerGenerator, _step: Dictionary) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action(&"exit"):
-		(get_parent() as ControllerPlayer).hide_widgit(name)
+		(get_parent() as Controller).hide_widgit(name)

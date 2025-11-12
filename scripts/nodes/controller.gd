@@ -3,6 +3,8 @@ class_name Controller extends Node
 signal view_state_changed()
 signal focus_exited(con: Control)
 signal focus_entered(con: Control)
+signal on_input(event: InputEvent)
+signal on_update(delta: float)
 
 enum ViewState { None, FirstPerson, ThirdPerson, TopDown }
 
@@ -16,6 +18,7 @@ var input_remap: Dictionary[StringName, StringName] # TODO: Move to some global 
 var _widgits: Dictionary[StringName, Widget]
 var _event: InputEvent
 var _focused_control: Control
+
 var view_state := ViewState.FirstPerson:
 	set(vs):
 		view_state = vs
@@ -25,6 +28,9 @@ var view_state := ViewState.FirstPerson:
 func _init(i := 0) -> void:
 	index = i
 	add_to_group(&"Controller")
+
+func is_first_person() -> bool: return view_state == ViewState.FirstPerson
+func is_third_person() -> bool: return view_state == ViewState.ThirdPerson
 
 func hide_fps_viewport():
 	UTween.parallel(fps_viewport_container, { "modulate:a": 0.0 }, 0.2)\
@@ -121,18 +127,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		view_state = ViewState.TopDown
 		get_viewport().set_input_as_handled()
 
-
 func set_pawn(target: Pawn):
 	if pawn == target: return
 	if pawn:
-		pawn._unposessed()
-		_ended()
+		pawn._uncontrolled(self)
+		set_process(false)
+		set_process_unhandled_input(false)
 	pawn = target
-	pawn._posessed(self)
-	_started.call_deferred()
+	pawn._controlled(self)
+	set_process(true)
+	set_process_unhandled_input(true)
 
-func _started():
-	print("Control Started ", pawn)
+func _unhandled_key_input(event: InputEvent) -> void:
+	_event = event
+	on_input.emit(event)
 
-func _ended():
-	print("Control Ended ", pawn)
+func _process(delta: float) -> void:
+	on_update.emit(delta)

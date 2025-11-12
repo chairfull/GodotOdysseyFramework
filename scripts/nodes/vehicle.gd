@@ -1,45 +1,13 @@
-class_name Vehicle extends VehicleBody3D
+class_name Vehicle extends ControllableMountable
 
 @export var info: VehicleInfo
-@export var pawn: Pawn
-var _brake_pressed := false ## 
+var body: VehicleBody3D = self as Object as VehicleBody3D
+var _braking := false ## 
+var _honking := false
 var move := Vector2.ZERO ## X=throttle (forward/backward), Y=steering (left/right)
 
-func _ready() -> void:
-	pawn.posessed.connect(_posessed)
-	pawn.unposessed.connect(_unposessed)
-	pawn.rider_mounted.connect(_mounted)
-	pawn.rider_unmounted.connect(_unmounted)
-	set_process_unhandled_input(false)
-
-func _posessed(_con: Controller) -> void:
-	set_process_unhandled_input(true)
-
-func _unposessed(_con: Controller) -> void:
-	set_process_unhandled_input(false)
-
-func _mounted(_rider: Pawn) -> void:
-	pass
-
-func _unmounted(_rider: Pawn) -> void:
-	move = Vector2.ZERO
-	brake = false
-
-func honk_start(): return true
-func honk_stop(): return true
-
-func brake_start():
-	_brake_pressed = true
-	return true
-
-func brake_stop():
-	_brake_pressed = false
-	return true
-
 ## Used when Controller active.
-func _unhandled_input(event: InputEvent) -> void:
-	pawn.controller._event = event
-	
+func _on_controller_input(_event: InputEvent) -> void:
 	if pawn.is_action_pressed(&"exit"):
 		pawn.kick_rider()
 		pawn.handle_input()
@@ -47,5 +15,25 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif pawn.is_action_both(&"honk", honk_start, honk_stop): pass
 	elif pawn.is_action_both(&"brake", brake_start, brake_stop): pass
 
-func _physics_process(_delta: float) -> void:
+func _on_controller_update(_delta: float) -> void:
 	move = pawn.controller.get_move_vector()
+
+func _unmounted(_rider: Pawn) -> void:
+	move = Vector2.ZERO
+	body.brake = false
+
+func honk_start():
+	_honking = true
+	return true
+
+func honk_stop():
+	_honking = false
+	return true
+
+func brake_start():
+	_braking = true
+	return true
+
+func brake_stop():
+	_braking = false
+	return true

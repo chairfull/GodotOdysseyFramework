@@ -7,8 +7,6 @@ var agent: Agent:
 var _dest_point: Vector3
 var _dest_inter: Interactive
 
-func _accept_controller(con: Controller) -> bool:
-	return con is ControllerNPC
 
 func _physics_process(delta: float) -> void:
 	if _dest_inter:

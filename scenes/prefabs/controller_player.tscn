@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://s3k7324tagti" path="res://scripts/nodes/camera_master.gd" id="2_psuda"]
 [ext_resource type="Script" uid="uid://ovjr1tt5pv2g" path="res://scripts/widgits/hud_markers.gd" id="3_psuda"]
 
-[node name="controller_player" type="Control" unique_id=718559665]
+[node name="controller" type="Control" unique_id=718559665]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

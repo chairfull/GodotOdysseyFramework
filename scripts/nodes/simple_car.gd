@@ -63,7 +63,7 @@ func _physics_process(delta: float) -> void:
 		wheel.wheel_roll_influence = roll_influence
 	
 	# Handbrake.
-	if _brake_pressed:
+	if _braking:
 		vehicle.brake = lerpf(vehicle.brake, brake_force, delta * 5.0)
 		for light in brake_lights:
 			light.visible = true
@@ -93,7 +93,7 @@ func _process(_delta: float) -> void:
 		wheel.wheel_friction_slip = wheel_friction
 		wheel.suspension_stiffness = suspension_stiff_value
 
-func _posessed(con: Controller) -> void:
+func _controlled(con: Controller) -> void:
 	super(con)
 	if not aux_engine.playing:
 		aux_engine.play()
@@ -101,7 +101,7 @@ func _posessed(con: Controller) -> void:
 	for light in front_lights:
 		light.visible = true
 
-func _unposessed(con: Controller) -> void:
+func _uncontrolled(con: Controller) -> void:
 	super(con)
 	
 	if aux_engine.playing:
