@@ -1,5 +1,7 @@
 class_name Vehicle extends VehicleBody3D
 
+@export var info: VehicleInfo
+
 var _brake_pressed := false ## 
 var move := Vector2.ZERO ## X=throttle (forward/backward), Y=steering (left/right)
 

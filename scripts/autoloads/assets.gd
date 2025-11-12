@@ -40,7 +40,8 @@ func create_scene(id: StringName, parent: Variant = null, props := {}) -> Node:
 	elif parent == true:
 		get_tree().current_scene.add_child(node)
 	
-	for prop in props:
-		if prop in node:
-			node[prop] = props[prop]
+	UObj.set_properties(node, props, false)
+	#for prop in props:
+		#if prop in node:
+			#node[prop] = props[prop]
 	return node

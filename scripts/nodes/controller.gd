@@ -1,5 +1,7 @@
 class_name Controller extends Node
 
+enum ControlType { NONE, PLAYER, NPC }
+
 @export var index := 0 ## For multiplayer.
 @export var pawn: Pawn: set=set_pawn
 
@@ -15,6 +17,11 @@ func set_pawn(target: Pawn):
 	pawn = target
 	pawn._posessed(self)
 	_started.call_deferred()
+
+func get_control_type() -> ControlType:
+	if is_player(): return ControlType.PLAYER
+	if is_npc(): return ControlType.NPC
+	return ControlType.NONE
 
 func is_npc() -> bool: return self is ControllerNPC
 func is_player() -> bool: return self is ControllerPlayer

@@ -1,7 +1,13 @@
-![Odysset Framework](./addons/odyssey/icon_of.svg)
-# v0.1.1
+![Odyssey Framework](./addons/odyssey/icon_of.svg)
+# v0.001
 ![Godot](https://img.shields.io/badge/Godot-4.x-blue.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) (LICENSE)
+
+> [!WARNING]
+> Unstable early development build.
+
+> [!NOTE]
+> Feel free to raise issues with features you want or ideas to discuss.
 
 Simplify development of FPS, RPG, ImSims.
 
@@ -13,28 +19,22 @@ Simplify development of FPS, RPG, ImSims.
 - [Twee](https://github.com/chair_full/GodotTwee)
 - [RicherTextLabels](https://github.com/chairfull/GodotRichTextLabel2/tree/v2dev)
 
-# Controls
-
-|Control|Action|
-|--|--|
-|`Ctrl`+`1`| Toggle 1st-person view|
-|`Ctrl`+`2`| Toggle 3rd-person view|
-|`Ctrl`+`3`| Toggle top-down view|
-
 # Design Goal
-- Gameplay over cinema:
+- Open-world gameplay over linear:
 	- Max interaction: Everything interactive w everything
+	- Pollable world state: `if house.front_door.unlocked or mall.dumpster.is_empty()`
+	- NPCs w schedules & reacting to game events & states
+	- NPCs w dialogue options that affect states
 	- Most cinematics skippable/ffwdable
-	- NPCs w behavior, reacting to game events
-- RPG-like world state where vars in unloaded scenes can be get/set
-- Planning from the start for:
-	- 1st/3rd/top-down/point-and-click view
-	- Split screen multiplayer
-	- Language changing
-	- Mod/patch support
-- Easy customisation with config files and hot replacements.
-- Lots of juice/crunch (Communicating "somthing happened" to player and "how much")
-	- Minimise jerkiness/clankiness.
+- Controller that works for 1st-person, 3rd-person, top-down, platformer, point-and-click
+- Pawn system for Vehicles, Seats, Stations...
+- Split screen multiplayer
+	- Widgit (UI) system that handles focus on a per player basis
+- Live language/locale changing
+- Live mod/patch enabling & disabling
+- Easy customisation with config files
+- Lots of juice/crunch (Communicating "something happened" to player and "how much")
+	- Minimise jerkiness/clankiness
 	- [ ] UI buttons animate/communicate on hover, click, unhover
 	- [ ] Landing causes camera to tilt based on impact
 	- [ ] Sounds change based on object movement speed

@@ -4,15 +4,20 @@ class_name MenuWidget extends Widget
 signal selected(choice: Dictionary)
 signal selected_index(index: int)
 
+enum InputMode { KEYBOARD, MOUSE, GAME_PAD }
+
 @export var choices: Array[Dictionary]: set=set_choices
+@export var input_mode := InputMode.MOUSE
+@export var mouse_deadzone: float = 5.0 # Pixels; ignore small movements
+@export var mouse_sensitivity: float = 1.0 # Scale delta for snappier feel
+var button_list: TweeButtonList:
+	get: return %button_list
 
 func get_choice_prefab() -> PackedScene:
 	return preload("uid://bl1wu7da5ih3s")
 
 func set_choices(c: Array) -> void:
-	var buttons: TweeButtonList = %choice_parent
-	buttons.clear()
-	
+	button_list.clear()
 	choices = c
 	
 	print("CHOICES ", choices)
@@ -21,10 +26,35 @@ func set_choices(c: Array) -> void:
 	var choice_prefab := get_choice_prefab()
 	for choice in choices:
 		var node := choice_prefab.instantiate()
-		buttons.add_child(node)
+		button_list.add_child(node)
 		node.name = "choice_%s" % index
 		node.choice = choice
 		index += 1
+
+func _unhandled_input(event: InputEvent) -> void:
+	super(event)
+	var cont := get_controller()
+	
+	if cont.is_action_pressed(&"interact"):
+		select()
+	
+	match input_mode:
+		InputMode.KEYBOARD: _input_keyboard(event)
+		InputMode.MOUSE: _input_mouse(event)
+		InputMode.GAME_PAD: _input_gamepad(event)
+
+func _input_keyboard(_ev: InputEvent) -> void:
+	var cont := get_controller()
+	if cont.is_action_pressed(&"move_left") or cont.is_action_pressed(&"move_up"):
+		button_list.hovered -= 1
+	elif cont.is_action_pressed(&"move_right") or cont.is_action_pressed(&"move_down"):
+		button_list.hovered += 1
+
+func _input_mouse(_ev: InputEvent) -> void:
+	pass
+
+func _input_gamepad(_ev: InputEvent) -> void:
+	pass # Global.warn("RadialMenu", "Gamepad not implemented.")
 
 func select() -> void:
 	var buttons: TweeButtonList = %choice_parent

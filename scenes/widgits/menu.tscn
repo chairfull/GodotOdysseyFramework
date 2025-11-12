@@ -11,6 +11,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wedc3")
+input_mode = null
+mouse_deadzone = null
+mouse_sensitivity = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -23,7 +26,7 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="choice_parent" type="VBoxContainer" parent="MarginContainer" node_paths=PackedStringArray("target", "for_child_target")]
+[node name="button_list" type="VBoxContainer" parent="MarginContainer" node_paths=PackedStringArray("target", "for_child_target")]
 unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("2_cql5a")

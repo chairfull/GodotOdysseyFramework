@@ -122,6 +122,9 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 humanoid = NodePath("../..")
+ik_left_hand_position = Vector3(-0.14896408, 1.2391962, -0.30771938)
+ik_left_foot_position = Vector3(-0.20051247, 0.078348994, 0.6413805)
+ik_right_foot_position = Vector3(0.22689289, 0.078348994, 0.6413805)
 
 [node name="visual_dummy" type="MeshInstance3D" parent="direction"]
 unique_name_in_owner = true

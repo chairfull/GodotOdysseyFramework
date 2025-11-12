@@ -60,7 +60,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_player_controller()._event = event
 	
 	if is_action_pressed(&"quick_equip_menu"):
-		get_player_controller().toggle_widgit(&"radial_menu", { choices=[
+		get_player_controller().show_widgit(&"menu", { choices=[
 			{ text="Yes"},
 			{ text="No" },
 			{ text="Maybe"}

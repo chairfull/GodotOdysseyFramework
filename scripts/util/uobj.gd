@@ -11,8 +11,8 @@ static func set_properties(obj: Object, props: Dictionary, silent := true) -> Ob
 	for prop in props:
 		if prop in obj:
 			match typeof(obj[prop]):
-				TYPE_DICTIONARY: (obj[prop] as Dictionary).assign(props[prop])
-				TYPE_ARRAY: (obj[prop] as Array).assign(props[prop])
+				TYPE_DICTIONARY: obj[prop] = UDict.from(obj[prop], props[prop])
+				TYPE_ARRAY: obj[prop] = UArray.from(obj[prop], props[prop])
 				TYPE_OBJECT: set_properties(obj[prop], props[prop], silent)
 				TYPE_NIL: obj[prop] = props[prop] # Variant? Just flat out set it.
 				var type: obj[prop] = convert(props[prop], type)
