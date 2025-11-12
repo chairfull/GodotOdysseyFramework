@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/Version-0.001-gray.svg)
+![Version](https://img.shields.io/badge/Version-0.001-brightgreen.svg)
 ![Godot](https://img.shields.io/badge/Godot-4.6.dev3-blue.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
