@@ -74,13 +74,32 @@ func _connect():
 		)
 	humanoid.head_looked_at.connect(func(at: Vector3): %lookat_head.global_position = at)
 	humanoid.head_looking_amount_changed.connect(func(amount: float): %head.influence = amount)
-	humanoid.interactive_node.highlight_changed.connect(func():
-		match humanoid.interactive_node.highlight:
-			Interactive.Highlight.NONE: highlight = false
-			Interactive.Highlight.FOCUSED: highlight = true
-		)
+	#humanoid.interactive_node.highlight_changed.connect(func():
+		#match humanoid.interactive_node.highlight:
+			#Interactive.Highlight.NONE: highlight = false
+			#Interactive.Highlight.FOCUSED: highlight = true
+		#)
 	humanoid.trigger_animation.connect(travel)
-	
+	humanoid.equipped.connect(_equipped)
+	humanoid.unequipped.connect(_unequipped)
+
+func _equipped(item: ItemNode, slot_id: StringName) -> void:
+	match slot_id:
+		&"right_hand":
+			var rt := RemoteTransform3D.new()
+			item.add_child(rt)
+			rt.name = "remote_right_hand"
+			rt.remote_path = rt.get_path_to(%ik_right_hand_target)
+			ik_right_hand_weight = 1.0
+
+func _unequipped(item: ItemNode, slot_id: StringName) -> void:
+	match slot_id:
+		&"right_hand":
+			var rt: RemoteTransform3D = item.get_node("remote_right_hand")
+			item.remove_child(rt)
+			rt.queue_free()
+			ik_right_hand_weight = 0.0
+
 func set_highlight(h: bool):
 	highlight = h
 	if highlight:

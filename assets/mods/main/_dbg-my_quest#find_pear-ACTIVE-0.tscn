@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_6vei4"]
 [ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption.gd" id="3_wb580"]
 
-[sub_resource type="Animation" id="Animation_tkfh5"]
+[sub_resource type="Animation" id="Animation_eq2wo"]
 length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -48,15 +48,15 @@ tracks/2/keys = {
 "values": ["paul: Here is a pear... perfect."]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6vei4"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_auwcl"]
 _data = {
-&"ROOT": SubResource("Animation_tkfh5")
+&"ROOT": SubResource("Animation_eq2wo")
 }
 
-[node name="" type="AnimationPlayer"]
+[node name="" type="AnimationPlayer" unique_id=872233719]
 root_node = NodePath(".")
 libraries = {
-&"_dbg-my_quest#find_pear-ACTIVE-0": SubResource("AnimationLibrary_6vei4")
+&"_dbg-my_quest#find_pear-ACTIVE-0": SubResource("AnimationLibrary_auwcl")
 }
 script = ExtResource("1_tkfh5")
 method_calls = Dictionary[int, Array]({
@@ -64,9 +64,9 @@ method_calls = Dictionary[int, Array]({
 2824137196: [[&"_event", ["QUEST_TICK", "my_quest#find_pear"]]]
 })
 
-[node name="screens" type="CanvasLayer" parent="."]
+[node name="screens" type="CanvasLayer" parent="." unique_id=838201168]
 
-[node name="caption" type="Control" parent="." instance=ExtResource("2_6vei4")]
+[node name="caption" type="Control" parent="." unique_id=711821941 instance=ExtResource("2_6vei4")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

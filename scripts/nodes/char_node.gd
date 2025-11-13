@@ -1,4 +1,4 @@
-class_name Agent extends Controllable
+class_name CharNode extends Pawn
 
 signal damage_dealt(info: DamageInfo)
 signal damage_taken(info: DamageInfo)
@@ -11,6 +11,8 @@ signal head_looking_amount_changed(amount: float)
 signal focus_started()
 signal focus_stopped()
 signal interactive_changed()
+signal equipped(slot_id: StringName)
+signal unequipped(slot_id: StringName)
 @warning_ignore("unused_signal")
 signal trigger_animation(anim: StringName)
 
@@ -18,18 +20,18 @@ enum ProneState { Stand, Crouch, Kneel, Crawl }
 
 @onready var damageable: Damageable = %damageable
 @onready var ray_coyote: RayCast3D = $ray_coyote
-@onready var interactive_node: Interactive = %interactive
 @onready var node_direction: Node3D = %direction
 @onready var interactive_detector: Detector = %interact
 @onready var node_seeing: Detector = %seeing
 @onready var node_hearing: Detector = %hearing
 @onready var nav_agent: NavigationAgent3D = %nav_agent
 
-@export var flow_script: FlowScript
 @export_range(-180, 180, 0.01, "radians_as_degrees") var direction: float: get=get_direction, set=set_direction
-@export var char_id: StringName
-var char_info: CharInfo:
-	get: return null if not char_id else State.find_char(char_id)
+@export var id: StringName
+@export var target: Node3D
+@export var primary_equip_slot: StringName = &"right_hand"
+var info: CharInfo:
+	get: return null if not id else State.find_char(id)
 var movement := Vector2.ZERO
 var body: CharacterBody3D = (self as Object as CharacterBody3D)
 var _equipped: Dictionary[StringName, ItemNode]
@@ -50,8 +52,8 @@ var _jump_cancel := false
 var _sprinting := false
 var _was_in_air := false
 var _last_position: Vector3
-var _held_item: ItemNode
-var _held_item_remote: RemoteTransform3D
+#var _held_item: ItemNode
+#var _held_item_remote: RemoteTransform3D
 var looking_at: Vector3:
 	set(at):
 		looking_at = at
@@ -75,6 +77,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var jump_force := 6.0
 
 var _footstep_time := 0.0
+var _stuck_time := 0.0
 
 func _ready() -> void:
 	super()
@@ -85,7 +88,9 @@ func _ready() -> void:
 		(%damageable as Damageable).damaged.connect(damage_taken.emit)
 	if %interactive:
 		interactive_detector.ignore.append(%interactive)
-		%interactive.interacted.connect(_interacted)
+
+func lerp_direction(delta: float, speed := 10.0) -> void:
+	direction = lerp_angle(direction, atan2(movement.y, -movement.x) + PI * .5, delta * speed)
 
 func _physics_process(delta: float) -> void:
 	#if frozen: return
@@ -134,17 +139,17 @@ func _physics_process(delta: float) -> void:
 			var col: Node = %ray_coyote.get_collider()
 			if col and "physics_material_override" in col and col.physics_material_override is SurfaceMaterial:
 				var mat: SurfaceMaterial = col.physics_material_override
-				var id: String
+				var sound_id: String
 				match mat.resource_path:
 					"res://assets/surfaces/grass.tres":
-						id = "grass_%s" % randi_range(1, 15)
+						sound_id = "grass_%s" % randi_range(1, 15)
 					"res://assets/surfaces/concrete.tres":
-						id = "concrete_%s" % randi_range(1, 15)
+						sound_id = "concrete_%s" % randi_range(1, 15)
 					"res://assets/surfaces/wood.tres":
-						id = "wood_%s" % randi_range(1, 15)
+						sound_id = "wood_%s" % randi_range(1, 15)
 					"res://assets/surfaces/carpet.tres":
-						id = "carpet_%s" % randi_range(1, 15)
-				var audio: AudioStreamPlayer3D = Assets.create_audio_player(id)
+						sound_id = "carpet_%s" % randi_range(1, 15)
+				var audio: AudioStreamPlayer3D = Assets.create_audio_player(sound_id)
 				add_child(audio)
 				audio.play(0.1)
 				audio.finished.connect(func():
@@ -159,34 +164,29 @@ func _physics_process(delta: float) -> void:
 	
 	body.velocity = vel
 	body.move_and_slide()
+	
+	if movement.length() >= 0.1 and (body.global_position - _last_position).length() < .001:
+		_stuck_time += delta
+		_stuck_time = minf(_stuck_time, 1.0)
+	else:
+		if _stuck_time > 0.0:
+			_stuck_time -= delta * 3.0
+	
 	_last_position = body.global_position
 
-func _interacted(with: Pawn, form: Interactive.Form) -> void:
-	if flow_script:
-		Cinema.queue(flow_script)
-	else:
-		prints(with.name, "interacted with", name, "FORM:", form)
+func is_stuck() -> bool:
+	return _stuck_time >= 1.0
 
 func fix_direction() -> void:
 	# Transfer rotation to proper node.
 	%direction.rotation.y = rotation.y
 	rotation.y = 0
 
-func equip(item: ItemNode, slot: StringName = &""):
-	_equipped[slot] = item
-	var parent := get_node_or_null("%" + str(slot))
-	if parent != null:
-		if item.get_parent() == null:
-			parent.add_child(item)
-		else:
-			item.reparent(parent)
-	item.damage_dealt.connect(damage_dealt.emit)
-
-func unequip_slot(slot: StringName = &""):
-	if not slot in _equipped: return
-	var item: ItemNode = _equipped[slot]
-	item.damage_dealt.disconnect(damage_dealt.emit)
-	_equipped.erase(slot)
+#func unequip_slot(slot: StringName = &""):
+	#if not slot in _equipped: return
+	#var item: ItemNode = _equipped[slot]
+	#item.damage_dealt.disconnect(damage_dealt.emit)
+	#_equipped.erase(slot)
 
 func get_direction() -> float: return %direction.rotation.y
 func set_direction(dir: float): %direction.rotation.y = dir
@@ -225,18 +225,6 @@ func jump_start():
 func jump_stop():
 	_jump_cancel = true
 
-func fire_start() -> bool:
-	if not _held_item: return false
-	return _held_item.item._node_use(_held_item)
-
-func fire_stop() -> bool: return true
-
-func reload_start() -> bool:
-	if not _held_item: return false
-	return _held_item.item._node_reload(_held_item)
-
-func reload_stop() -> bool: return true
-
 func stand(): prone_state = ProneState.Stand
 func crouch(): prone_state = ProneState.Crouch
 func crawl(): prone_state = ProneState.Crawl
@@ -256,21 +244,52 @@ func unfreeze() -> void:
 	set_process(true)
 	set_physics_process(true)
 
-func drop() -> bool:
-	if not _held_item: return false
-	if _held_item.item._node_unequipped(_held_item):
-		var trans := _held_item.global_transform
-		var fwd: Vector3 = -%head.global_basis.z
-		trans.origin += fwd * .2
-		%head.remove_child(_held_item_remote)
-		_held_item_remote.queue_free()
-		_held_item_remote = null
-		#_held_item.reparent(_held_item_last_parent)
-		_held_item.mount = null
-		_held_item.process_mode = Node.PROCESS_MODE_INHERIT
-		_held_item.reset_state(trans)
-		_held_item.apply_central_impulse(fwd * 3.0)
-		_held_item = null
-		#_held_item_last_parent = null
+func is_equipped(slot_id: StringName) -> bool:
+	return get_equipped(slot_id) != null
+
+func get_equipped(slot_id: StringName) -> ItemNode:
+	return _equipped.get(slot_id)
+
+func equip(item: ItemNode, slot_id: StringName = primary_equip_slot) -> bool:
+	if is_equipped(slot_id):
+		unequip(slot_id)
+	
+	_equipped[slot_id] = item
+	var parent := get_node_or_null("%equip_" + slot_id)
+	item._equipped(self, parent)
+	equipped.emit(item, slot_id)
+	#item.damage_dealt.connect(damage_dealt.emit)
+	return true
+
+func unequip(slot_id: StringName = primary_equip_slot) -> bool:
+	var item: ItemNode = get_equipped(slot_id)
+	if not item: return false
+	if item.info:
+		if item.info._node_unequipped(item):
+			item._unequipped()
+			_equipped.erase(slot_id)
+			unequipped.emit(item, slot_id)
+			return true
+		return false
+	else:
+		item._unequipped()
+		_equipped.erase(slot_id)
+		unequipped.emit(item, slot_id)
 		return true
-	return false
+
+func get_primary() -> ItemNode:
+	return _equipped.get(primary_equip_slot)
+
+func fire_start() -> bool:
+	var primary := get_primary()
+	if not primary or not primary.info: return false
+	return primary.info._node_use(primary)
+
+func fire_stop() -> bool: return true
+
+func reload_start() -> bool:
+	var primary := get_primary()
+	if not primary or not primary.info: return false
+	return primary.info._node_reload(primary)
+
+func reload_stop() -> bool: return true

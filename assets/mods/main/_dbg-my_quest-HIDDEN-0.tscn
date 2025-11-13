@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_aq4bm"]
 [ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption.gd" id="3_m4p48"]
 
-[sub_resource type="Animation" id="Animation_qctjt"]
+[sub_resource type="Animation" id="Animation_0m8dx"]
 length = 0.20099999
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -51,7 +51,7 @@ tracks/2/keys = {
 "values": ["You entered the location.", "paul: This is the spot."]
 }
 
-[sub_resource type="Animation" id="Animation_aq4bm"]
+[sub_resource type="Animation" id="Animation_fve58"]
 length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -92,7 +92,7 @@ tracks/2/keys = {
 "values": ["paul: Now where is that apple."]
 }
 
-[sub_resource type="Animation" id="Animation_m4p48"]
+[sub_resource type="Animation" id="Animation_n87p2"]
 length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -133,7 +133,7 @@ tracks/2/keys = {
 "values": ["paul: Those pears should be around here."]
 }
 
-[sub_resource type="Animation" id="Animation_0m8dx"]
+[sub_resource type="Animation" id="Animation_blso0"]
 length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -174,18 +174,18 @@ tracks/2/keys = {
 "values": ["paul: Where are you banana?"]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_fve58"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o8e2v"]
 _data = {
-&"ROOT": SubResource("Animation_qctjt"),
-&"branch_1327478925": SubResource("Animation_0m8dx"),
-&"branch_1587431775": SubResource("Animation_m4p48"),
-&"branch_795717765": SubResource("Animation_aq4bm")
+&"ROOT": SubResource("Animation_0m8dx"),
+&"branch_1327478925": SubResource("Animation_blso0"),
+&"branch_1587431775": SubResource("Animation_n87p2"),
+&"branch_795717765": SubResource("Animation_fve58")
 }
 
-[node name="" type="AnimationPlayer"]
+[node name="" type="AnimationPlayer" unique_id=1670755276]
 root_node = NodePath(".")
 libraries = {
-&"_dbg-my_quest-HIDDEN-0": SubResource("AnimationLibrary_fve58")
+&"_dbg-my_quest-HIDDEN-0": SubResource("AnimationLibrary_o8e2v")
 }
 script = ExtResource("1_qctjt")
 method_calls = Dictionary[int, Array]({
@@ -197,9 +197,9 @@ method_calls = Dictionary[int, Array]({
 3571044998: [[&"wait", []]]
 })
 
-[node name="screens" type="CanvasLayer" parent="."]
+[node name="screens" type="CanvasLayer" parent="." unique_id=1003004895]
 
-[node name="caption" type="Control" parent="." instance=ExtResource("2_aq4bm")]
+[node name="caption" type="Control" parent="." unique_id=881275600 instance=ExtResource("2_aq4bm")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

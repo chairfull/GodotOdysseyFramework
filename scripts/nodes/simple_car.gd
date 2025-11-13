@@ -1,4 +1,4 @@
-extends Vehicle
+extends VehicleNode
 
 @export_group("Speed")
 @export var max_speed := 50.0

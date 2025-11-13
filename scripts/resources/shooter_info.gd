@@ -3,21 +3,28 @@ class_name ShooterInfo extends ItemInfo
 @export var max_ammo: int = 16
 @export var projectile_item_id: StringName
 
+func _node_get_label(node: ItemNode) -> String:
+	if not node.state:
+		node.state.ammo = max_ammo
+		node.state.max_ammo = max_ammo
+	return "%s [%s/%s]" % [name, node.state.ammo, node.state.max_ammo]
+
 func _node_equipped(node: ItemNode) -> bool:
-	if not node._state:
-		node._state.ammo = max_ammo
-		node._state.max_ammo = max_ammo
+	if not node.state:
+		node.state.ammo = max_ammo
+		node.state.max_ammo = max_ammo
 	return true
 
-func _node_unequipped(_node: ItemNode) -> bool:
-	return true
+#func _node_unequipped(node: ItemNode) -> bool:
+	#node.interactive.label = "Gun [%s/%s]" % [node.state.ammo, node.state.max_ammo]
+	#return true
 
 func _node_use(node: ItemNode) -> bool:
-	if node.mount is Humanoid:
-		if node._state.ammo > 0:
+	if node.get_holder() is CharNode:
+		if node.state.ammo > 0:
 			#var hum: Humanoid = node.mount
 			var from: Vector3 = node.get_node("%projectile_spawn").global_position
-			var to := (node.mount as Humanoid).looking_at
+			var to := node.get_holder().looking_at
 			var proj := Projectile.create(from, to)
 			var sphere := SphereMesh.new()
 			sphere.height = 0.2
@@ -27,8 +34,9 @@ func _node_use(node: ItemNode) -> bool:
 			mesh.mesh = sphere
 			
 			node.anim_travel("fire")
-			node._state.ammo -= 1
-			print("%s/%s" % [node._state.ammo, node._state.max_ammo])
+			node.state.ammo -= 1
+			node.update_label()
+			#print("%s/%s" % [node.state.ammo, node.state.max_ammo])
 			return true
 		else:
 			print("No ammo left.")
@@ -36,6 +44,7 @@ func _node_use(node: ItemNode) -> bool:
 
 func _node_reload(node: ItemNode) -> bool:
 	node.anim_travel("reload")
-	node._state.ammo = max_ammo
-	print("%s/%s" % [node._state.ammo, node._state.max_ammo])
+	node.state.ammo = max_ammo
+	node.update_label()
+	#print("%s/%s" % [node.state.ammo, node.state.max_ammo])
 	return true

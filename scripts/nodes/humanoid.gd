@@ -1,12 +1,20 @@
-class_name Humanoid extends Agent
+class_name Humanoid extends CharNode
 
 var camera: CameraTarget ## TODO: Move to controller...
 var _crouch_hold_time := 0.0
 var _crouch_held := false
 var _interactive_hud: Widget
 
-func pickup(_item_node: ItemNode):
-	print("TODO: PICKUP")
+#func equip(item_node: ItemNode, equip_id: StringName):
+	#var parent := get_node("%equip_" + equip_id)
+	#item_node.reparent(parent)
+	#
+	#if is_equipped(equip_id):
+		#unequip(equip_id)
+	#
+	#_equipped[equip_id] = item_node
+	#
+	#print("TODO: PICKUP")
 	#var dummy := MeshInstance3D.new()
 	#get_tree().current_scene.add_child(dummy)
 	#dummy.mesh = BoxMesh.new()
@@ -74,8 +82,10 @@ func _controlled(con: Controller) -> void:
 		camera = Assets.create_scene(&"camera_follow", true)
 		camera.target = self
 		controller.camera_master.target = camera.camera
+		# Copy camera rotation to head.
 		camera.get_node("%head_remote").remote_path = %head.get_path()
 		
+		# Copy head position to camera.
 		var remote := RemoteTransform3D.new()
 		remote.name = "camera_target"
 		remote.update_position = true
@@ -111,9 +121,7 @@ func _view_state_changed():
 			camera.set_third_person()
 			%model.visible = true
 
-func _on_controller_input(event: InputEvent) -> void:
-	super(event)
-	
+func _update_as_controlled(delta: float) -> void:
 	if is_action_pressed(&"quick_equip_menu"):
 		controller.show_widgit(&"menu", { choices=[
 			{ text="Yes"},
@@ -126,10 +134,10 @@ func _on_controller_input(event: InputEvent) -> void:
 		controller.toggle_widgit(&"quest_log")
 	
 	elif is_action_pressed(&"interact"):
-		if interact_start(pawn):
+		if interact_start(self):
 			handle_input()
 	elif is_action_released(&"interact"):
-		if interact_stop(pawn):
+		if interact_stop(self):
 			handle_input()
 	
 	elif is_action_both(&"fire", fire_start, fire_stop): pass
@@ -146,7 +154,7 @@ func _on_controller_input(event: InputEvent) -> void:
 			handle_input()
 	
 	elif is_action_pressed(&"drop"):
-		if drop():
+		if unequip():
 			handle_input()
 	
 	elif is_action_both(&"aim", focus_start, focus_stop): pass
@@ -159,7 +167,7 @@ func _on_controller_input(event: InputEvent) -> void:
 		#camera.unfocus()
 		#handle_input()
 		
-	elif is_action_pressed(&"crouch", false, true):
+	elif is_action_pressed(&"crouch", true):
 		_crouch_held = true
 		if is_standing():
 			crouch()
@@ -174,8 +182,7 @@ func _on_controller_input(event: InputEvent) -> void:
 		handle_input()
 	
 	elif is_action_both(&"sprint", sprint_start, sprint_stop): pass
-
-func _on_controller_update(delta: float) -> void:
+	
 	#camera.get_node("%pivot").position.y = humanoid.get_node("%head").position.y
 	#humanoid.get_node("%head").global_rotation = camera.camera.global_rotation
 	

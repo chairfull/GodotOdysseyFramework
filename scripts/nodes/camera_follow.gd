@@ -37,7 +37,7 @@ func _exit_tree() -> void:
 
 func set_target(t):
 	target = t
-	if target is Agent:
+	if target is CharNode:
 		target.focus_started.connect(_focus_started)
 		target.focus_stopped.connect(_focus_stopped)
 
@@ -46,7 +46,7 @@ func is_first_person() -> bool: return view_mode == ViewMode.FIRST_PERSON
 
 func _focus_started():
 	focusing = true
-	aim_look_dist = pivot.global_position.distance_to((target as Agent).looking_at)
+	aim_look_dist = pivot.global_position.distance_to((target as CharNode).looking_at)
 	UTween.parallel(camera, { "fov": fov_focused }, 0.2)
 	if is_third_person():
 		UTween.parallel(self, { "push_out": Vector2(1, 0.0) }, 0.2)

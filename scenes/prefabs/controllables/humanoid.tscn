@@ -1,10 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://p7rqgmtls5qk"]
+[gd_scene load_steps=20 format=3 uid="uid://p7rqgmtls5qk"]
 
 [ext_resource type="Script" uid="uid://dw8awr8a4l0dr" path="res://scripts/nodes/humanoid.gd" id="1_mq6sh"]
 [ext_resource type="PackedScene" uid="uid://gacoxeknq1iq" path="res://assets/model/base_character/superhero_male.tscn" id="2_qlb12"]
-[ext_resource type="Script" uid="uid://dfwpyddi4qity" path="res://scripts/nodes/pawn.gd" id="2_tjwfk"]
 [ext_resource type="Script" uid="uid://b4kwcxibv0778" path="res://scripts/nodes/damageable.gd" id="3_6kbyu"]
 [ext_resource type="Script" uid="uid://bbksu3kwersqu" path="res://scripts/nodes/detector.gd" id="3_pplf3"]
+[ext_resource type="BehaviorTree" uid="uid://bajdgib3dnvq6" path="res://assets/ai/trees/humanoid.tres" id="4_677yw"]
 [ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/nodes/interactive.gd" id="5_117w7"]
 [ext_resource type="Script" uid="uid://llfmpeqtpli1" path="res://scripts/nodes/camera_target.gd" id="7_11kkr"]
 
@@ -13,17 +13,6 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_iv36d"]
 height = 1.8
 radius = 0.2
-
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_pplf3"]
-
-[sub_resource type="BTWait" id="BTWait_2rnpl"]
-
-[sub_resource type="BTSequence" id="BTSequence_117w7"]
-children = [SubResource("BTWait_2rnpl")]
-
-[sub_resource type="BehaviorTree" id="BehaviorTree_2grrx"]
-blackboard_plan = SubResource("BlackboardPlan_pplf3")
-root_task = SubResource("BTSequence_117w7")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_6kbyu"]
 
@@ -59,21 +48,15 @@ height = 0.1
 radial_segments = 32
 rings = 16
 
-[node name="humanoid" type="CharacterBody3D" unique_id=2025458579 node_paths=PackedStringArray("pawn")]
+[node name="humanoid" type="CharacterBody3D" unique_id=2025458579 node_paths=PackedStringArray("behavior")]
 collision_layer = 49216
 script = ExtResource("1_mq6sh")
-pawn = NodePath("pawn")
+behavior = NodePath("behavior")
 
 [node name="collision_shape" type="CollisionShape3D" parent="." unique_id=975494883]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_qaen5")
-
-[node name="pawn" type="Node3D" parent="." unique_id=1752111105 node_paths=PackedStringArray("node", "behavior")]
-script = ExtResource("2_tjwfk")
-node = NodePath("..")
-behavior = NodePath("../behavior")
-metadata/_custom_type_script = "uid://dfwpyddi4qity"
 
 [node name="interactive" type="Area3D" parent="." unique_id=2140025732]
 unique_name_in_owner = true
@@ -95,8 +78,9 @@ shape = SubResource("CylinderShape3D_iv36d")
 unique_name_in_owner = true
 
 [node name="behavior" type="BTPlayer" parent="." unique_id=1562696105]
-behavior_tree = SubResource("BehaviorTree_2grrx")
+behavior_tree = ExtResource("4_677yw")
 blackboard_plan = SubResource("BlackboardPlan_6kbyu")
+monitor_performance = true
 unique_name_in_owner = true
 
 [node name="ray_coyote" type="RayCast3D" parent="." unique_id=829987973]
@@ -128,6 +112,14 @@ mesh = SubResource("PrismMesh_mq6sh")
 [node name="head" type="Node3D" parent="direction" unique_id=325039780]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="equip_left_hand" type="Node3D" parent="direction/head" unique_id=33451243]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, -0.5)
+
+[node name="equip_right_hand" type="Node3D" parent="direction/head" unique_id=1215079094]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -0.15, -0.2)
 
 [node name="interact" type="Area3D" parent="direction" unique_id=507098710]
 unique_name_in_owner = true
@@ -203,4 +195,5 @@ shape = SubResource("CapsuleShape3D_6kbyu")
 
 [node name="cursor" type="MeshInstance3D" parent="." unique_id=433743149]
 unique_name_in_owner = true
+top_level = true
 mesh = SubResource("SphereMesh_117w7")

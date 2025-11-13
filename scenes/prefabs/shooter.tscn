@@ -7,10 +7,15 @@
 
 [sub_resource type="Resource" id="Resource_wm1hu"]
 script = ExtResource("2_4x4e6")
+id = &"shooter"
+name = "Shooter"
 metadata/_custom_type_script = "uid://dwwssquyenopm"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3k7b3"]
 size = Vector3(0.04559326, 0.1697197, 0.26065063)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wm1hu"]
+radius = 0.14231499
 
 [sub_resource type="Animation" id="Animation_a5772"]
 length = 0.001
@@ -150,53 +155,16 @@ states/reload/node = SubResource("AnimationNodeAnimation_a5772")
 states/reload/position = Vector2(486, 154)
 transitions = ["fire", "idle", SubResource("AnimationNodeStateMachineTransition_sv6du"), "idle", "fire", SubResource("AnimationNodeStateMachineTransition_xiq8x"), "idle", "reload", SubResource("AnimationNodeStateMachineTransition_oft5v"), "reload", "idle", SubResource("AnimationNodeStateMachineTransition_iq0ok")]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_wm1hu"]
-radius = 0.14231499
-
-[node name="shooter" type="RigidBody3D" node_paths=PackedStringArray("highlightable")]
+[node name="shooter" type="RigidBody3D" unique_id=904413882 node_paths=PackedStringArray("highlightable")]
 script = ExtResource("1_kqbu5")
-item = SubResource("Resource_wm1hu")
+info = SubResource("Resource_wm1hu")
 highlightable = [NodePath("origin/Pistol")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1381278236]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0517578e-05, 0.007902145, -0.06639099)
 shape = SubResource("BoxShape3D_3k7b3")
 
-[node name="origin" type="Node3D" parent="."]
-
-[node name="projectile_spawn" type="Node3D" parent="origin"]
-unique_name_in_owner = true
-transform = Transform3D(-1, 5.6878587e-08, -6.638953e-08, -7.7301667e-16, 0.7594077, 0.6506153, 8.742276e-08, 0.6506153, -0.7594077, 1.6574628e-08, 0.03526765, -0.26451424)
-
-[node name="Pistol" type="MeshInstance3D" parent="origin"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.0119822025, -0.064998254)
-mesh = ExtResource("3_wm1hu")
-skeleton = NodePath("../..")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="origin"]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 1.81248e-08, 0.03578879, -0.124076866)
-visible = false
-size = Vector3(0.042999268, 0.07775116, 0.22406006)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="origin/CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 0.7594077, 0.6506153, 0, -0.6506153, 0.7594077, 0, -0.039863825, -0.11616317)
-size = Vector3(0.042999268, 0.044734955, 0.08097839)
-
-[node name="animation_player" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
-process_mode = 1
-libraries = {
-&"": SubResource("AnimationLibrary_sv6du")
-}
-
-[node name="animation_tree" type="AnimationTree" parent="."]
-unique_name_in_owner = true
-process_mode = 1
-root_node = NodePath("%animation_tree/..")
-tree_root = SubResource("AnimationNodeStateMachine_ue1v2")
-anim_player = NodePath("../animation_player")
-
-[node name="interactive" type="Area3D" parent="."]
+[node name="interactive" type="Area3D" parent="." unique_id=1594182191]
 unique_name_in_owner = true
 collision_layer = 512
 collision_mask = 0
@@ -204,6 +172,40 @@ monitoring = false
 script = ExtResource("3_4x4e6")
 toggle_labels = PackedStringArray("Interact [Turn Off]", "Interact [Turn On]")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="interactive"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.020761043, -0.103907704)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interactive" unique_id=553908853]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.020761043, -0.059975296)
 shape = SubResource("SphereShape3D_wm1hu")
+
+[node name="origin" type="Node3D" parent="." unique_id=727132209]
+
+[node name="projectile_spawn" type="Node3D" parent="origin" unique_id=983569425]
+unique_name_in_owner = true
+transform = Transform3D(-1, 5.6878587e-08, -6.638953e-08, -7.7301667e-16, 0.7594077, 0.6506153, 8.742276e-08, 0.6506153, -0.7594077, 1.6574628e-08, 0.067927, -0.21328966)
+
+[node name="Pistol" type="MeshInstance3D" parent="origin" unique_id=112673251]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.0119822025, -0.064998254)
+mesh = ExtResource("3_wm1hu")
+skeleton = NodePath("../..")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="origin" unique_id=1191750641]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 1.81248e-08, 0.03578879, -0.124076866)
+visible = false
+size = Vector3(0.042999268, 0.07775116, 0.22406006)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="origin/CSGBox3D" unique_id=1894635696]
+transform = Transform3D(1, 0, 0, 0, 0.7594077, 0.6506153, 0, -0.6506153, 0.7594077, 0, -0.039863825, -0.11616317)
+size = Vector3(0.042999268, 0.044734955, 0.08097839)
+
+[node name="animation_player" type="AnimationPlayer" parent="." unique_id=963608137]
+unique_name_in_owner = true
+process_mode = 1
+libraries = {
+&"": SubResource("AnimationLibrary_sv6du")
+}
+
+[node name="animation_tree" type="AnimationTree" parent="." unique_id=1555829329]
+unique_name_in_owner = true
+process_mode = 1
+root_node = NodePath("%animation_tree/..")
+tree_root = SubResource("AnimationNodeStateMachine_ue1v2")
+anim_player = NodePath("../animation_player")

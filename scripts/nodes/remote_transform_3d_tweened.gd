@@ -13,25 +13,24 @@ var _tween: Tween
 func set_node(n: Node3D):
 	if remote_node == n: return
 	remote_node = n
-	remote_path = get_path_to(n)
 	
 	if not remote_node: return
 	
-	var end_pos := position
-	var end_rot := basis
-	global_position = remote_node.global_position
-	global_rotation = remote_node.global_rotation
-	move_to_local(end_pos, end_rot)
-
-func move_to_local(end_pos: Vector3, end_rot: Basis):
-	var start_pos := position
-	var start_rot := basis
+	var start_pos := remote_node.global_position
+	var start_rot := remote_node.global_rotation
 	if _tween: _tween.kill()
 	_tween = create_tween()
 	_tween.set_trans(tween_trans)
 	_tween.set_ease(tween_ease)
 	_tween.tween_method(func(blend: float):
-		position = start_pos.lerp(end_pos, blend)
-		basis = start_rot.slerp(end_rot, blend)
+		remote_node.global_position = start_pos.lerp(global_position, blend)
+		var end_rot := global_rotation
+		remote_node.global_rotation = Vector3(
+			lerp_angle(start_rot.x, end_rot.x, blend),
+			lerp_angle(start_rot.y, end_rot.y, blend),
+			lerp_angle(start_rot.z, end_rot.z, blend)
+			)
 		, 0.0, 1.0, tween_duration)
-	_tween.finished.connect(finished.emit)
+	_tween.finished.connect(func():
+		remote_path = get_path_to(n)
+		finished.emit())

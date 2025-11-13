@@ -3,8 +3,6 @@ class_name Controller extends Node
 signal view_state_changed()
 signal focus_exited(con: Control)
 signal focus_entered(con: Control)
-signal on_input(event: InputEvent)
-signal on_update(delta: float)
 
 enum ViewState { None, FirstPerson, ThirdPerson, TopDown }
 
@@ -16,7 +14,6 @@ enum ViewState { None, FirstPerson, ThirdPerson, TopDown }
 @onready var camera_master: CameraMaster = %camera_master
 var input_remap: Dictionary[StringName, StringName] # TODO: Move to some global area?
 var _widgits: Dictionary[StringName, Widget]
-var _event: InputEvent
 var _focused_control: Control
 
 var view_state := ViewState.FirstPerson:
@@ -84,15 +81,17 @@ func hide_widgit(id: StringName) -> bool:
 		return true
 	return false
 
-func is_action_pressed(action: StringName, allow_echo := false, exact_match := false) -> bool:
-	return _event.is_action_pressed(input_remap.get(action, action), allow_echo, exact_match)
+func is_action_pressed(action: StringName, exact_match := false) -> bool:
+	return Input.is_action_just_pressed(input_remap.get(action, action), exact_match)
+	#return _event.is_action_pressed(input_remap.get(action, action), allow_echo, exact_match)
 
 func is_action_released(action: StringName, exact_match := false):
-	return _event.is_action_released(action, exact_match)
+	return Input.is_action_just_released(input_remap.get(action, action), exact_match)
+	#return _event.is_action_released(action, exact_match)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if name != "player_1": return
-	_event = event
+	#_event = event
 	
 	if _focused_control:
 		var next: Control
@@ -114,15 +113,15 @@ func _unhandled_input(event: InputEvent) -> void:
 			if _focused_control: focus_entered.emit(_focused_control)
 			get_viewport().input_as_handled()
 	
-	if is_action_pressed(&"toggle_first_person", false, true):
+	if is_action_pressed(&"toggle_first_person", true):
 		print("first person")
 		view_state = ViewState.FirstPerson
 		get_viewport().set_input_as_handled()
-	elif is_action_pressed(&"toggle_third_person", false, true):
+	elif is_action_pressed(&"toggle_third_person", true):
 		print("third person")
 		view_state = ViewState.ThirdPerson
 		get_viewport().set_input_as_handled()
-	elif is_action_pressed(&"toggle_top_down", false, true):
+	elif is_action_pressed(&"toggle_top_down", true):
 		print("top down")
 		view_state = ViewState.TopDown
 		get_viewport().set_input_as_handled()
@@ -138,9 +137,9 @@ func set_pawn(target: Pawn):
 	set_process(true)
 	set_process_unhandled_input(true)
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	_event = event
-	on_input.emit(event)
+#func _unhandled_key_input(event: InputEvent) -> void:
+	#_event = event
+	#on_input.emit(event)
 
-func _process(delta: float) -> void:
-	on_update.emit(delta)
+#func _process(delta: float) -> void:
+	#on_update.emit(delta)

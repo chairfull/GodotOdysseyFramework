@@ -1,5 +1,5 @@
 @tool
-extends Node
+extends AssetsBase
 
 var assets: AssetsDB:
 	get:

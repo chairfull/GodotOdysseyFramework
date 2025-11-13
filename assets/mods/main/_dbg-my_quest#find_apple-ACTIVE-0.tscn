@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_35hab"]
 [ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption.gd" id="3_pc7ek"]
 
-[sub_resource type="Animation" id="Animation_0m34g"]
+[sub_resource type="Animation" id="Animation_ebkqp"]
 length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -48,15 +48,15 @@ tracks/2/keys = {
 "values": ["paul: An apple. Just what I needed."]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_35hab"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8hbew"]
 _data = {
-&"ROOT": SubResource("Animation_0m34g")
+&"ROOT": SubResource("Animation_ebkqp")
 }
 
-[node name="" type="AnimationPlayer"]
+[node name="" type="AnimationPlayer" unique_id=199763732]
 root_node = NodePath(".")
 libraries = {
-&"_dbg-my_quest#find_apple-ACTIVE-0": SubResource("AnimationLibrary_35hab")
+&"_dbg-my_quest#find_apple-ACTIVE-0": SubResource("AnimationLibrary_8hbew")
 }
 script = ExtResource("1_0m34g")
 method_calls = Dictionary[int, Array]({
@@ -64,9 +64,9 @@ method_calls = Dictionary[int, Array]({
 2824137196: [[&"_event", ["QUEST_TICK", "my_quest#find_apple"]]]
 })
 
-[node name="screens" type="CanvasLayer" parent="."]
+[node name="screens" type="CanvasLayer" parent="." unique_id=231458175]
 
-[node name="caption" type="Control" parent="." instance=ExtResource("2_35hab")]
+[node name="caption" type="Control" parent="." unique_id=1736127265 instance=ExtResource("2_35hab")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

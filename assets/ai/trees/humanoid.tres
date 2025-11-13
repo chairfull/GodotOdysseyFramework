@@ -1,0 +1,42 @@
+[gd_resource type="BehaviorTree" load_steps=15 format=3 uid="uid://bajdgib3dnvq6"]
+
+[ext_resource type="Script" uid="uid://dl4h513s0orci" path="res://assets/ai/tasks/pawn_as_controlled.gd" id="1_7x8gf"]
+[ext_resource type="Script" uid="uid://dovg2kforl1yi" path="res://assets/ai/tasks/npc_choose_random_position.gd" id="2_7x8gf"]
+[ext_resource type="Script" uid="uid://bet5mbq58hn0c" path="res://assets/ai/tasks/npc_move_to_position.gd" id="3_3a3dj"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_pplf3"]
+
+[sub_resource type="BTAction" id="BTAction_3a3dj"]
+script = ExtResource("1_7x8gf")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_7x8gf"]
+max_duration = 5.0
+
+[sub_resource type="BTAction" id="BTAction_0iwmb"]
+script = ExtResource("2_7x8gf")
+
+[sub_resource type="BTAction" id="BTAction_87mrt"]
+script = ExtResource("3_3a3dj")
+
+[sub_resource type="BTSequence" id="BTSequence_tjwfk"]
+custom_name = "Idle"
+children = [SubResource("BTRandomWait_7x8gf"), SubResource("BTAction_0iwmb"), SubResource("BTAction_87mrt")]
+
+[sub_resource type="BTSequence" id="BTSequence_11kkr"]
+custom_name = "Combat"
+
+[sub_resource type="BTSequence" id="BTSequence_677yw"]
+custom_name = "Alert"
+
+[sub_resource type="BTSequence" id="BTSequence_6uuaw"]
+custom_name = "Patrol"
+
+[sub_resource type="BTSequence" id="BTSequence_3a3dj"]
+children = [SubResource("BTSequence_tjwfk"), SubResource("BTSequence_11kkr"), SubResource("BTSequence_677yw"), SubResource("BTSequence_6uuaw")]
+
+[sub_resource type="BTSequence" id="BTSequence_7x8gf"]
+children = [SubResource("BTAction_3a3dj"), SubResource("BTSequence_3a3dj")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_pplf3")
+root_task = SubResource("BTSequence_7x8gf")

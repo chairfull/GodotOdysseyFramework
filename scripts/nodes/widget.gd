@@ -17,9 +17,6 @@ func close() -> void:
 func get_controller() -> Controller:
 	return Controllers.get_controller(player_index)
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	get_controller()._event = event
-
 ## Used by FlowPlayerGenerator to create keyframes.
 func _cinematic_step(_gen: FlowPlayerGenerator, _step: Dictionary) -> void:
 	pass

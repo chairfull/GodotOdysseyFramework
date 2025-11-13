@@ -5,24 +5,24 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_6ugyi"]
 radius = 0.3
 
-[node name="camera_follow" type="Node3D" node_paths=PackedStringArray("camera")]
+[node name="camera_follow" type="Node3D" unique_id=335324373 node_paths=PackedStringArray("camera")]
 script = ExtResource("1_thq15")
 camera = NodePath("pivot/spring_arm/offset/camera")
 
-[node name="pivot" type="Node3D" parent="."]
+[node name="pivot" type="Node3D" parent="." unique_id=1592305757]
 unique_name_in_owner = true
 
-[node name="spring_arm" type="SpringArm3D" parent="pivot"]
+[node name="spring_arm" type="SpringArm3D" parent="pivot" unique_id=843241393]
 unique_name_in_owner = true
 shape = SubResource("SphereShape3D_6ugyi")
 spring_length = 3.0
 
-[node name="offset" type="Node3D" parent="pivot/spring_arm"]
+[node name="offset" type="Node3D" parent="pivot/spring_arm" unique_id=1767052019]
 unique_name_in_owner = true
 
-[node name="camera" type="Camera3D" parent="pivot/spring_arm/offset"]
+[node name="camera" type="Camera3D" parent="pivot/spring_arm/offset" unique_id=1213349198]
 
-[node name="head_remote" type="RemoteTransform3D" parent="pivot/spring_arm/offset/camera"]
+[node name="head_remote" type="RemoteTransform3D" parent="pivot/spring_arm/offset/camera" unique_id=2076897846]
 unique_name_in_owner = true
 update_position = false
 update_scale = false

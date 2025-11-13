@@ -22,6 +22,7 @@ class_name ItemInfo extends DatabaseObject
 
 var _properties: Dictionary[StringName, Variant]
 
+func _node_get_label(_node: ItemNode) -> String: return name
 func _node_equipped(_node: ItemNode) -> bool: return true
 func _node_unequipped(_node: ItemNode) -> bool: return true
 func _node_use(_node: ItemNode) -> bool: return true

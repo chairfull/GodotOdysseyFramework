@@ -3,8 +3,8 @@ extends Control
 
 #signal event(ev: Event, data: Variant)
 
-var player: Controller = load("res://scenes/prefabs/controller_player.tscn").instantiate()
-var player2: Controller = load("res://scenes/prefabs/controller_player.tscn").instantiate()
+var player: Controller = load("res://scenes/prefabs/controller.tscn").instantiate()
+var player2: Controller = load("res://scenes/prefabs/controller.tscn").instantiate()
 var players: Dictionary[StringName, Controller] = {
 	"player": player,
 	"player2": player2

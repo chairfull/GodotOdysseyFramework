@@ -18,13 +18,13 @@ func _body_entered(body: Node3D):
 	disabled = true
 	Global.wait(3.0, func(): disabled = false)
 	
-	if not body is Agent: return
+	if not body is CharNode: return
 	if body in bodies: return
 	bodies.append(body)
-	var agent: Agent = body
+	var agent: CharNode = body
 	if trigger_zone and zone_id:
 		var zone := State.find_zone(zone_id)
-		var who := agent.char_info
+		var who := agent.info
 		if not zone or not who: return
 		State.ZONE_ENTERED.fire({ zone=zone, who=who })
 		var msg := "%s entered %s" % [who.name, zone.name]
@@ -33,13 +33,13 @@ func _body_entered(body: Node3D):
 			State.TOAST.fire({ type="simple_toast", data={text=msg} })
 		
 func _body_exited(body: Node3D):
-	if not body is Agent: return
+	if not body is CharNode: return
 	if not body in bodies: return
 	bodies.erase(body)
-	var agent: Agent = body
+	var agent: CharNode = body
 	if trigger_zone and zone_id:
 		var zone := State.find_zone(zone_id)
-		var who := agent.char_info
+		var who := agent.info
 		if not zone or not who: return
 		State.ZONE_EXITED.fire({ zone=zone, who=who }) 
 		if toast_on_exit:

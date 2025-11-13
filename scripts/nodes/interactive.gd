@@ -15,6 +15,8 @@ enum ToggleIterationMode { FORWARD, BACKWARD, RANDOM }
 enum Highlight { NONE, FOCUSED }
 
 @export var label: String = "Interact"
+@export var flow_script: FlowScript ## Optional script to play on interact.
+@export var behavior: BTPlayer
 @export var label_world_space_offset := Vector3.ZERO
 @export var humanoid_lookat_offset := Vector3.ZERO
 var can_interact := func(_pawn: Pawn): return true
@@ -177,3 +179,8 @@ func _interacted(pawn: Pawn, form: Form) -> void:
 	
 	if interact_on_enter and ioe_scene:
 		get_tree().change_scene_to_packed(ioe_scene)
+	
+	if flow_script:
+		Cinema.queue(flow_script)
+	#else:
+		#prints(with.name, "interacted with", name, "FORM:", form)

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_m6pof"]
 [ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption.gd" id="3_yjh80"]
 
-[sub_resource type="Animation" id="Animation_n42i5"]
+[sub_resource type="Animation" id="Animation_ag57d"]
 length = 0.101
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -21,7 +21,7 @@ tracks/0/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_m6pof"]
+[sub_resource type="Animation" id="Animation_d6n8h"]
 length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -65,7 +65,7 @@ tracks/2/keys = {
 "values": ["paul: That's all of them!"]
 }
 
-[sub_resource type="Animation" id="Animation_yjh80"]
+[sub_resource type="Animation" id="Animation_28rmy"]
 length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -106,7 +106,7 @@ tracks/2/keys = {
 "values": ["paul: Now all that's left is finding the banana."]
 }
 
-[sub_resource type="Animation" id="Animation_ag57d"]
+[sub_resource type="Animation" id="Animation_cboc8"]
 length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -147,7 +147,7 @@ tracks/2/keys = {
 "values": ["paul: All I have to find is the pear."]
 }
 
-[sub_resource type="Animation" id="Animation_d6n8h"]
+[sub_resource type="Animation" id="Animation_tilph"]
 length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -188,7 +188,7 @@ tracks/2/keys = {
 "values": ["paul: All I need is that apple."]
 }
 
-[sub_resource type="Animation" id="Animation_28rmy"]
+[sub_resource type="Animation" id="Animation_y0unb"]
 length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -229,20 +229,20 @@ tracks/2/keys = {
 "values": ["paul: One down. Two to go."]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_cboc8"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uq3k2"]
 _data = {
-&"ROOT": SubResource("Animation_n42i5"),
-&"branch_1526383200": SubResource("Animation_ag57d"),
-&"branch_2882915596": SubResource("Animation_m6pof"),
-&"branch_3451350117": SubResource("Animation_yjh80"),
-&"branch_3929484761": SubResource("Animation_28rmy"),
-&"branch_952356893": SubResource("Animation_d6n8h")
+&"ROOT": SubResource("Animation_ag57d"),
+&"branch_1526383200": SubResource("Animation_cboc8"),
+&"branch_2882915596": SubResource("Animation_d6n8h"),
+&"branch_3451350117": SubResource("Animation_28rmy"),
+&"branch_3929484761": SubResource("Animation_y0unb"),
+&"branch_952356893": SubResource("Animation_tilph")
 }
 
-[node name="" type="AnimationPlayer"]
+[node name="" type="AnimationPlayer" unique_id=1040816770]
 root_node = NodePath(".")
 libraries = {
-&"_dbg-my_quest-ACTIVE-0": SubResource("AnimationLibrary_cboc8")
+&"_dbg-my_quest-ACTIVE-0": SubResource("AnimationLibrary_uq3k2")
 }
 script = ExtResource("1_n42i5")
 method_calls = Dictionary[int, Array]({
@@ -255,9 +255,9 @@ method_calls = Dictionary[int, Array]({
 3549328158: [[&"wait", []]]
 })
 
-[node name="screens" type="CanvasLayer" parent="."]
+[node name="screens" type="CanvasLayer" parent="." unique_id=1797599008]
 
-[node name="caption" type="Control" parent="." instance=ExtResource("2_m6pof")]
+[node name="caption" type="Control" parent="." unique_id=269368186 instance=ExtResource("2_m6pof")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

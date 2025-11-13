@@ -1,4 +1,3 @@
-@tool
 @icon("res://addons/odyssey/icons/pawn.svg")
 class_name Pawn extends Node3D
 ## Controllable by Player or NPC.
@@ -6,21 +5,17 @@ class_name Pawn extends Node3D
 
 signal controlled(con: Controller)
 signal uncontrolled(con: Controller)
-signal mounted(rider_pawn: Pawn)
-signal unmounted(rider_pawn: Pawn)
-#signal rider_mounted(r: Pawn)
-#signal rider_unmounted(r: Pawn)
-#signal mounted(ride: Pawn)
-#signal unmounted(ride: Pawn)
+signal gained_rider(rider_pawn: Pawn)
+signal lost_rider(rider_pawn: Pawn)
+#signal started_riding(riding_pawn: Pawn)
+#signal finished_riding(riding_pawn: Pawn)
 
-@export var node: Node:
-	get: return node if node else self
 @export var behavior: BTPlayer
-@export var rider_interact: Interactive ## Interactive that takes control.
-@export var rider_unmount_area: Area3D ## Area to scan if attempting to unmount.
+@export var mount_interact: Interactive ## Interactive that initiates this Pawn being mounted by another.
+@export var unmount_area: Area3D ## Area that must be clear for the rider to unmount.
 var rider: Pawn: set=set_rider ## Set internally. TODO: Set from scene.
 var controller: Controller
-var _mount: Pawn#: set=set_mount ## What we are riding.
+var riding: Pawn#: set=set_mount ## What we are riding.
 
 func _init() -> void:
 	add_to_group(&"Pawn")
@@ -28,17 +23,17 @@ func _init() -> void:
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
 	
-	if node.name == "player":
+	if name == "player":
 		Controllers.player.set_pawn.call_deferred(self)
 	#elif node.name.begins_with("npc_"):
 		#Controllers.get_or_create_npc(node.name).set_pawn.call_deferred(self)
 	
-	if rider_interact:
-		rider_interact.interacted.connect(_rider_interacted)
+	if mount_interact:
+		mount_interact.interacted.connect(_rider_interacted)
 
 func can_unmount() -> bool:
-	if rider_unmount_area:
-		if rider_unmount_area.get_overlapping_bodies().size() > 0:
+	if unmount_area:
+		if unmount_area.get_overlapping_bodies().size() > 0:
 			return false
 	return true
 
@@ -52,21 +47,24 @@ func get_controller_recursive() -> Controller:
 	return rider.controller if rider else controller
 
 func _controlled(con: Controller) -> void:
-	print("[%s controls %s]" % [con.name, node.name])
+	print("[%s controls %s]" % [con.name, name])
 	if behavior:
-		behavior.active = false
+		behavior.restart()
 	controller = con
 	controlled.emit(con)
 
 func _uncontrolled(con: Controller) -> void:
 	if behavior:
-		behavior.active = true
+		behavior.restart()
 	uncontrolled.emit(con)
 	controller = null
 
+func _gained_rider(_rider_pawn: Pawn) -> void: pass
+func _lost_rider(_rider_pawn: Pawn) -> void: pass
+
 func is_controlled() -> bool: return controller != null
 func is_ridden() -> bool: return rider != null
-func is_mounted() -> bool: return _mount != null
+func is_riding() -> bool: return riding != null
 
 #func set_frozen(f):
 	#if frozen == f: return
@@ -90,13 +88,38 @@ func set_rider(r: Pawn):
 		# Take back control.
 		if is_controlled():
 			controller.set_pawn.call_deferred(rider)
-		rider._mount = null
-		unmounted.emit(rider)
+		rider.riding = null
+		_lost_rider(rider)
+		lost_rider.emit(rider)
 	rider = r
 	if rider: # Remound new.
 		# Give control to rider.
 		if rider.is_controlled():
 			rider.controller.set_pawn.call_deferred(self)
-		rider._mount = self
-		mounted.emit(rider)
+		rider.riding = self
+		_gained_rider(rider)
+		gained_rider.emit(rider)
 	
+func is_action_pressed(action: StringName, exact_match := false) -> bool:
+	return controller.is_action_pressed(action, exact_match)
+
+func is_action_released(action: StringName, exact_match := false) -> bool:
+	return controller.is_action_released(action, exact_match)
+
+func is_action_both(action: StringName, start: Callable, stop: Callable) -> bool:
+	if is_action_pressed(action):
+		if start.call():
+			handle_input()
+			return true
+	elif is_action_released(action):
+		if stop.call():
+			handle_input()
+			return true
+	return false
+
+func handle_input() -> void:
+	controller.get_viewport().set_input_as_handled()
+
+## Called by BehaviorTree when this node is controlled by a Controller.
+func _update_as_controlled(_delta: float) -> void:
+	pass

@@ -1,9 +1,8 @@
-[gd_scene load_steps=35 format=3 uid="uid://jk2x74byqo2s"]
+[gd_scene load_steps=34 format=3 uid="uid://jk2x74byqo2s"]
 
 [ext_resource type="PackedScene" uid="uid://p7rqgmtls5qk" path="res://scenes/prefabs/controllables/humanoid.tscn" id="1_k3ref"]
 [ext_resource type="Script" uid="uid://b6xwvcd1c6hpm" path="res://scripts/nodes/zone_node.gd" id="1_suy51"]
 [ext_resource type="Material" uid="uid://2qm2hgj36a7m" path="res://assets/materials/debug_green.tres" id="3_anyd7"]
-[ext_resource type="Resource" uid="uid://cp2fj786xxl53" path="res://assets/cinematics/stranger.tres" id="3_ju5gt"]
 [ext_resource type="Material" uid="uid://dkb2fsjtxhblu" path="res://assets/materials/debug_black.tres" id="3_nvj10"]
 [ext_resource type="Material" uid="uid://c3my8ictc2w4b" path="res://assets/materials/debug_orange.tres" id="4_0xgc2"]
 [ext_resource type="PackedScene" uid="uid://c4cky3lenwdnj" path="res://scenes/prefabs/toggle.tscn" id="4_havs6"]
@@ -69,12 +68,11 @@ script = ExtResource("1_suy51")
 [node name="player" parent="." unique_id=813064010 instance=ExtResource("1_k3ref")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.927585, -0.50000286, 5.974679)
 floor_max_angle = 1.2217305
-char_id = &"paul"
 
-[node name="npc_paul" parent="." unique_id=1177454718 instance=ExtResource("1_k3ref")]
+[node name="npc_paul" parent="." unique_id=1177454718 node_paths=PackedStringArray("target") instance=ExtResource("1_k3ref")]
 transform = Transform3D(-0.8740267, 0, 0.48587787, 0, 1, 0, -0.48587787, 0, -0.8740267, -8.336996, -0.50000286, 2.5986118)
 floor_max_angle = 1.2217305
-flow_script = ExtResource("3_ju5gt")
+target = NodePath("../player")
 
 [node name="master" type="Node3D" parent="." unique_id=2058131119]
 
@@ -173,25 +171,25 @@ humanoid_lookat_offset = Vector3(0, 0, 0)
 on = true
 toggle_state = 1
 
-[node name="light_on" type="OmniLight3D" parent="toggle" unique_id=737912840 node_paths=PackedStringArray("interactive")]
+[node name="light_on" type="OmniLight3D" parent="toggle" unique_id=737912840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5569882, 0.69143677, -0.09988546)
 layers = 3
 light_color = Color(0.36209008, 0.7274332, 1.1551381e-06, 1)
 light_energy = 12.13
 script = ExtResource("5_wk3yy")
-interactive = NodePath("..")
+on = false
 on_state = 1
 expr_on = "$visible = true"
 expr_off = "$visible = false"
 
-[node name="light_off" type="OmniLight3D" parent="toggle" unique_id=1815416594 node_paths=PackedStringArray("interactive")]
+[node name="light_off" type="OmniLight3D" parent="toggle" unique_id=1815416594]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.87629175, 0.69143677, -0.09988546)
 visible = false
 layers = 3
 light_color = Color(1, 0.30501965, 0.7094665, 1)
 light_energy = 6.0
 script = ExtResource("5_wk3yy")
-interactive = NodePath("..")
+on = false
 on_state = 1
 expr_on = "$visible = true"
 expr_off = "$visible = false"
@@ -218,9 +216,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.687923, -0.452596, 4.60916
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 1.1000001)
 use_collision = true
 
-[node name="Pawn" type="Node3D" parent="chair" unique_id=604915447 node_paths=PackedStringArray("node")]
+[node name="Pawn" type="Node3D" parent="chair" unique_id=604915447]
 script = ExtResource("17_bjv75")
-node = NodePath("..")
 metadata/_custom_type_script = "uid://dfwpyddi4qity"
 
 [node name="interactive" type="Area3D" parent="chair" unique_id=498885597]
@@ -257,10 +254,8 @@ size = Vector3(1, 9.538208, 0.1430664)
 script = ExtResource("24_ju5gt")
 interactive = NodePath("Interactive")
 
-[node name="Pawn" type="Node3D" parent="ladder" unique_id=809118433 node_paths=PackedStringArray("node", "rider_interact")]
+[node name="Pawn" type="Node3D" parent="ladder" unique_id=809118433]
 script = ExtResource("17_bjv75")
-node = NodePath("..")
-rider_interact = NodePath("../Interactive")
 metadata/_custom_type_script = "uid://dfwpyddi4qity"
 
 [node name="Interactive" type="Area3D" parent="ladder" unique_id=1521269352]
@@ -282,10 +277,8 @@ material = ExtResource("9_si77m")
 script = ExtResource("24_ju5gt")
 interactive = NodePath("Interactive")
 
-[node name="Pawn" type="Node3D" parent="container" unique_id=197604043 node_paths=PackedStringArray("node", "rider_interact")]
+[node name="Pawn" type="Node3D" parent="container" unique_id=197604043]
 script = ExtResource("17_bjv75")
-node = NodePath(".")
-rider_interact = NodePath("../Interactive")
 metadata/_custom_type_script = "uid://dfwpyddi4qity"
 
 [node name="Interactive" type="Area3D" parent="container" unique_id=1795181430]

@@ -1,22 +1,25 @@
 extends Widget
 
 @onready var label: RichTextLabel = %label
-var agent: Agent
+var char_node: CharNode
 var interactive: Interactive
 
 func _ready() -> void:
 	set_visible(false)
 	set_process(false)
 
-func set_agent(ag: Agent):
-	agent = ag
-	agent.interactive_changed.connect(_interactive_changed)
+func set_agent(cn: CharNode):
+	char_node = cn
+	char_node.interactive_changed.connect(_interactive_changed)
 
 func _interactive_changed():
-	var inter := agent._interactive
+	var inter := char_node._interactive
 	if inter:
 		set_process(true)
+		reset_size()
+		label.reset_size()
 		label.text = inter.label
+		force_update_transform()
 		modulate.a = 0.0
 		visible = true
 		interactive = inter

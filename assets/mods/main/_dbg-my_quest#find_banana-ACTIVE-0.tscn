@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_wv5mi"]
 [ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption.gd" id="3_y8xdq"]
 
-[sub_resource type="Animation" id="Animation_5ney1"]
+[sub_resource type="Animation" id="Animation_5vrn5"]
 length = 0.051
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -48,15 +48,15 @@ tracks/2/keys = {
 "values": ["paul: Banana!"]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_wv5mi"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_upmkm"]
 _data = {
-&"ROOT": SubResource("Animation_5ney1")
+&"ROOT": SubResource("Animation_5vrn5")
 }
 
-[node name="" type="AnimationPlayer"]
+[node name="" type="AnimationPlayer" unique_id=2014885883]
 root_node = NodePath(".")
 libraries = {
-&"_dbg-my_quest#find_banana-ACTIVE-0": SubResource("AnimationLibrary_wv5mi")
+&"_dbg-my_quest#find_banana-ACTIVE-0": SubResource("AnimationLibrary_upmkm")
 }
 script = ExtResource("1_5ney1")
 method_calls = Dictionary[int, Array]({
@@ -64,9 +64,9 @@ method_calls = Dictionary[int, Array]({
 2824137196: [[&"_event", ["QUEST_TICK", "my_quest#find_banana"]]]
 })
 
-[node name="screens" type="CanvasLayer" parent="."]
+[node name="screens" type="CanvasLayer" parent="." unique_id=1069100419]
 
-[node name="caption" type="Control" parent="." instance=ExtResource("2_wv5mi")]
+[node name="caption" type="Control" parent="." unique_id=1543788744 instance=ExtResource("2_wv5mi")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
