@@ -160,6 +160,11 @@
 - [ ] Hit direction indicator
 - [ ] Damage indicator (red-periphery)
 	- [ ] Posion indicator (green)
+- [x] Items
+	- [x] Weapon
+		- [x] Reticle
+		- [x] Ammo counter
+	- [ ] Input helper (Tells what buttons can be pressed)
 - [ ] Sounds
 	- [ ] Hover
 	- [ ] Unhover

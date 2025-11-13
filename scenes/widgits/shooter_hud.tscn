@@ -1,0 +1,170 @@
+[gd_scene load_steps=4 format=3 uid="uid://no8gue8b410"]
+
+[ext_resource type="Script" uid="uid://bij3chon542dr" path="res://scenes/widgits/shooter_hud.gd" id="1_u6mi0"]
+[ext_resource type="Script" uid="uid://txkny8gbicbb" path="res://addons/richer_text/scripts/richer_text_label.gd" id="2_1edmw"]
+[ext_resource type="Resource" uid="uid://bf8stcbogl2sh" path="res://assets/richer_text_parser.tres" id="3_04v7d"]
+
+[node name="shooter_hud" type="Control" unique_id=1850838852]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_u6mi0")
+
+[node name="reticle" type="Control" parent="." unique_id=2059316739]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="reticle" unique_id=480702381]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="hit_marker" type="Control" parent="." unique_id=1261559375]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="hit_marker" type="ColorRect" parent="hit_marker" unique_id=674387482]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = 7.0
+offset_right = 2.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="hit_marker2" type="ColorRect" parent="hit_marker" unique_id=357167394]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = 3.0
+offset_right = 13.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="hit_marker3" type="ColorRect" parent="hit_marker" unique_id=2018009782]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 2.0
+offset_right = -15.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="hit_marker4" type="ColorRect" parent="hit_marker" unique_id=1812638467]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 3.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -3.1415927
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="info_label" type="RichTextLabel" parent="." unique_id=1898378861]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 748.0
+offset_top = 422.0
+offset_right = 1142.0
+offset_bottom = 636.0
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "Shooter
+1/20"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("2_1edmw")
+bbcode = "Shooter
+1/20"
+parser = ExtResource("3_04v7d")
+
+[node name="control_label" type="RichTextLabel" parent="." unique_id=1035051770]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 425.0
+offset_right = 404.0
+offset_bottom = 639.0
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+bbcode_enabled = true
+text = "[F] Drop
+[R] Reload"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 2
+script = ExtResource("2_1edmw")
+bbcode = "[F] Drop
+[R] Reload"
+parser = ExtResource("3_04v7d")

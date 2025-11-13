@@ -6,18 +6,18 @@ class_name ShooterInfo extends ItemInfo
 func _node_get_label(node: ItemNode) -> String:
 	if not node.state:
 		node.state.ammo = max_ammo
-		node.state.max_ammo = max_ammo
-	return "%s [%s/%s]" % [name, node.state.ammo, node.state.max_ammo]
+	return "%s [%s/%s]" % [name, node.state.ammo, max_ammo]
 
 func _node_equipped(node: ItemNode) -> bool:
 	if not node.state:
 		node.state.ammo = max_ammo
-		node.state.max_ammo = max_ammo
+	node.try_show_widgit(Assets.WIDGIT_SHOOTER_HUD)
 	return true
 
-#func _node_unequipped(node: ItemNode) -> bool:
+func _node_unequipped(node: ItemNode) -> bool:
 	#node.interactive.label = "Gun [%s/%s]" % [node.state.ammo, node.state.max_ammo]
-	#return true
+	node.try_hide_widgit()
+	return true
 
 func _node_use(node: ItemNode) -> bool:
 	if node.get_holder() is CharNode:
@@ -36,6 +36,7 @@ func _node_use(node: ItemNode) -> bool:
 			node.anim_travel("fire")
 			node.state.ammo -= 1
 			node.update_label()
+			node.refresh_widgit()
 			#print("%s/%s" % [node.state.ammo, node.state.max_ammo])
 			return true
 		else:
@@ -46,5 +47,6 @@ func _node_reload(node: ItemNode) -> bool:
 	node.anim_travel("reload")
 	node.state.ammo = max_ammo
 	node.update_label()
+	node.refresh_widgit()
 	#print("%s/%s" % [node.state.ammo, node.state.max_ammo])
 	return true

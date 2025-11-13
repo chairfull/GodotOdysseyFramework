@@ -199,16 +199,30 @@ func focus_stop():
 	_focusing = false
 	focus_stopped.emit()
 
-func interact_start(with: Pawn) -> bool:
-	if _interactive:#interactive_detector.is_detecting():
-		_interacting = _interactive#interactive_detector.get_nearest() as Interactive
-		_interacting.interact(with)
+func interact_alt_start() -> bool:
+	if _interactive:
+		_interacting = _interactive
+		_interacting.interact(self, Interactive.Form.INTERACT_ALT)
 		return true
 	return false
 
-func interact_stop(with: Pawn) -> bool:
+func interact_alt_stop() -> bool:
 	if _interacting:
-		_interacting.cancel(with)
+		_interacting.cancel(self)
+		_interacting = null
+		return true
+	return false
+
+func interact_start() -> bool:
+	if _interactive:#interactive_detector.is_detecting():
+		_interacting = _interactive#interactive_detector.get_nearest() as Interactive
+		_interacting.interaction_pressed(self)
+		return true
+	return false
+
+func interact_stop() -> bool:
+	if _interacting:
+		_interacting.interaction_released(self)
 		_interacting = null
 		return true
 	return false

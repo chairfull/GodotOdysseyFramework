@@ -27,12 +27,17 @@ func create_audio_player(id: StringName) -> Node:
 	player.stream = stream
 	return player
 
-func create_scene(id: StringName, parent: Variant = null, props := {}) -> Node:
-	if not id in assets.scenes:
-		push_error("No %s in scenes. %s." % [id, assets.scenes.values()])
+func create_scene(scene_id: StringName, parent: Variant = null, props := {}) -> Node:
+	var full_path: String
+	if scene_id.begins_with("uid://"):
+		full_path = scene_id
+	elif scene_id in assets.scenes:
+		full_path = "res://scenes".path_join(assets.scenes[scene_id])
+	else:
+		push_error("No %s in scenes. %s." % [scene_id, assets.scenes.values()])
 		return null
-	var full_path := "res://scenes".path_join(assets.scenes[id])
 	var node: Node = load(full_path).instantiate()
+	var id := node.scene_file_path.get_basename().get_file()
 	node.name = id
 	
 	if parent is Node:
@@ -41,7 +46,4 @@ func create_scene(id: StringName, parent: Variant = null, props := {}) -> Node:
 		get_tree().current_scene.add_child(node)
 	
 	UObj.set_properties(node, props, false)
-	#for prop in props:
-		#if prop in node:
-			#node[prop] = props[prop]
 	return node

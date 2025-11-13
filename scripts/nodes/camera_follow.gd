@@ -4,7 +4,6 @@ class_name CameraFollow extends CameraTarget
 @onready var spring_arm: SpringArm3D = %spring_arm
 @onready var offset: Node3D = %offset
 
-@export var target: Node3D: set=set_target
 @export var mouse_sensitivity := 0.02
 @export var rot_y := 0.0
 @export var rot_x := 0.0
@@ -36,7 +35,7 @@ func _exit_tree() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func set_target(t):
-	target = t
+	super(t)
 	if target is CharNode:
 		target.focus_started.connect(_focus_started)
 		target.focus_stopped.connect(_focus_stopped)

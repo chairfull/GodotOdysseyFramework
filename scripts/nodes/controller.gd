@@ -12,6 +12,7 @@ enum ViewState { None, FirstPerson, ThirdPerson, TopDown }
 @onready var fps_viewport_container: SubViewportContainer = %fps_viewport_container
 @onready var viewport: SubViewport = %viewport
 @onready var camera_master: CameraMaster = %camera_master
+@export var pawn_camera: CameraTarget
 var input_remap: Dictionary[StringName, StringName] # TODO: Move to some global area?
 var _widgits: Dictionary[StringName, Widget]
 var _focused_control: Control
@@ -51,8 +52,13 @@ func get_move_vector_camera() -> Vector2:
 	var dir := camera_master.global_rotation.y
 	return get_move_vector().rotated(-dir)
 
+func _get_widgit_id(id: StringName) -> StringName:
+	if id.begins_with("uid://"):
+		return ResourceUID.uid_to_path(id).get_basename().get_file()
+	return id
+
 func is_widgit_visible(id: StringName) -> bool:
-	return id in _widgits
+	return _get_widgit_id(id) in _widgits
 
 func toggle_widgit(id: StringName, props := {}) -> Node:
 	if is_widgit_visible(id):
@@ -61,16 +67,20 @@ func toggle_widgit(id: StringName, props := {}) -> Node:
 	else:
 		return show_widgit(id, props)
 
-func show_widgit(id: StringName, props := {}) -> Widget:
+func show_widgit(id: StringName, props := {}, transitioned := false) -> Widget:
+	id = _get_widgit_id(id)
 	var widgit: Widget = _widgits.get(id)
-	if not widgit:
+	if not is_widgit_visible(id):
 		widgit = Assets.create_scene(id, self, props)
 		if widgit.is_pauser():
 			State.add_pauser(widgit)
 		_widgits[id] = widgit
+	if transitioned:
+		widgit.show_transitioned()
 	return widgit
 
 func hide_widgit(id: StringName) -> bool:
+	id = _get_widgit_id(id)
 	var widgit: Widget = _widgits.get(id)
 	if widgit:
 		if widgit.is_pauser():
@@ -79,6 +89,7 @@ func hide_widgit(id: StringName) -> bool:
 		widgit.queue_free()
 		_widgits.erase(id)
 		return true
+	push_error("No open widgit: %s" % [id])
 	return false
 
 func is_action_pressed(action: StringName, exact_match := false) -> bool:
@@ -130,12 +141,31 @@ func set_pawn(target: Pawn):
 	if pawn == target: return
 	if pawn:
 		pawn._uncontrolled(self)
+		pawn.get_node("%head").get_node("camera_target").queue_free()
 		set_process(false)
 		set_process_unhandled_input(false)
+	
 	pawn = target
 	pawn._controlled(self)
 	set_process(true)
 	set_process_unhandled_input(true)
+	
+	pawn_camera.set_target(pawn)
+	camera_master.target = pawn_camera.camera
+	# Copy camera rotation to head.
+	var pawn_head: Node3D = pawn.get_node("%head")
+	pawn_camera.get_node("%head_remote").remote_path = pawn_head.get_path()
+	
+	# Copy head position to camera.
+	var remote := RemoteTransform3D.new()
+	remote.name = "camera_target"
+	remote.update_position = true
+	remote.update_rotation = false
+	remote.update_scale = false
+	pawn_head.add_child(remote)
+	remote.remote_path = pawn_camera.get_path()
+	
+	
 
 #func _unhandled_key_input(event: InputEvent) -> void:
 	#_event = event

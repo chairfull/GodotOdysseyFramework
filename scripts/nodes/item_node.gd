@@ -17,6 +17,7 @@ var _reset_state := false
 var _reset_transform: Transform3D
 var _holder: CharNode
 var _remote: RemoteTransform3DTweened
+var _widgit: ItemWidget
 
 func _ready() -> void:
 	var yaml := YAML.parse(debug_properties_yaml)
@@ -29,9 +30,27 @@ func _ready() -> void:
 	interactive.can_interact = _can_interact
 	update_label()
 
+func try_show_widgit(widgit_id: StringName) -> bool:
+	if get_holder().is_controlled():
+		_widgit = get_holder().get_controller().show_widgit(widgit_id, { node=self }, true)
+		_widgit.refresh()
+		return true
+	return false
+
+func try_hide_widgit() -> bool:
+	if _widgit:
+		_widgit.close_transitioned()
+		_widgit = null
+		return true
+	return false
+
 func update_label() -> void:
 	if info:
 		interactive.label = info._node_get_label(self)
+
+func refresh_widgit() -> void:
+	if _widgit:
+		_widgit.refresh()
 
 func get_holder() -> CharNode:
 	return _holder
@@ -64,13 +83,13 @@ func _equipped(to: CharNode, bone: Node3D) -> void:
 func _unequipped() -> void:
 	#interactive.
 	process_mode = Node.PROCESS_MODE_INHERIT
+	if info:
+		info._node_unequipped(self)
+	
 	_holder = null
 	_remote.get_parent().remove_child(_remote)
 	_remote.queue_free()
 	_remote = null
-	
-	if info:
-		info._node_unequipped(self)
 	
 	freeze = false
 	sleeping = false

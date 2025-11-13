@@ -167,9 +167,11 @@ linear_velocity = Vector3(10, 10, 10)
 
 [node name="toggle" parent="." unique_id=1940393254 instance=ExtResource("4_havs6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1826015, 1.3860083, -0.19937849)
+label = "Interact"
+interact_label = null
+interact_alt_label = null
 humanoid_lookat_offset = Vector3(0, 0, 0)
-on = true
-toggle_state = 1
+components = null
 
 [node name="light_on" type="OmniLight3D" parent="toggle" unique_id=737912840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5569882, 0.69143677, -0.09988546)
@@ -226,7 +228,9 @@ collision_mask = 0
 monitoring = false
 script = ExtResource("9_acq1c")
 label = "Sit"
-toggle_labels = PackedStringArray("Off", "On")
+interact_label = null
+interact_alt_label = null
+components = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chair/interactive" unique_id=1127450422]
 shape = SubResource("SphereShape3D_oemaf")
@@ -264,7 +268,9 @@ collision_mask = 0
 monitoring = false
 script = ExtResource("9_acq1c")
 label = "Climb"
-toggle_labels = PackedStringArray("Interact [Turn Off]", "Interact [Turn On]")
+interact_label = null
+interact_alt_label = null
+components = null
 metadata/_custom_type_script = "uid://dbleug2gqv7c5"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ladder/Interactive" unique_id=2041127905]
@@ -286,7 +292,10 @@ collision_layer = 512
 collision_mask = 0
 monitoring = false
 script = ExtResource("9_acq1c")
-toggle_labels = PackedStringArray("Interact [Turn Off]", "Interact [Turn On]")
+label = "Interact"
+interact_label = null
+interact_alt_label = null
+components = null
 metadata/_custom_type_script = "uid://dbleug2gqv7c5"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="container/Interactive" unique_id=703478667]

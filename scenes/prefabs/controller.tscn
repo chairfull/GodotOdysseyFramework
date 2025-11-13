@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://52fw605jpf2i"]
+[gd_scene load_steps=5 format=3 uid="uid://52fw605jpf2i"]
 
-[ext_resource type="Script" uid="uid://vmpdnbpamoi3" path="res://scripts/nodes/controller.gd" id="1_psuda"]
-[ext_resource type="Script" uid="uid://s3k7324tagti" path="res://scripts/nodes/camera_master.gd" id="2_psuda"]
-[ext_resource type="Script" uid="uid://ovjr1tt5pv2g" path="res://scripts/widgits/hud_markers.gd" id="3_psuda"]
+[ext_resource type="Script" uid="uid://vmpdnbpamoi3" path="res://scripts/nodes/controller.gd" id="1_ia60g"]
+[ext_resource type="Script" uid="uid://s3k7324tagti" path="res://scripts/nodes/camera_master.gd" id="2_cg1et"]
+[ext_resource type="Script" uid="uid://ovjr1tt5pv2g" path="res://scripts/widgits/hud_markers.gd" id="3_5kjgk"]
+[ext_resource type="PackedScene" uid="uid://clkh35bjyldwx" path="res://scenes/prefabs/cameras/camera_follow.tscn" id="4_cg1et"]
 
-[node name="controller" type="Control" unique_id=718559665]
+[node name="controller" type="Control" unique_id=718559665 node_paths=PackedStringArray("pawn_camera")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +13,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_psuda")
+script = ExtResource("1_ia60g")
+pawn_camera = NodePath("pawn_camera")
 
 [node name="fps_viewport_container" type="SubViewportContainer" parent="." unique_id=2102065026]
 unique_name_in_owner = true
@@ -60,7 +62,7 @@ unique_name_in_owner = true
 cull_mask = 1048573
 current = true
 far = 100.0
-script = ExtResource("2_psuda")
+script = ExtResource("2_cg1et")
 
 [node name="Label" type="Label" parent="." unique_id=1279590951]
 layout_mode = 0
@@ -78,107 +80,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("3_psuda")
+script = ExtResource("3_5kjgk")
 
-[node name="reticle" type="Control" parent="." unique_id=958578802]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="ColorRect" type="ColorRect" parent="reticle" unique_id=960618162]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="hit_marker" type="Control" parent="." unique_id=1740715545]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="hit_marker" type="ColorRect" parent="hit_marker" unique_id=234538744]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.5
-offset_top = 7.0
-offset_right = 2.5
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 0, 0, 1)
-
-[node name="hit_marker2" type="ColorRect" parent="hit_marker" unique_id=594021765]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 8.0
-offset_top = 3.0
-offset_right = 13.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -1.5707964
-color = Color(1, 0, 0, 1)
-
-[node name="hit_marker3" type="ColorRect" parent="hit_marker" unique_id=601807470]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = 2.0
-offset_right = -15.0
-offset_bottom = 15.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -1.5707964
-color = Color(1, 0, 0, 1)
-
-[node name="hit_marker4" type="ColorRect" parent="hit_marker" unique_id=1495644730]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 3.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 5.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -3.1415927
-color = Color(1, 0, 0, 1)
+[node name="pawn_camera" parent="." unique_id=335324373 instance=ExtResource("4_cg1et")]

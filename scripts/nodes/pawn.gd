@@ -43,8 +43,10 @@ func kick_rider():
 func _rider_interacted(pawn: Pawn, _form: Interactive.Form):
 	set_rider(pawn)
 
-func get_controller_recursive() -> Controller:
-	return rider.controller if rider else controller
+func get_controller() -> Controller:
+	return controller
+#func get_controller_recursive() -> Controller:
+	#return rider.controller if rider else controller
 
 func _controlled(con: Controller) -> void:
 	print("[%s controls %s]" % [con.name, name])

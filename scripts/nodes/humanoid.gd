@@ -1,6 +1,6 @@
 class_name Humanoid extends CharNode
 
-var camera: CameraTarget ## TODO: Move to controller...
+#var camera: CameraTarget ## TODO: Move to controller...
 var _crouch_hold_time := 0.0
 var _crouch_held := false
 var _interactive_hud: Widget
@@ -78,32 +78,15 @@ func _controlled(con: Controller) -> void:
 	
 	#agent.interactive_detector.visible_changed.connect(agent.interactive_changed.emit)
 	controller.view_state_changed.connect(_view_state_changed)
-	if not camera:
-		camera = Assets.create_scene(&"camera_follow", true)
-		camera.target = self
-		controller.camera_master.target = camera.camera
-		# Copy camera rotation to head.
-		camera.get_node("%head_remote").remote_path = %head.get_path()
-		
-		# Copy head position to camera.
-		var remote := RemoteTransform3D.new()
-		remote.name = "camera_target"
-		remote.update_position = true
-		remote.update_rotation = false
-		remote.update_scale = false
-		%head.add_child(remote)
-		remote.remote_path = camera.get_path()
-		
-		_view_state_changed()
 	controller.show_widgit(&"toast_manager")
 	_interactive_hud = controller.show_widgit(&"interaction_label")
 	_interactive_hud.set_agent(self)
-	
-	print("CONTROLLED ", con, camera)
+	_view_state_changed()
 
 func _uncontrolled(con: Controller) -> void:
 	super(con)
 	
+	_interactive_hud.close()
 	_interactive_hud = null
 	#agent.interactive_detector.visible_changed.disconnect(agent.interactive_changed.emit)
 	controller.view_state_changed.disconnect(_view_state_changed)
@@ -114,11 +97,11 @@ func _view_state_changed():
 	match controller.view_state:
 		Controller.ViewState.FirstPerson:
 			Global.wait(0.35, controller.show_fps_viewport)
-			await camera.set_first_person()
+			await controller.pawn_camera.set_first_person()
 			%model.visible = false
 		Controller.ViewState.ThirdPerson:
 			controller.hide_fps_viewport()
-			camera.set_third_person()
+			controller.pawn_camera.set_third_person()
 			%model.visible = true
 
 func _update_as_controlled(delta: float) -> void:
@@ -131,14 +114,10 @@ func _update_as_controlled(delta: float) -> void:
 		handle_input()
 		
 	elif is_action_pressed(&"toggle_quest_log"):
-		controller.toggle_widgit(&"quest_log")
+		controller.toggle_widgit(Assets.WIDGIT_QUEST_LOG)
 	
-	elif is_action_pressed(&"interact"):
-		if interact_start(self):
-			handle_input()
-	elif is_action_released(&"interact"):
-		if interact_stop(self):
-			handle_input()
+	elif is_action_both(&"interact", interact_start, interact_stop): pass
+	elif is_action_both(&"interact_alt", interact_alt_start, interact_alt_stop): pass
 	
 	elif is_action_both(&"fire", fire_start, fire_stop): pass
 	elif is_action_both(&"reload", reload_start, reload_stop): pass
@@ -207,9 +186,10 @@ func _update_as_controlled(delta: float) -> void:
 			_interactive.highlight = Interactive.Highlight.FOCUSED
 	
 	var input_dir := controller.get_move_vector_camera()
+	var cam: Camera3D = controller.pawn_camera.camera
 	
 	if is_focusing():
-		var cam_dir := camera.camera.global_rotation.y
+		var cam_dir := cam.global_rotation.y
 		direction = lerp_angle(direction, cam_dir, delta * 10.0)
 	else:
 		if input_dir:
@@ -217,7 +197,6 @@ func _update_as_controlled(delta: float) -> void:
 	
 	movement = input_dir
 	
-	var cam := camera.camera
 	var mp := cam.get_viewport().get_mouse_position()
 	var from := cam.project_ray_origin(mp)
 	var to := from + cam.project_ray_normal(mp) * 1000.0

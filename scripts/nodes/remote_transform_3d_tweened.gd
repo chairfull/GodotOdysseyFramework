@@ -24,12 +24,7 @@ func set_node(n: Node3D):
 	_tween.set_ease(tween_ease)
 	_tween.tween_method(func(blend: float):
 		remote_node.global_position = start_pos.lerp(global_position, blend)
-		var end_rot := global_rotation
-		remote_node.global_rotation = Vector3(
-			lerp_angle(start_rot.x, end_rot.x, blend),
-			lerp_angle(start_rot.y, end_rot.y, blend),
-			lerp_angle(start_rot.z, end_rot.z, blend)
-			)
+		remote_node.global_rotation = UVec.lerp_rotation(start_rot, global_rotation, blend)
 		, 0.0, 1.0, tween_duration)
 	_tween.finished.connect(func():
 		remote_path = get_path_to(n)
