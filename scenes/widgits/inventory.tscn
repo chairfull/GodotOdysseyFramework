@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cgu0c5ul5u3nn"]
 
 [ext_resource type="Script" uid="uid://ci6onqrxi1w1o" path="res://scenes/widgits/inventory.gd" id="1_xeaml"]
-[ext_resource type="Script" uid="uid://dh0608unc0n6i" path="res://addons/twee/nodes/twee_button_list.gd" id="2_k1jvm"]
+[ext_resource type="Script" uid="uid://dh0608unc0n6i" path="res://_autogen_/addons/twee/nodes/twee_button_list.gd" id="2_k1jvm"]
 [ext_resource type="PackedScene" uid="uid://cjdbs4crptmma" path="res://scenes/widgits/inventory_slot.tscn" id="2_t68u1"]
 
 [node name="inventory" type="Control"]

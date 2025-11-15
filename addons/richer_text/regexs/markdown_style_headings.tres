@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RichTextParserRegex" load_steps=2 format=3 uid="uid://dnbmttpaufika"]
 
-[ext_resource type="Script" uid="uid://mpbek0u0mm3a" path="res://addons/richer_text/scripts/rtxt_parser_regex.gd" id="1_hglcj"]
+[ext_resource type="Script" uid="uid://mpbek0u0mm3a" path="res://_autogen_/addons/richer_text/scripts/rtxt_parser_regex.gd" id="1_hglcj"]
 
 [resource]
 script = ExtResource("1_hglcj")

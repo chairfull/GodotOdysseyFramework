@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cucq8gseatpvc"]
 
 [ext_resource type="Script" uid="uid://cmuegv3qrjd2t" path="res://scenes/widgits/menu_widget.gd" id="1_wedc3"]
-[ext_resource type="Script" uid="uid://dh0608unc0n6i" path="res://addons/twee/nodes/twee_button_list.gd" id="2_cql5a"]
+[ext_resource type="Script" uid="uid://dh0608unc0n6i" path="res://_autogen_/addons/twee/nodes/twee_button_list.gd" id="2_cql5a"]
 
 [node name="menu" type="Control"]
 layout_mode = 3

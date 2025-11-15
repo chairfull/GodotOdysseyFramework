@@ -5,6 +5,9 @@
 > [!WARNING]
 > Unstable early development build.
 
+> [!WARNING]
+> Project is pro-AI, so if you are anti-clanker you may wish to avoid.
+
 > [!NOTE]
 > Feel free to raise issues with features you want or ideas to discuss.
 
@@ -25,6 +28,7 @@ Check [Todo](TODO.md) for features.
 - [GodotIK](https://github.com/monxa/GodotIK)
 - [Twee](https://github.com/chair_full/GodotTwee)
 - [RicherTextLabels](https://github.com/chairfull/GodotRichTextLabel2/tree/v2dev)
+- [Date Time](https://github.com/chairfull/GodotDateTime)
 
 # Design Goal
 - Open-world gameplay over linear:

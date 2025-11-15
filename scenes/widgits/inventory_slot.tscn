@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://cjdbs4crptmma"]
 
-[ext_resource type="Script" uid="uid://nopklevp3ypn" path="res://addons/twee/nodes/twee_button.gd" id="1_1gmlp"]
+[ext_resource type="Script" uid="uid://nopklevp3ypn" path="res://_autogen_/addons/twee/nodes/twee_button.gd" id="1_1gmlp"]
 [ext_resource type="Texture2D" uid="uid://cvqiwepgya3ua" path="res://icon.svg" id="1_johxr"]
-[ext_resource type="Script" uid="uid://clu7legt7n4yl" path="res://addons/twee/resources/twee.gd" id="2_1gmlp"]
+[ext_resource type="Script" uid="uid://clu7legt7n4yl" path="res://_autogen_/addons/twee/resources/twee.gd" id="2_1gmlp"]
 [ext_resource type="Resource" uid="uid://djai5nvuht5lf" path="res://assets/twees/hud_inventory_slot.tres" id="3_lerhx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2fx8"]

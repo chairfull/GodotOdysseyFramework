@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="FontDB" load_steps=2 format=3 uid="uid://bx2h77etc5b18"]
 
-[ext_resource type="Script" uid="uid://cm6854w28xh2p" path="res://addons/richer_text/scripts/font_db.gd" id="1_4lf63"]
+[ext_resource type="Script" uid="uid://cm6854w28xh2p" path="res://_autogen_/addons/richer_text/scripts/font_db.gd" id="1_4lf63"]
 
 [resource]
 script = ExtResource("1_4lf63")

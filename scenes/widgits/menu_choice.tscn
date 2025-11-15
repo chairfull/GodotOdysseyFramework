@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bl1wu7da5ih3s"]
 
 [ext_resource type="Script" uid="uid://wum5tgxqnx40" path="res://scenes/widgits/menu_choice.gd" id="1_5dig4"]
-[ext_resource type="Script" uid="uid://clu7legt7n4yl" path="res://addons/twee/resources/twee.gd" id="2_erlxu"]
+[ext_resource type="Script" uid="uid://clu7legt7n4yl" path="res://_autogen_/addons/twee/resources/twee.gd" id="2_erlxu"]
 [ext_resource type="Resource" uid="uid://djai5nvuht5lf" path="res://assets/twees/hud_inventory_slot.tres" id="3_l52b5"]
 [ext_resource type="Texture2D" uid="uid://cvqiwepgya3ua" path="res://icon.svg" id="4_l52b5"]
 

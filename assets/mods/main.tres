@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://cdjj8faqbmkvm" path="res://scripts/resources/item_db.gd" id="13_vjmqg"]
 [ext_resource type="Script" uid="uid://pf28q2uas18" path="res://scripts/resources/quest_info.gd" id="14_aqqek"]
 [ext_resource type="Script" uid="uid://dh7ughql8mvo3" path="res://scripts/resources/quest_tick.gd" id="15_2sdb0"]
-[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://addons/odyssey/flow/flow_script.gd" id="16_grd71"]
+[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://_autogen_/addons/odyssey/flow/flow_script.gd" id="16_grd71"]
 [ext_resource type="Script" uid="uid://022a3ve6dv62" path="res://scripts/resources/trigger_info.gd" id="17_weu3q"]
 [ext_resource type="Script" uid="uid://dq5ibhy6h3iky" path="res://scripts/resources/quest_db.gd" id="18_sv60w"]
 [ext_resource type="Script" uid="uid://cuokckf8226ob" path="res://scripts/resources/mod_info.gd" id="19_uqmgl"]

@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="RTxtParser" load_steps=4 format=3 uid="uid://bf8stcbogl2sh"]
 
 [ext_resource type="Resource" uid="uid://bx2h77etc5b18" path="res://assets/font_db.tres" id="1_kc75r"]
-[ext_resource type="Script" uid="uid://mpbek0u0mm3a" path="res://addons/richer_text/scripts/rtxt_parser_regex.gd" id="2_ovy5i"]
-[ext_resource type="Script" uid="uid://cnki5b5jn5aln" path="res://addons/richer_text/scripts/rtxt_parser.gd" id="3_wtw2f"]
+[ext_resource type="Script" uid="uid://mpbek0u0mm3a" path="res://_autogen_/addons/richer_text/scripts/rtxt_parser_regex.gd" id="2_ovy5i"]
+[ext_resource type="Script" uid="uid://cnki5b5jn5aln" path="res://_autogen_/addons/richer_text/scripts/rtxt_parser.gd" id="3_wtw2f"]
 
 [resource]
 script = ExtResource("3_wtw2f")

@@ -5,6 +5,8 @@ signal paused()
 signal unpaused()
 @warning_ignore("unused_signal") signal event(event: Event)
 
+const PATH_AUTOGEN_STATE := "res://_autogen_/_state_.gd"
+
 #╒─══════──═─══☰☰☰☰☰☰☰═☰[░░░░]☰☰☰☰☰☰☰☰☰══─═──════─══╕
 const LOGO := r"""
  ╭─╮┌─╮╮ ╷╭─╮╭─╮╭─╴╮ ╷  ┌─╴┌─╮╭─╮╭┬╮╭─╴╮╷╷╭─╮┌─╮╷ ╷ 
@@ -73,6 +75,8 @@ var AWARD_PROGRESSED := AwardEvent.new()
 var TOAST := ToastEvent.new()
 #endregion
 
+@export var play_time: DateTime
+@export var world_time: DateTimeline
 @export var objects: StateObjects
 var dbs: Array[Database]
 var _loaded := false
@@ -92,7 +96,7 @@ var quests: QuestDB:
 func _init() -> void:
 	# reload() calls set_script() which triggers this _init().
 	# We know we are in business once we are the generated script.
-	if get_script().resource_path == "res://_state_.gd":
+	if get_script().resource_path == PATH_AUTOGEN_STATE:
 		_true_reload()
 
 func print_logo() -> void:
@@ -186,14 +190,16 @@ func reload():
 		"extends StateBase"
 	] + code
 	scr.source_code = "\n".join(code)
-	ResourceSaver.save(scr, "res://_state_.gd")
-	set_script.call_deferred(load("res://_state_.gd"))
+	ResourceSaver.save(scr, PATH_AUTOGEN_STATE)
+	set_script.call_deferred(load(PATH_AUTOGEN_STATE))
 	
 	Global.msg("State", "Reloading script...")
 
 func _true_reload():
 	objects = StateObjects.new()
 	dbs = objects.get_dbs()
+	world_time = DateTimeline.new()
+	play_time = DateTime.new()
 	
 	var mods := Mods.get_enabled()
 	for mod in mods:

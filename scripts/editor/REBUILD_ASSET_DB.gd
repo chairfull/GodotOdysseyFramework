@@ -1,6 +1,8 @@
 @tool
 class_name EditorRebuildAssetDB extends EditorScript
 
+const PATH_AUTOGEN_ASSET_BASE := "res://_autogen_/_assets_base_.gd"
+
 func _run() -> void:
 	var ass := AssetsDB.new()
 	ass.reload()
@@ -38,7 +40,7 @@ func _run() -> void:
 	prefabs = ["\n# Prefabs: %s" % prefabs.size()] + prefabs.map(func(x): return x[0])
 	widgits = ["\n# Widgits: %s" % widgits.size()] + widgits.map(func(x): return x[0])
 	
-	var file := FileAccess.open("res://scripts/autoloads/_assets_base_.gd", FileAccess.WRITE)
+	var file := FileAccess.open(PATH_AUTOGEN_ASSET_BASE, FileAccess.WRITE)
 	file.store_string("\n".join(code + prefabs + widgits))
 	file.close()
 

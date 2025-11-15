@@ -67,7 +67,7 @@ func merge(db: Database):
 		if id in _objects:
 			push_warning("DB Merge: Overriding %s." % id)
 		_objects[id] = db._objects[id]
-		print("+ %s to %s" % [id, UObj.get_class_name(self)])
+		print("+ %s %s" % [UObj.get_class_name(self).trim_suffix("DB"), id])
 
 func _add(id: StringName, obj: DatabaseObject, props := {}, silent := false) -> DatabaseObject:
 	if id in _objects:
