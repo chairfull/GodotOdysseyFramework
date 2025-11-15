@@ -12,7 +12,7 @@
 script = ExtResource("5_fkt0w")
 seed = 664903069
 text = "W"
-trans = Transform2D(0.98653615, 0.1635435, -0.1635435, 0.98653615, 0, 25)
+trans = Transform2D(0.9890654, 0.1474774, -0.1474774, 0.9890654, 0, 25)
 rect = Rect2(0, 0, 30, 35)
 rand = Vector2(0.77719253, 0.6292629)
 
@@ -21,7 +21,7 @@ script = ExtResource("5_fkt0w")
 seed = 255876138
 text = "h"
 index = 1
-trans = Transform2D(0.98653615, 0.1635435, -0.1635435, 0.98653615, 30, 25)
+trans = Transform2D(0.9890654, 0.1474774, -0.1474774, 0.9890654, 30, 25)
 rect = Rect2(30, 0, 20, 35)
 rand = Vector2(0.41458166, 0.9100121)
 
@@ -30,7 +30,7 @@ script = ExtResource("5_fkt0w")
 seed = 3921980707
 text = "o"
 index = 2
-trans = Transform2D(0.98653615, 0.1635435, -0.1635435, 0.98653615, 50, 25)
+trans = Transform2D(0.9890654, 0.1474774, -0.1474774, 0.9890654, 50, 25)
 rect = Rect2(50, 0, 20, 35)
 rand = Vector2(0.12473192, 0.9921905)
 
@@ -48,7 +48,7 @@ script = ExtResource("5_fkt0w")
 seed = 1647609961
 text = "r"
 index = 4
-trans = Transform2D(0.98653615, 0.1635435, -0.1635435, 0.98653615, 78, 25)
+trans = Transform2D(0.9890654, 0.1474774, -0.1474774, 0.9890654, 78, 25)
 rect = Rect2(78, 0, 14, 35)
 rand = Vector2(-0.8744998, -0.48502585)
 
@@ -57,7 +57,7 @@ script = ExtResource("5_fkt0w")
 seed = 2668716561
 text = "e"
 index = 5
-trans = Transform2D(0.98653615, 0.1635435, -0.1635435, 0.98653615, 92, 25)
+trans = Transform2D(0.9890654, 0.1474774, -0.1474774, 0.9890654, 92, 25)
 rect = Rect2(92, 0, 18, 35)
 rand = Vector2(-0.7876594, 0.6161109)
 
@@ -66,7 +66,7 @@ script = ExtResource("5_fkt0w")
 seed = 539327874
 text = "a"
 index = 6
-trans = Transform2D(0.98653615, 0.1635435, -0.1635435, 0.98653615, 110, 25)
+trans = Transform2D(0.9890654, 0.1474774, -0.1474774, 0.9890654, 110, 25)
 rect = Rect2(110, 0, 19, 35)
 rand = Vector2(0.82939416, 0.55866385)
 
@@ -75,7 +75,7 @@ script = ExtResource("5_fkt0w")
 seed = 326902271
 text = "l"
 index = 7
-trans = Transform2D(0.98653615, 0.1635435, -0.1635435, 0.98653615, 129, 25)
+trans = Transform2D(0.9890654, 0.1474774, -0.1474774, 0.9890654, 129, 25)
 rect = Rect2(129, 0, 9, 35)
 rand = Vector2(-0.5231217, 0.85225797)
 
@@ -84,7 +84,7 @@ script = ExtResource("5_fkt0w")
 seed = 2668199535
 text = "l"
 index = 8
-trans = Transform2D(0.98653615, 0.1635435, -0.1635435, 0.98653615, 138, 25)
+trans = Transform2D(0.9890654, 0.1474774, -0.1474774, 0.9890654, 138, 25)
 rect = Rect2(138, 0, 9, 35)
 rand = Vector2(0.5839836, 0.81176543)
 
@@ -93,7 +93,7 @@ script = ExtResource("5_fkt0w")
 seed = 3203895081
 text = "y"
 index = 9
-trans = Transform2D(0.98653615, 0.1635435, -0.1635435, 0.98653615, 147, 25)
+trans = Transform2D(0.9890654, 0.1474774, -0.1474774, 0.9890654, 147, 25)
 rect = Rect2(147, 0, 17, 35)
 rand = Vector2(-0.24234575, 0.9701899)
 
@@ -101,7 +101,7 @@ rand = Vector2(-0.24234575, 0.9701899)
 script = ExtResource("5_fkt0w")
 seed = 114538215
 index = 10
-trans = Transform2D(0.98653615, 0.1635435, -0.1635435, 0.98653615, 164, 25)
+trans = Transform2D(0.9890654, 0.1474774, -0.1474774, 0.9890654, 164, 25)
 rect = Rect2(164, 0, 15, 35)
 rand = Vector2(0.84374744, 0.5367404)
 

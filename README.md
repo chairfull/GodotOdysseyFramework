@@ -15,7 +15,7 @@
 
 Simplify development of FPS, RPG, ImSims.
 
-Check [Todo](TODO.md) for features.
+Check [Todo](docs/TODO.md) for features.
 
 # Included Addons
 - [Little Camera Preview](https://github.com/anthonyec/godot_little_camera_preview)
