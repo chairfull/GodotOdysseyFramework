@@ -119,7 +119,8 @@ scenes = Dictionary[StringName, String]({
 &"toast_manager": "widgits/toast_manager.tscn",
 &"toggle": "prefabs/toggle.tscn",
 &"transition": "widgits/transition.tscn",
-&"wheel": "prefabs/vehicles/wheel.tscn"
+&"wheel": "prefabs/vehicles/wheel.tscn",
+&"world_time": "widgits/world_time.tscn"
 })
 materials = Dictionary[StringName, String]({
 &"debug_black": "debug_black.tres",

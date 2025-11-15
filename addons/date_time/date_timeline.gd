@@ -3,28 +3,25 @@ class_name DateTimeline extends DateTime
 
 signal occurred(id: StringName)
 
+const DEFAULT_PERIODS := { &"Dawn": 0, &"Morning": 4, &"Day": 8, &"Dusk": 12, &"Evening": 16, &"Night": 20 }
+const DEFAULT_SEASONS := { &"Spring": [ Month.MARCH, 20 ], &"Summer": [ Month.JUNE, 21 ], &"Autumn": [ Month.SEPTEMBER, 22 ], &"Winter": [ Month.DECEMBER, 21 ] }
 @export var occurrences: Array[Occurrence]
 @export var pause_on_occurrence := false
 @export_storage var _pending: Array[Occurrence]
 @export_storage var _advanced_ms: int
 
-func add_periods(ids := [&"Dawn", &"Morning", &"Day", &"Dusk", &"Evening", &"Night"], rank := 0, sig := occurred) -> void:
-	var delta := HOURS_IN_DAY / ids.size()
+func add_periods(periods: Dictionary = DEFAULT_PERIODS, method := occurred.emit, rank := 0) -> Array[Occurrence]:
 	var out: Array[Occurrence]
-	for i in ids.size():
-		out.append(add_daily(ids[i], i * delta, 0, rank, sig))
-	#add_daily(&"Dawn", 0)
-	#add_daily(&"Morning", 4)
-	#add_daily(&"Day", 8)
-	#add_daily(&"Dusk", 12)
-	#add_daily(&"Evening", 16)
-	#add_daily(&"Night", 20)
+	for id in periods:
+		out.append(add_daily(id, periods[id], 0, method, rank))
+	return out
 
-func add_seasons(spring := &"Spring", summer := &"Summer", autumn := &"Autumn", winter := &"Winter", rank := 100, sig := occurred) -> void:
-	add_yearly(spring, Month.MARCH, 20)
-	add_yearly(summer, Month.JUNE, 21)
-	add_yearly(autumn, Month.SEPTEMBER, 22)
-	add_yearly(winter, Month.DECEMBER, 21)
+func add_seasons(seasons: Dictionary = DEFAULT_SEASONS, method := occurred.emit, rank := 100) -> Array[Occurrence]:
+	var out: Array[Occurrence]
+	for id in seasons:
+		var md: Array = seasons[id]
+		out.append(add_yearly(id, md[0], md[1], null, method, rank))
+	return out
 
 func add_default_holidays() -> void:
 	# Fixed dates
@@ -44,16 +41,16 @@ func add_default_holidays() -> void:
 	add_yearly(&"Father's Day", Month.JUNE, 3, Weekday.SUNDAY) # 3rd Sunday
 	add_yearly(&"Thanksgiving", Month.NOVEMBER, 4, Weekday.THURSDAY) # 4th Thursday
 
-func add_yearly(id: StringName, m: Month, day_or_offset: int = 0, w: Variant = null) -> Occurrence:
+func add_yearly(id: StringName, m: Month, day_or_offset: int = 0, w: Variant = null, method := occurred.emit, rank := 0) -> Occurrence:
 	if w == null:
-		return add(id, [m, day_or_offset], MS_IN_YEAR)
+		return add(id, [m, day_or_offset], MS_IN_YEAR, method, rank)
 	else:
-		return add(id, [m, day_or_offset, w], MS_IN_YEAR)
+		return add(id, [m, day_or_offset, w], MS_IN_YEAR, method, rank)
 
-func add_daily(id: StringName, hor: int, min := 0, rank := 0, sig := occurred) -> Occurrence:
-	return add(id, hor * MS_IN_HOUR + min * MS_IN_MINUTE, MS_IN_DAY, rank, sig)
+func add_daily(id: StringName, hor: int, min := 0, method := occurred.emit, rank := 0) -> Occurrence:
+	return add(id, hor * MS_IN_HOUR + min * MS_IN_MINUTE, MS_IN_DAY, method, rank)
 
-func add(id: StringName, offset: Variant, interval_ms := MS_IN_YEAR, rank: int = 0, sig := occurred) -> Occurrence:
+func add(id: StringName, offset: Variant, interval_ms := MS_IN_YEAR, method := occurred.emit, rank: int = 0) -> Occurrence:
 	assert((typeof(offset) == TYPE_INT)\
 		or (typeof(offset) == TYPE_ARRAY and (offset.size() == 2 or offset.size() == 3)))
 	var occ := Occurrence.new()
@@ -61,7 +58,7 @@ func add(id: StringName, offset: Variant, interval_ms := MS_IN_YEAR, rank: int =
 	occ.offset = offset
 	occ.rank = rank
 	occ.interval_ms = interval_ms
-	occ.sig = sig
+	occ.method = method
 	occ.recache(self)
 	occurrences.append(occ)
 	return occ
@@ -177,7 +174,7 @@ class Occurrence extends Resource:
 	@export var interval_ms: int
 	@export var next_ms: int
 	@export var rank: int
-	@export var sig: Signal
+	@export var method: Callable
 	@export var loops := -1 ## -1 is infinite.
 	
 	func onetime() -> Occurrence:

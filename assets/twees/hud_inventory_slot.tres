@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Twee" load_steps=2 format=3 uid="uid://djai5nvuht5lf"]
 
-[ext_resource type="Script" uid="uid://clu7legt7n4yl" path="res://_autogen_/addons/twee/resources/twee.gd" id="1_1cknh"]
+[ext_resource type="Script" uid="uid://clu7legt7n4yl" path="res://addons/twee/resources/twee.gd" id="1_1cknh"]
 
 [resource]
 script = ExtResource("1_1cknh")

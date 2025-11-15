@@ -2,25 +2,32 @@
 @abstract class_name AssetsBase extends Node
 
 # Prefabs: 18
-const PREFAB_MINIMAP_GENERATOR := "uid://ctgormy8gp6jh" # 5.037 ms
-const PREFAB_BIRD := "uid://bptngmmdirjt7" # 4.006 ms
-const PREFAB_CONTROLLER := "uid://52fw605jpf2i" # 2.607 ms
-const PREFAB_HUMANOID := "uid://p7rqgmtls5qk" # 2.042 ms
-const PREFAB_QUADRUPED := "uid://nl47yqcvi06o" # 1.001 ms
-const PREFAB_CAMERA_FOLLOW := "uid://clkh35bjyldwx" # 0.934 ms
-const PREFAB_CURSOR := "uid://c06awfqjak1we" # 0.668 ms
-const PREFAB_SIMPLE_CAR := "uid://b1e5tur6memej" # 0.448 ms
-const PREFAB_CAMERA_TOP_DOWN := "uid://c2d005ossyel5" # 0.436 ms
-const PREFAB_BOAT := "uid://b5ejo20wa8x5h" # 0.428 ms
-const PREFAB_DETECTABLE_SOUND := "uid://dvms6gwqksoow" # 0.378 ms
-const PREFAB_BIKE := "uid://cr3v2ma8nkml5" # 0.37 ms
-const PREFAB_WHEEL := "uid://cobhm38x3170i" # 0.358 ms
-const PREFAB_HELICOPTER := "uid://bjx4iq6iop3kt" # 0.195 ms
-const PREFAB_SHOOTER := "uid://c0vwbb2a8p2au" # 0.164 ms
-const PREFAB_PRIMITIVE_STAIRS_2 := "uid://clrhwkbmx84kt" # 0.094 ms
-const PREFAB_BARREL := "uid://ba47kj4lq4mm6" # 0.056 ms
-const PREFAB_TOGGLE := "uid://c4cky3lenwdnj" # 0.051 ms
+const PREFAB_MINIMAP_GENERATOR := "uid://ctgormy8gp6jh" # 12.545 ms
+const PREFAB_BIRD := "uid://bptngmmdirjt7" # 5.826 ms
+const PREFAB_HUMANOID := "uid://p7rqgmtls5qk" # 4.81 ms
+const PREFAB_CONTROLLER := "uid://52fw605jpf2i" # 3.966 ms
+const PREFAB_SIMPLE_CAR := "uid://b1e5tur6memej" # 3.466 ms
+const PREFAB_SHOOTER := "uid://c0vwbb2a8p2au" # 1.78 ms
+const PREFAB_QUADRUPED := "uid://nl47yqcvi06o" # 1.137 ms
+const PREFAB_CAMERA_FOLLOW := "uid://clkh35bjyldwx" # 1.036 ms
+const PREFAB_CURSOR := "uid://c06awfqjak1we" # 0.851 ms
+const PREFAB_BARREL := "uid://ba47kj4lq4mm6" # 0.472 ms
+const PREFAB_WHEEL := "uid://cobhm38x3170i" # 0.444 ms
+const PREFAB_BOAT := "uid://b5ejo20wa8x5h" # 0.419 ms
+const PREFAB_BIKE := "uid://cr3v2ma8nkml5" # 0.401 ms
+const PREFAB_CAMERA_TOP_DOWN := "uid://c2d005ossyel5" # 0.368 ms
+const PREFAB_TOGGLE := "uid://c4cky3lenwdnj" # 0.347 ms
+const PREFAB_DETECTABLE_SOUND := "uid://dvms6gwqksoow" # 0.345 ms
+const PREFAB_HELICOPTER := "uid://bjx4iq6iop3kt" # 0.193 ms
+const PREFAB_PRIMITIVE_STAIRS_2 := "uid://clrhwkbmx84kt" # 0.174 ms
 
-# Widgits: 2
-const WIDGIT_SHOOTER_HUD := "uid://no8gue8b410" # 1.501 ms
-const WIDGIT_INTERACTION_LABEL := "uid://bxyeghkx3u2iw" # 0.561 ms
+# Widgits: 9
+const WIDGIT_CAPTION := "uid://dsa17lrw23t4" # 2.896 ms
+const WIDGIT_INVENTORY := "uid://cgu0c5ul5u3nn" # 2.105 ms
+const WIDGIT_QUEST_LOG := "uid://bfvfi2nwpg7lv" # 1.62 ms
+const WIDGIT_SHOOTER_HUD := "uid://no8gue8b410" # 1.483 ms
+const WIDGIT_INTERACTION_LABEL := "uid://bxyeghkx3u2iw" # 0.594 ms
+const WIDGIT_WORLD_TIME := "uid://ceyrjlut7f1f0" # 0.424 ms
+const WIDGIT_MENU := "uid://cucq8gseatpvc" # 0.42 ms
+const WIDGIT_TOAST_MANAGER := "uid://btqk7flf4ewas" # 0.363 ms
+const WIDGIT_RADIAL_MENU := "uid://eo5hwjki2ww0" # 0.351 ms

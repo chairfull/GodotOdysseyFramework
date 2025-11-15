@@ -75,13 +75,67 @@ var AWARD_PROGRESSED := AwardEvent.new()
 var TOAST := ToastEvent.new()
 #endregion
 
+signal period_finished(id: StringName)
+signal period_started(id: StringName)
+signal season_started(id: StringName)
+signal season_finished(id: StringName)
+
 @export var play_time: DateTime
-@export var world_time: DateTimeline
 @export var objects: StateObjects
+@export var time: DateTimeline
+@export var milliseconds_per_second := DateTime.MS_IN_SECOND
 var dbs: Array[Database]
 var _loaded := false
 var _pausers: Array[Object]
+var _delta: float
+var _last_period: StringName
+var _last_season: StringName
 
+func _true_reload():
+	objects = StateObjects.new()
+	dbs = objects.get_dbs()
+	play_time = DateTime.new()
+	
+	time = DateTimeline.new()
+	time.add_periods(DateTimeline.DEFAULT_PERIODS, _period)
+	time.add_seasons(DateTimeline.DEFAULT_SEASONS, _season)
+	
+	var mods := Mods.get_enabled()
+	for mod in mods:
+		var mod_dbs := mod.get_dbs()
+		for i in dbs.size():
+			dbs[i].merge(mod_dbs[i])
+	
+	for db in dbs:
+		db.connect_signals()
+	
+	# Pass Events their variable name.
+	for prop in get_property_list():
+		if UBit.is_enabled(prop.usage, PROPERTY_USAGE_SCRIPT_VARIABLE):
+			if prop.type == TYPE_OBJECT and self[prop.name] is Event:
+				self[prop.name].id = prop.name
+	
+	_loaded = true
+	Global.msg("State", "Reloaded", [objects.get_counts_string()])
+
+func _period(id: StringName) -> void:
+	Global.msg("Time", "Period: " + id)
+	period_finished.emit(_last_period)
+	period_started.emit(id)
+	_last_period = id
+
+func _season(id: StringName) -> void:
+	Global.msg("Time", "Season: " + id)
+	season_finished.emit(_last_season)
+	season_started.emit(id)
+	_last_season = id
+
+func _process(delta: float) -> void:
+	_delta += delta
+	if _delta >= 1.0:
+		_delta -= 1.0
+		time.advance(milliseconds_per_second)
+		
 var chars: CharDB:
 	get: return objects.chars
 var items: ItemDB:
@@ -194,30 +248,6 @@ func reload():
 	set_script.call_deferred(load(PATH_AUTOGEN_STATE))
 	
 	Global.msg("State", "Reloading script...")
-
-func _true_reload():
-	objects = StateObjects.new()
-	dbs = objects.get_dbs()
-	world_time = DateTimeline.new()
-	play_time = DateTime.new()
-	
-	var mods := Mods.get_enabled()
-	for mod in mods:
-		var mod_dbs := mod.get_dbs()
-		for i in dbs.size():
-			dbs[i].merge(mod_dbs[i])
-	
-	for db in dbs:
-		db.connect_signals()
-	
-	# Pass Events their variable name.
-	for prop in get_property_list():
-		if UBit.is_enabled(prop.usage, PROPERTY_USAGE_SCRIPT_VARIABLE):
-			if prop.type == TYPE_OBJECT and self[prop.name] is Event:
-				self[prop.name].id = prop.name
-	
-	_loaded = true
-	Global.msg("State", "Reloaded", [objects.get_counts_string()])
 	
 func find_char(id: StringName) -> CharInfo: return objects.chars.find(id)
 func find_item(id: StringName) -> ItemInfo: return objects.items.find(id)
