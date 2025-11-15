@@ -27,7 +27,7 @@ func _meth(hash_index: int):
 		for item in method_calls[hash_index]:
 			var meth_id: StringName = item[0]
 			var meth_args: Array = item[1]
-			Global.msg("FlowPlayer", "Method", item)
+			Log.msg("FlowPlayer", "Method", item)
 			match meth_id:
 				&"_expr": State.call("_expr_%s" % meth_args[0])
 				&"_cond":
@@ -50,19 +50,19 @@ func _meth(hash_index: int):
 				_: callv(meth_id, meth_args)
 
 func _animation_finished(anim_id: StringName):
-	Global.msg("FlowPlayer", "Animation Finished", [anim_id])
+	Log.msg("FlowPlayer", "Animation Finished", [anim_id])
 	if _stack:
 		var last: Array = _stack.pop_back()
 		var anim: StringName = last[0]
 		var position: float = last[1]
-		Global.msg("FlowPlayer", "Continue from", [], { anim=anim, position=position })
+		Log.msg("FlowPlayer", "Continue from", [], { anim=anim, position=position })
 		_play(anim, position)
 	else:
-		Global.msg("FlowPlayer", "Finished")
+		Log.msg("FlowPlayer", "Finished")
 		end()
 
 func end():
-	Global.msg("FlowPlayer", "Stopped")
+	Log.msg("FlowPlayer", "Stopped")
 	stop(true)
 	ended.emit()
 
@@ -76,7 +76,7 @@ func wait():
 	print("Waiting for user input.")
 
 func goto(id: StringName, return_after := true, clear_stack := false):
-	Global.msg("FlowPlayer", "Goto", [id], {return_after=return_after, clear_stack=clear_stack})
+	Log.msg("FlowPlayer", "Goto", [id], {return_after=return_after, clear_stack=clear_stack})
 	if clear_stack:
 		_stack.clear()
 	
@@ -91,7 +91,7 @@ func goto(id: StringName, return_after := true, clear_stack := false):
 		_play(branch + "/" + id)
 
 func _play(id: StringName, at := 0.0):
-	Global.msg("FlowPlayer", "Play", [], { anim=id, at=at })
+	Log.msg("FlowPlayer", "Play", [], { anim=id, at=at })
 	assigned_animation = id
 	seek(at, false)
 	play()

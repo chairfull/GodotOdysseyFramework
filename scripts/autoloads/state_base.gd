@@ -116,16 +116,16 @@ func _true_reload():
 				self[prop.name].id = prop.name
 	
 	_loaded = true
-	Global.msg("State", "Reloaded", [objects.get_counts_string()])
+	Log.msg("State", "Reloaded", [objects.get_counts_string()])
 
 func _period(id: StringName) -> void:
-	Global.msg("Time", "Period: " + id)
+	Log.msg("Time", "Period: " + id)
 	period_finished.emit(_last_period)
 	period_started.emit(id)
 	_last_period = id
 
 func _season(id: StringName) -> void:
-	Global.msg("Time", "Season: " + id)
+	Log.msg("Time", "Season: " + id)
 	season_finished.emit(_last_season)
 	season_started.emit(id)
 	_last_season = id
@@ -247,7 +247,7 @@ func reload():
 	ResourceSaver.save(scr, PATH_AUTOGEN_STATE)
 	set_script.call_deferred(load(PATH_AUTOGEN_STATE))
 	
-	Global.msg("State", "Reloading script...")
+	Log.msg("State", "Reloading script...")
 	
 func find_char(id: StringName) -> CharInfo: return objects.chars.find(id)
 func find_item(id: StringName) -> ItemInfo: return objects.items.find(id)

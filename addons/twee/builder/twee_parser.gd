@@ -2,6 +2,7 @@
 extends RefCounted
 
 const Token := preload("twee_tokens.gd")
+const Util := preload("../resources/twee_util.gd")
 
 const default_tween_duration := 1.0 ## Default seconds to tween if a duration wasn't explicitly given.
 const default_pause_duration := 1.0 ## Default seconds to wait if WAIT wasn't explicitly given.
@@ -104,7 +105,7 @@ static func _parse(tokens: PackedStringArray, i := 0) -> Array[Variant]:
 						i += 1
 						break
 				i += 1
-			commands.append({ type="METH", meth=meth })
+			commands.append({ type=Token.METH, meth=meth })
 			continue
 		
 		# TODO: Warp
@@ -116,11 +117,7 @@ static func _parse(tokens: PackedStringArray, i := 0) -> Array[Variant]:
 			continue
 		
 		# Tween step (mode + optional duration + props)
-		if t in [ "L", "LINEAR", "E", "EASE", "EI", "EASEIN", "EO", "EASEOUT", "EOI", "EASEOUTIN" ] or\
-			t.begins_with("E_") or t.begins_with("EASE_") or\
-			t.begins_with("EI_") or t.begins_with("EASEIN_") or\
-			t.begins_with("EO_") or t.begins_with("EASEOUT_") or\
-			t.begins_with("EOI_") or t.begins_with("EASEOUTIN_"):
+		if Util.is_trans_ease(t):
 			var cmd := { type=Token.PROPERTIES_TWEENED, mode=t, duration=default_tween_duration, props={} }
 			i += 1
 			# optional duration

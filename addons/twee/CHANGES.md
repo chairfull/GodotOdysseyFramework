@@ -1,4 +1,7 @@
 - Added
+	- `TweeLabel` for superior Label animations.
+		- No heavy processing.
+		- `TweeLabelChar`
 	- TweeButton `focused` `unfocused` signals only work if not disabled.
 	- TweeButton `hovered` `unhovered` signals only work if not disabled.
 - Fixes

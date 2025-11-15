@@ -15,12 +15,12 @@ static func set_on(o: bool):
 			node = DevMode.new()
 			node.name = "devmode"
 			Global.get_tree().root.add_child.call_deferred(node)
-			Global.msg("DevMode", "Enabled", ["Mua", "hah", "hah", "hah"])
+			Log.msg("DevMode", "Enabled", ["Mua", "hah", "hah", "hah"])
 	else:
 		if node:
 			Global.get_tree().root.remove_child(node)
 			node.queue_free()
-			Global.msg("DevMode", "Disabled", ["Aww", "www"])
+			Log.msg("DevMode", "Disabled", ["Aww", "www"])
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton\

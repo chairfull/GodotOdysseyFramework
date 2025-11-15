@@ -3,6 +3,7 @@
 class_name TweeNode extends Node
 ## Applies a list of Twees to a Node.
 
+signal twee_changed()
 signal event(str: String)
 
 ## Primary node that @ will reference.
@@ -17,6 +18,9 @@ signal event(str: String)
 @export_storage var twees: Array[Twee]:
 	set(t):
 		twees = t
+		for twee in twees:
+			if twee and not twee.changed.is_connected(_twee_changed):
+				twee.changed.connect(_twee_changed)
 		notify_property_list_changed()
 
 @export_storage var playing := false
@@ -29,6 +33,9 @@ func _ready() -> void:
 		reload()
 	else:
 		event.connect(print)
+
+func _twee_changed() -> void:
+	twee_changed.emit()
 
 func play():
 	playing = true

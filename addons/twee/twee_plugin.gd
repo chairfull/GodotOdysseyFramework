@@ -1,8 +1,9 @@
 @tool
 extends EditorPlugin
 
-var inspector_plugin := TweeInspector.new()# preload("twee_inspector.gd").new()
+var inspector_plugin := TweeInspector.new()
 const Tokenizer := preload("builder/twee_tokenizer.gd")
+const Util := preload("resources/twee_util.gd")
 
 func _enter_tree():
 	add_inspector_plugin(inspector_plugin)
@@ -31,9 +32,10 @@ class TweeInspector extends EditorInspectorPlugin:
 					#props += 1
 			
 			var trans_color =  Color.AQUAMARINE #settings.get("text_editor/theme/highlighting/comment_markers/critical_color")
-			for key in ["L", "LINEAR", "EASE", "E", "EASE_IN", "EI", "EASE_OUT", "EO",
-				"E_BACK", "EI_BACK", "EO_BACK", "EOI_BACK"]:
-				hl.add_keyword_color(key, trans_color)
+			for e in Util.EASING.keys():
+				hl.add_keyword_color(e, trans_color)
+				for t in Util.TRANSING.keys():
+					hl.add_keyword_color(e + "_" + t, trans_color)
 			
 			#for prop in object.get_signal_list():
 				#hl.add_keyword_color(prop.name, Color.PALE_VIOLET_RED)
@@ -52,6 +54,8 @@ class TweeInspector extends EditorInspectorPlugin:
 				hl.add_keyword_color(prop, builtin_color)
 			hl.add_color_region("#", "", settings.get("text_editor/theme/highlighting/comment_color"), true)
 			
+			var twee_index: int = int(name.trim_prefix("_TWEE_"))
+			
 			var vbox := VBoxContainer.new()
 			vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			var hbox := HBoxContainer.new()
@@ -60,7 +64,7 @@ class TweeInspector extends EditorInspectorPlugin:
 			for btn_dat in [
 				["Tokens", func(): Twee.prnt_tokens(object[name]), "Print tokens to output."],
 				["Parsed", func(): Twee.prnt_parsed(object[name]), "Print parser to output."],
-				["Source", func(): Twee.prnt_source_code(object[name]), "Print source_code to output."],
+				["Source", func(): Twee.prnt_source_code(object.twees[twee_index], object), "Print source_code to output."],
 				["Run", func(): pass, "Not Implemented..."],
 				["End", func(): pass, "Not Implemented..."]
 				]:

@@ -1,5 +1,5 @@
 ![Version](https://img.shields.io/badge/Version-0.001-deepskyblue.svg)
-![Godot](https://img.shields.io/badge/Godot-4.6.dev3-deepskyblue.svg)
+![Godot](https://img.shields.io/badge/Godot-4.6.dev4-deepskyblue.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-deepskyblue.svg)
 
 > [!WARNING]
@@ -11,10 +11,6 @@
 > [!NOTE]
 > Feel free to raise issues with features you want or ideas to discuss.
 
-> [!NOTE]
-> While I want to use pure GDScript, lack of interfaces/traits is a killer, so there is C# hybridisation.
-> At least until `traits` are implemented.
-
 ![Odyssey Framework](./addons/odyssey/icon_of.svg)
 
 Simplify development of FPS, RPG, ImSims.
@@ -25,7 +21,6 @@ Check [Todo](TODO.md) for features.
 - [Little Camera Preview](https://github.com/anthonyec/godot_little_camera_preview)
 - [LimboAI](https://github.com/limbonaut/limboai)
 - [YAML](https://github.com/fimbul-works/godot-yaml)
-- [GodotIK](https://github.com/monxa/GodotIK)
 - [Twee](https://github.com/chair_full/GodotTwee)
 - [RicherTextLabels](https://github.com/chairfull/GodotRichTextLabel2/tree/v2dev)
 - [Date Time](https://github.com/chairfull/GodotDateTime)
