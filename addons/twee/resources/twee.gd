@@ -227,8 +227,6 @@ static func _add_sub(sub: Tween, step: Dictionary, root: Node, root_prop: NodePa
 			sub.tween_callback(func():
 				var a := targ.get(true_prop)
 				var b := scr.call(meth, root, targ)
-				#if prop == "off":
-					#print(type_string(typeof(b)))
 				vars[prop + "_a"] = a
 				vars[prop + "_b"] = b if b != null else a)
 			pt = sub.tween_method(

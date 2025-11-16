@@ -1,0 +1,143 @@
+[gd_scene load_steps=7 format=3 uid="uid://uv38s63vsebm"]
+
+[ext_resource type="Script" uid="uid://c245ym7hjpxwn" path="res://addons/os/nodes/os_desktop.gd" id="1_kacfh"]
+[ext_resource type="PackedScene" uid="uid://cl7eep3eoanap" path="res://addons/os/nodes/os_app_visual.tscn" id="2_apl07"]
+[ext_resource type="PackedScene" uid="uid://crrawo3d014gh" path="res://addons/os/nodes/os_file_icon.tscn" id="2_ejkuh"]
+[ext_resource type="PackedScene" uid="uid://l6cvk76hwahv" path="res://addons/os/nodes/os_app_bar_icon.tscn" id="4_rhvef"]
+
+[sub_resource type="Gradient" id="Gradient_n74hs"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.05952381, 0.78174603, 1)
+colors = PackedColorArray(0.69574285, 0.4616484, 0.5047157, 1, 1, 1, 0.7882353, 1, 0.58435655, 0.74970156, 0.6839131, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kacfh"]
+gradient = SubResource("Gradient_n74hs")
+fill = 1
+fill_to = Vector2(1, 1)
+
+[node name="desktop2" type="Control" unique_id=265842648 node_paths=PackedStringArray("files_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kacfh")
+files_container = NodePath("VBoxContainer/container/files")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=952704936]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="container" type="Control" parent="VBoxContainer" unique_id=286656997]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="background" type="TextureRect" parent="VBoxContainer/container" unique_id=761567529]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_kacfh")
+
+[node name="files" type="Control" parent="VBoxContainer/container" unique_id=1727506383]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="file_visual" parent="VBoxContainer/container/files" unique_id=1623942720 instance=ExtResource("2_ejkuh")]
+layout_mode = 1
+offset_left = -560.0
+offset_top = -290.5
+offset_right = -428.0
+offset_bottom = -125.5
+
+[node name="file_visual2" parent="VBoxContainer/container/files" unique_id=1786935817 instance=ExtResource("2_ejkuh")]
+layout_mode = 1
+offset_left = -544.0
+offset_top = -58.5
+offset_right = -412.0
+offset_bottom = 106.5
+
+[node name="apps" type="Control" parent="VBoxContainer/container" unique_id=371875944]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="app_visual" parent="VBoxContainer/container/apps" unique_id=612607517 node_paths=PackedStringArray("app_bar_icon") instance=ExtResource("2_apl07")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 80.0
+offset_top = 67.0
+offset_right = 544.0
+offset_bottom = 363.0
+grow_horizontal = 1
+grow_vertical = 1
+app_bar_icon = NodePath("../../../task_bar/HBoxContainer/app_icons/app_bar_icon")
+
+[node name="task_bar" type="PanelContainer" parent="VBoxContainer" unique_id=1228118989]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/task_bar" unique_id=2049372257]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/task_bar/HBoxContainer" unique_id=429951076]
+layout_mode = 2
+theme_override_constants/margin_right = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/task_bar/HBoxContainer/MarginContainer" unique_id=1396197091]
+layout_mode = 2
+
+[node name="app_launcher" type="Button" parent="VBoxContainer/task_bar/HBoxContainer/MarginContainer/HBoxContainer" unique_id=2028844099]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start"
+
+[node name="app_icons" type="HBoxContainer" parent="VBoxContainer/task_bar/HBoxContainer" unique_id=339806884]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="app_bar_icon" parent="VBoxContainer/task_bar/HBoxContainer/app_icons" unique_id=158731861 node_paths=PackedStringArray("app_visual") instance=ExtResource("4_rhvef")]
+layout_mode = 2
+app_visual = NodePath("../../../../container/apps/app_visual")
+
+[node name="widgits" type="PanelContainer" parent="VBoxContainer/task_bar/HBoxContainer" unique_id=1061254737]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/task_bar/HBoxContainer/widgits" unique_id=80923873]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/task_bar/HBoxContainer/widgits/MarginContainer" unique_id=1751640931]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/task_bar/HBoxContainer/widgits/MarginContainer/HBoxContainer" unique_id=1999283706]
+layout_mode = 2
+text = "1:00 PM"

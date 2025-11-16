@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://sfams0dg1mr3"]
+
+[ext_resource type="PackedScene" uid="uid://crrawo3d014gh" path="res://addons/os/nodes/os_file_icon.tscn" id="1_j3b6d"]
+
+[node name="OsFileBrowser" type="Control" unique_id=679318462]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=676562061]
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 528.0
+
+[node name="VFlowContainer" type="HFlowContainer" parent="ScrollContainer" unique_id=1880843168]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="file_visual" parent="ScrollContainer/VFlowContainer" unique_id=1623942720 instance=ExtResource("1_j3b6d")]
+layout_mode = 2
+
+[node name="file_visual2" parent="ScrollContainer/VFlowContainer" unique_id=1761430375 instance=ExtResource("1_j3b6d")]
+layout_mode = 2
+
+[node name="file_visual3" parent="ScrollContainer/VFlowContainer" unique_id=1121188015 instance=ExtResource("1_j3b6d")]
+layout_mode = 2

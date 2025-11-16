@@ -28,11 +28,11 @@ func _ready() -> void:
 	process_priority = 100
 	process_physics_priority = 100
 
-func _enter_tree() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-func _exit_tree() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+#func _enter_tree() -> void:
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#
+#func _exit_tree() -> void:
+	#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func set_target(t):
 	super(t)

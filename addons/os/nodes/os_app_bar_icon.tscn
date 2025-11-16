@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://l6cvk76hwahv"]
+
+[ext_resource type="Texture2D" uid="uid://cvqiwepgya3ua" path="res://icon.svg" id="1_aygjt"]
+[ext_resource type="Script" uid="uid://c7ueo0dk8vd22" path="res://addons/os/nodes/os_app_bar_icon.gd" id="1_ewlkp"]
+
+[node name="app_bar_icon" type="PanelContainer" unique_id=158731861]
+script = ExtResource("1_ewlkp")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1864136962]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1220078551]
+layout_mode = 2
+
+[node name="TextEdit" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=612165420]
+layout_mode = 2
+texture = ExtResource("1_aygjt")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1466010418]
+layout_mode = 2
+text = "Window"

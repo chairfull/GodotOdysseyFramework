@@ -6,156 +6,18 @@
 script = ExtResource("1_t0ise")
 code = "ON mouse_entered:
 	PARALLEL:
-		EOUT_BACK off (randx * 1.0, randy * 2.0)
+		EOUT_BACK
+			off (randx * 1.0, randy * 2.0)
 	PARALLEL:
-		EOUT_BACK color Color.PINK degrees (randx*5)
+		EOUT_BACK color Color.PINK
+			degrees (randx*5)
+
 ON mouse_exited:
 	reset_seed()
-	EOUT_BACK off (0.0, 0.0) color Color.WHITE rotation 0.0"
+	EOUT_BACK off (0.0, 0.0)
+		color Color.WHITE
+		rotation 0.0"
 target_property = NodePath("_chars")
-_script = Object(RefCounted,"script":Resource("res://addons/twee/builder/twee_class_writer.gd"),"_methods":Dictionary[StringName, StringName]({
-&"reset_seed()": &"_m0"
-}),"_return_methods":Dictionary[StringName, StringName]({
-&"(randx*5)": &"_rm2",
-&"0.0": &"_rm5",
-&"Color.P": &"_rm1",
-&"Color.WHITE": &"_rm4",
-&"Vector2(0.0,0.0)": &"_rm3",
-&"Vector2(randx*1.0,randy*2.0)": &"_rm0"
-}),"_properties":Dictionary[StringName, Array]({
-&"1953304226784--9223359414935646383-(randx*5)": [null, "degrees", &"_rm2"],
-&"1953304226784--9223359414935646383-0.0": [null, "rotation", &"_rm5"],
-&"1953304226784--9223359414935646383-Color.P": [null, "color", &"_rm1"],
-&"1953304226784--9223359414935646383-Color.WHITE": [null, "color", &"_rm4"],
-&"1953304226784--9223359414935646383-Vector2(0.0,0.0)": [null, "off", &"_rm3"],
-&"1953304226784--9223359414935646383-Vector2(randx*1.0,randy*2.0)": [null, "off", &"_rm0"],
-&"1953304226784--9223359414952424567-(randx*5)": [null, "degrees", &"_rm2"],
-&"1953304226784--9223359414952424567-0.0": [null, "rotation", &"_rm5"],
-&"1953304226784--9223359414952424567-Color.P": [null, "color", &"_rm1"],
-&"1953304226784--9223359414952424567-Color.WHITE": [null, "color", &"_rm4"],
-&"1953304226784--9223359414952424567-Vector2(0.0,0.0)": [null, "off", &"_rm3"],
-&"1953304226784--9223359414952424567-Vector2(randx*1.0,randy*2.0)": [null, "off", &"_rm0"],
-&"1953304226784--9223359414969201204-(randx*5)": [null, "degrees", &"_rm2"],
-&"1953304226784--9223359414969201204-0.0": [null, "rotation", &"_rm5"],
-&"1953304226784--9223359414969201204-Color.P": [null, "color", &"_rm1"],
-&"1953304226784--9223359414969201204-Color.WHITE": [null, "color", &"_rm4"],
-&"1953304226784--9223359414969201204-Vector2(0.0,0.0)": [null, "off", &"_rm3"],
-&"1953304226784--9223359414969201204-Vector2(randx*1.0,randy*2.0)": [null, "off", &"_rm0"],
-&"1953304226784--9223359414985978088-(randx*5)": [null, "degrees", &"_rm2"],
-&"1953304226784--9223359414985978088-0.0": [null, "rotation", &"_rm5"],
-&"1953304226784--9223359414985978088-Color.P": [null, "color", &"_rm1"],
-&"1953304226784--9223359414985978088-Color.WHITE": [null, "color", &"_rm4"],
-&"1953304226784--9223359414985978088-Vector2(0.0,0.0)": [null, "off", &"_rm3"],
-&"1953304226784--9223359414985978088-Vector2(randx*1.0,randy*2.0)": [null, "off", &"_rm0"],
-&"1953304226784--9223359415002755230-(randx*5)": [null, "degrees", &"_rm2"],
-&"1953304226784--9223359415002755230-0.0": [null, "rotation", &"_rm5"],
-&"1953304226784--9223359415002755230-Color.P": [null, "color", &"_rm1"],
-&"1953304226784--9223359415002755230-Color.WHITE": [null, "color", &"_rm4"],
-&"1953304226784--9223359415002755230-Vector2(0.0,0.0)": [null, "off", &"_rm3"],
-&"1953304226784--9223359415002755230-Vector2(randx*1.0,randy*2.0)": [null, "off", &"_rm0"],
-&"1953304226784--9223359415019532450-(randx*5)": [null, "degrees", &"_rm2"],
-&"1953304226784--9223359415019532450-0.0": [null, "rotation", &"_rm5"],
-&"1953304226784--9223359415019532450-Color.P": [null, "color", &"_rm1"],
-&"1953304226784--9223359415019532450-Color.WHITE": [null, "color", &"_rm4"],
-&"1953304226784--9223359415019532450-Vector2(0.0,0.0)": [null, "off", &"_rm3"],
-&"1953304226784--9223359415019532450-Vector2(randx*1.0,randy*2.0)": [null, "off", &"_rm0"],
-&"1953304226784--9223359415036310630-(randx*5)": [null, "degrees", &"_rm2"],
-&"1953304226784--9223359415036310630-0.0": [null, "rotation", &"_rm5"],
-&"1953304226784--9223359415036310630-Color.P": [null, "color", &"_rm1"],
-&"1953304226784--9223359415036310630-Color.WHITE": [null, "color", &"_rm4"],
-&"1953304226784--9223359415036310630-Vector2(0.0,0.0)": [null, "off", &"_rm3"],
-&"1953304226784--9223359415036310630-Vector2(randx*1.0,randy*2.0)": [null, "off", &"_rm0"],
-&"1953304226784--9223359415053086217-(randx*5)": [null, "degrees", &"_rm2"],
-&"1953304226784--9223359415053086217-0.0": [null, "rotation", &"_rm5"],
-&"1953304226784--9223359415053086217-Color.P": [null, "color", &"_rm1"],
-&"1953304226784--9223359415053086217-Color.WHITE": [null, "color", &"_rm4"],
-&"1953304226784--9223359415053086217-Vector2(0.0,0.0)": [null, "off", &"_rm3"],
-&"1953304226784--9223359415053086217-Vector2(randx*1.0,randy*2.0)": [null, "off", &"_rm0"],
-&"1953304226784--9223359415069864125-(randx*5)": [null, "degrees", &"_rm2"],
-&"1953304226784--9223359415069864125-0.0": [null, "rotation", &"_rm5"],
-&"1953304226784--9223359415069864125-Color.P": [null, "color", &"_rm1"],
-&"1953304226784--9223359415069864125-Color.WHITE": [null, "color", &"_rm4"],
-&"1953304226784--9223359415069864125-Vector2(0.0,0.0)": [null, "off", &"_rm3"],
-&"1953304226784--9223359415069864125-Vector2(randx*1.0,randy*2.0)": [null, "off", &"_rm0"],
-&"1953304226784--9223359415086642130-(randx*5)": [null, "degrees", &"_rm2"],
-&"1953304226784--9223359415086642130-0.0": [null, "rotation", &"_rm5"],
-&"1953304226784--9223359415086642130-Color.P": [null, "color", &"_rm1"],
-&"1953304226784--9223359415086642130-Color.WHITE": [null, "color", &"_rm4"],
-&"1953304226784--9223359415086642130-Vector2(0.0,0.0)": [null, "off", &"_rm3"],
-&"1953304226784--9223359415086642130-Vector2(randx*1.0,randy*2.0)": [null, "off", &"_rm0"],
-&"1953304226784--9223359415103425299-(randx*5)": [null, "degrees", &"_rm2"],
-&"1953304226784--9223359415103425299-0.0": [null, "rotation", &"_rm5"],
-&"1953304226784--9223359415103425299-Color.P": [null, "color", &"_rm1"],
-&"1953304226784--9223359415103425299-Color.WHITE": [null, "color", &"_rm4"],
-&"1953304226784--9223359415103425299-Vector2(0.0,0.0)": [null, "off", &"_rm3"],
-&"1953304226784--9223359415103425299-Vector2(randx*1.0,randy*2.0)": [null, "off", &"_rm0"]
-}),"_finished":false,"scr":null,"signal_args":{},"initial_state":{
-null: {
-"color": Color(1, 1, 1, 1),
-"degrees": 7.431637699077503,
-"off": Vector2(0, 0),
-"rotation": 0.12970655
-},
-null: {
-"color": Color(1, 1, 1, 1),
-"degrees": 7.431637699077503,
-"off": Vector2(0, 0),
-"rotation": 0.12970655
-},
-null: {
-"color": Color(1, 1, 1, 1),
-"degrees": 7.431637699077503,
-"off": Vector2(0, 0),
-"rotation": 0.12970655
-},
-null: {
-"color": Color(1, 1, 1, 1),
-"degrees": 0.0,
-"off": Vector2(0, 0),
-"rotation": 0.0
-},
-null: {
-"color": Color(1, 1, 1, 1),
-"degrees": 7.431637699077503,
-"off": Vector2(0, 0),
-"rotation": 0.12970655
-},
-null: {
-"color": Color(1, 1, 1, 1),
-"degrees": 7.431637699077503,
-"off": Vector2(0, 0),
-"rotation": 0.12970655
-},
-null: {
-"color": Color(1, 1, 1, 1),
-"degrees": 7.431637699077503,
-"off": Vector2(0, 0),
-"rotation": 0.12970655
-},
-null: {
-"color": Color(1, 1, 1, 1),
-"degrees": 7.431637699077503,
-"off": Vector2(0, 0),
-"rotation": 0.12970655
-},
-null: {
-"color": Color(1, 1, 1, 1),
-"degrees": 7.431637699077503,
-"off": Vector2(0, 0),
-"rotation": 0.12970655
-},
-null: {
-"color": Color(1, 1, 1, 1),
-"degrees": 7.431637699077503,
-"off": Vector2(0, 0),
-"rotation": 0.12970655
-},
-null: {
-"color": Color(1, 1, 1, 1),
-"degrees": 7.431637699077503,
-"off": Vector2(0, 0),
-"rotation": 0.12970655
-}
-},"for_nodes":{})
+_script = Object(RefCounted,"script":Resource("res://addons/twee/builder/twee_class_writer.gd"))
 
 metadata/_custom_type_script = "uid://clu7legt7n4yl"

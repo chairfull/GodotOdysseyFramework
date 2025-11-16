@@ -37,8 +37,8 @@ class TweeInspector extends EditorInspectorPlugin:
 				for t in Util.TRANSING.keys():
 					hl.add_keyword_color(e + "_" + t, trans_color)
 			
-			#for prop in object.get_signal_list():
-				#hl.add_keyword_color(prop.name, Color.PALE_VIOLET_RED)
+			for prop in object.get_signal_list():
+				hl.add_keyword_color(prop.name, Color.PALE_VIOLET_RED)
 			
 			hl.number_color = settings.get("text_editor/theme/highlighting/number_color")
 			hl.symbol_color = settings.get("text_editor/theme/highlighting/symbol_color")
@@ -77,9 +77,11 @@ class TweeInspector extends EditorInspectorPlugin:
 			
 			var editor := CodeEdit.new()
 			vbox.add_child(editor)
-			editor.gutters_draw_line_numbers = true
+			#editor.gutters_draw_line_numbers = true
+			editor.draw_tabs = true
 			editor.text = object.get(name)
 			editor.syntax_highlighter = hl
+			editor.set_tab_size(3)
 			editor.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			editor.highlight_current_line = true
 			editor.highlight_all_occurrences = true

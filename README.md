@@ -13,7 +13,9 @@
 
 ![Odyssey Framework](./addons/odyssey/icon_of.svg)
 
-Simplify development of FPS, RPG, ImSims.
+It's easy to create a single game system, but Herculean to have all systems working together.
+This framework aims to make development of imersive story based games easier by creating all those basic integrated systems. 
+Ideally for FPS, RPG, & ImSims.
 
 Check [Todo](docs/TODO.md) for features.
 

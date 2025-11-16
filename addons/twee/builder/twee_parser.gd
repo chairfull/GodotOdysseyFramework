@@ -16,7 +16,7 @@ static func parse(tokens: PackedStringArray) -> Array[Dictionary]:
 	var steps: Array[Dictionary] = parsed[0]
 	return steps
 
-static func _parse(tokens: PackedStringArray, i := 0) -> Array[Variant]:
+static func _parse(tokens: PackedStringArray, i := 0, expect_dedent := false) -> Array[Variant]:
 	var commands: Array[Dictionary]
 	while i < tokens.size():
 		var t := tokens[i]
@@ -29,7 +29,9 @@ static func _parse(tokens: PackedStringArray, i := 0) -> Array[Variant]:
 		# End of block
 		if t == Token.DEDENT:
 			i += 1
-			break
+			if expect_dedent:
+				break
+			continue
 		
 		if t == Token.LOOP:
 			commands.append({ type=Token.LOOP, loop=0 })
@@ -64,7 +66,7 @@ static func _parse(tokens: PackedStringArray, i := 0) -> Array[Variant]:
 			if i < tokens.size() and tokens[i] == Token.INDENT:
 				i += 1
 				var block := { type=keyword, args=args }
-				var got := _parse(tokens, i)
+				var got := _parse(tokens, i, true)
 				block.children = got[0]
 				commands.append(block)
 				i = got[1]
@@ -124,10 +126,69 @@ static func _parse(tokens: PackedStringArray, i := 0) -> Array[Variant]:
 			if i < tokens.size() and tokens[i].is_valid_float():
 				cmd.duration = float(tokens[i])
 				i += 1
-			# parse properties (guaranteed to advance)
+			# collect inline props first
 			var got := _parse_props(tokens, i)
 			cmd.props = got[0]
 			i = got[1]
+			# skip newlines after inline props
+			while i < tokens.size() and tokens[i] == Token.NEWLINE:
+				i += 1
+			# if indented block follows, collect those as additional props
+			if i < tokens.size() and tokens[i] == Token.INDENT:
+				i += 1
+				while i < tokens.size() and tokens[i] != Token.DEDENT:
+					# skip newlines between indented prop lines
+					while i < tokens.size() and tokens[i] == Token.NEWLINE:
+						i += 1
+					if i >= tokens.size() or tokens[i] == Token.DEDENT:
+						break
+					var token := tokens[i]
+					if not _is_valid_property(token):
+						i += 1
+						continue
+					# parse single prop (name + expression)
+					var name := token.replace(".", ":")
+					i += 1
+					# collect expression tokens (copied from _parse_props for one prop)
+					var expr_tokens: Array[String] = []
+					var paren_level: Array = []
+					while i < tokens.size():
+						var v := tokens[i]
+						if v == ".":
+							expr_tokens.append(v)
+							i += 1
+							continue
+						if v.ends_with("("):
+							paren_level.append([expr_tokens.size(), 0])
+						elif v == ")":
+							if paren_level.size() > 0:
+								var count = paren_level.pop_back()
+								var start_index = count[0]
+								if start_index < expr_tokens.size() and expr_tokens[start_index] == "(":
+									var commas = count[1]
+									match commas:
+										0: pass
+										1: expr_tokens[start_index] = "Vector2("
+										2: expr_tokens[start_index] = "Vector3("
+										3: expr_tokens[start_index] = "Color("
+						elif v == ",":
+							if paren_level.size() > 0:
+								paren_level[paren_level.size() - 1][1] += 1
+						elif paren_level.size() == 0 and (v in [Token.NEWLINE, Token.DEDENT, Token.COLON] or _is_valid_property(v)):
+							break
+						expr_tokens.append(v)
+						i += 1
+					# handle % node refs
+					for j in expr_tokens.size():
+						if expr_tokens[j].begins_with("%"):
+							var parts: PackedStringArray = expr_tokens[j].split(".", true, 1)
+							if parts.size() == 2:
+								expr_tokens[j] = "node.get_node(\"%s\").%s" % [parts[0], parts[1]]
+					var val := "".join(expr_tokens)
+					if not name in all_props:
+						all_props.append(name)
+					cmd.props[name] = { "val": val }
+			# DEDENT will be handled by the outer loop
 			commands.append(cmd)
 			continue
 

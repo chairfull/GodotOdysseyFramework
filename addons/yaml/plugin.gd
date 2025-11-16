@@ -81,6 +81,8 @@ func _exit_tree() -> void:
 	get_editor_interface().get_resource_filesystem().filesystem_changed.disconnect(_on_filesystem_changed)
 
 func _modify_file_extensions() -> void:
+	return # chairfull modified. is bugged.
+	
 	var editor_settings: EditorSettings = get_editor_interface().get_editor_settings()
 
 	# Store original settings
@@ -91,6 +93,8 @@ func _modify_file_extensions() -> void:
 	editor_settings.set_setting("docks/filesystem/textfile_extensions", new_textfiles)
 
 func _restore_file_extensions() -> void:
+	return # chairfull modified. is bugged.
+	
 	if previous_textfile_extensions.is_empty():
 		return
 

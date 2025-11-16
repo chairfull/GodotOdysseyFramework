@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://crrawo3d014gh"]
+
+[ext_resource type="Texture2D" uid="uid://cvqiwepgya3ua" path="res://icon.svg" id="1_ctbff"]
+[ext_resource type="Script" uid="uid://coiinnorg0wf3" path="res://addons/os/nodes/os_file_icon.gd" id="1_i8xo5"]
+
+[node name="file_icon" type="PanelContainer" unique_id=1623942720]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -77.5
+offset_right = 64.0
+offset_bottom = 77.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_i8xo5")
+
+[node name="file_icon" type="VBoxContainer" parent="." unique_id=810106515]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="file_icon" unique_id=1225161816]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="icon" type="TextureRect" parent="file_icon/MarginContainer" unique_id=2112642156]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_ctbff")
+
+[node name="MarginContainer2" type="MarginContainer" parent="file_icon" unique_id=355067640]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 4
+
+[node name="label" type="Label" parent="file_icon/MarginContainer2" unique_id=1198531037]
+unique_name_in_owner = true
+layout_mode = 2
+text = "File.svg"
+horizontal_alignment = 1
