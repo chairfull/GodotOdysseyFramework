@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cmgn8e5f0qomt"]
+
+[ext_resource type="Shader" uid="uid://bnvg55q02pa2a" path="res://addons/mesh_raycast/mesh_raycast.gdshader" id="1_odkgv"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_odkgv")
+shader_parameter/target_position = Vector3(0.09751722, 1.281296, 0.5441123)
+shader_parameter/max_distance = 10.0
