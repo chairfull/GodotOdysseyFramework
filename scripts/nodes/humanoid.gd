@@ -80,6 +80,7 @@ func _controlled(con: Controller) -> void:
 	controller.view_state_changed.connect(_view_state_changed)
 	controller.show_widgit(&"toast_manager")
 	controller.show_widgit(&"world_time")
+	controller.show_widgit(&"compass_bar")
 	_interactive_hud = controller.show_widgit(&"interaction_label")
 	_interactive_hud.set_agent(self)
 	_view_state_changed()
@@ -91,6 +92,7 @@ func _uncontrolled(con: Controller) -> void:
 	_interactive_hud = null
 	#agent.interactive_detector.visible_changed.disconnect(agent.interactive_changed.emit)
 	controller.view_state_changed.disconnect(_view_state_changed)
+	controller.hide_widgit(&"compass_bar")
 	controller.hide_widgit(&"interaction_label")
 	controller.hide_widgit(&"world_time")
 	controller.hide_widgit(&"toast_manager")

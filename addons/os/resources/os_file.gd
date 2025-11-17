@@ -3,6 +3,19 @@ class_name OSFile extends OSItem
 @export var override_extension := &""
 @export var other: Dictionary[StringName, Variant]
 
+var trashed: bool: get=is_trashed
+var deleted: bool: get=is_deleted
+
+## To delete a file use the OSDisk.delete_file()
+func is_deleted() -> bool:
+	return is_trashed() and get_info().get(&"deleted", false)
+
+func is_trashed() -> bool:
+	return "/trash/" in path # TODO: Check if file.info for a "deleted" flag.
+
+func get_info() -> Dictionary:
+	return {} # TODO
+
 func get_extension() -> StringName:
 	if override_extension:
 		return override_extension

@@ -1,8 +1,22 @@
 @tool
 extends Node
 
+signal added_to_group(node: Node, id: StringName)
+signal removed_from_group(node: Node, id: StringName)
+
 var view_size: Vector2:
 	get: return Vector2(ProjectSettings.get("display/window/size/viewport_width"), ProjectSettings.get("display/window/size/viewport_height"))
+
+func group_add(node: Node, id: StringName) -> void:
+	node.add_to_group(id)
+	added_to_group.emit(node, id)
+
+func group_remove(node: Node, id: StringName) -> void:
+	node.remove_from_group(id)
+	removed_from_group.emit(node, id)
+
+func group_assign(list: Array, id: StringName) -> void:
+	list.assign(get_tree().get_nodes_in_group(id))
 
 func wait(time: float, method: Callable) -> Signal:
 	var sig := get_tree().create_timer(time).timeout

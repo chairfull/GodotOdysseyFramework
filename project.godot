@@ -43,6 +43,10 @@ project/assembly_name="Odyssey Framework"
 
 enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/twee/plugin.cfg", "res://addons/yaml/plugin.cfg")
 
+[global_group]
+
+marker=""
+
 [gui]
 
 common/snap_controls_to_pixels=false

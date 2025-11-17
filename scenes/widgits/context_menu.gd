@@ -9,8 +9,6 @@ var options: Array[Dictionary]
 var hovered: Node
 var buttons: Array[Button]
 
-var _tween: Tween
-
 func _ready() -> void:
 	button_parent.remove_child(button_prefab)
 	

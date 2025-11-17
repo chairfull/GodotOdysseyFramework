@@ -87,6 +87,7 @@ scenes = Dictionary[StringName, String]({
 &"camera_top_down": "prefabs/cameras/camera_top_down.tscn",
 &"caption": "widgits/caption.tscn",
 &"cinema_generator_test": "cinema_generator_test.tscn",
+&"compass_bar": "widgits/compass_bar.tscn",
 &"context_menu": "widgits/context_menu.tscn",
 &"controller": "prefabs/controller.tscn",
 &"cursor": "prefabs/cursor/cursor.tscn",
