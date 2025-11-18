@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://nl47yqcvi06o"]
 
-[ext_resource type="Script" uid="uid://6w2soy7eumkg" path="res://scripts/autoloads/quadruped.gd" id="1_erfie"]
+[ext_resource type="Script" uid="uid://6w2soy7eumkg" path="res://scripts/nodes/quadruped.gd" id="1_erfie"]
 [ext_resource type="Script" uid="uid://bbksu3kwersqu" path="res://scripts/nodes/detector.gd" id="2_p2qjd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_erfie"]

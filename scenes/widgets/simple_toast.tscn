@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://camgpjh0anaja"]
+
+[ext_resource type="Texture2D" uid="uid://cvqiwepgya3ua" path="res://icon.svg" id="1_1i35d"]
+[ext_resource type="Script" uid="uid://dl27pk53l6nt5" path="res://scenes/widgets/simple_toast.gd" id="1_vxoav"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qd0vc"]
+bg_color = Color(0, 0, 0, 0.44313726)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[node name="simple_toast" type="PanelContainer"]
+offset_right = 473.0
+offset_bottom = 160.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qd0vc")
+script = ExtResource("1_vxoav")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="icon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("1_1i35d")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="label" type="RichTextLabel" parent="MarginContainer/HBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Toast Contetn
+Other text."
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1

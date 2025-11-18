@@ -22,8 +22,8 @@ enum ProneState { Stand, Crouch, Kneel, Crawl }
 @onready var ray_coyote: RayCast3D = $ray_coyote
 @onready var node_direction: Node3D = %direction
 @onready var interactive_detector: Detector = %interact
-@onready var node_seeing: Detector = %seeing
-@onready var node_hearing: Detector = %hearing
+@onready var eyes: Detector = %eyes
+@onready var ears: Detector = %ears
 @onready var nav_agent: NavigationAgent3D = %nav_agent
 
 @export_range(-180, 180, 0.01, "radians_as_degrees") var direction: float: get=get_direction, set=set_direction
@@ -88,13 +88,51 @@ func _ready() -> void:
 		(%damageable as Damageable).damaged.connect(damage_taken.emit)
 	if %interactive:
 		interactive_detector.ignore.append(%interactive)
+	
+	nav_agent.velocity_computed.connect(_velocity_computed)
+
+func _velocity_computed(safe_velocity: Vector3) -> void:
+	if not nav_agent.avoidance_enabled: return
+	body.velocity = safe_velocity
+	body.move_and_slide()
+
+func _controlled(con: Controller) -> void:
+	super(con)
+	nav_agent.avoidance_enabled = false
+	eyes.enabled = false
+	ears.enabled = false
+	%debug.enabled = false
+
+func _uncontrolled(con: Controller) -> void:
+	super(con)
+	nav_agent.avoidance_enabled = true
+	eyes.enabled = true
+	ears.enabled = true
+	%debug.enabled = true
 
 func lerp_direction(delta: float, speed := 10.0) -> void:
+	#var ang := Vector2(curr_pos.x, curr_pos.z).direction_to(Vector2(next_pos.x, next_pos.z))
+	#direction = lerp_angle(direction, atan2(-ang.y, ang.x), delta * 10.0)
 	direction = lerp_angle(direction, atan2(movement.y, -movement.x) + PI * .5, delta * speed)
 
+func move_to(at: Vector3) -> void:
+	nav_agent.set_target_position(at)
+	behavior.blackboard.set_var(&"move_to_target", true)
+	behavior.blackboard.set_var(&"target_position", at)
+
+func set_movement_from_nav() -> Vector3:
+	var curr_pos := global_position
+	var next_pos: Vector3
+	if nav_agent.is_navigation_finished():
+		next_pos = behavior.blackboard.get_var(&"target_position")
+	else:
+		next_pos = nav_agent.get_next_path_position()
+	var dif := next_pos - curr_pos
+	var dist := dif.length()
+	movement = Vector2(dif.x, dif.z).normalized() * minf(1.0, dist)
+	return dif
+
 func _physics_process(delta: float) -> void:
-	#if frozen: return
-	
 	var move_speed := 1.0
 	match prone_state:
 		ProneState.Stand: move_speed = speed_stand
@@ -102,20 +140,6 @@ func _physics_process(delta: float) -> void:
 		ProneState.Crawl: move_speed = speed_crawl
 	if _sprinting:
 		move_speed *= 2.0
-	
-	#if not nav_agent.is_navigation_finished():
-		#var curr_pos := global_position
-		#var next_pos := nav_agent.get_next_path_position()
-		#var dir := next_pos - curr_pos
-		#dir.y = 0.0
-		#dir = dir.normalized()
-		#movement.x = dir.x
-		#movement.y = dir.z
-		#var ang := Vector2(curr_pos.x, curr_pos.z).direction_to(Vector2(next_pos.x, next_pos.z))
-		#direction = lerp_angle(direction, atan2(-ang.y, ang.x), delta * 10.0)
-	
-	#if name == "player":
-		#prints(_jumping, _jump_cancel)
 	
 	var vel := Vector3(movement.x * move_speed, body.velocity.y, movement.y * move_speed)
 	if _jump_cancel:
@@ -136,6 +160,7 @@ func _physics_process(delta: float) -> void:
 		if _footstep_time > 1.0:
 			_footstep_time -= 1.0
 			
+			# TODO: Footstep sounds.
 			var col: Node = %ray_coyote.get_collider()
 			if col and "physics_material_override" in col and col.physics_material_override is SurfaceMaterial:
 				var mat: SurfaceMaterial = col.physics_material_override
@@ -162,8 +187,11 @@ func _physics_process(delta: float) -> void:
 	
 	_was_in_air = not body.is_on_floor()
 	
-	body.velocity = vel
-	body.move_and_slide()
+	if nav_agent.avoidance_enabled:
+		nav_agent.velocity = vel
+	else:
+		body.velocity = vel
+		body.move_and_slide()
 	
 	if movement.length() >= 0.1 and (body.global_position - _last_position).length() < .001:
 		_stuck_time += delta

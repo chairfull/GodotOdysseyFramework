@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://eo5hwjki2ww0"]
+
+[ext_resource type="Script" uid="uid://dy2f4gpv266jr" path="res://scenes/widgets/common/radial_menu.gd" id="1_7tpm3"]
+[ext_resource type="Script" uid="uid://dh0608unc0n6i" path="res://addons/twee/nodes/twee_button_list.gd" id="2_lxbkg"]
+
+[node name="radial_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7tpm3")
+
+[node name="choice_parent" type="Control" parent="." node_paths=PackedStringArray("target", "for_child_target")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_lxbkg")
+target = NodePath(".")
+for_child_target = NodePath(".")

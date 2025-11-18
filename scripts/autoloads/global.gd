@@ -1,4 +1,3 @@
-@tool
 extends Node
 
 signal added_to_group(node: Node, id: StringName)

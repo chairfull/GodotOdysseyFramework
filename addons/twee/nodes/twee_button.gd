@@ -36,24 +36,20 @@ func is_button() -> bool: return (self as Object) is Button
 func as_button() -> Button: return (self as Object) as Button
 
 func hover():
-	if is_button():
-		if not as_button().disabled:
-			button_list.hovered = index
-			hovered.emit()
+	if is_button() and as_button().disabled: return
+	hovered.emit()
 
 func unhover():
-	if is_button():
-		if not as_button().disabled:
-			button_list.hovered = -1
-			unhovered.emit()
+	if is_button() and as_button().disabled: return
+	unhovered.emit()
 
 func focus():
-	if is_button():
-		if not as_button().disabled: focused.emit()
+	if is_button() and as_button().disabled: return
+	focused.emit()
 
 func unfocus():
-	if is_button():
-		if not as_button().disabled: unfocused.emit()
+	if is_button() and as_button().disabled: return
+	unfocused.emit()
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var parent := get_parent()

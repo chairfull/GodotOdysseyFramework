@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://b5q234bb25srj"]
 
-[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://_autogen_/addons/odyssey/flow/flow_player.gd" id="1_n42i5"]
-[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgits/caption.tscn" id="2_m6pof"]
-[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgits/caption.gd" id="3_yjh80"]
+[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_n42i5"]
+[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgets/caption.tscn" id="2_m6pof"]
+[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgets/caption.gd" id="3_yjh80"]
 
 [sub_resource type="Animation" id="Animation_ag57d"]
 length = 0.101

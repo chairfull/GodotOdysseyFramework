@@ -91,12 +91,3 @@ func _process(delta: float) -> void:
 	#var fov_scale := get_fov_scale()
 	#camera.h_offset = _noise.get_noise_1d(_noise_time + 123.456) * _noise_scale.x * fov_scale
 	#camera.v_offset = _noise.get_noise_1d(_noise_time + 654.321) * _noise_scale.y * fov_scale
-	
-	#match view_mode:
-		#ViewMode.FIRST_PERSON:
-			#if target:
-				#global_position = target.global_position
-		#
-		#ViewMode.THIRD_PERSON:
-			#if target:
-				#global_position = global_position.slerp(target.global_position, 20.0 * delta)

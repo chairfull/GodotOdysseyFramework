@@ -11,7 +11,6 @@ var buttons: Array[TweeButton]
 
 func _init() -> void:
 	if not Engine.is_editor_hint():
-		#remove_child(focus_highlight)
 		child_entered_tree.connect(_child_entered)
 		child_exiting_tree.connect(_child_exited)
 
@@ -29,9 +28,13 @@ func select() -> bool:
 		return true
 	return false
 
+func hover_next(dir: int) -> void:
+	var next := hovered + dir
+	if next >= buttons.size(): next = 0
+	if next < 0: next = buttons.size()-1
+	set_hovered(next)
+
 func set_hovered(h: int) -> void:
-	h = wrapi(h, 0, buttons.size())
-	if hovered == h: return
 	var last_hovered := hovered
 	hovered = h
 	for i in buttons.size():

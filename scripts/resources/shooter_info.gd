@@ -11,12 +11,12 @@ func _node_get_label(node: ItemNode) -> String:
 func _node_equipped(node: ItemNode) -> bool:
 	if not node.state:
 		node.state.ammo = max_ammo
-	node.try_show_widgit(Assets.WIDGIT_SHOOTER_HUD)
+	node.try_show_widget(Assets.WIDGET_SHOOTER_HUD)
 	return true
 
 func _node_unequipped(node: ItemNode) -> bool:
 	#node.interactive.label = "Gun [%s/%s]" % [node.state.ammo, node.state.max_ammo]
-	node.try_hide_widgit()
+	node.try_hide_widget()
 	return true
 
 func _node_use(node: ItemNode) -> bool:
@@ -36,7 +36,7 @@ func _node_use(node: ItemNode) -> bool:
 			node.anim_travel("fire")
 			node.state.ammo -= 1
 			node.update_label()
-			node.refresh_widgit()
+			node.refresh_widget()
 			#print("%s/%s" % [node.state.ammo, node.state.max_ammo])
 			return true
 		else:
@@ -47,6 +47,6 @@ func _node_reload(node: ItemNode) -> bool:
 	node.anim_travel("reload")
 	node.state.ammo = max_ammo
 	node.update_label()
-	node.refresh_widgit()
+	node.refresh_widget()
 	#print("%s/%s" % [node.state.ammo, node.state.max_ammo])
 	return true

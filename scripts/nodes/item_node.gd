@@ -17,7 +17,7 @@ var _reset_state := false
 var _reset_transform: Transform3D
 var _holder: CharNode
 var _remote: RemoteTransform3DTweened
-var _widgit: ItemWidget
+var _widget: ItemWidget
 
 func _ready() -> void:
 	var yaml := YAML.parse(debug_properties_yaml)
@@ -30,17 +30,17 @@ func _ready() -> void:
 	interactive.can_interact = _can_interact
 	update_label()
 
-func try_show_widgit(widgit_id: StringName) -> bool:
+func try_show_widget(widget_id: StringName) -> bool:
 	if get_holder().is_controlled():
-		_widgit = get_holder().get_controller().show_widgit(widgit_id, { node=self }, true)
-		_widgit.refresh()
+		_widget = get_holder().get_controller().show_widget(widget_id, { node=self }, true)
+		_widget.refresh()
 		return true
 	return false
 
-func try_hide_widgit() -> bool:
-	if _widgit:
-		_widgit.close_transitioned()
-		_widgit = null
+func try_hide_widget() -> bool:
+	if _widget:
+		_widget.close_transitioned()
+		_widget = null
 		return true
 	return false
 
@@ -48,9 +48,9 @@ func update_label() -> void:
 	if info:
 		interactive.label = info._node_get_label(self)
 
-func refresh_widgit() -> void:
-	if _widgit:
-		_widgit.refresh()
+func refresh_widget() -> void:
+	if _widget:
+		_widget.refresh()
 
 func get_holder() -> CharNode:
 	return _holder

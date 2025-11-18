@@ -1,0 +1,311 @@
+[gd_scene load_steps=20 format=3 uid="uid://no8gue8b410"]
+
+[ext_resource type="Script" uid="uid://bij3chon542dr" path="res://scenes/widgets/shooter_hud.gd" id="1_u6mi0"]
+[ext_resource type="Script" uid="uid://txkny8gbicbb" path="res://addons/richer_text/scripts/richer_text_label.gd" id="2_1edmw"]
+[ext_resource type="Resource" uid="uid://bf8stcbogl2sh" path="res://assets/richer_text_parser.tres" id="3_04v7d"]
+[ext_resource type="Script" uid="uid://ufahd8kfwyy7" path="res://addons/twee/twee_label.gd" id="4_04v7d"]
+[ext_resource type="Script" uid="uid://clu7legt7n4yl" path="res://addons/twee/resources/twee.gd" id="5_5i3kf"]
+[ext_resource type="Script" uid="uid://f2uakxr7d4km" path="res://addons/twee/twee_label_char.gd" id="5_fkt0w"]
+[ext_resource type="Resource" uid="uid://yi7cxlm45yke" path="res://addons/twee/text_anim.tres" id="6_1466v"]
+
+[sub_resource type="Resource" id="Resource_1466v"]
+script = ExtResource("5_fkt0w")
+seed = 2378627375
+text = "W"
+trans = Transform2D(0.9998257, -0.018668948, 0.018668948, 0.9998257, 0, 25)
+rect = Rect2(0, 0, 30, 35)
+rand = Vector2(-0.9995165, -0.031092992)
+
+[sub_resource type="Resource" id="Resource_yvcjc"]
+script = ExtResource("5_fkt0w")
+seed = 1103217610
+text = "h"
+index = 1
+trans = Transform2D(0.9998257, -0.018668948, 0.018668948, 0.9998257, 30, 25)
+rect = Rect2(30, 0, 20, 35)
+rand = Vector2(0.92394394, -0.38252792)
+
+[sub_resource type="Resource" id="Resource_npekm"]
+script = ExtResource("5_fkt0w")
+seed = 979709942
+text = "o"
+index = 2
+trans = Transform2D(0.9998257, -0.018668948, 0.018668948, 0.9998257, 50, 25)
+rect = Rect2(50, 0, 20, 35)
+rand = Vector2(0.9163161, 0.4004557)
+
+[sub_resource type="Resource" id="Resource_tqeo6"]
+script = ExtResource("5_fkt0w")
+seed = 706729430
+text = " "
+index = 3
+trans = Transform2D(1, 0, 0, 1, 70, 25)
+rect = Rect2(70, 0, 8, 35)
+rand = Vector2(0.23028162, 0.973124)
+
+[sub_resource type="Resource" id="Resource_hwbsw"]
+script = ExtResource("5_fkt0w")
+seed = 1880653420
+text = "r"
+index = 4
+trans = Transform2D(0.9998257, -0.018668948, 0.018668948, 0.9998257, 78, 25)
+rect = Rect2(78, 0, 14, 35)
+rand = Vector2(0.97497815, 0.2223008)
+
+[sub_resource type="Resource" id="Resource_cyg1f"]
+script = ExtResource("5_fkt0w")
+seed = 2642117742
+text = "e"
+index = 5
+trans = Transform2D(0.9998257, -0.018668948, 0.018668948, 0.9998257, 92, 25)
+rect = Rect2(92, 0, 18, 35)
+rand = Vector2(0.68499136, -0.7285512)
+
+[sub_resource type="Resource" id="Resource_lwo05"]
+script = ExtResource("5_fkt0w")
+seed = 3805612423
+text = "a"
+index = 6
+trans = Transform2D(0.9998257, -0.018668948, 0.018668948, 0.9998257, 110, 25)
+rect = Rect2(110, 0, 19, 35)
+rand = Vector2(-0.76091605, -0.6488504)
+
+[sub_resource type="Resource" id="Resource_chh3s"]
+script = ExtResource("5_fkt0w")
+seed = 1695040681
+text = "l"
+index = 7
+trans = Transform2D(0.9998257, -0.018668948, 0.018668948, 0.9998257, 129, 25)
+rect = Rect2(129, 0, 9, 35)
+rand = Vector2(0.7159254, 0.6981768)
+
+[sub_resource type="Resource" id="Resource_dxcg3"]
+script = ExtResource("5_fkt0w")
+seed = 1968313704
+text = "l"
+index = 8
+trans = Transform2D(0.9998257, -0.018668948, 0.018668948, 0.9998257, 138, 25)
+rect = Rect2(138, 0, 9, 35)
+rand = Vector2(-0.9564965, -0.29174381)
+
+[sub_resource type="Resource" id="Resource_qjlbf"]
+script = ExtResource("5_fkt0w")
+seed = 1330157771
+text = "y"
+index = 9
+trans = Transform2D(0.9998257, -0.018668948, 0.018668948, 0.9998257, 147, 25)
+rect = Rect2(147, 0, 17, 35)
+rand = Vector2(-0.5711298, 0.82085973)
+
+[sub_resource type="Resource" id="Resource_3hsdv"]
+script = ExtResource("5_fkt0w")
+seed = 3036325231
+index = 10
+trans = Transform2D(0.9998257, -0.018668948, 0.018668948, 0.9998257, 164, 25)
+rect = Rect2(164, 0, 15, 35)
+rand = Vector2(-0.57906425, 0.8152819)
+
+[sub_resource type="Resource" id="Resource_ftoq1"]
+script = ExtResource("5_fkt0w")
+seed = 1137510614
+text = "a"
+index = 11
+trans = Transform2D(0.9998257, -0.018668948, 0.018668948, 0.9998257, 179, 25)
+rect = Rect2(179, 0, 19, 35)
+rand = Vector2(0.9722276, 0.23403752)
+
+[node name="shooter_hud4" type="Control" unique_id=1850838852]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_u6mi0")
+
+[node name="reticle" type="Control" parent="." unique_id=2059316739]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="reticle" unique_id=480702381]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="hit_marker" type="Control" parent="." unique_id=1261559375]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="hit_marker" type="ColorRect" parent="hit_marker" unique_id=674387482]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = 7.0
+offset_right = 2.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="hit_marker2" type="ColorRect" parent="hit_marker" unique_id=357167394]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = 3.0
+offset_right = 13.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="hit_marker3" type="ColorRect" parent="hit_marker" unique_id=2018009782]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 2.0
+offset_right = -15.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="hit_marker4" type="ColorRect" parent="hit_marker" unique_id=1812638467]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 3.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -3.1415927
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="info_label" type="RichTextLabel" parent="." unique_id=1898378861]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 748.0
+offset_top = 422.0
+offset_right = 1142.0
+offset_bottom = 636.0
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "Shooter
+1/20"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("2_1edmw")
+bbcode = "Shooter
+1/20"
+parser = ExtResource("3_04v7d")
+
+[node name="control_label" type="RichTextLabel" parent="." unique_id=1035051770]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 425.0
+offset_right = 404.0
+offset_bottom = 639.0
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+bbcode_enabled = true
+text = "[F] Drop
+[R] Reload"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 2
+script = ExtResource("2_1edmw")
+bbcode = "[F] Drop
+[R] Reload"
+parser = ExtResource("3_04v7d")
+
+[node name="animated_label" type="ColorRect" parent="." unique_id=1599886005 node_paths=PackedStringArray("target", "for_child_target")]
+custom_minimum_size = Vector2(198, 35)
+layout_mode = 0
+offset_left = 303.0
+offset_top = 352.0
+offset_right = 501.0
+offset_bottom = 387.0
+color = Color(0.16565639, 0.16565642, 0.16565639, 0.34117648)
+script = ExtResource("4_04v7d")
+text = "Who really?a"
+_chars = Array[ExtResource("5_fkt0w")]([SubResource("Resource_1466v"), SubResource("Resource_yvcjc"), SubResource("Resource_npekm"), SubResource("Resource_tqeo6"), SubResource("Resource_hwbsw"), SubResource("Resource_cyg1f"), SubResource("Resource_lwo05"), SubResource("Resource_chh3s"), SubResource("Resource_dxcg3"), SubResource("Resource_qjlbf"), SubResource("Resource_3hsdv"), SubResource("Resource_ftoq1")])
+bounds = Rect2(0, 0, 198, 35)
+target = NodePath(".")
+for_child_target = NodePath(".")
+twees = Array[ExtResource("5_5i3kf")]([ExtResource("6_1466v")])
+playing = true
+_TWEE_code_0 = "ON mouse_entered:
+	PARALLEL:
+		EOUT_BACK
+			off (randx * 1.0, randy * 2.0)
+	PARALLEL:
+		EOUT_BACK color Color.PINK
+			degrees (randx*5)
+
+ON mouse_exited:
+	reset_seed()
+	EOUT_BACK off (0.0, 0.0)
+		color Color.WHITE
+		rotation 0.0"
+twees = Array[ExtResource("5_5i3kf")]([ExtResource("6_1466v")])

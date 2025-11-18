@@ -86,9 +86,9 @@ email: alice@exampe.com
 var result = YAML.parse_and_validate(data_yaml, schema)
 
 if result.is_valid():
-    print(result.get_data().role)  # "user" (default applied)
+	print(result.get_data().role)  # "user" (default applied)
 else:
-    print(result.get_summary())  # Detailed error report
+	print(result.get_summary())  # Detailed error report
 ```
 
 ### Other Changes
@@ -132,11 +132,11 @@ var all_docs = result.get_documents()
 
 - YAML files can now be loaded with the `!Resource` tag, allowing modular composition
 - Fixes:
-    - Force YAML indentation to always use spaces instead of tabs
-    - The file system should now update properly when saving a new YAML file
-    - Fixed tab indentation not working correctly in the YAML editor
-    - Fixed Packed Array types not detecting array templates
-    - Prevent duplicates in YAML editor file list
+	- Force YAML indentation to always use spaces instead of tabs
+	- The file system should now update properly when saving a new YAML file
+	- Fixed tab indentation not working correctly in the YAML editor
+	- Fixed Packed Array types not detecting array templates
+	- Prevent duplicates in YAML editor file list
 
 ## Version 1.0.0
 
@@ -178,15 +178,15 @@ class_name CustomClass extends Resource
 @export var name: String
 
 func _init(p_name: String = "") -> void:
-    name = p_name
+	name = p_name
 
 func to_dict() -> Dictionary:
-    return {
-      "name": name
-    }
+	return {
+	  "name": name
+	}
 
 static func from_dict(data: Dictionary) -> CustomClass:
-    return CustomClass.new(data["name"])
+	return CustomClass.new(data["name"])
 ```
 
 **New version:**
@@ -196,18 +196,18 @@ class_name CustomClass extends Resource
 @export var name: String
 
 func _init(p_name: String = "") -> void:
-    name = p_name
+	name = p_name
 
 func serialize() -> Variant:
-    return {
-      "name": name
-    }
+	return {
+	  "name": name
+	}
 
 static func deserialize(data: Variant) -> Variant:
-    if typeof(data) != TYPE_DICTIONARY:
-        return YAMLResult.error("CustomClass expects Dictionary")
+	if typeof(data) != TYPE_DICTIONARY:
+		return YAMLResult.error("CustomClass expects Dictionary")
 
-    return CustomClass.new(data["name"])
+	return CustomClass.new(data["name"])
 ```
 
 #### Container Form Changes

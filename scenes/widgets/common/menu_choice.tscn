@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3 uid="uid://bl1wu7da5ih3s"]
+
+[ext_resource type="Script" uid="uid://wum5tgxqnx40" path="res://scenes/widgets/common/menu_choice.gd" id="1_5dig4"]
+[ext_resource type="Script" uid="uid://clu7legt7n4yl" path="res://addons/twee/resources/twee.gd" id="2_erlxu"]
+[ext_resource type="Resource" uid="uid://djai5nvuht5lf" path="res://assets/twees/hud_inventory_slot.tres" id="3_l52b5"]
+[ext_resource type="Texture2D" uid="uid://cvqiwepgya3ua" path="res://icon.svg" id="4_l52b5"]
+
+[node name="menu_choice" type="PanelContainer" unique_id=1010692643 node_paths=PackedStringArray("target", "for_child_target")]
+modulate = Color(0, 1, 1, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -236.75
+offset_top = -19.5
+offset_right = 236.75
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(236.75, 19.5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+script = ExtResource("1_5dig4")
+target = NodePath(".")
+for_child_target = NodePath(".")
+twees = Array[ExtResource("2_erlxu")]([ExtResource("3_l52b5")])
+_TWEE_code_0 = "ON chosen:
+	print(\"I was chosen!\", @name)
+	E 0.2 modulate Color.GREEN %icon.rotation 0 %icon.scale (1, 1)
+	BLOCK:
+		E modulate Color.WHITE
+		E modulate Color.GREEN
+		LOOP
+
+ON other_chosen:
+	E 0.1 modulate Color.RED %icon.rotation 0 %icon.scale (1, 1)
+
+ON hovered:
+	E 0.2 modulate (2.5, 2.5, 2.5, 1) %icon.scale (1.1, 1.1) %icon.rotation randf_range(-.2, .2)
+	BLOCK:
+		PARALLEL:
+			EO_BACK 0.5 %icon.scale (1, 1)
+		PARALLEL:
+			E 0.4 modulate (1.1,1.1,1.1,1)
+			E 0.4 modulate (1.5,1.5,1.5,1)
+			LOOP
+		PARALLEL:
+			E 0.5 %icon.rotation -0.1
+			E 0.5 %icon.rotation 0.1
+			LOOP
+
+ON unhovered:
+	E 0.3 modulate ~modulate %icon.rotation 0 %icon.scale (1, 1)"
+twees = Array[ExtResource("2_erlxu")]([ExtResource("3_l52b5")])
+
+[node name="margin" type="MarginContainer" parent="." unique_id=716035481]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="margin" unique_id=285867041]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="icon" type="TextureRect" parent="margin/HBoxContainer" unique_id=201921270]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_l52b5")
+expand_mode = 3
+
+[node name="label" type="RichTextLabel" parent="margin/HBoxContainer" unique_id=1832346653]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+bbcode_enabled = true
+text = "Text"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,12 +1,14 @@
-[gd_scene load_steps=20 format=3 uid="uid://p7rqgmtls5qk"]
+[gd_scene load_steps=22 format=3 uid="uid://p7rqgmtls5qk"]
 
 [ext_resource type="Script" uid="uid://dw8awr8a4l0dr" path="res://scripts/nodes/humanoid.gd" id="1_mq6sh"]
+[ext_resource type="Script" uid="uid://br2v5na1eo3kv" path="res://scripts/nodes/char_node_debug.gd" id="2_6uuaw"]
 [ext_resource type="PackedScene" uid="uid://gacoxeknq1iq" path="res://assets/model/base_character/superhero_male.tscn" id="2_qlb12"]
 [ext_resource type="Script" uid="uid://b4kwcxibv0778" path="res://scripts/nodes/damageable.gd" id="3_6kbyu"]
 [ext_resource type="Script" uid="uid://bbksu3kwersqu" path="res://scripts/nodes/detector.gd" id="3_pplf3"]
 [ext_resource type="BehaviorTree" uid="uid://bajdgib3dnvq6" path="res://assets/ai/trees/humanoid.tres" id="4_677yw"]
 [ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/nodes/interactive.gd" id="5_117w7"]
 [ext_resource type="Script" uid="uid://llfmpeqtpli1" path="res://scripts/nodes/camera_target.gd" id="7_11kkr"]
+[ext_resource type="Script" uid="uid://dhnbfnhbjdh5l" path="res://scripts/nodes/marker.gd" id="8_677yw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qaen5"]
 
@@ -15,6 +17,7 @@ height = 1.8
 radius = 0.2
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_6kbyu"]
+resource_local_to_scene = true
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rtavd"]
 radius = 0.25
@@ -48,7 +51,7 @@ height = 0.1
 radial_segments = 32
 rings = 16
 
-[node name="humanoid" type="CharacterBody3D" unique_id=2025458579 node_paths=PackedStringArray("behavior")]
+[node name="humanoid" type="CharacterBody3D" unique_id=2025458579 node_paths=PackedStringArray("behavior") groups=["npc"]]
 collision_layer = 49216
 script = ExtResource("1_mq6sh")
 behavior = NodePath("behavior")
@@ -57,6 +60,10 @@ behavior = NodePath("behavior")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_qaen5")
+
+[node name="debug" type="Node2D" parent="." unique_id=1355882203]
+unique_name_in_owner = true
+script = ExtResource("2_6uuaw")
 
 [node name="interactive" type="Area3D" parent="." unique_id=2140025732]
 unique_name_in_owner = true
@@ -75,6 +82,7 @@ shape = SubResource("CylinderShape3D_iv36d")
 
 [node name="nav_agent" type="NavigationAgent3D" parent="." unique_id=903741770]
 unique_name_in_owner = true
+simplify_path = true
 
 [node name="behavior" type="BTPlayer" parent="." unique_id=1562696105]
 behavior_tree = ExtResource("4_677yw")
@@ -131,25 +139,28 @@ script = ExtResource("3_pplf3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="direction/interact" unique_id=1861500627]
 shape = SubResource("SphereShape3D_mq6sh")
 
-[node name="seeing" type="Area3D" parent="direction" unique_id=907668173]
+[node name="eyes" type="Area3D" parent="direction" unique_id=907668173]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4.9)
-collision_layer = 16384
-collision_mask = 0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+collision_layer = 0
+collision_mask = 16384
 monitorable = false
 script = ExtResource("3_pplf3")
+memory_seconds = 10.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/seeing" unique_id=1379385240]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/eyes" unique_id=1379385240]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.6)
 shape = SubResource("SphereShape3D_pplf3")
 
-[node name="hearing" type="Area3D" parent="direction" unique_id=304063913]
+[node name="ears" type="Area3D" parent="direction" unique_id=304063913]
 unique_name_in_owner = true
-collision_layer = 32768
-collision_mask = 0
+collision_layer = 0
+collision_mask = 32768
 monitorable = false
 script = ExtResource("3_pplf3")
+memory_seconds = 10.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/hearing" unique_id=1860239456]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="direction/ears" unique_id=1860239456]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("SphereShape3D_2grrx")
 
@@ -196,3 +207,17 @@ shape = SubResource("CapsuleShape3D_6kbyu")
 unique_name_in_owner = true
 top_level = true
 mesh = SubResource("SphereMesh_117w7")
+
+[node name="seeing" type="Node3D" parent="." unique_id=832461744 groups=["marker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.614, 0)
+script = ExtResource("8_677yw")
+offset = Vector2(-32, 0)
+label_style = 2
+metadata/_custom_type_script = "uid://dhnbfnhbjdh5l"
+
+[node name="hearing" type="Node3D" parent="." unique_id=1094566773 groups=["marker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.614, 0)
+script = ExtResource("8_677yw")
+offset = Vector2(32, 0)
+label_style = 2
+metadata/_custom_type_script = "uid://dhnbfnhbjdh5l"

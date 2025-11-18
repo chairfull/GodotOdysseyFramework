@@ -14,7 +14,7 @@ enum ViewState { None, FirstPerson, ThirdPerson, TopDown }
 @onready var camera_master: CameraMaster = %camera_master
 @export var pawn_camera: CameraTarget
 var input_remap: Dictionary[StringName, StringName] # TODO: Move to some global area?
-var _widgits: Dictionary[StringName, Widget]
+var _widgets: Dictionary[StringName, Widget]
 var _focused_control: Control
 
 var view_state := ViewState.FirstPerson:
@@ -52,44 +52,45 @@ func get_move_vector_camera() -> Vector2:
 	var dir := camera_master.global_rotation.y
 	return get_move_vector().rotated(-dir)
 
-func _get_widgit_id(id: StringName) -> StringName:
+func _get_widget_id(id: StringName) -> StringName:
 	if id.begins_with("uid://"):
 		return ResourceUID.uid_to_path(id).get_basename().get_file()
 	return id
 
-func is_widgit_visible(id: StringName) -> bool:
-	return _get_widgit_id(id) in _widgits
+func is_widget_visible(id: StringName) -> bool:
+	return _get_widget_id(id) in _widgets
 
-func toggle_widgit(id: StringName, props := {}) -> Node:
-	if is_widgit_visible(id):
-		hide_widgit(id)
+func toggle_widget(id: StringName, props := {}) -> Node:
+	if is_widget_visible(id):
+		hide_widget(id)
 		return null
 	else:
-		return show_widgit(id, props)
+		return show_widget(id, props)
 
-func show_widgit(id: StringName, props := {}, transitioned := false) -> Widget:
-	id = _get_widgit_id(id)
-	var widgit: Widget = _widgits.get(id)
-	if not is_widgit_visible(id):
-		widgit = Assets.create_scene(id, self, props)
-		if widgit.is_pauser():
-			State.add_pauser(widgit)
-		_widgits[id] = widgit
+func show_widget(id: StringName, props := {}, transitioned := false) -> Widget:
+	id = _get_widget_id(id)
+	var widget: Widget = _widgets.get(id)
+	if not is_widget_visible(id):
+		widget = Assets.create_scene(id, self, props)
+		if widget.is_pauser():
+			State.add_pauser(widget)
+		_widgets[id] = widget
 	if transitioned:
-		widgit.show_transitioned()
-	return widgit
+		widget.show_transitioned()
+	return widget
 
-func hide_widgit(id: StringName) -> bool:
-	id = _get_widgit_id(id)
-	var widgit: Widget = _widgits.get(id)
-	if widgit:
-		if widgit.is_pauser():
-			State.remove_pauser(widgit)
-		remove_child(widgit)
-		widgit.queue_free()
-		_widgits.erase(id)
+func hide_widget(id: StringName, returned: Variant = null) -> bool:
+	id = _get_widget_id(id)
+	var widget: Widget = _widgets.get(id)
+	if widget:
+		if widget.is_pauser():
+			State.remove_pauser(widget)
+		widget._closed(returned)
+		widget.queue_free()
+		remove_child(widget)
+		_widgets.erase(id)
 		return true
-	push_error("No open widgit: %s" % [id])
+	push_error("No open widget: %s" % [id])
 	return false
 
 func is_action_pressed(action: StringName, exact_match := false) -> bool:
@@ -165,11 +166,3 @@ func set_pawn(target: Pawn):
 	pawn_head.add_child(remote)
 	remote.remote_path = pawn_camera.get_path()
 	
-	
-
-#func _unhandled_key_input(event: InputEvent) -> void:
-	#_event = event
-	#on_input.emit(event)
-
-#func _process(delta: float) -> void:
-	#on_update.emit(delta)

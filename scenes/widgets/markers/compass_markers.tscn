@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cciwhkqp304aa"]
+
+[ext_resource type="Script" uid="uid://w63jfp04l2m" path="res://scenes/widgets/markers/compass_markers.gd" id="1_o48fb"]
+
+[node name="compass" type="Control" unique_id=1103083023]
+custom_minimum_size = Vector2(800, 64)
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+script = ExtResource("1_o48fb")

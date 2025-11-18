@@ -1,9 +1,15 @@
 class_name Marker extends Node3D
 
-@export var screen_pos: Vector2
+enum LabelStyle { DISTANCE, TEXT, NAME }
 
-#func _ready() -> void:
-	#visibility_changed.connect(func(): (Controllers.EV_SHOW_MARKER if visible else Controllers.EV_HIDE_MARKER).emit(self))
-	#tree_entered.connect(Controllers.EV_SHOW_MARKER.emit.bind(self))
-	#tree_exited.connect(Controllers.EV_HIDE_MARKER.emit.bind(self))
-	#Controllers.EV_SHOW_MARKER.fire.call_deferred(self)
+@export var offset: Vector2
+@export var color := Color.WHITE
+@export var enabled := true: set=set_enabled
+@export var text := ""
+@export var label_style := LabelStyle.DISTANCE
+
+func set_enabled(e: bool) -> void:
+	if enabled == e: return
+	enabled = e
+	if enabled: Global.group_add(self, &"marker")
+	else: Global.group_remove(self, &"marker")

@@ -1,10 +1,24 @@
-[gd_resource type="BehaviorTree" load_steps=15 format=3 uid="uid://bajdgib3dnvq6"]
+[gd_resource type="BehaviorTree" load_steps=13 format=3 uid="uid://bajdgib3dnvq6"]
 
 [ext_resource type="Script" uid="uid://dl4h513s0orci" path="res://assets/ai/tasks/pawn_as_controlled.gd" id="1_7x8gf"]
-[ext_resource type="Script" uid="uid://dovg2kforl1yi" path="res://assets/ai/tasks/npc_choose_random_position.gd" id="2_7x8gf"]
-[ext_resource type="Script" uid="uid://bet5mbq58hn0c" path="res://assets/ai/tasks/npc_move_to_position.gd" id="3_3a3dj"]
+[ext_resource type="Script" uid="uid://bi8eke0ux5jt5" path="res://assets/ai/tasks/npc_navigate_to_target.gd" id="3_lmlsa"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_pplf3"]
+var/move_to_target/name = &"move_to_target"
+var/move_to_target/type = 1
+var/move_to_target/value = false
+var/move_to_target/hint = 0
+var/move_to_target/hint_string = ""
+var/target_position/name = &"target_position"
+var/target_position/type = 9
+var/target_position/value = Vector3(0, 0, 0)
+var/target_position/hint = 0
+var/target_position/hint_string = ""
+var/target_node/name = &"target_node"
+var/target_node/type = 24
+var/target_node/hint = 34
+var/target_node/hint_string = "Node3D"
+resource_local_to_scene = true
 
 [sub_resource type="BTAction" id="BTAction_3a3dj"]
 script = ExtResource("1_7x8gf")
@@ -12,15 +26,12 @@ script = ExtResource("1_7x8gf")
 [sub_resource type="BTRandomWait" id="BTRandomWait_7x8gf"]
 max_duration = 5.0
 
-[sub_resource type="BTAction" id="BTAction_0iwmb"]
-script = ExtResource("2_7x8gf")
-
-[sub_resource type="BTAction" id="BTAction_87mrt"]
-script = ExtResource("3_3a3dj")
+[sub_resource type="BTAction" id="BTAction_r1nn7"]
+script = ExtResource("3_lmlsa")
 
 [sub_resource type="BTSequence" id="BTSequence_tjwfk"]
 custom_name = "Idle"
-children = [SubResource("BTRandomWait_7x8gf"), SubResource("BTAction_0iwmb"), SubResource("BTAction_87mrt")]
+children = [SubResource("BTRandomWait_7x8gf"), SubResource("BTAction_r1nn7")]
 
 [sub_resource type="BTSequence" id="BTSequence_11kkr"]
 custom_name = "Combat"
@@ -31,11 +42,11 @@ custom_name = "Alert"
 [sub_resource type="BTSequence" id="BTSequence_6uuaw"]
 custom_name = "Patrol"
 
-[sub_resource type="BTSequence" id="BTSequence_3a3dj"]
+[sub_resource type="BTSelector" id="BTSelector_3a3dj"]
 children = [SubResource("BTSequence_tjwfk"), SubResource("BTSequence_11kkr"), SubResource("BTSequence_677yw"), SubResource("BTSequence_6uuaw")]
 
 [sub_resource type="BTSequence" id="BTSequence_7x8gf"]
-children = [SubResource("BTAction_3a3dj"), SubResource("BTSequence_3a3dj")]
+children = [SubResource("BTAction_3a3dj"), SubResource("BTSelector_3a3dj")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_pplf3")

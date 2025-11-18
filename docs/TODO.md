@@ -1,3 +1,22 @@
+# High Priority
+- [ ] Camera position transforms need to be snappier.
+	- Maybe using RemoteTransform3D, with camera/head.
+	- HUD elements aren't snapping to world space position fast enough.
+	- Held items are choppy...
+- [ ] NPC
+	- [x] Move to point
+	- [ ] Follow nav path
+	- [ ] Swap states
+		- [ ] Notice something
+		- [ ] Investigate
+		- [ ] Attacking
+			- [ ] Move within item range of target
+			- [ ] Use item
+		- [ ] Flee
+			- [ ] Find safe spot
+# Medium Priority
+# Low Priority
+
 # Humanoid Controller
 - [x] Movement
 	- [x] First-person

@@ -78,10 +78,11 @@ func _controlled(con: Controller) -> void:
 	
 	#agent.interactive_detector.visible_changed.connect(agent.interactive_changed.emit)
 	controller.view_state_changed.connect(_view_state_changed)
-	controller.show_widgit(&"toast_manager")
-	controller.show_widgit(&"world_time")
-	controller.show_widgit(&"compass_bar")
-	_interactive_hud = controller.show_widgit(&"interaction_label")
+	controller.show_widget(&"compass_markers")
+	controller.show_widget(&"screen_space_markers")
+	controller.show_widget(&"toast_manager")
+	controller.show_widget(&"world_time")
+	_interactive_hud = controller.show_widget(&"interaction_label")
 	_interactive_hud.set_agent(self)
 	_view_state_changed()
 
@@ -92,10 +93,11 @@ func _uncontrolled(con: Controller) -> void:
 	_interactive_hud = null
 	#agent.interactive_detector.visible_changed.disconnect(agent.interactive_changed.emit)
 	controller.view_state_changed.disconnect(_view_state_changed)
-	controller.hide_widgit(&"compass_bar")
-	controller.hide_widgit(&"interaction_label")
-	controller.hide_widgit(&"world_time")
-	controller.hide_widgit(&"toast_manager")
+	controller.hide_widget(&"compass_markers")
+	controller.hide_widget(&"screen_space_markers")
+	controller.hide_widget(&"interaction_label")
+	controller.hide_widget(&"world_time")
+	controller.hide_widget(&"toast_manager")
 
 func _view_state_changed():
 	match controller.view_state:
@@ -108,17 +110,26 @@ func _view_state_changed():
 			controller.pawn_camera.set_third_person()
 			%model.visible = true
 
+func tell_npc(method: StringName, ...args) -> void:
+	for npc in Global.get_tree().get_nodes_in_group(&"npc"):
+		if npc != get_controller().pawn:
+			npc.callv(method, args)
+
 func _update_as_controlled(delta: float) -> void:
 	if is_action_pressed(&"quick_equip_menu"):
-		controller.show_widgit(&"menu", { choices=[
-			{ text="Yes"},
-			{ text="No" },
-			{ text="Maybe"}
+		controller.show_widget(&"menu", { choices=[
+			{ text="Follow", call=tell_npc.bind(&"move_to", global_position) },
+			{ text="Set: Hostile" },
+			{ text="Set: Neutral" },
+			{ text="Set: Scared" },
+			{ text="Use: Vehcile" },
+			{ text="Use: Chair" },
+			{ text="Use: Item" },
 		]})
 		handle_input()
 		
 	elif is_action_pressed(&"toggle_quest_log"):
-		controller.toggle_widgit(Assets.WIDGIT_QUEST_LOG)
+		controller.toggle_widget(Assets.WIDGET_QUEST_LOG)
 	
 	elif is_action_both(&"interact", interact_start, interact_stop): pass
 	elif is_action_both(&"interact_alt", interact_alt_start, interact_alt_stop): pass

@@ -16,7 +16,7 @@ func _run() -> void:
 		"@abstract class_name AssetsBase extends Node"
 	]
 	var prefabs := []
-	var widgits := []
+	var widgets := []
 	
 	for scene_id in ass.scenes:
 		var scene_path := "res://scenes".path_join(ass.scenes[scene_id])
@@ -30,18 +30,18 @@ func _run() -> void:
 		if scene_path.begins_with("res://scenes/prefabs"):
 			prefabs.append(["const PREFAB_%s := \"%s\" # %s ms" % [const_name, uid, time / 1000.0], time])
 		elif scene is Widget:
-			widgits.append(["const WIDGIT_%s := \"%s\" # %s ms" % [const_name, uid, time / 1000.0], time])
+			widgets.append(["const WIDGET_%s := \"%s\" # %s ms" % [const_name, uid, time / 1000.0], time])
 		scene.free()
 	
 	prefabs.sort_custom(func(a, b): return a[1] > b[1])
-	widgits.sort_custom(func(a, b): return a[1] > b[1])
+	widgets.sort_custom(func(a, b): return a[1] > b[1])
 	
 	# Flatten array to strings.
 	prefabs = ["\n# Prefabs: %s" % prefabs.size()] + prefabs.map(func(x): return x[0])
-	widgits = ["\n# Widgits: %s" % widgits.size()] + widgits.map(func(x): return x[0])
+	widgets = ["\n# Widgets: %s" % widgets.size()] + widgets.map(func(x): return x[0])
 	
 	var file := FileAccess.open(PATH_AUTOGEN_ASSET_BASE, FileAccess.WRITE)
-	file.store_string("\n".join(code + prefabs + widgits))
+	file.store_string("\n".join(code + prefabs + widgets))
 	file.close()
 
 func _get_node_script(state: SceneState) -> GDScript:

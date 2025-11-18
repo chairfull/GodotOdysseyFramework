@@ -1,19 +1,31 @@
 @abstract class_name Widget extends Control
 
+signal closed(returned: Variant)
+
 var player_index := 0
 var _tween: Tween
 
 ## Is only one allowed.
 func is_exclusive() -> bool: return true
-## Will autohide when non-hud widgits are displayed.
+## Will autohide when non-hud widgets are displayed.
 func is_hud() -> bool: return false
 ## Will pause the game when displayed.
 func is_pauser() -> bool: return false
 ## Will stay visible when a cinematic is playing. (Captions, Choice Menu...)
 func is_visible_in_cinematic() -> bool: return false
 
-func close() -> void:
-	Controllers.get_controller(player_index).hide_widgit(name)
+func close(returned: Variant = null) -> void:
+	get_controller().hide_widget(name, returned)
+
+## Called by Controller.
+func _closed(returned: Variant) -> void:
+	closed.emit(returned)
+
+func show_widget(id: StringName) -> Widget:
+	return get_controller().show_widget(id)
+
+func hide_widget(id: StringName) -> bool:
+	return get_controller().hide_widget(id)
 
 func show_transitioned() -> void:
 	modulate.a = 0.0
@@ -40,4 +52,7 @@ func _cinematic_step(_gen: FlowPlayerGenerator, _step: Dictionary) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action(&"exit"):
-		(get_parent() as Controller).hide_widgit(name)
+		(get_parent() as Controller).hide_widget(name)
+
+func handle_input() -> void:
+	get_controller().viewport.set_input_as_handled()

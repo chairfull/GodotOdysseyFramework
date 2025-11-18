@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://52fw605jpf2i"]
+[gd_scene load_steps=4 format=3 uid="uid://52fw605jpf2i"]
 
 [ext_resource type="Script" uid="uid://vmpdnbpamoi3" path="res://scripts/nodes/controller.gd" id="1_ia60g"]
 [ext_resource type="Script" uid="uid://s3k7324tagti" path="res://scripts/nodes/camera_master.gd" id="2_cg1et"]
-[ext_resource type="Script" uid="uid://ovjr1tt5pv2g" path="res://scripts/widgits/hud_markers.gd" id="3_5kjgk"]
 [ext_resource type="PackedScene" uid="uid://clkh35bjyldwx" path="res://scenes/prefabs/cameras/camera_follow.tscn" id="4_cg1et"]
 
 [node name="controller" type="Control" unique_id=718559665 node_paths=PackedStringArray("pawn_camera")]
@@ -71,15 +70,5 @@ offset_top = 608.0
 offset_right = 91.0
 offset_bottom = 631.0
 text = "Screen 1w"
-
-[node name="markers" type="Control" parent="." unique_id=147392380]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("3_5kjgk")
 
 [node name="pawn_camera" parent="." unique_id=335324373 instance=ExtResource("4_cg1et")]

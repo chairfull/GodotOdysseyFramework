@@ -1,0 +1,34 @@
+main:
+  title: Odyssey Game
+  subtitle: Subtitle
+  version: "0.001"
+  menu:
+	choices:
+	  start:
+		text: Start
+		call: SCENE test_scene # change_scene(&"test_scene")
+	  load:
+		text: Load
+	  settings:
+		text: Settings
+	  quit:
+		text: Quit
+		call: SHOW quit # show_widget(&"quit")
+pause:
+  menu:
+	choices:
+	  continue:
+		text: Continue
+		call: hide_widget(&"pause_menu")
+	  save:
+		text: Save
+		call: show_widget(&"save_menu")
+	  load:
+		text: Load
+		call: show_widget(&"load_menu")
+	  settings:
+		text: Settings
+		call: show_widget(&"settings")
+	  quit:
+		text: Quit
+		call: show_widget(&"quit_popup")

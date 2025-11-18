@@ -1,4 +1,3 @@
-@tool
 extends AssetsBase
 
 var assets: AssetsDB:

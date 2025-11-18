@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cd00x6bmm01bb"]
+
+[ext_resource type="Script" uid="uid://ovjr1tt5pv2g" path="res://scenes/widgets/markers/screen_space_markers.gd" id="1_gevo4"]
+
+[node name="markers" type="Control" unique_id=1453656665]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_gevo4")

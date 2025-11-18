@@ -13,14 +13,18 @@ height = 1.0
 radial_segments = 32
 rings = 1
 
-[node name="barrel" type="RigidBody3D"]
+[node name="barrel" type="RigidBody3D" unique_id=593261198]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=663543527]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_5xmed")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=97202006]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 material_override = SubResource("StandardMaterial3D_5xmed")
 mesh = SubResource("CylinderMesh_kw1ic")
 skeleton = NodePath("../CollisionShape3D")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=408581721]
+radius = 0.6
+height = 2.0
