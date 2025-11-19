@@ -35,8 +35,12 @@ func can_unmount() -> bool:
 			return false
 	return true
 
-func _rider_interacted(pawn: Pawn, _form: Interactive.Form) -> void:
-	mount_rider.call_deferred(pawn)
+func _rider_interacted(pawn: Pawn, form: Interactive.Form) -> void:
+	match form:
+		Interactive.Form.INTERACT:
+			mount_rider.call_deferred(pawn)
+		Interactive.Form.INTERACT_ALT:
+			print("Alter Interact...")
 
 func mount_rider(new_rider: Pawn) -> void:
 	if _rider:

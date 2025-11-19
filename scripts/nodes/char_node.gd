@@ -232,20 +232,20 @@ func focus_stop():
 func interact_alt_start() -> bool:
 	if _interactive:
 		_interacting = _interactive
-		_interacting.interact(self, Interactive.Form.INTERACT_ALT)
+		_interacting.interaction_pressed(self, Interactive.Form.INTERACT_ALT)
 		return true
 	return false
 
 func interact_alt_stop() -> bool:
 	if _interacting:
-		_interacting.cancel(self)
+		_interacting.interaction_released(self)
 		_interacting = null
 		return true
 	return false
 
 func interact_start() -> bool:
-	if _interactive:#interactive_detector.is_detecting():
-		_interacting = _interactive#interactive_detector.get_nearest() as Interactive
+	if _interactive:
+		_interacting = _interactive
 		_interacting.interaction_pressed(self)
 		return true
 	return false
