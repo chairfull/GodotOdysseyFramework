@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://52fw605jpf2i"]
 
-[ext_resource type="Script" uid="uid://vmpdnbpamoi3" path="res://scripts/nodes/controller.gd" id="1_ia60g"]
+[ext_resource type="Script" uid="uid://vmpdnbpamoi3" path="res://scripts/nodes/player_controller.gd" id="1_ia60g"]
 [ext_resource type="Script" uid="uid://s3k7324tagti" path="res://scripts/nodes/camera_master.gd" id="2_cg1et"]
 [ext_resource type="PackedScene" uid="uid://clkh35bjyldwx" path="res://scenes/prefabs/cameras/camera_follow.tscn" id="4_cg1et"]
 

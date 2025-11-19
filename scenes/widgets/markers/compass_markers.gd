@@ -11,7 +11,7 @@ func _process(_delta: float) -> void:
 	var half := w * 0.5
 	var fov_half := PI * 0.5 # ±90 degrees
 	
-	var pawn_pos := get_controller().pawn.global_position
+	var pawn_pos := get_pawn().global_position
 	
 	for marker in markers:
 		var marker_2d := markers[marker]

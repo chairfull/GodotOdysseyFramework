@@ -121,7 +121,7 @@ func refresh():
 			_install_effect(parser.link_effect)
 			set_process_input(true)
 	else:
-		print("No parser...")
+		push_warning("No parser...")
 	
 	if false and "[/img]" in bb:
 		# HACK: To give images a key so we can update them with RichTextLabel effects.

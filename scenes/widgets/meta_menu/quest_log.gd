@@ -68,7 +68,6 @@ func _refresh_quest_info():
 		quest_info.text = ""
 
 func _select_quest(q: QuestInfo):
-	print("Selected quest ", q)
 	quest = q
 	_refresh_quest_info()
 

@@ -1,12 +1,7 @@
-extends Agent
+extends CharNode
 
 @export var speed := 1.5
 @export var flee := false
-
-func _ready() -> void:
-	super()
-	node_seeing.started.connect(_noticed)
-	node_seeing.ended.connect(_unnoticed)
 
 func _noticed():
 	if not flee:
@@ -14,7 +9,7 @@ func _noticed():
 		#print("fly away")
 	
 func _unnoticed():
-	if not node_seeing.is_detecting() and not node_hearing.is_detecting():
+	if not eyes.is_detecting() and not ears.is_detecting():
 		flee = false
 		#print("stop flying")
 

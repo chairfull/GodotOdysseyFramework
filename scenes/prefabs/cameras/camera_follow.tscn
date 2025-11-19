@@ -22,7 +22,7 @@ unique_name_in_owner = true
 
 [node name="camera" type="Camera3D" parent="pivot/spring_arm/offset" unique_id=1213349198]
 
-[node name="head_remote" type="RemoteTransform3D" parent="pivot/spring_arm/offset/camera" unique_id=2076897846]
+[node name="remote" type="RemoteTransform3D" parent="pivot/spring_arm/offset/camera" unique_id=2076897846]
 unique_name_in_owner = true
 update_position = false
 update_scale = false

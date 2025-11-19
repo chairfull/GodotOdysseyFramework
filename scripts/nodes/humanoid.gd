@@ -3,48 +3,6 @@ class_name Humanoid extends CharNode
 #var camera: CameraTarget ## TODO: Move to controller...
 var _crouch_hold_time := 0.0
 var _crouch_held := false
-var _interactive_hud: Widget
-
-#func equip(item_node: ItemNode, equip_id: StringName):
-	#var parent := get_node("%equip_" + equip_id)
-	#item_node.reparent(parent)
-	#
-	#if is_equipped(equip_id):
-		#unequip(equip_id)
-	#
-	#_equipped[equip_id] = item_node
-	#
-	#print("TODO: PICKUP")
-	#var dummy := MeshInstance3D.new()
-	#get_tree().current_scene.add_child(dummy)
-	#dummy.mesh = BoxMesh.new()
-	#dummy.mesh.size = Vector3.ONE * .2
-	#dummy.layers = 1<<1
-	#var camera := player_controller.camera_master.target.get_parent()
-	#var remote := RemoteTransform3D.new()
-	#camera.add_child(remote)
-	#remote.remote_path = dummy.get_path()
-	#remote.position = Vector3(-0.2, -0.2, -0.2)
-	
-	#_held_item = item_node
-	#_held_item.item._node_equipped(_held_item)
-	#_held_item.mount = self
-	#_held_item.process_mode = Node.PROCESS_MODE_DISABLED
-	#
-	#_held_item_remote = RemoteTransform3D.new()
-	#camera.add_child(_held_item_remote)
-	#_held_item_remote.name = "held_item"
-	#_held_item_remote.update_scale = false
-	#_held_item_remote.update_rotation = true
-	#_held_item_remote.update_position = true
-	#_held_item_remote.global_position = _held_item.global_position
-	#_held_item_remote.global_basis = _held_item.global_basis
-	#_held_item_remote.remote_path = _held_item.get_path()
-	
-	#UTween.parallel(self, {
-		#"_held_item_remote:position": Vector3(0.2, -0.2, -0.2),
-		#"_held_item_remote:basis": Basis.IDENTITY
-	#}, 0.1)
 
 func stand():
 	_next_prone_state = ProneState.Stand
@@ -73,51 +31,64 @@ func crawl():
 		prone_state = ProneState.Crawl
 		prone_state_changed.emit())
 
-func _controlled(con: Controller) -> void:
-	super(con)
+func _controlled() -> void:
+	super()
 	
-	#agent.interactive_detector.visible_changed.connect(agent.interactive_changed.emit)
-	controller.view_state_changed.connect(_view_state_changed)
-	controller.show_widget(&"compass_markers")
-	controller.show_widget(&"screen_space_markers")
-	controller.show_widget(&"toast_manager")
-	controller.show_widget(&"world_time")
-	_interactive_hud = controller.show_widget(&"interaction_label")
-	_interactive_hud.set_agent(self)
+	_controller.view_state_changed.connect(_view_state_changed)
+	_controller.show_widget(&"compass_markers")
+	_controller.show_widget(&"screen_space_markers")
+	_controller.show_widget(&"toast_manager")
+	_controller.show_widget(&"world_time")
+	_controller.show_widget(&"interaction_label")
 	_view_state_changed()
-
-func _uncontrolled(con: Controller) -> void:
-	super(con)
 	
-	_interactive_hud.close()
-	_interactive_hud = null
-	#agent.interactive_detector.visible_changed.disconnect(agent.interactive_changed.emit)
-	controller.view_state_changed.disconnect(_view_state_changed)
-	controller.hide_widget(&"compass_markers")
-	controller.hide_widget(&"screen_space_markers")
-	controller.hide_widget(&"interaction_label")
-	controller.hide_widget(&"world_time")
-	controller.hide_widget(&"toast_manager")
+	# Copy camera rotation to head.
+	_controller.pawn_camera.get_node("%remote").remote_path = %head.get_path()
+	
+	# Copy head position to camera.
+	var remote := RemoteTransform3D.new()
+	%head.add_child(remote)
+	remote.name = "camera_remote"
+	remote.update_position = true
+	remote.update_rotation = false
+	remote.update_scale = false
+	remote.remote_path = _controller.pawn_camera.get_path()
+
+func _uncontrolled() -> void:
+	super()
+	_controller.view_state_changed.disconnect(_view_state_changed)
+	_controller.hide_widget(&"compass_markers")
+	_controller.hide_widget(&"screen_space_markers")
+	_controller.hide_widget(&"interaction_label")
+	_controller.hide_widget(&"world_time")
+	_controller.hide_widget(&"toast_manager")
+	
+	_controller.pawn_camera.get_node("%remote").remote_path = ""
+	
+	var remote := %head.get_node_or_null("camera_remote")
+	if remote:
+		%head.remove_child(remote)
+		remote.queue_free()
 
 func _view_state_changed():
-	match controller.view_state:
-		Controller.ViewState.FirstPerson:
-			Global.wait(0.35, controller.show_fps_viewport)
-			await controller.pawn_camera.set_first_person()
+	match _controller.view_state:
+		PlayerController.ViewState.FirstPerson:
+			Global.wait(0.35, _controller.show_fps_viewport)
+			await _controller.pawn_camera.set_first_person()
 			%model.visible = false
-		Controller.ViewState.ThirdPerson:
-			controller.hide_fps_viewport()
-			controller.pawn_camera.set_third_person()
+		PlayerController.ViewState.ThirdPerson:
+			_controller.hide_fps_viewport()
+			_controller.pawn_camera.set_third_person()
 			%model.visible = true
 
 func tell_npc(method: StringName, ...args) -> void:
 	for npc in Global.get_tree().get_nodes_in_group(&"npc"):
-		if npc != get_controller().pawn:
+		if npc != _controller.pawn:
 			npc.callv(method, args)
 
 func _update_as_controlled(delta: float) -> void:
 	if is_action_pressed(&"quick_equip_menu"):
-		controller.show_widget(&"menu", { choices=[
+		_controller.show_widget(&"menu", { choices=[
 			{ text="Follow", call=tell_npc.bind(&"move_to", global_position) },
 			{ text="Set: Hostile" },
 			{ text="Set: Neutral" },
@@ -129,7 +100,7 @@ func _update_as_controlled(delta: float) -> void:
 		handle_input()
 		
 	elif is_action_pressed(&"toggle_quest_log"):
-		controller.toggle_widget(Assets.WIDGET_QUEST_LOG)
+		_controller.toggle_widget(Assets.WIDGET_QUEST_LOG)
 	
 	elif is_action_both(&"interact", interact_start, interact_stop): pass
 	elif is_action_both(&"interact_alt", interact_alt_start, interact_alt_stop): pass
@@ -187,10 +158,10 @@ func _update_as_controlled(delta: float) -> void:
 				crawl()
 	
 	var inter: Interactive
-	if controller.is_third_person():
+	if _controller.is_third_person():
 		var pos := interactive_detector.global_position
 		inter = interactive_detector.get_nearest(pos)
-	elif controller.is_first_person():
+	elif _controller.is_first_person():
 		inter = interactive_detector.get_nearest(looking_at)
 	
 	if inter != _interactive:
@@ -200,8 +171,8 @@ func _update_as_controlled(delta: float) -> void:
 		if _interactive:
 			_interactive.highlight = Interactive.Highlight.FOCUSED
 	
-	var input_dir := controller.get_move_vector_camera()
-	var cam: Camera3D = controller.pawn_camera.camera
+	var input_dir := _controller.get_move_vector_camera()
+	var cam: Camera3D = _controller.pawn_camera.camera
 	
 	if is_focusing():
 		var cam_dir := cam.global_rotation.y

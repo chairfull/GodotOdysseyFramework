@@ -36,7 +36,6 @@ func _input(event: InputEvent) -> void:
 			var mouse_pos = vp.get_mouse_position()
 			var from = cam.project_ray_origin(mouse_pos)
 			var to = from + cam.project_ray_normal(mouse_pos) * 1000.0
-			prints(vp, cam, cam.get_world_3d())
 			var space_state = cam.get_world_3d().direct_space_state
 			var query := PhysicsRayQueryParameters3D.create(from, to)
 			query.collide_with_areas = true

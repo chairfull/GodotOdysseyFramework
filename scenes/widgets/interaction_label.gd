@@ -1,19 +1,17 @@
 extends Widget
 
 @onready var label: RichTextLabel = %label
-var char_node: CharNode
+var node: CharNode
 var interactive: Interactive
 
 func _ready() -> void:
 	set_visible(false)
 	set_process(false)
-
-func set_agent(cn: CharNode):
-	char_node = cn
-	char_node.interactive_changed.connect(_interactive_changed)
+	node = get_pawn() as CharNode
+	node.interactive_changed.connect(_interactive_changed)
 
 func _interactive_changed():
-	var inter := char_node._interactive
+	var inter := node._interactive
 	if inter:
 		set_process(true)
 		reset_size()
@@ -33,7 +31,7 @@ func _interactive_changed():
 
 func _process(_delta: float) -> void:
 	if not interactive: return
-	var vp := Controllers.player.viewport
+	var vp := get_controller().viewport
 	var cam := vp.get_camera_3d()
 	var pos_3d := interactive.global_position + interactive.label_world_space_offset
 	var pos := cam.unproject_position(pos_3d)

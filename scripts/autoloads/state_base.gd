@@ -18,7 +18,7 @@ const LOGO := r"""
 class PawnEvent extends Event:
 	var pawn: Pawn
 	var posessed: Pawn
-	var controller: Controller
+	var controller: PlayerController
 
 class QuestEvent extends Event:
 	var quest: QuestInfo

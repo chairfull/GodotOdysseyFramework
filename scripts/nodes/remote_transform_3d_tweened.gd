@@ -14,7 +14,9 @@ func set_node(n: Node3D):
 	if remote_node == n: return
 	remote_node = n
 	
-	if not remote_node: return
+	if not remote_node:
+		remote_path = ^""
+		return
 	
 	var start_pos := remote_node.global_position
 	var start_rot := remote_node.global_rotation

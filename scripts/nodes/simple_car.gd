@@ -93,16 +93,17 @@ func _process(_delta: float) -> void:
 		wheel.wheel_friction_slip = wheel_friction
 		wheel.suspension_stiffness = suspension_stiff_value
 
-func _controlled(con: Controller) -> void:
-	super(con)
+func _controlled() -> void:
+	super()
+	
 	if not aux_engine.playing:
 		aux_engine.play()
 	
 	for light in front_lights:
 		light.visible = true
 
-func _uncontrolled(con: Controller) -> void:
-	super(con)
+func _uncontrolled() -> void:
+	super()
 	
 	if aux_engine.playing:
 		aux_engine.stop()

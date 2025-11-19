@@ -1,0 +1,15 @@
+[gd_resource type="BehaviorTree" load_steps=5 format=3 uid="uid://cbee5riylyy70"]
+
+[ext_resource type="Script" uid="uid://dl4h513s0orci" path="res://assets/ai/tasks/pawn_as_controlled.gd" id="1_7oeen"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_7ednj"]
+
+[sub_resource type="BTAction" id="BTAction_fwka8"]
+script = ExtResource("1_7oeen")
+
+[sub_resource type="BTSequence" id="BTSequence_58teq"]
+children = [SubResource("BTAction_fwka8")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_7ednj")
+root_task = SubResource("BTSequence_58teq")

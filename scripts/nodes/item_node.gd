@@ -30,9 +30,12 @@ func _ready() -> void:
 	interactive.can_interact = _can_interact
 	update_label()
 
+func get_controller() -> PlayerController:
+	return get_holder()._controller
+
 func try_show_widget(widget_id: StringName) -> bool:
 	if get_holder().is_controlled():
-		_widget = get_holder().get_controller().show_widget(widget_id, { node=self }, true)
+		_widget = get_controller().show_widget(widget_id, { node=self }, true)
 		_widget.refresh()
 		return true
 	return false

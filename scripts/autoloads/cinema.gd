@@ -36,7 +36,7 @@ func _play(scene: Variant, state: Dictionary[StringName, Variant]):
 	_current.play(id + "/ROOT")
 
 func _cinematic_ended():
-	print("CINEMA ENDED ", _current, " QUEUE ", _queue)
+	Log.msg("Cinema Ended", _current, { queue=_queue })
 	remove_child(_current)
 	_current.queue_free()
 	_current = null

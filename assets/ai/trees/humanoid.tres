@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=13 format=3 uid="uid://bajdgib3dnvq6"]
+[gd_resource type="BehaviorTree" load_steps=12 format=3 uid="uid://bajdgib3dnvq6"]
 
 [ext_resource type="Script" uid="uid://dl4h513s0orci" path="res://assets/ai/tasks/pawn_as_controlled.gd" id="1_7x8gf"]
 [ext_resource type="Script" uid="uid://bi8eke0ux5jt5" path="res://assets/ai/tasks/npc_navigate_to_target.gd" id="3_lmlsa"]
@@ -23,15 +23,12 @@ resource_local_to_scene = true
 [sub_resource type="BTAction" id="BTAction_3a3dj"]
 script = ExtResource("1_7x8gf")
 
-[sub_resource type="BTRandomWait" id="BTRandomWait_7x8gf"]
-max_duration = 5.0
-
 [sub_resource type="BTAction" id="BTAction_r1nn7"]
 script = ExtResource("3_lmlsa")
 
 [sub_resource type="BTSequence" id="BTSequence_tjwfk"]
 custom_name = "Idle"
-children = [SubResource("BTRandomWait_7x8gf"), SubResource("BTAction_r1nn7")]
+children = [SubResource("BTAction_r1nn7")]
 
 [sub_resource type="BTSequence" id="BTSequence_11kkr"]
 custom_name = "Combat"

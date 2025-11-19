@@ -22,6 +22,7 @@ class Tracked extends Resource:
 @export var confidence_increase_scale := 4.0
 @export var confidence_decrease_scale := 1.0
 @export var memory_seconds := 1.0 ## How long after undetected to forget about the node.
+@export var simple := false
 @export_range(1, 3) var raycasts := 3 ## Raycasts to check that node isn't occluded.
 @export var enabled := true: set=set_enabled
 var ignore: Array[Node3D]
@@ -110,14 +111,14 @@ func _physics_process(delta: float) -> void:
 			var curr_pos := node.global_position
 			if last_pos != curr_pos:
 				tracking.last_position = curr_pos
-				tracking.last_direction = curr_pos - last_pos
+				# Only update direction if they were moving.
+				if (curr_pos - last_pos).length() > .01:
+					tracking.last_direction = curr_pos - last_pos
 				moved.emit(node)
 		else:
 			tracking.remember_time -= 1.0 * delta
 			if tracking.remember_time <= 0.0:
 				_forget.call_deferred(node)
-			if owner.name != "player":
-				print("%s forgetting %s in %s" % [owner.name, node.name, tracking.remember_time])
 
 func _forget(node: Node3D) -> void:
 	_nodes.erase(node)
@@ -126,7 +127,8 @@ func _forget(node: Node3D) -> void:
 		set_process(false)
 
 func _is_ray_path_clear(target: Node3D) -> bool:
-	#return true
+	if simple:
+		return true
 	var from := global_position
 	var targ_pos := target.global_position + Vector3.UP * (.5 + randf_range(0.0, 0.5))
 	var targ_radius := 1.0# ((target.get_child(0) as CollisionShape3D).shape as SphereShape3D).radius

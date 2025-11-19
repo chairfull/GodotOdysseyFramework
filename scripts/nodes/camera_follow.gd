@@ -3,13 +3,11 @@ class_name CameraFollow extends CameraTarget
 @onready var pivot: Node3D = %pivot
 @onready var spring_arm: SpringArm3D = %spring_arm
 @onready var offset: Node3D = %offset
-
 @export var mouse_sensitivity := 0.02
 @export var rot_y := 0.0
 @export var rot_x := 0.0
 @export var view_mode := ViewMode.FIRST_PERSON
 @export var focusing := false
-
 var fov_focused := 30.0
 var fov_unfocused := 75.0
 var focus_offset := Vector2(10.0, 10.0)
@@ -28,13 +26,10 @@ func _ready() -> void:
 	process_priority = 100
 	process_physics_priority = 100
 
-#func _enter_tree() -> void:
-	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	#
-#func _exit_tree() -> void:
-	#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-
-func set_target(t):
+func set_target(t: Node3D) -> void:
+	if target and target is CharNode:
+		target.focus_started.disconnect(_focus_started)
+		target.focus_stopped.disconnect(_focus_stopped)
 	super(t)
 	if target is CharNode:
 		target.focus_started.connect(_focus_started)
@@ -83,7 +78,6 @@ func _input(event: InputEvent) -> void:
 		rot_x = clampf(rot_x, deg_to_rad(-89), deg_to_rad(89))
 
 func _process(delta: float) -> void:
-	
 	pivot.rotation.y = lerp_angle(pivot.rotation.y, rot_y + aim_offset_y, 30.0 * delta)
 	pivot.rotation.x = lerp_angle(pivot.rotation.x, rot_x, 30.0 * delta)
 	

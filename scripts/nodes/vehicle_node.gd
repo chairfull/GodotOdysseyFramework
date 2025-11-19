@@ -11,15 +11,16 @@ var move := Vector2.ZERO ## X=throttle (forward/backward), Y=steering (left/righ
 ## Used when Controller active.
 func _update_as_controlled(_delta: float) -> void:
 	if is_action_pressed(&"exit"):
-		kick_rider()
+		dismount_rider()
 		handle_input()
 	
 	elif is_action_both(&"honk", honk_start, honk_stop): pass
 	elif is_action_both(&"brake", brake_start, brake_stop): pass
 	
-	move = controller.get_move_vector()
+	move = _controller.get_move_vector()
 
-func _lost_rider(_rider: Pawn) -> void:
+func _lost_rider() -> void:
+	super()
 	move = Vector2.ZERO
 	body.brake = false
 

@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://sre8xdbu2u7v"]
+
+[ext_resource type="Script" uid="uid://bxfo72qqe1kxr" path="res://scripts/nodes/humanoid_seat.gd" id="1_6qfsc"]
+[ext_resource type="Script" uid="uid://l6evnfr3gvt5" path="res://scripts/nodes/remote_transform_3d_tweened.gd" id="2_8by7j"]
+[ext_resource type="BehaviorTree" uid="uid://cbee5riylyy70" path="res://assets/ai/trees/pawn.tres" id="2_n8k00"]
+[ext_resource type="PackedScene" uid="uid://u3bkxfb8i7gw" path="res://addons/kaykit_furniture_bits/Assets/gltf/chair_B.gltf" id="2_nfv84"]
+[ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/nodes/interactive.gd" id="3_n8k00"]
+[ext_resource type="Script" uid="uid://llfmpeqtpli1" path="res://scripts/nodes/camera_target.gd" id="6_8by7j"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_8by7j"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6qfsc"]
+size = Vector3(0.80322266, 0.4633789, 0.9639282)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nfv84"]
+size = Vector3(0.80322266, 0.83843994, 0.40823364)
+
+[node name="chair" type="StaticBody3D" unique_id=1043580841 node_paths=PackedStringArray("behavior", "mount_interact")]
+script = ExtResource("1_6qfsc")
+behavior = NodePath("BTPlayer")
+mount_interact = NodePath("Area3D")
+
+[node name="remote" type="RemoteTransform3D" parent="." unique_id=422455249]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 9.713386e-09, 0.075086236, 0.5120555)
+script = ExtResource("2_8by7j")
+metadata/_custom_type_script = "uid://l6evnfr3gvt5"
+
+[node name="BTPlayer" type="BTPlayer" parent="." unique_id=1902775322]
+behavior_tree = ExtResource("2_n8k00")
+blackboard_plan = SubResource("BlackboardPlan_8by7j")
+
+[node name="chair_B2" parent="." unique_id=1269643543 instance=ExtResource("2_nfv84")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1480498658]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010009766, 0.2713009, -0.030376554)
+shape = SubResource("BoxShape3D_6qfsc")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=552545136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010009766, 0.8340101, -0.30822384)
+shape = SubResource("BoxShape3D_nfv84")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=139691980]
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_n8k00")
+label = "Chair"
+interact_label = "[E] Sit"
+interact_alt_label = "[Z] Other"
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D" unique_id=1121683318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010009766, 0.2713009, -0.030376554)
+shape = SubResource("BoxShape3D_6qfsc")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Area3D" unique_id=1927373665]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010009766, 0.8340101, -0.30822384)
+shape = SubResource("BoxShape3D_nfv84")
+
+[node name="camtarget" type="Node3D" parent="." unique_id=1294137215 node_paths=PackedStringArray("camera")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83530813, 1.592036)
+script = ExtResource("6_8by7j")
+camera = NodePath("Camera3D")
+metadata/_custom_type_script = "uid://llfmpeqtpli1"
+
+[node name="Camera3D" type="Camera3D" parent="camtarget" unique_id=996268055]
+transform = Transform3D(0.7750549, 0.17739396, -0.6064829, 1.4901161e-08, 0.9597857, 0.28073373, 0.63189405, -0.21758401, 0.74388653, -0.750854, 0.5763342, -0.4113964)

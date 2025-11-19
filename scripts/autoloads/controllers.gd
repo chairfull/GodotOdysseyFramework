@@ -1,17 +1,12 @@
 extends Control
-## Handles players and npcs.
+## Handles players. # TODO: Splitscreen.
 
-#signal event(ev: Event, data: Variant)
-
-var player: Controller = load("res://scenes/prefabs/controller.tscn").instantiate()
-var player2: Controller = load("res://scenes/prefabs/controller.tscn").instantiate()
-var players: Dictionary[StringName, Controller] = {
+var player: PlayerController = load("res://scenes/prefabs/controller.tscn").instantiate()
+var player2: PlayerController = load("res://scenes/prefabs/controller.tscn").instantiate()
+var players: Dictionary[StringName, PlayerController] = {
 	"player": player,
 	"player2": player2
 }
-
-#var EV_SHOW_MARKER := Event.new(event)
-#var EV_HIDE_MARKER := Event.new(event)
 
 func _ready() -> void:
 	mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_DISABLED
@@ -35,7 +30,7 @@ func _ready() -> void:
 	
 	get_tree().current_scene.get_viewport().disable_3d = true
 
-func get_controller(index: int) -> Controller:
+func get_controller(index: int) -> PlayerController:
 	match index:
 		0: return player
 		1: return player2

@@ -8,7 +8,6 @@ func _enter() -> void:
 
 func _tick(_delta: float) -> Status:
 	var movetotarg: Variant = blackboard.get_var(&"move_to_target", false)
-	print("move to targ ", movetotarg)
 	if movetotarg:
 		return FAILURE
 	return RUNNING

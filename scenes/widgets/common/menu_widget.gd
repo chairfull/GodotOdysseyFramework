@@ -75,8 +75,6 @@ func _cinematic_step(gen: FlowPlayerGenerator, step: Dictionary) -> void:
 				"text": substep.text,
 				"anim": gen._add_branch_queued(substep.tabbed) })
 	
-	print("GENERATE ", menu_choices.size())
-	
 	var count: int = gen.get_state(&"menu_count", 0)
 	gen.set_state(&"menu_count", count + 1)
 	

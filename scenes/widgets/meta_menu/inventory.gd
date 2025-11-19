@@ -22,6 +22,5 @@ func _ready() -> void:
 	if slot_parent.get_child_count() > 0:
 		(slot_parent.get_child(0) as Control).grab_focus.call_deferred()
 
-func _selected(node: Node):
-	print(node)
+func _selected(_node: Node):
 	Global.wait(1.5, get_tree().quit)

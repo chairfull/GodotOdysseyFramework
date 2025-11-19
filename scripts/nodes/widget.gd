@@ -43,16 +43,18 @@ func close_transitioned() -> void:
 	_tween.tween_property(self, "modulate:a", 0.0, 0.125)
 	_tween.tween_callback(close)
 
-func get_controller() -> Controller:
+func get_pawn() -> Pawn:
+	return get_controller()._pawn
+
+func get_controller() -> PlayerController:
 	return Controllers.get_controller(player_index)
 
 ## Used by FlowPlayerGenerator to create keyframes.
 func _cinematic_step(_gen: FlowPlayerGenerator, _step: Dictionary) -> void:
 	pass
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action(&"exit"):
-		(get_parent() as Controller).hide_widget(name)
+func _unhandled_input(_event: InputEvent) -> void:
+	pass
 
 func handle_input() -> void:
 	get_controller().viewport.set_input_as_handled()

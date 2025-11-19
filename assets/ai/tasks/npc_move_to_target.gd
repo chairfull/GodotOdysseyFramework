@@ -20,7 +20,6 @@ func _tick(delta: float) -> Status:
 		node.lerp_direction(delta)
 		return RUNNING
 	
-	print("Reached position!")
 	node.movement = Vector2.ZERO
 	blackboard.set_var(&"move_to_target", false)
 	return SUCCESS

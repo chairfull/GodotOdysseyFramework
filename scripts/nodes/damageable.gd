@@ -20,7 +20,6 @@ func damage(amount: float, _type := -1):
 	var old_health := health
 	health -= amount
 	if health == old_health: return
-	print("DAMAGE %s/%s" % [health, max_health])
 	var diff := old_health - health
 	if diff > 0:
 		damaged.emit(diff)

@@ -16,13 +16,13 @@ func get_marker_asset() -> StringName:
 
 func _group_added(node: Node, id: StringName) -> void:
 	if id != &"marker": return
-	if node.owner == get_controller().pawn: return
+	if node.owner == get_pawn(): return
 	var marker := Assets.create_scene(get_marker_asset(), self)
 	markers[node as Node3D] = marker
 
 func _group_removed(node: Node, id: StringName) -> void:
 	if id != &"marker": return
-	if node.owner == get_controller().pawn: return
+	if node.owner == get_pawn(): return
 	var marker := markers[node as Node3D]
 	remove_child(marker)
 	marker.queue_free()

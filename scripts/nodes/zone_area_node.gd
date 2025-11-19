@@ -28,7 +28,6 @@ func _body_entered(body: Node3D):
 		if not zone or not who: return
 		State.ZONE_ENTERED.fire({ zone=zone, who=who })
 		var msg := "%s entered %s" % [who.name, zone.name]
-		print(msg)
 		if toast_on_enter:
 			State.TOAST.fire({ type="simple_toast", data={text=msg} })
 		

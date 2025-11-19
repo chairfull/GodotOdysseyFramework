@@ -17,7 +17,6 @@ func _ready() -> void:
 		push_warning("[OS Desktop] No file container.")
 
 func _file_added(node: Node) -> void:
-	prints(node, node is OSFileIcon)
 	if node is OSFileIcon:
 		node.gui_input.connect(_file_input_event.bind(node))
 

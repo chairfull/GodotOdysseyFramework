@@ -15,7 +15,7 @@ func _interacted(pawn: Pawn, _form: Interactive.Form):
 	var mount := Pawn.new()
 	mount.name = pawn.name + "_mount"
 	add_child(mount)
-	mount.set_rider.call_deferred(pawn)
+	mount.mount_rider(pawn)
 
 func _can_interact(_pawn: Pawn) -> bool:
 	return _occupants.size() < max_occupants

@@ -96,15 +96,18 @@ func _velocity_computed(safe_velocity: Vector3) -> void:
 	body.velocity = safe_velocity
 	body.move_and_slide()
 
-func _controlled(con: Controller) -> void:
-	super(con)
+func _controlled() -> void:
+	super()
 	nav_agent.avoidance_enabled = false
 	eyes.enabled = false
 	ears.enabled = false
 	%debug.enabled = false
 
-func _uncontrolled(con: Controller) -> void:
-	super(con)
+func _uncontrolled() -> void:
+	super()
+	_enable_ai.call_deferred()
+
+func _enable_ai() -> void:
 	nav_agent.avoidance_enabled = true
 	eyes.enabled = true
 	ears.enabled = true
@@ -178,8 +181,7 @@ func _physics_process(delta: float) -> void:
 				add_child(audio)
 				audio.play(0.1)
 				audio.finished.connect(func():
-					audio.queue_free()
-					print("removed"))
+					audio.queue_free())
 		
 		if _was_in_air:
 			_was_in_air = false
@@ -278,11 +280,13 @@ func is_standing() -> bool: return prone_state == ProneState.Stand or _next_pron
 
 func freeze() -> void:
 	body.collision_mask = 0
+	direction = 0.0
 	set_process(false)
 	set_physics_process(false)
 
 func unfreeze() -> void:
 	body.collision_mask = 1
+	fix_direction()
 	set_process(true)
 	set_physics_process(true)
 
