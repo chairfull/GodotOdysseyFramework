@@ -86,7 +86,11 @@ func tell_npc(method: StringName, ...args) -> void:
 		if npc != _controller.pawn:
 			npc.callv(method, args)
 
-func _update_as_controlled(delta: float) -> void:
+func _stopped_riding() -> void:
+	super()
+	behavior.restart()
+
+func _update_as_player(delta: float) -> void:
 	if is_action_pressed(&"quick_equip_menu"):
 		_controller.show_widget(&"menu", { choices=[
 			{ text="Follow", call=tell_npc.bind(&"move_to", global_position) },

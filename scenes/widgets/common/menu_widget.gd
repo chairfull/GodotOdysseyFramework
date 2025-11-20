@@ -18,7 +18,7 @@ func get_choice_prefab() -> PackedScene:
 
 func set_choices(c: Array) -> void:
 	button_list.clear()
-	choices = c
+	choices.assign(c)
 	
 	print("Menu Choices: ", choices.map(func(x: Dictionary) -> String: return x.get(&"text", "NO_TEXT")))
 	

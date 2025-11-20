@@ -15,6 +15,7 @@ func _ready() -> void:
 	node.nav_agent.path_changed.connect(_path_changed)
 	node.eyes.detected.connect(_tracking_start)
 	node.eyes.forgot.connect(_tracking_stop)
+	set_process(enabled)
 
 func _tracking_start(n: Node3D) -> void:
 	if not n in detected: detected.append(n)
@@ -40,7 +41,7 @@ func _process(_delta: float) -> void:
 	
 	# Confidence lines.
 	for line in det._debug_lines:
-		DebugDraw3D.draw_line(line[0], line[1], Color.RED)
+		DebugDraw3D.draw_line(line[0], line[1], line[2])
 	
 	# Last visible position.
 	for n in detected:

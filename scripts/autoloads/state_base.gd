@@ -173,20 +173,20 @@ func add_pauser(obj: Object):
 	if obj in _pausers: return
 	_pausers.append(obj)
 	if _pausers.size() == 1:
-		_pause.call_deferred()
+		_paused.call_deferred()
 
 func remove_pauser(obj: Object):
 	if not obj in _pausers: return
 	_pausers.erase(obj)
 	if _pausers.size() == 0:
-		_unpause.call_deferred()
+		_unpaused.call_deferred()
 
-func _pause():
+func _paused():
 	get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	paused.emit()
 	
-func _unpause():
+func _unpaused():
 	get_tree().current_scene.process_mode = Node.PROCESS_MODE_INHERIT
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	unpaused.emit()

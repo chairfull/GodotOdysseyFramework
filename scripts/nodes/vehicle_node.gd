@@ -9,7 +9,7 @@ var _honking := false
 var move := Vector2.ZERO ## X=throttle (forward/backward), Y=steering (left/right)
 
 ## Used when Controller active.
-func _update_as_controlled(_delta: float) -> void:
+func _update_as_player(_delta: float) -> void:
 	if is_action_pressed(&"exit"):
 		dismount_rider()
 		handle_input()

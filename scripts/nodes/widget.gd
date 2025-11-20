@@ -56,5 +56,11 @@ func _cinematic_step(_gen: FlowPlayerGenerator, _step: Dictionary) -> void:
 func _unhandled_input(_event: InputEvent) -> void:
 	pass
 
+func is_action_pressed(action: StringName) -> bool:
+	return get_controller().is_action_pressed(action)
+
+func is_action_released(action: StringName) -> bool:
+	return get_controller().is_action_released(action)
+
 func handle_input() -> void:
 	get_controller().viewport.set_input_as_handled()

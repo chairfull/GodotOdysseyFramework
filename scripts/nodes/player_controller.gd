@@ -130,6 +130,10 @@ func _unhandled_input(_event: InputEvent) -> void:
 			if _focused_control: focus_entered.emit(_focused_control)
 			get_viewport().input_as_handled()
 	
+	if is_action_pressed(&"pause"):
+		show_widget(&"pause_menu")
+		get_viewport().set_input_as_handled()
+	
 	if is_action_pressed(&"toggle_first_person", true):
 		view_state = ViewState.FirstPerson
 		get_viewport().set_input_as_handled()

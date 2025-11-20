@@ -101,7 +101,7 @@ func _controlled() -> void:
 	nav_agent.avoidance_enabled = false
 	eyes.enabled = false
 	ears.enabled = false
-	%debug.enabled = false
+	%debug_human.enabled = false
 
 func _uncontrolled() -> void:
 	super()
@@ -111,18 +111,23 @@ func _enable_ai() -> void:
 	nav_agent.avoidance_enabled = true
 	eyes.enabled = true
 	ears.enabled = true
-	%debug.enabled = true
+	%debug_human.enabled = true
 
 func lerp_direction(delta: float, speed := 10.0) -> void:
 	#var ang := Vector2(curr_pos.x, curr_pos.z).direction_to(Vector2(next_pos.x, next_pos.z))
 	#direction = lerp_angle(direction, atan2(-ang.y, ang.x), delta * 10.0)
 	direction = lerp_angle(direction, atan2(movement.y, -movement.x) + PI * .5, delta * speed)
 
-func move_to(at: Vector3) -> void:
-	nav_agent.set_target_position(at)
+func move_to(pos: Vector3, to_node: Node3D = null, now := true) -> void:
+	var rid := nav_agent.get_navigation_map()
+	var safe_pos := NavigationServer3D.map_get_closest_point(rid, pos)
+	if now and is_riding():
+		stop_riding()
+	nav_agent.set_target_position(safe_pos)
 	behavior.blackboard.set_var(&"move_to_target", true)
-	behavior.blackboard.set_var(&"target_position", at)
-
+	behavior.blackboard.set_var(&"target_position", safe_pos)
+	behavior.blackboard.set_var(&"target_node", to_node)
+	
 func set_movement_from_nav() -> Vector3:
 	var curr_pos := global_position
 	var next_pos: Vector3

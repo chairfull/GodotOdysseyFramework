@@ -135,10 +135,12 @@ func _is_ray_path_clear(target: Node3D) -> bool:
 	var space_state := get_world_3d().direct_space_state
 	for i in raycasts:
 		var to := targ_pos + targ_radius * Rand.point_on_sphere() * (i / float(raycasts))
-		_debug_lines.append([from, to])
 		var query := PhysicsRayQueryParameters3D.create(from, to, 1 << 0)
 		query.exclude = [get_rid(), target.get_rid()] # Ignore ear/source
 		var result := space_state.intersect_ray(query)
 		if result:
+			_debug_lines.append([from, to, Color.TOMATO])
 			return false
+		else:
+			_debug_lines.append([from, to, Color.GREEN_YELLOW])
 	return true

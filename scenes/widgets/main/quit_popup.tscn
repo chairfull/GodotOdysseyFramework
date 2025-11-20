@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb4ehykbh3foq"]
+
+[ext_resource type="PackedScene" uid="uid://bpe44n5u7y2j2" path="res://scenes/widgets/common/confirmation.tscn" id="1_qmhlc"]
+
+[node name="confirmation_popup2" unique_id=1938683289 instance=ExtResource("1_qmhlc")]
+
+[node name="label" parent="PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1693141455) index="0" unique_id=1807015509]
+text = "Quit without saving?"

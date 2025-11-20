@@ -41,6 +41,3 @@ offset_right = 257.0
 offset_bottom = 540.0
 grow_horizontal = 1
 grow_vertical = 1
-input_mode = 1
-mouse_deadzone = 5.0
-mouse_sensitivity = 1.0

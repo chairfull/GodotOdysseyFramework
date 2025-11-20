@@ -22,7 +22,7 @@ mount_interact = NodePath("Area3D")
 
 [node name="remote" type="RemoteTransform3D" parent="." unique_id=422455249]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 9.713386e-09, 0.075086236, 0.5120555)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8.4192e-09, 0, 0.4156956)
 script = ExtResource("2_8by7j")
 metadata/_custom_type_script = "uid://l6evnfr3gvt5"
 

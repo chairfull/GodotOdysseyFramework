@@ -7,10 +7,10 @@ func _enter() -> void:
 	pawn = agent
 
 func _tick(delta: float) -> Status:
-	if pawn.is_controlled():
-		pawn._update_as_player(delta)
+	if not pawn.is_controlled():
+		pawn._update_as_npc(delta)
 		return RUNNING
 	return SUCCESS
 
 func _generate_name() -> String:
-	return "Pawn As Controlled"
+	return "Pawn As NPC"
