@@ -1,6 +1,6 @@
 @tool
 @icon("res://addons/odyssey/icons/damageable.svg")
-class_name Damageable extends Area3D
+class_name Damageable extends CollisionObject3D
 
 signal died()
 signal damaged(amnt: float)
@@ -12,7 +12,7 @@ signal revived()
 	set(h): health = clampf(h, 0.0, max_health)
 
 func _init() -> void:
-	monitoring = false
+	#monitoring = false
 	collision_layer = 1 << 10
 	collision_mask = 0
 

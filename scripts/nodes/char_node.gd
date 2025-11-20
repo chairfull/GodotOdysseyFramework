@@ -18,7 +18,7 @@ signal trigger_animation(anim: StringName)
 
 enum ProneState { Stand, Crouch, Kneel, Crawl }
 
-@onready var damageable: Damageable = %damageable
+#@onready var damageable: Damageable = %damageable
 @onready var ray_coyote: RayCast3D = $ray_coyote
 @onready var node_direction: Node3D = %direction
 @onready var interactive_detector: Detector = %interact
@@ -78,18 +78,24 @@ var jump_force := 6.0
 
 var _footstep_time := 0.0
 var _stuck_time := 0.0
+var _collision_objects: Array[RID]
 
 func _ready() -> void:
 	super()
 	fix_direction()
+	_collision_objects.assign(find_children("", "CollisionObject3D", true).map(func(x: CollisionObject3D): return x.get_rid()))
+	
 	if %nav_agent:
 		(%nav_agent as NavigationAgent3D).navigation_finished.connect(func(): movement = Vector2.ZERO)
-	if %damageable:
-		(%damageable as Damageable).damaged.connect(damage_taken.emit)
+	#if %damageable:
+		#(%damageable as Damageable).damaged.connect(damage_taken.emit)
 	if %interactive:
 		interactive_detector.ignore.append(%interactive)
 	
 	nav_agent.velocity_computed.connect(_velocity_computed)
+
+func _hit(hit: Node, hitter: Node) -> void:
+	prints(hit.name, "was hit by", hitter.name)
 
 func _velocity_computed(safe_velocity: Vector3) -> void:
 	if not nav_agent.avoidance_enabled: return

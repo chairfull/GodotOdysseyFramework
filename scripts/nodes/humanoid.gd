@@ -1,10 +1,9 @@
 class_name Humanoid extends CharNode
 
-#var camera: CameraTarget ## TODO: Move to controller...
 var _crouch_hold_time := 0.0
 var _crouch_held := false
 
-func stand():
+func stand() -> void:
 	_next_prone_state = ProneState.Stand
 	UTween.parallel(self, {
 		#"%head:position:y": 1.5,
@@ -13,10 +12,9 @@ func stand():
 		prone_state = ProneState.Stand
 		prone_state_changed.emit())
 
-func crouch():
+func crouch() -> void:
 	_next_prone_state = ProneState.Crouch
 	UTween.parallel(self, {
-		#"%head:position:y": 0.5,
 		"%collision_shape:position:y": 0.5,
 		"%collision_shape:shape:height": 1.0 }, 0.2, &"prone").finished.connect(func():
 		prone_state = ProneState.Crouch
@@ -25,7 +23,6 @@ func crouch():
 func crawl():
 	_next_prone_state = ProneState.Crawl
 	UTween.parallel(self, {
-		#"%head:position:y": 0.2,
 		"%collision_shape:position:y": 0.25,
 		"%collision_shape:shape:height": 0.5}, 0.2, &"prone").finished.connect(func():
 		prone_state = ProneState.Crawl
@@ -101,9 +98,6 @@ func _update_as_player(delta: float) -> void:
 			{ text="Set: Hostile" },
 			{ text="Set: Neutral" },
 			{ text="Set: Scared" },
-			{ text="Use: Vehcile" },
-			{ text="Use: Chair" },
-			{ text="Use: Item" },
 		]})
 		handle_input()
 		
@@ -156,9 +150,6 @@ func _update_as_player(delta: float) -> void:
 	
 	elif is_action_both(&"sprint", sprint_start, sprint_stop): pass
 	
-	#camera.get_node("%pivot").position.y = humanoid.get_node("%head").position.y
-	#humanoid.get_node("%head").global_rotation = camera.camera.global_rotation
-	
 	if _crouch_held:
 		_crouch_hold_time += delta
 		if _crouch_hold_time > 0.5:
@@ -196,7 +187,7 @@ func _update_as_player(delta: float) -> void:
 	var to := from + cam.project_ray_normal(mp) * 1000.0
 	var space := cam.get_world_3d().direct_space_state
 	var query := PhysicsRayQueryParameters3D.create(from, to)
-	query.exclude = [body.get_rid()]
+	query.exclude = _collision_objects
 	var hit := space.intersect_ray(query)
 	var target_pos = hit.position if hit else to
 	

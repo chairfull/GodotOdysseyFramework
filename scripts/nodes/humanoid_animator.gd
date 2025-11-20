@@ -54,6 +54,7 @@ var _highlight_material: Material
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		set_process(false)
+		var pbs: PhysicalBoneSimulator3D = %physical_bone_simulator
 
 func set_humanoid(h: Humanoid):
 	humanoid = h
@@ -90,7 +91,7 @@ func _equipped(item: ItemNode, slot_id: StringName) -> void:
 			var rt := RemoteTransform3D.new()
 			item.add_child(rt)
 			rt.name = "remote_right_hand"
-			rt.remote_path = rt.get_path_to(%ik_right_hand_target)
+			rt.remote_path = rt.get_path_to(%ik_right_hand)
 			ik_right_hand_influence = 1.0
 
 func _unequipped(item: ItemNode, slot_id: StringName) -> void:

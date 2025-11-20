@@ -209,6 +209,7 @@ pause={
 
 [layer_names]
 
+3d_physics/layer_1="solid"
 3d_physics/layer_7="character"
 3d_physics/layer_10="interactive"
 3d_physics/layer_11="damageable"

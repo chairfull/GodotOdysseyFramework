@@ -22,12 +22,12 @@ func _node_unequipped(node: ItemNode) -> bool:
 func _node_use(node: ItemNode) -> bool:
 	if node.get_holder() is CharNode:
 		if node.state.ammo > 0:
-			#var hum: Humanoid = node.mount
 			var from: Vector3 = node.get_node("%projectile_spawn").global_position
 			var to := node.get_holder().looking_at
-			var proj := Projectile.create(from, to)
+			var ignore := node.get_holder()._collision_objects
+			var proj := Projectile.create(ignore, from, to)
 			var sphere := SphereMesh.new()
-			sphere.height = 0.2
+			sphere.height = 0.05
 			sphere.radius = sphere.height * .5
 			var mesh := MeshInstance3D.new()
 			proj.add_child(mesh)
