@@ -176,6 +176,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.331449, 0.034427404, 0.857
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.331449, 1.1344274, 1.5570574)
 linear_velocity = Vector3(10, 10, 10)
 
+[node name="CSGBox3D2" type="CSGBox3D" parent="world/nav_region" unique_id=123048446]
+transform = Transform3D(0.5267036, -0.85004914, 0, 0.85004914, 0.5267036, 0, 0, 0, 1, -22.127424, 1.7001357, 6.179146)
+use_collision = true
+size = Vector3(1, 10.701508, 3.0620117)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="world/nav_region" unique_id=1389337811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.407907, -0.9311485, 7.6331835)
+use_collision = true
+radius = 2.2974203
+radial_segments = 64
+rings = 32
+
 [node name="toggle" parent="." unique_id=1940393254 instance=ExtResource("4_havs6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1826015, 1.3860083, -0.19937849)
 label = "Interact"

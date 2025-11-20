@@ -38,8 +38,5 @@ func get_links_between(a: ZoneInfo, b: ZoneInfo) -> Dictionary[StringName, ZoneL
 	return out
 
 func get_children() -> Array[ZoneInfo]:
-	var out: Array[ZoneInfo]
-	for loc: ZoneInfo in State.locations:
-		if loc.parent == self:
-			out.append(loc)
-	return out
+	return World.zones.filtered(func(zn: ZoneInfo): return zn.parent == self)
+	

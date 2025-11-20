@@ -3,51 +3,52 @@ extends Node3D
 
 @export var humanoid: Humanoid: set=set_humanoid
 @export var highlightable: Array[MeshInstance3D]
+@export var highlight_color := Color.YELLOW
 @export var highlight := false: set=set_highlight
-#@onready var _ik_left_leg: GodotIK = %ik_left_leg
-#@onready var _ik_left_leg_target: GodotIKEffector = %ik_left_leg_target
-#@onready var _ik_right_leg: GodotIK = %ik_right_leg
-#@onready var _ik_right_leg_target: GodotIKEffector = %ik_right_leg_target
 @onready var _tree: AnimationTree = %animation_tree
 var _walk_blend := 0.0
 var _highlight_material: Material
 
 #region IK Properties
-@export_range(0.0, 1.0) var ik_left_hand_weight := 0.0:
+@export_range(0.0, 1.0) var ik_left_hand_influence := 0.0:
 	get: return %ik_left_hand.influence
 	set(w):
+		if not is_inside_tree(): return
 		%ik_left_hand.influence = clampf(w, 0.0, 1.0)
 		%ik_left_hand.active = %ik_left_hand.influence != 0.0
-@export var ik_left_hand_position: Vector3:
-	get: return %ik_left_hand_target.global_position
-	set(p): if is_inside_tree(): %ik_left_hand_target.global_position = p
+@export_storage var ik_left_hand_position: Vector3:
+	get: return %ik_left_hand.global_position
+	set(p): if is_inside_tree(): %ik_left_hand.global_position = p
 
-@export_range(0.0, 1.0) var ik_right_hand_weight := 0.0:
+@export_range(0.0, 1.0) var ik_right_hand_influence := 0.0:
 	get: return %ik_right_hand.influence
 	set(w):
+		if not is_inside_tree(): return
 		%ik_right_hand.influence = clampf(w, 0.0, 1.0)
 		%ik_right_hand.active = %ik_right_hand.influence != 0.0
-@export var ik_right_hand_position: Vector3:
-	get: return %ik_right_hand_target.global_position
-	set(p): if is_inside_tree(): %ik_right_hand_target.global_position = p
-
-@export_range(0.0, 1.0) var ik_left_foot_weight := 0.0:
-	get: return %ik_left_foot.influence
-	set(w):
-		%ik_left_foot.influence = clampf(w, 0.0, 1.0)
-		%ik_left_foot.active = %ik_left_foot.influence != 0.0
-@export var ik_left_foot_position: Vector3:
-	get: return %ik_left_foot_target.global_position
-	set(p): if is_inside_tree(): %ik_left_foot_target.global_position = p
-
-@export_range(0.0, 1.0) var ik_right_foot_weight := 0.0:
-	get: return %ik_right_foot.influence
-	set(w):
-		%ik_right_foot.influence = clampf(w, 0.0, 1.0)
-		%ik_right_foot.active = %ik_right_foot.influence != 0.0
-@export var ik_right_foot_position: Vector3:
-	get: return %ik_right_foot_target.global_position
-	set(p): if is_inside_tree(): %ik_right_foot_target.global_position = p
+@export_storage var ik_right_hand_position: Vector3:
+	get: return %ik_right_hand.global_position
+	set(p): if is_inside_tree(): %ik_right_hand.global_position = p
+#
+#@export_range(0.0, 1.0) var ik_left_foot_influence := 0.0:
+	#get: return %ik_left_foot.influence
+	#set(w):
+		#if not is_inside_tree(): return
+		#%ik_left_foot.influence = clampf(w, 0.0, 1.0)
+		#%ik_left_foot.active = %ik_left_foot.influence != 0.0
+#@export_storage var ik_left_foot_position: Vector3:
+	#get: return %ik_left_foot.global_position
+	#set(p): if is_inside_tree(): %ik_left_foot.global_position = p
+#
+#@export_range(0.0, 1.0) var ik_right_foot_influence := 0.0:
+	#get: return %ik_right_foot.influence
+	#set(w):
+		#if not is_inside_tree(): return
+		#%ik_right_foot.influence = clampf(w, 0.0, 1.0)
+		#%ik_right_foot.active = %ik_right_foot.influence != 0.0
+#@export_storage var ik_right_foot_position: Vector3:
+	#get: return %ik_right_foot.global_position
+	#set(p): if is_inside_tree(): %ik_right_foot.global_position = p
 #endregion
 
 func _ready() -> void:
@@ -90,7 +91,7 @@ func _equipped(item: ItemNode, slot_id: StringName) -> void:
 			item.add_child(rt)
 			rt.name = "remote_right_hand"
 			rt.remote_path = rt.get_path_to(%ik_right_hand_target)
-			ik_right_hand_weight = 1.0
+			ik_right_hand_influence = 1.0
 
 func _unequipped(item: ItemNode, slot_id: StringName) -> void:
 	match slot_id:
@@ -98,7 +99,7 @@ func _unequipped(item: ItemNode, slot_id: StringName) -> void:
 			var rt: RemoteTransform3D = item.get_node("remote_right_hand")
 			item.remove_child(rt)
 			rt.queue_free()
-			ik_right_hand_weight = 0.0
+			ik_right_hand_influence = 0.0
 
 func set_highlight(h: bool):
 	highlight = h
@@ -107,14 +108,14 @@ func set_highlight(h: bool):
 		_highlight_material.albedo_color.a = 0.0
 		_highlight_material.stencil_color.a = 0.0
 		UTween.parallel(self, {
-			"_highlight_material:albedo_color:a": 0.2,
-			"_highlight_material:stencil_color:a": 1.0 }, 0.2)
+			"_highlight_material:albedo_color": Color(highlight_color, 0.2),
+			"_highlight_material:stencil_color": Color(highlight_color, 1.0) }, 0.2)
 		for mesh in highlightable:
 			mesh.material_overlay = _highlight_material
 	elif _highlight_material:
 		UTween.parallel(self, {
-			"_highlight_material:albedo_color:a": 0.0,
-			"_highlight_material:stencil_color:a": 0.0 }, 0.2)\
+			"_highlight_material:albedo_color": Color(highlight_color, 0.0),
+			"_highlight_material:stencil_color": Color(highlight_color, 0.0) }, 0.2)\
 		.finished.connect(func():
 			for mesh in highlightable:
 				mesh.material_overlay = null
@@ -130,3 +131,5 @@ func _process(delta: float) -> void:
 	_tree.set(&"parameters/main/Standing/blend_position", _walk_blend)
 	_tree.set(&"parameters/main/Crouching/blend_position", _walk_blend)
 	_tree.set(&"parameters/main/Crawling/blend_position", _walk_blend)
+	
+	

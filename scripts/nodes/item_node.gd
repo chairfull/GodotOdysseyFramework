@@ -4,7 +4,7 @@ class_name ItemNode extends RigidBody3D
 
 @export var id: StringName
 @export var info: ItemInfo:
-	get: return info if info else State.find_item(id)
+	get: return info if info else World.find_item(id)
 @export_custom(PROPERTY_HINT_EXPRESSION, "") var debug_properties_yaml: String
 @export var highlight := false: set=set_highlight
 @export var highlightable: Array[Node3D]

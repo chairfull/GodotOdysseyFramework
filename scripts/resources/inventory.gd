@@ -41,7 +41,7 @@ func give_item(other: Inventory, item: Variant, amount := 1):
 		other.changed.emit()
 
 func gain_everything():
-	for item in State.objects.items:
+	for item in World.objects.items:
 		gain_item(item)
 
 func gain_item(item_info: ItemInfo, state: Variant = null):

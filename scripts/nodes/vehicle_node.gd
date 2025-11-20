@@ -2,7 +2,7 @@ class_name VehicleNode extends Pawn
 
 @export var id: StringName
 @export var info: VehicleInfo:
-	get: return info if info else State.vehicles.find(id)
+	get: return info if info else World.vehicles.find(id)
 var body: VehicleBody3D = self as Object as VehicleBody3D
 var _braking := false ## 
 var _honking := false

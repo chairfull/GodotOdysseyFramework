@@ -22,6 +22,7 @@ Check [Todo](docs/TODO.md) for features.
 # Included Addons
 - [Little Camera Preview](https://github.com/anthonyec/godot_little_camera_preview)
 - [LimboAI](https://github.com/limbonaut/limboai)
+- [Raytraced Audio](https://github.com/WhoStoleMyCoffee/raytraced-audio)
 - [YAML](https://github.com/fimbul-works/godot-yaml)
 - [Twee](https://github.com/chair_full/GodotTwee)
 - [RicherTextLabels](https://github.com/chairfull/GodotRichTextLabel2/tree/v2dev)

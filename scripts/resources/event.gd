@@ -37,18 +37,18 @@ func test(props: Dictionary) -> bool:
 	return true
 
 func fire(kwargs: Dictionary = {}):
-	if not State._loaded: return
+	if not World._loaded: return
 	for prop in kwargs:
 		if prop in _default:
 			_current[prop] = kwargs[prop]
 		else:
 			push_warning("Event %s has no property %s. (%s)" % [get_state_property_name(), prop, self])
-	State.event.emit(self)
+	World.event.emit(self)
 	fired.emit(self)
 
 func get_state_property_name() -> StringName:
-	for prop in State.get_property_list():
+	for prop in World.get_property_list():
 		if not UBit.is_enabled(prop.usage, PROPERTY_USAGE_SCRIPT_VARIABLE): continue
-		if prop.type == TYPE_OBJECT and State[prop.name] == self:
+		if prop.type == TYPE_OBJECT and World[prop.name] == self:
 			return prop.name
 	return &""

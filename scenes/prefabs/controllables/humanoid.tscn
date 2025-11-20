@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://p7rqgmtls5qk"]
+[gd_scene load_steps=24 format=3 uid="uid://p7rqgmtls5qk"]
 
 [ext_resource type="Script" uid="uid://dw8awr8a4l0dr" path="res://scripts/nodes/humanoid.gd" id="1_mq6sh"]
 [ext_resource type="Script" uid="uid://br2v5na1eo3kv" path="res://scripts/nodes/debug_char_node.gd" id="2_6uuaw"]
@@ -7,10 +7,13 @@
 [ext_resource type="Script" uid="uid://bbksu3kwersqu" path="res://scripts/nodes/detector.gd" id="3_pplf3"]
 [ext_resource type="BehaviorTree" uid="uid://bajdgib3dnvq6" path="res://assets/ai/trees/humanoid.tres" id="4_677yw"]
 [ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://scripts/nodes/interactive.gd" id="5_117w7"]
+[ext_resource type="Script" uid="uid://3mhk4bisqf8t" path="res://assets/mods/main/audio/dlg/knight/quip_node.gd" id="6_0iwmb"]
 [ext_resource type="Script" uid="uid://llfmpeqtpli1" path="res://scripts/nodes/camera_target.gd" id="7_11kkr"]
+[ext_resource type="Resource" uid="uid://cvuxcg1fcr4uo" path="res://assets/mods/main/audio/dlg/knight/quips.tres" id="7_87mrt"]
 [ext_resource type="Script" uid="uid://dhnbfnhbjdh5l" path="res://scripts/nodes/marker.gd" id="8_677yw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qaen5"]
+radius = 0.3
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_iv36d"]
 height = 1.8
@@ -102,9 +105,8 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 humanoid = NodePath("../..")
-ik_left_hand_position = Vector3(-0.14896408, 1.2391962, -0.30771938)
-ik_left_foot_position = Vector3(-0.20051247, 0.078348994, 0.6413805)
-ik_right_foot_position = Vector3(0.22689289, 0.078348994, 0.6413805)
+ik_left_hand_position = Vector3(-0.28649223, 0.8409089, -2.5045946e-08)
+ik_right_hand_position = Vector3(0.2, 0.92603004, 1.7484556e-08)
 
 [node name="visual_dummy" type="MeshInstance3D" parent="direction" unique_id=689547931]
 unique_name_in_owner = true
@@ -128,6 +130,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, -0.5)
 [node name="equip_right_hand" type="Node3D" parent="direction/head" unique_id=1215079094]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -0.15, -0.2)
+
+[node name="quip" type="AnimationPlayer" parent="direction/head" unique_id=1959226422 node_paths=PackedStringArray("audio_arent")]
+unique_name_in_owner = true
+script = ExtResource("6_0iwmb")
+flow = ExtResource("7_87mrt")
+audio_arent = NodePath("..")
+metadata/_custom_type_script = "uid://3mhk4bisqf8t"
 
 [node name="interact" type="Area3D" parent="direction" unique_id=507098710]
 unique_name_in_owner = true

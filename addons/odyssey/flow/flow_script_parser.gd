@@ -81,7 +81,8 @@ static func _str_to_step(str: String, dbg_file: String, dbg_line: int) -> Dictio
 		step.type = FlowToken.FLOW
 		step.flow = parts[1].strip_edges()
 	# Command: "COMMAND rest"
-	elif parts[0] == parts[0].to_upper():
+	# Commands must be 4 or more letters.
+	elif parts[0].length() >= 4 and parts[0] == parts[0].to_upper():
 		step.type = FlowToken.CMND
 		step.cmnd = parts[0]
 		step.rest = parts[1]
@@ -109,7 +110,7 @@ static func _str_to_step(str: String, dbg_file: String, dbg_line: int) -> Dictio
 		step.prop = {}
 		var tokens := get_space_seperated_tokens(str)
 		var i := 0
-		while i < tokens.size():
+		while i < tokens.size()-1:
 			step.prop[tokens[i]] = tokens[i+1]
 			i += 2
 	# Text: "speaker with or without speach."

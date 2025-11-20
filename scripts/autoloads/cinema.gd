@@ -16,7 +16,7 @@ func queue(scene: Variant, state: Dictionary[StringName, Variant] = {}):
 		_queue.append([scene, state])
 	else:
 		started.emit()
-		State.add_pauser(self)
+		World.add_pauser(self)
 		_play(scene, state)
 
 func _play(scene: Variant, state: Dictionary[StringName, Variant]):
@@ -44,7 +44,7 @@ func _cinematic_ended():
 		var next: Array = _queue.pop_front()
 		_play(next[0], next[1])
 	else:
-		State.remove_pauser(self)
+		World.remove_pauser(self)
 		ended.emit()
 
 func is_playing() -> bool:

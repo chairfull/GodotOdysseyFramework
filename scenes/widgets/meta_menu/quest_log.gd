@@ -15,13 +15,13 @@ func _ready() -> void:
 	
 	await get_tree().process_frame
 	
-	for q: QuestInfo in State.quests:
+	for q: QuestInfo in World.quests:
 		q.changed.connect(_refresh)
 		for tick_id in q.ticks:
 			q.ticks[tick_id].changed.connect(_refresh)
 	
 	_refresh()
-	_select_quest(State.quests._objects.values()[0])
+	_select_quest(World.quests._objects.values()[0])
 
 func is_pauser() -> bool: return true
 
@@ -36,7 +36,7 @@ func _refresh_quest_list():
 		quest_list_parent.remove_child(child)
 		child.queue_free()
 	
-	for q: QuestInfo in State.quests:
+	for q: QuestInfo in World.quests:
 		var state: StringName = QuestInfo.QuestState.keys()[q.state]
 		if not state in quest_lists:
 			var list := quest_list_prefab.duplicate()

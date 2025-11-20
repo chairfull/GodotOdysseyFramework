@@ -11,6 +11,10 @@ func _to_rich_string() -> String:
 func _to_string() -> String:
 	return "%s(%s)" % [UObj.get_class_name(self), id]
 
+## Should be a World.database.
+func get_db() -> Database:
+	return null
+
 ## Has any tag?
 func tagged_any(...tgs: Array) -> bool:
 	for tag in tgs: if tag in tags: return true
@@ -24,8 +28,8 @@ func tagged(...tgs: Array) -> bool:
 ## Override. Will mark in database as having had a state change.
 func has_notification() -> bool: return false
 ## Override. Mark as player has seen this.
-func clear_notification(): pass
-func mark_notification(): pass
+func clear_notification() -> void: pass
+func mark_notification() -> void: pass
 
 func get_state() -> Dictionary[StringName, Variant]:
 	var out: Dictionary[StringName, Variant]

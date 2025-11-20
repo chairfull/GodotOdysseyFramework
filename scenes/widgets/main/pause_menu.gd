@@ -1,13 +1,13 @@
 extends Widget
 
 func _ready() -> void:
-	State.add_pauser(self)
+	World.add_pauser(self)
 	%menu.set_choices([
 		{ text="Continue", call=close },
 		{ text="Settings", call=show_widget.bind(&"settings") },
 		{ text="Save", call=show_widget.bind(&"save_menu") },
 		{ text="Load", call=show_widget.bind(&"load_menu") },
-		{ text="Quit", call=show_widget.bind(&"quit_popup") },
+		{ text="Main Menu", call=World.change_scene.bind(&"main_menu") },
 	])
 
 func _unhandled_input(_event: InputEvent) -> void:
@@ -17,4 +17,4 @@ func _unhandled_input(_event: InputEvent) -> void:
 
 func _closed(returned: Variant) -> void:
 	super(returned)
-	State.remove_pauser(self)
+	World.remove_pauser(self)

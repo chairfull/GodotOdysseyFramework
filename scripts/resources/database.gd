@@ -62,6 +62,15 @@ func find_id(data: DatabaseObject) -> StringName:
 func get_ids() -> PackedStringArray:
 	return PackedStringArray(_objects.keys())
 
+func get_object_script() -> GDScript:
+	return null
+
+func filtered(filter: Callable) -> Array:
+	return Array(_objects.values().filter(filter), TYPE_OBJECT, &"Resource", get_object_script())
+
+func objects() -> Array[DatabaseObject]:
+	return _objects.values()
+
 func merge(db: Database):
 	for id in db._objects:
 		if id in _objects:
@@ -70,6 +79,9 @@ func merge(db: Database):
 		print("+ %s %s" % [UObj.get_class_name(self).trim_suffix("DB"), id])
 
 func _add(id: StringName, obj: DatabaseObject, props := {}, silent := false) -> DatabaseObject:
+	if id.is_empty():
+		push_error("No id given. Not added.")
+		return null
 	if id in _objects:
 		push_warning("Replacing %s." % [id])
 	UObj.set_properties(obj, props, silent)
@@ -90,9 +102,3 @@ func _iter_next(iter: Array) -> bool:
 
 func _iter_get(iter: Variant) -> Variant:
 	return _objects.values()[iter]
-
-func get_object_script() -> GDScript:
-	return null
-
-func objects() -> Array[DatabaseObject]:
-	return _objects.values()

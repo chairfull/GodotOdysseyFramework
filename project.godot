@@ -21,7 +21,7 @@ config/icon="uid://dcy71dgq416wh"
 
 Global="*res://scripts/autoloads/global.gd"
 Assets="*res://scripts/autoloads/assets.gd"
-State="*res://scripts/autoloads/state.gd"
+World="*res://scripts/autoloads/world.gd"
 Cheats="*res://scripts/autoloads/cheats.gd"
 Controllers="*res://scripts/autoloads/controllers.gd"
 Cinema="*res://scripts/autoloads/cinema.gd"
@@ -41,7 +41,7 @@ project/assembly_name="Odyssey Framework"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/twee/plugin.cfg", "res://addons/yaml/plugin.cfg")
+enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/deep_raycast_3d/plugin.cfg", "res://addons/raytraced_audio/plugin.cfg", "res://addons/twee/plugin.cfg", "res://addons/yaml/plugin.cfg")
 
 [global_group]
 
@@ -223,6 +223,11 @@ behavior_tree/user_task_dirs=PackedStringArray("res://assets/ai/tasks")
 [physics]
 
 3d/physics_engine="Jolt Physics"
+
+[raytraced_audio]
+
+reverb_bus=&"RaytracedReverb"
+ambient_bus=&"RaytracedAmbient"
 
 [rendering]
 

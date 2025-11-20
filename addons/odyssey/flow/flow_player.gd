@@ -29,13 +29,13 @@ func _meth(hash_index: int):
 			var meth_args: Array = item[1]
 			Log.msg("FlowPlayer", "Method", item)
 			match meth_id:
-				&"_expr": State.call("_expr_%s" % meth_args[0])
+				&"_expr": World.call("_expr_%s" % meth_args[0])
 				&"_cond":
 					var conds: Array = meth_args[0]
 					for cond in conds:
 						var cond_hash: int = cond[0]
 						var cond_branch: StringName = cond[1]
-						if State.call("_cond_%s" % cond_hash):
+						if World.call("_cond_%s" % cond_hash):
 							goto(cond_branch)
 							break
 				&"_event":

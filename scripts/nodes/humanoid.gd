@@ -82,9 +82,12 @@ func _view_state_changed():
 			%model.visible = true
 
 func tell_npc(method: StringName, ...args) -> void:
-	for npc in Global.get_tree().get_nodes_in_group(&"npc"):
-		if npc != _controller.pawn:
+	for npc: CharNode in Global.get_tree().get_nodes_in_group(&"npc"):
+		if not npc.is_controlled():
 			npc.callv(method, args)
+
+func quip() -> void:
+	%quip.play_random()
 
 func _stopped_riding() -> void:
 	super()
@@ -94,6 +97,7 @@ func _update_as_player(delta: float) -> void:
 	if is_action_pressed(&"quick_equip_menu"):
 		_controller.show_widget(&"menu", { choices=[
 			{ text="Follow", call=tell_npc.bind(&"move_to", global_position) },
+			{ text="Quip", call=tell_npc.bind(&"quip") },
 			{ text="Set: Hostile" },
 			{ text="Set: Neutral" },
 			{ text="Set: Scared" },

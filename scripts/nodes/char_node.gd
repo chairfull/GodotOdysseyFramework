@@ -31,7 +31,7 @@ enum ProneState { Stand, Crouch, Kneel, Crawl }
 @export var target: Node3D
 @export var primary_equip_slot: StringName = &"right_hand"
 var info: CharInfo:
-	get: return null if not id else State.find_char(id)
+	get: return null if not id else World.find_char(id)
 var movement := Vector2.ZERO
 var body: CharacterBody3D = (self as Object as CharacterBody3D)
 var _equipped: Dictionary[StringName, ItemNode]

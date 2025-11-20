@@ -2,7 +2,7 @@ class_name QuestTick extends Resource
 
 @export var id: StringName
 @export var quest_id: StringName
-@export var state := QuestInfo.QuestState.HIDDEN: set=set_state
+@export var state := QuestInfo.QuestState.UNSTARTED: set=set_state
 @export var tick := 0: set=set_tick
 @export var max_ticks := 1
 @export var name := ""
@@ -14,7 +14,7 @@ class_name QuestTick extends Resource
 @export var visible := true ## Sometimes a hidden tick is desired.
 
 var quest: QuestInfo:
-	get: return State.quests.find(quest_id)
+	get: return World.quests.find(quest_id)
 
 var completed: bool:
 	get: return tick == max_ticks
@@ -25,24 +25,24 @@ var completed: bool:
 		if completed:
 			set_state(QuestInfo.QuestState.PASSED)
 
-func set_state(s := QuestInfo.QuestState.HIDDEN):
+func set_state(s := QuestInfo.QuestState.UNSTARTED) -> void:
 	if state == s: return
 	state = s
 	mark_for_notification = true
 	changed.emit()
 
-func set_tick(t: int):
+func set_tick(t: int) -> void:
 	if tick == t: return
 	tick = t
 	show()
-	State.QUEST_TICKED.fire({ tick=self })
+	World.QUEST_TICKED.fire({ tick=self })
 	if completed:
 		state = QuestInfo.QuestState.PASSED
-		State.QUEST_TICK_COMPLETED.fire({ tick=self })
+		World.QUEST_TICK_COMPLETED.fire({ tick=self })
 
 func show() -> void:
-	if state == QuestInfo.QuestState.HIDDEN:
-		state = QuestInfo.QuestState.ACTIVE
+	if state == QuestInfo.QuestState.UNSTARTED:
+		state = QuestInfo.QuestState.STARTED
 
 func _to_string() -> String:
 	return "QuestTick(%s#%s)" % [quest_id, id]

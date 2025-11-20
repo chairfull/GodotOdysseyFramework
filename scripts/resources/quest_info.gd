@@ -1,16 +1,18 @@
 class_name QuestInfo extends DatabaseObject
 
 enum QuestState {
-	HIDDEN,			## Not started.
-	ACTIVE,			## Started.
+	UNSTARTED,		## Not started.
+	DISCOVERED,		## Known about.
+	STARTED,		## Started.
 	PASSED,			## Finished success.
 	FAILED,			## Finished failed.
 }
 
-static func get_state_color(s := QuestState.HIDDEN) -> Color:
+static func get_state_color(s := QuestState.UNSTARTED) -> Color:
 	match s:
-		QuestState.HIDDEN: return Color(1., 1., 1., 0.5)
-		QuestState.ACTIVE: return Color.WHITE
+		QuestState.UNSTARTED: return Color(1., 1., 1., 0.5)
+		QuestState.DISCOVERED: return Color.WHITE
+		QuestState.STARTED: return Color.DEEP_SKY_BLUE
 		QuestState.PASSED: return Color.GREEN_YELLOW
 		QuestState.FAILED: return Color.TOMATO
 	return Color.PURPLE
@@ -18,7 +20,7 @@ static func get_state_color(s := QuestState.HIDDEN) -> Color:
 @export var desc: String
 @export var types: Array[StringName]
 @export var ticks: Dictionary[StringName, QuestTick]
-@export var state := QuestState.HIDDEN: set=set_state
+@export var state := QuestState.UNSTARTED: set=set_state
 @export var stats := StatDB.new()
 @export var triggers: Dictionary[QuestState, Array]
 @export var visible := true ## Sometimes invisible quests are wanted. They shouldn't create toasts.
@@ -29,8 +31,11 @@ func has_notification() -> bool:
 		if tick.marked_for_notification:
 			return true
 	return marked_for_notification
-func mark_notification(): marked_for_notification = true
-func clear_notification():
+
+func mark_notification() -> void:
+	marked_for_notification = true
+
+func clear_notification() -> void:
 	for tick in ticks.values():
 		tick.marked_for_notification = false
 	marked_for_notification = false
@@ -46,28 +51,36 @@ func set_state(s: QuestState):
 	state = s
 	changed.emit()
 
-#func _get_devmode() -> Array:
-	#var options := []
-	#for s in [Style.HIDDEN, Style.ACTIVE, Style.PASSED, Style.FAILED]:
-		#options.append({text=Style.keys()[s]})
-		#if style != s:
-			#options[-1].call = set_style.bind(s)
-	#return options
+func _get_devmode() -> Array:
+	var options := []
+	for s in QuestState.keys():
+		options.append({text=QuestState.keys()[s]})
+		if state != s:
+			options[-1].call = set_state.bind(s)
+	return options
 
-func start():
-	if state == QuestState.HIDDEN:
-		state = QuestState.ACTIVE
-		State.QUEST_STARTED.fire({ quest=self })
+func is_unstarted() -> bool: return state == QuestState.UNSTARTED
+func is_discovered() -> bool: return state == QuestState.DISCOVERED
+func is_started() -> bool: return state == QuestState.STARTED
+func is_passed() -> bool: return state == QuestState.PASSED
+func is_failed() -> bool: return state == QuestState.FAILED
+func is_completed() -> bool: return is_passed() or is_failed()
+func is_active() -> bool: return not is_unstarted() and not is_completed()
 
-func set_passed():
+func start() -> void:
+	if state == QuestState.UNSTARTED:
+		state = QuestState.STARTED
+		World.QUEST_STARTED.fire({ quest=self })
+
+func set_passed() -> void:
 	if state != QuestState.PASSED:
 		state = QuestState.PASSED
-		State.QUEST_PASSED.fire({ quest=self })
+		World.QUEST_PASSED.fire({ quest=self })
 		
-func set_failed():
+func set_failed() -> void:
 	if state != QuestState.FAILED:
 		state = QuestState.FAILED
-		State.QUEST_FAILED.fire({ quest=self })
+		World.QUEST_FAILED.fire({ quest=self })
 
 func ticked(...tick_ids) -> bool:
 	for tid in tick_ids:
@@ -107,4 +120,4 @@ func _iter_get(iter) -> Variant:
 	return ticks[iter]
 
 func get_db() -> Database:
-	return State.quests
+	return World.quests

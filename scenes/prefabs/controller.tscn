@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://52fw605jpf2i"]
+[gd_scene load_steps=5 format=3 uid="uid://52fw605jpf2i"]
 
 [ext_resource type="Script" uid="uid://vmpdnbpamoi3" path="res://scripts/nodes/player_controller.gd" id="1_ia60g"]
 [ext_resource type="Script" uid="uid://s3k7324tagti" path="res://scripts/nodes/camera_master.gd" id="2_cg1et"]
+[ext_resource type="Script" uid="uid://bjpmu5sklv5h8" path="res://addons/raytraced_audio/raytraced_audio_listener.gd" id="3_cg1et"]
 [ext_resource type="PackedScene" uid="uid://clkh35bjyldwx" path="res://scenes/prefabs/cameras/camera_follow.tscn" id="4_cg1et"]
 
 [node name="controller" type="Control" unique_id=718559665 node_paths=PackedStringArray("pawn_camera")]
@@ -62,6 +63,12 @@ cull_mask = 1048573
 current = true
 far = 100.0
 script = ExtResource("2_cg1et")
+
+[node name="RaytracedAudioListener" type="AudioListener3D" parent="viewport_container/viewport/camera_master" unique_id=238148565 node_paths=PackedStringArray("parent_3d")]
+current = true
+script = ExtResource("3_cg1et")
+parent_3d = NodePath("..")
+metadata/_custom_type_script = "uid://bjpmu5sklv5h8"
 
 [node name="Label" type="Label" parent="." unique_id=1279590951]
 layout_mode = 0

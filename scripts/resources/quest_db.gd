@@ -9,7 +9,7 @@ const EVENT_HIDE := &"QUEST_HIDE"
 const ALL_EVENTS := [EVENT_START, EVENT_PASS, EVENT_FAIL, EVENT_TICK, EVENT_SHOW, EVENT_HIDE]
 
 func connect_signals() -> void:
-	State.event.connect(_state_event)
+	World.event.connect(_state_event)
 	Cinema.event.connect(_cinema_event)
 
 func _cinema_event(id: StringName, data: String) -> void:
@@ -57,13 +57,13 @@ func _state_event(e: Event):
 			_check_triggers(tick, e)
 		
 	match e:
-		State.QUEST_STARTED:
+		World.QUEST_STARTED:
 			Audio.play(&"quest_log_updated")
-			State.TOAST.fire({ data={text="Quest Started"} })
+			World.TOAST.fire({ data={text="Quest Started"} })
 			
-		State.QUEST_TICKED:
+		World.QUEST_TICKED:
 			Audio.play(&"quest_log_updated")
-			State.TOAST.fire({ data={text="Quest Updated"} })
+			World.TOAST.fire({ data={text="Quest Updated"} })
 
 func get_object_script() -> GDScript:
 	return QuestInfo

@@ -6,7 +6,7 @@ class_name TriggerInfo extends Resource
 @export var flow_script: FlowScript
 
 func check(evnt: Event) -> bool:
-	if not State[event] == evnt: return false
+	if not World[event] == evnt: return false
 	if not evnt.test(state): return false
-	if condition and not State._cond(condition): return false
+	if condition and not World._cond(condition): return false
 	return true

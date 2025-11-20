@@ -1,0 +1,256 @@
+[gd_scene load_steps=11 format=3 uid="uid://b1jb8ws3cv3ok"]
+
+[ext_resource type="AudioStream" uid="uid://bxdlvm38tgcwr" path="res://assets/mods/main/audio/dlg/knight/quips.ogg" id="1_b3spc"]
+[ext_resource type="Script" uid="uid://3mhk4bisqf8t" path="res://assets/mods/main/audio/dlg/knight/quip_node.gd" id="2_2fr22"]
+[ext_resource type="AudioStream" uid="uid://qo06kxb2obx4" path="res://assets/mods/main/audio/dlg/knight/quips2.ogg" id="2_et1c2"]
+[ext_resource type="Resource" uid="uid://cvuxcg1fcr4uo" path="res://assets/mods/main/audio/dlg/knight/quips.tres" id="3_et1c2"]
+
+[sub_resource type="Animation" id="Animation_et1c2"]
+length = 2.59
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("quips2")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 5.347959,
+"start_offset": 2.9,
+"stream": ExtResource("2_et1c2")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:_caption")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:_caption_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.49),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_mfnlw"]
+length = 0.92
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("quips")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 3.2168028,
+"start_offset": 2.0,
+"stream": ExtResource("1_b3spc")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:_caption")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:_caption_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.82),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_3fw2h"]
+length = 1.1
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("quips")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.33680278,
+"start_offset": 4.7,
+"stream": ExtResource("1_b3spc")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:_caption")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:_caption_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_j7nhn"]
+length = 2.73
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("quips2")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 9.737959,
+"start_offset": 0.0,
+"stream": ExtResource("2_et1c2")
+}, {
+"end_offset": 8.137959,
+"start_offset": 1.07,
+"stream": ExtResource("2_et1c2")
+}],
+"times": PackedFloat32Array(0, 1.1)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:_caption")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:_caption_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 1.1, 2.63),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_7sfw7"]
+length = 4.7
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("quips2")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 3.0379589,
+"start_offset": 5.9,
+"stream": ExtResource("2_et1c2")
+}, {
+"end_offset": 1.6279589,
+"start_offset": 7.71,
+"stream": ExtResource("2_et1c2")
+}, {
+"end_offset": 0.23795891,
+"start_offset": 9.3,
+"stream": ExtResource("2_et1c2")
+}],
+"times": PackedFloat32Array(0, 1.9, 3.4)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:_caption")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.9, 3.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 6, 7]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:_caption_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.8, 1.9, 3.3, 3.4, 4.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ivx0r"]
+_data = {
+&"A good horse is better company than most people.": SubResource("Animation_et1c2"),
+&"How\'s it going?": SubResource("Animation_mfnlw"),
+&"Nice day isn\'t it?": SubResource("Animation_3fw2h"),
+&"Shield up. Worlds never friendly.": SubResource("Animation_j7nhn"),
+&"The bards embelish everything. Except the smell of battle. That they understate.": SubResource("Animation_7sfw7")
+}
+
+[node name="Quips2" type="AnimationPlayer" unique_id=278501504]
+root_node = NodePath(".")
+libraries = {
+&"": SubResource("AnimationLibrary_ivx0r")
+}
+script = ExtResource("2_2fr22")
+flow = ExtResource("3_et1c2")
+_caption = 5
+_caption_visible = true
+_captions = Array[String](["How's it going?", "Nice day isn't it?", "Shield up.", "Worlds never friendly.", "A good horse is better company than most people.", "The bards embelish everything.", "Except the smell of battle.", "That they understate."])
+_unplayed = null
+_last = null
+_players = null
+
+[node name="quips" type="AudioStreamPlayer3D" parent="." unique_id=1770004766]
+stream = ExtResource("1_b3spc")
+
+[node name="quips2" type="AudioStreamPlayer3D" parent="." unique_id=998132536]

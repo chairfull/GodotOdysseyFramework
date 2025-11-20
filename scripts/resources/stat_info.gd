@@ -22,5 +22,5 @@ func set_value(v: Variant) -> bool:
 	if value == converted: return false
 	var old: Variant = value
 	value = converted
-	State.STAT_CHANGED.fire({ stat=self, old=old, new=value })
+	World.STAT_CHANGED.fire({ stat=self, old=old, new=value })
 	return true

@@ -44,7 +44,7 @@ func reload_astar():
 
 # Tries to find a route between two zones.
 static func get_route(a: ZoneInfo, b: ZoneInfo) -> Array[ZoneInfo]:
-	return State.locations._get_route(a, b)
+	return World.locations._get_route(a, b)
 
 func _get_route(a: ZoneInfo, b: ZoneInfo) -> Array[ZoneInfo]:
 	var path: Array[ZoneInfo]

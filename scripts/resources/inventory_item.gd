@@ -5,7 +5,7 @@ class_name InventoryItem extends Resource
 @export var state: Dictionary[StringName, Variant]
 
 var item_info: ItemInfo:
-	get: return State.find_item(item)
+	get: return World.find_item(item)
 	set(itm): item = itm.item
 
 func _init(itm: ItemInfo, amount_or_state: Variant = 1) -> void:

@@ -21,7 +21,7 @@ func save_slot(slot: StringName = _current_slot):
 	preview.shrink_x2()
 	preview.save_webp(dir.path_join("preview.webp"))
 	
-	_save_node(dir, State, "State")
+	_save_node(dir, World, "World")
 	_save_node("user://", Persistent, "Persistent")
 	
 	print("Saved to: ", ProjectSettings.globalize_path(dir))

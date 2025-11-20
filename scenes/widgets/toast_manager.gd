@@ -4,10 +4,10 @@ var _active: Dictionary[StringName, Array]
 var _queued: Dictionary[StringName, Array]
 
 func _ready() -> void:
-	State.TOAST.connect_to(_event)
+	World.TOAST.connect_to(_event)
 
 func _event(ev: Event) -> void:
-	if not ev == State.TOAST: return
+	if not ev == World.TOAST: return
 	var type: StringName = ev.get_str_name(&"type")
 	#var player: int = ev.get_int(&"player")
 	var data: Dictionary = ev.get_dict(&"data")

@@ -17,7 +17,7 @@ func equip(item: InventoryItem, slot_id: StringName = &""):
 		push_error("Can't equip %s to %s on %s." % [item, slot_id, self])
 		return
 		
-	var slot_info := State.find_equipment_slot(slot_id)
+	var slot_info := World.find_equipment_slot(slot_id)
 	var bare: Array[StringName]
 	bare.append_array(slot_info.bare)
 	
@@ -40,7 +40,7 @@ func equip(item: InventoryItem, slot_id: StringName = &""):
 func unequip_slot(slot_id: StringName):
 	if not slot_id in wearing:
 		return
-	var slot_info := State.find_equipment_slot(slot_id)
+	var slot_info := World.find_equipment_slot(slot_id)
 	var item := wearing[slot_id]
 	wearing.erase(slot_id)
 	items.append(item)

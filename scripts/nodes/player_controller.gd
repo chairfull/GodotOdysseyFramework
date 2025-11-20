@@ -80,7 +80,7 @@ func show_widget(id: StringName, props := {}, transitioned := false) -> Widget:
 	if not is_widget_visible(id):
 		widget = Assets.create_scene(id, self, props)
 		if widget.is_pauser():
-			State.add_pauser(widget)
+			World.add_pauser(widget)
 		_widgets[id] = widget
 	if transitioned:
 		widget.show_transitioned()
@@ -91,7 +91,7 @@ func hide_widget(id: StringName, returned: Variant = null) -> bool:
 	var widget: Widget = _widgets.get(id)
 	if widget:
 		if widget.is_pauser():
-			State.remove_pauser(widget)
+			World.remove_pauser(widget)
 		widget._closed(returned)
 		widget.queue_free()
 		remove_child(widget)

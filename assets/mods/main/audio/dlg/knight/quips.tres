@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="FlowScript" load_steps=2 format=3 uid="uid://cvuxcg1fcr4uo"]
+
+[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://addons/odyssey/flow/flow_script.gd" id="1_81fjv"]
+
+[resource]
+script = ExtResource("1_81fjv")
+code = "FILE audio/dlg/knight/quips.ogg
+	How's it going? @2.0-2.82
+	Nice day isn't it? @4.7-5.7
+
+FILE audio/dlg/knight/quips2.ogg
+	BLOCK
+		Shield up. @0.0-1.0
+		Worlds never friendly. @1.07-2.6
+	A good horse is better company than most people. @2.9-5.39
+	BLOCK
+		The bards embelish everything. @5.9-7.7
+		Except the smell of battle. @7.71-9.11
+		That they understate. @9.3-10.5"
+metadata/_custom_type_script = "uid://bkc0pux3d1ajc"

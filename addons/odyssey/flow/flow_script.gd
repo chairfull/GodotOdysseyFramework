@@ -30,6 +30,9 @@ func get_parsed() -> Dictionary:
 @export_tool_button("Print Parsed") var _tb_print_parsed := func():
 	print(JSON.stringify(get_parsed(), "\t", false))
 
+@export_tool_button("Print YAMLized") var _to_print_yamlized := func():
+	print(YAML.stringify(get_parsed()).get_data())
+
 @export_tool_button("Generate Dummy") var _tb_generate_dummy := func():
 	FlowPlayerGenerator.generate([self])
 
