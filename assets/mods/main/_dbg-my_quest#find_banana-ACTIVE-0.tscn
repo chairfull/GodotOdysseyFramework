@@ -1,11 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://k72odm38eo8k"]
+[gd_scene load_steps=4 format=3 uid="uid://k72odm38eo8k"]
 
-[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_5ney1"]
-[ext_resource type="PackedScene" uid="uid://dsa17lrw23t4" path="res://scenes/widgets/caption.tscn" id="2_wv5mi"]
-[ext_resource type="Script" uid="uid://be72fcycyeyqk" path="res://scenes/widgets/caption.gd" id="3_y8xdq"]
+[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_4lq1m"]
 
-[sub_resource type="Animation" id="Animation_5vrn5"]
-length = 0.051
+[sub_resource type="Animation" id="Animation_c2d20"]
+length = 0.001
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -13,65 +11,27 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "values": [{
 "args": [1777536727],
 "method": &"_meth"
-}, {
-"args": [2824137196],
-"method": &"_meth"
 }]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("./caption:visible")
-tracks/1/interp = 0
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.05),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("./caption:text")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["paul: Banana!"]
-}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_upmkm"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ney1"]
 _data = {
-&"ROOT": SubResource("Animation_5vrn5")
+&"ROOT": SubResource("Animation_c2d20")
 }
 
-[node name="" type="AnimationPlayer" unique_id=2014885883]
+[node name="" type="AnimationPlayer" unique_id=1756370828]
 root_node = NodePath(".")
 libraries = {
-&"_dbg-my_quest#find_banana-ACTIVE-0": SubResource("AnimationLibrary_upmkm")
+&"_dbg-my_quest#find_banana-ACTIVE-0": SubResource("AnimationLibrary_5ney1")
 }
-script = ExtResource("1_5ney1")
+script = ExtResource("1_4lq1m")
 method_calls = Dictionary[int, Array]({
-1777536727: [[&"_event", ["GAIN_ITEM", "banana who:paul"]], [&"wait", []]],
-2824137196: [[&"_event", ["QUEST_TICK", "my_quest#find_banana"]]]
+1777536727: [[&"_event", ["GAIN_ITEM", "banana who:paul"]]]
 })
 
-[node name="screens" type="CanvasLayer" parent="." unique_id=1069100419]
-
-[node name="caption" type="Control" parent="." unique_id=1543788744 instance=ExtResource("2_wv5mi")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("3_y8xdq")
+[node name="screens" type="CanvasLayer" parent="." unique_id=984362910]

@@ -1,27 +1,27 @@
-[gd_resource type="Resource" script_class="ModInfo" load_steps=77 format=3 uid="uid://dw8ka44ks7ba3"]
+[gd_resource type="Resource" script_class="ModInfo" load_steps=75 format=3 uid="uid://dw8ka44ks7ba3"]
 
-[ext_resource type="Script" uid="uid://cpbr7fwnlpo13" path="res://scripts/resources/database_object.gd" id="1_km3dt"]
-[ext_resource type="Script" uid="uid://des7o0bsbmj48" path="res://scripts/resources/attribute_db.gd" id="2_135cw"]
-[ext_resource type="Script" uid="uid://dgbp04rbqjlfb" path="res://scripts/resources/award_info.gd" id="3_eae6a"]
-[ext_resource type="Script" uid="uid://xba0ygb1adad" path="res://scripts/resources/award_db.gd" id="4_ax8ib"]
-[ext_resource type="Script" uid="uid://wfexr5f7aobn" path="res://scripts/resources/char_group_db.gd" id="5_40qpe"]
-[ext_resource type="Script" uid="uid://dhr4ssthwjf7r" path="res://scripts/resources/stat_db.gd" id="6_7kx50"]
-[ext_resource type="Script" uid="uid://teimhw1fcumx" path="res://scripts/resources/inventory_item.gd" id="7_wph77"]
-[ext_resource type="Script" uid="uid://dam8vvhwp78gf" path="res://scripts/resources/char_info.gd" id="8_3ylnl"]
-[ext_resource type="Script" uid="uid://du7twvx7prdqi" path="res://scripts/resources/char_db.gd" id="9_gotgd"]
-[ext_resource type="Script" uid="uid://dma2hm7gf78m6" path="res://scripts/resources/database.gd" id="10_tywdp"]
-[ext_resource type="Script" uid="uid://bhqhogmxc0qb8" path="res://scripts/resources/inventory_db.gd" id="11_uqc84"]
-[ext_resource type="Script" uid="uid://d3eo058gq30hw" path="res://scripts/resources/item_info.gd" id="12_0dydb"]
-[ext_resource type="Script" uid="uid://cdjj8faqbmkvm" path="res://scripts/resources/item_db.gd" id="13_vjmqg"]
-[ext_resource type="Script" uid="uid://pf28q2uas18" path="res://scripts/resources/quest_info.gd" id="14_aqqek"]
-[ext_resource type="Script" uid="uid://dh7ughql8mvo3" path="res://scripts/resources/quest_tick.gd" id="15_2sdb0"]
-[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://_autogen_/addons/odyssey/flow/flow_script.gd" id="16_grd71"]
-[ext_resource type="Script" uid="uid://022a3ve6dv62" path="res://scripts/resources/trigger_info.gd" id="17_weu3q"]
-[ext_resource type="Script" uid="uid://dq5ibhy6h3iky" path="res://scripts/resources/quest_db.gd" id="18_sv60w"]
-[ext_resource type="Script" uid="uid://cuokckf8226ob" path="res://scripts/resources/mod_info.gd" id="19_uqmgl"]
-[ext_resource type="Script" uid="uid://qjyc0uehtw80" path="res://scripts/resources/stat_info.gd" id="20_56mxa"]
-[ext_resource type="Script" uid="uid://xfry1i78xgw8" path="res://scripts/resources/zone_info.gd" id="21_4yfkm"]
-[ext_resource type="Script" uid="uid://cxdt4et14jdlj" path="res://scripts/resources/zone_db.gd" id="22_2jvpb"]
+[ext_resource type="Script" uid="uid://cpbr7fwnlpo13" path="res://addons/odyssey/scripts/resources/database_object.gd" id="1_km3dt"]
+[ext_resource type="Script" uid="uid://des7o0bsbmj48" path="res://addons/odyssey/scripts/resources/attribute_db.gd" id="2_135cw"]
+[ext_resource type="Script" uid="uid://dgbp04rbqjlfb" path="res://addons/odyssey/scripts/resources/award_info.gd" id="3_eae6a"]
+[ext_resource type="Script" uid="uid://xba0ygb1adad" path="res://addons/odyssey/scripts/resources/award_db.gd" id="4_ax8ib"]
+[ext_resource type="Script" uid="uid://wfexr5f7aobn" path="res://addons/odyssey/scripts/resources/char_group_db.gd" id="5_40qpe"]
+[ext_resource type="Script" uid="uid://dhr4ssthwjf7r" path="res://addons/odyssey/scripts/resources/stat_db.gd" id="6_7kx50"]
+[ext_resource type="Script" uid="uid://teimhw1fcumx" path="res://addons/odyssey/scripts/resources/inventory_item.gd" id="7_wph77"]
+[ext_resource type="Script" uid="uid://dam8vvhwp78gf" path="res://addons/odyssey/scripts/resources/char_info.gd" id="8_3ylnl"]
+[ext_resource type="Script" uid="uid://du7twvx7prdqi" path="res://addons/odyssey/scripts/resources/char_db.gd" id="9_gotgd"]
+[ext_resource type="Script" uid="uid://dma2hm7gf78m6" path="res://addons/odyssey/scripts/resources/database.gd" id="10_tywdp"]
+[ext_resource type="Script" uid="uid://bhqhogmxc0qb8" path="res://addons/odyssey/scripts/resources/inventory_db.gd" id="11_uqc84"]
+[ext_resource type="Script" uid="uid://d3eo058gq30hw" path="res://addons/odyssey/scripts/resources/item_info.gd" id="12_0dydb"]
+[ext_resource type="Script" uid="uid://cdjj8faqbmkvm" path="res://addons/odyssey/scripts/resources/item_db.gd" id="13_vjmqg"]
+[ext_resource type="Script" uid="uid://pf28q2uas18" path="res://addons/odyssey/scripts/resources/quest_info.gd" id="14_aqqek"]
+[ext_resource type="Script" uid="uid://dh7ughql8mvo3" path="res://addons/odyssey/scripts/resources/quest_tick.gd" id="15_2sdb0"]
+[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://addons/odyssey/flow/flow_script.gd" id="16_grd71"]
+[ext_resource type="Script" uid="uid://022a3ve6dv62" path="res://addons/odyssey/scripts/resources/trigger_info.gd" id="17_weu3q"]
+[ext_resource type="Script" uid="uid://dq5ibhy6h3iky" path="res://addons/odyssey/scripts/resources/quest_db.gd" id="18_sv60w"]
+[ext_resource type="Script" uid="uid://cuokckf8226ob" path="res://addons/odyssey/scripts/resources/mod_info.gd" id="19_uqmgl"]
+[ext_resource type="Script" uid="uid://qjyc0uehtw80" path="res://addons/odyssey/scripts/resources/stat_info.gd" id="20_56mxa"]
+[ext_resource type="Script" uid="uid://xfry1i78xgw8" path="res://addons/odyssey/scripts/resources/zone_info.gd" id="21_4yfkm"]
+[ext_resource type="Script" uid="uid://cxdt4et14jdlj" path="res://addons/odyssey/scripts/resources/zone_db.gd" id="22_2jvpb"]
 
 [sub_resource type="Resource" id="Resource_btmd1"]
 script = ExtResource("2_135cw")
@@ -41,14 +41,14 @@ _objects = Dictionary[StringName, ExtResource("1_km3dt")]({
 [sub_resource type="Resource" id="Resource_ho775"]
 script = ExtResource("5_40qpe")
 
-[sub_resource type="Resource" id="Resource_0bwdd"]
+[sub_resource type="Resource" id="Resource_1lj38"]
 script = ExtResource("6_7kx50")
 
-[sub_resource type="Resource" id="Resource_obntp"]
+[sub_resource type="Resource" id="Resource_8mpup"]
 script = ExtResource("8_3ylnl")
-stats = SubResource("Resource_0bwdd")
-id = &"archer"
-name = "Archer"
+stats = SubResource("Resource_1lj38")
+id = &"paul"
+name = "Paul"
 
 [sub_resource type="Resource" id="Resource_tfmoy"]
 script = ExtResource("6_7kx50")
@@ -59,14 +59,14 @@ stats = SubResource("Resource_tfmoy")
 id = &"mary"
 name = "Mary"
 
-[sub_resource type="Resource" id="Resource_1lj38"]
+[sub_resource type="Resource" id="Resource_0bwdd"]
 script = ExtResource("6_7kx50")
 
-[sub_resource type="Resource" id="Resource_8mpup"]
+[sub_resource type="Resource" id="Resource_obntp"]
 script = ExtResource("8_3ylnl")
-stats = SubResource("Resource_1lj38")
-id = &"paul"
-name = "Paul"
+stats = SubResource("Resource_0bwdd")
+id = &"archer"
+name = "Archer"
 
 [sub_resource type="Resource" id="Resource_fukpm"]
 script = ExtResource("9_gotgd")
@@ -88,17 +88,17 @@ desc = "A bright red apple."
 id = &"apple"
 name = "Apple"
 
-[sub_resource type="Resource" id="Resource_62rld"]
-script = ExtResource("12_0dydb")
-desc = "Yellow banana tastes good."
-id = &"banana"
-name = "Banana"
-
 [sub_resource type="Resource" id="Resource_pcms3"]
 script = ExtResource("12_0dydb")
 desc = "A green pear."
 id = &"pear"
 name = "Pear"
+
+[sub_resource type="Resource" id="Resource_62rld"]
+script = ExtResource("12_0dydb")
+desc = "Yellow banana tastes good."
+id = &"banana"
+name = "Banana"
 
 [sub_resource type="Resource" id="Resource_mvm7m"]
 script = ExtResource("13_vjmqg")
@@ -140,33 +140,7 @@ id = &"find_apple"
 quest_id = &"my_quest"
 name = "Find the apple."
 triggers = Dictionary[int, Array]({
-1: [SubResource("Resource_0jmyc")]
-})
-
-[sub_resource type="Resource" id="Resource_5mebd"]
-script = ExtResource("16_grd71")
-code = "GAIN_ITEM banana who:paul
-paul: Banana!
-QUEST_TICK my_quest#find_banana
-"
-
-[sub_resource type="Resource" id="Resource_8ggvl"]
-script = ExtResource("17_weu3q")
-event = &"ZONE_ENTERED"
-state = Dictionary[StringName, Variant]({
-&"who": "paul",
-&"zone": "banana_area"
-})
-condition = 5381
-flow_script = SubResource("Resource_5mebd")
-
-[sub_resource type="Resource" id="Resource_hmw6w"]
-script = ExtResource("15_2sdb0")
-id = &"find_banana"
-quest_id = &"my_quest"
-name = "Find the banana."
-triggers = Dictionary[int, Array]({
-1: [SubResource("Resource_8ggvl")]
+-1: [SubResource("Resource_0jmyc")]
 })
 
 [sub_resource type="Resource" id="Resource_lbbx3"]
@@ -192,37 +166,36 @@ id = &"find_pear"
 quest_id = &"my_quest"
 name = "Find the pear."
 triggers = Dictionary[int, Array]({
-1: [SubResource("Resource_hiksu")]
+-1: [SubResource("Resource_hiksu")]
 })
 
-[sub_resource type="Resource" id="Resource_6nix3"]
+[sub_resource type="Resource" id="Resource_5mebd"]
 script = ExtResource("16_grd71")
-code = "You entered the location.
-paul: This is the spot.
-QUEST_START my_quest
-QUEST_TICK my_quest#area
-QUEST_SHOW my_quest#find_apple
-QUEST_SHOW my_quest#find_pear
-QUEST_SHOW my_quest#find_banana
-
-IF ZONE_ENTERED.zone == apple_area
-  paul: Now where is that apple.
-ELIF ZONE_ENTERED.zone == pear_area
-  paul: Those pears should be around here.
-ELSE
-  paul: Where are you banana?
+code = "GAIN_ITEM banana who:paul
+paul: Banana!
+QUEST_TICK my_quest#find_banana
 "
 
-[sub_resource type="Resource" id="Resource_m1abb"]
+[sub_resource type="Resource" id="Resource_8ggvl"]
 script = ExtResource("17_weu3q")
 event = &"ZONE_ENTERED"
 state = Dictionary[StringName, Variant]({
-&"who": "paul"
+&"who": "paul",
+&"zone": "banana_area"
 })
-condition = 3056990139
-flow_script = SubResource("Resource_6nix3")
+condition = 5381
+flow_script = SubResource("Resource_5mebd")
 
-[sub_resource type="Resource" id="Resource_std0b"]
+[sub_resource type="Resource" id="Resource_hmw6w"]
+script = ExtResource("15_2sdb0")
+id = &"find_banana"
+quest_id = &"my_quest"
+name = "Find the banana."
+triggers = Dictionary[int, Array]({
+-1: [SubResource("Resource_8ggvl")]
+})
+
+[sub_resource type="Resource" id="Resource_6nix3"]
 script = ExtResource("16_grd71")
 code = "IF my_quest.ticked(\"find_apple\", \"find_pear\", \"find_banana\")
   paul: That's all of them!
@@ -237,16 +210,16 @@ ELIF my_quest.ticked(\"find_apple\") or my_quest.ticked(\"find_banana\") or my_q
   paul: One down. Two to go.
 "
 
-[sub_resource type="Resource" id="Resource_4mpvb"]
+[sub_resource type="Resource" id="Resource_m1abb"]
 script = ExtResource("17_weu3q")
 event = &"ZONE_EXITED"
 state = Dictionary[StringName, Variant]({
 &"who": "paul"
 })
 condition = 1744640919
-flow_script = SubResource("Resource_std0b")
+flow_script = SubResource("Resource_6nix3")
 
-[sub_resource type="Resource" id="Resource_i01si"]
+[sub_resource type="Resource" id="Resource_std0b"]
 script = ExtResource("14_aqqek")
 ticks = Dictionary[StringName, ExtResource("15_2sdb0")]({
 &"area": SubResource("Resource_l7gov"),
@@ -256,19 +229,18 @@ ticks = Dictionary[StringName, ExtResource("15_2sdb0")]({
 })
 stats = SubResource("Resource_aqvlw")
 triggers = Dictionary[int, Array]({
-0: [SubResource("Resource_m1abb")],
-1: [SubResource("Resource_4mpvb")]
+-1: [SubResource("Resource_m1abb")]
 })
 id = &"my_quest"
 name = "My Quest"
 
-[sub_resource type="Resource" id="Resource_864o4"]
+[sub_resource type="Resource" id="Resource_4mpvb"]
 script = ExtResource("18_sv60w")
 _objects = Dictionary[StringName, ExtResource("1_km3dt")]({
-&"my_quest": SubResource("Resource_i01si")
+&"my_quest": SubResource("Resource_std0b")
 })
 
-[sub_resource type="Resource" id="Resource_ntlxy"]
+[sub_resource type="Resource" id="Resource_i01si"]
 script = ExtResource("20_56mxa")
 value = 0.0
 minimum = null
@@ -276,130 +248,130 @@ maximum = null
 default = 0.0
 id = &"score"
 
-[sub_resource type="Resource" id="Resource_yu8wp"]
+[sub_resource type="Resource" id="Resource_864o4"]
 script = ExtResource("6_7kx50")
 _objects = Dictionary[StringName, ExtResource("1_km3dt")]({
-&"score": SubResource("Resource_ntlxy")
+&"score": SubResource("Resource_i01si")
 })
 
-[sub_resource type="Resource" id="Resource_7mphk"]
+[sub_resource type="Resource" id="Resource_ntlxy"]
 script = ExtResource("21_4yfkm")
 id = &"apple_area"
 name = "Apple Fields"
 
-[sub_resource type="Resource" id="Resource_0kop8"]
+[sub_resource type="Resource" id="Resource_yu8wp"]
+script = ExtResource("21_4yfkm")
+id = &"pear_area"
+name = "Pear Forrest"
+
+[sub_resource type="Resource" id="Resource_7mphk"]
 script = ExtResource("21_4yfkm")
 id = &"banana_area"
 name = "Banana Brook"
 
-[sub_resource type="Resource" id="Resource_rjo8t"]
+[sub_resource type="Resource" id="Resource_umpth"]
 script = ExtResource("21_4yfkm")
 id = &"home"
 name = "Home"
 
-[sub_resource type="Resource" id="Resource_0k00g"]
+[sub_resource type="Resource" id="Resource_0kop8"]
 script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_rjo8t")
-id = &"home#attic"
-name = "Attic"
-
-[sub_resource type="Resource" id="Resource_2w8xt"]
-script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_rjo8t")
+parent = SubResource("Resource_umpth")
 id = &"home#backyard"
 name = "Backyard"
 
-[sub_resource type="Resource" id="Resource_fj4t6"]
+[sub_resource type="Resource" id="Resource_rjo8t"]
 script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_rjo8t")
-id = &"home#basement"
-name = "Basement"
-
-[sub_resource type="Resource" id="Resource_f6ij4"]
-script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_fj4t6")
-id = &"home#basement#furnace_room"
-name = "Furnace Room"
-
-[sub_resource type="Resource" id="Resource_scq0j"]
-script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_fj4t6")
-id = &"home#basement#laundry_room"
-name = "Laundry Room"
-
-[sub_resource type="Resource" id="Resource_llhyk"]
-script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_fj4t6")
-id = &"home#basement#supply_closet"
-name = "Supply Closet"
-
-[sub_resource type="Resource" id="Resource_3eymi"]
-script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_rjo8t")
+parent = SubResource("Resource_umpth")
 id = &"home#front_yard"
 name = "Front Yard"
 
-[sub_resource type="Resource" id="Resource_ih845"]
+[sub_resource type="Resource" id="Resource_2w8xt"]
 script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_rjo8t")
-id = &"home#main_floor"
-name = "Main Floor"
+parent = SubResource("Resource_umpth")
+id = &"home#attic"
+name = "Attic"
 
-[sub_resource type="Resource" id="Resource_lfcqb"]
+[sub_resource type="Resource" id="Resource_3eymi"]
 script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_ih845")
-id = &"home#main_floor#bathroom"
-name = "Bathroom"
-
-[sub_resource type="Resource" id="Resource_bp760"]
-script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_ih845")
-id = &"home#main_floor#living_room"
-name = "Living Room"
-
-[sub_resource type="Resource" id="Resource_xmlhy"]
-script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_rjo8t")
+parent = SubResource("Resource_umpth")
 id = &"home#upstairs"
 name = "Upstairs"
 
-[sub_resource type="Resource" id="Resource_ttd2w"]
+[sub_resource type="Resource" id="Resource_0k00g"]
 script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_xmlhy")
+parent = SubResource("Resource_3eymi")
+id = &"home#upstairs#pauls_room"
+name = "Pauls Room"
+
+[sub_resource type="Resource" id="Resource_xmlhy"]
+script = ExtResource("21_4yfkm")
+parent = SubResource("Resource_3eymi")
 id = &"home#upstairs#bathroom"
 name = "Bathroom"
 
 [sub_resource type="Resource" id="Resource_t6e1l"]
 script = ExtResource("21_4yfkm")
-parent = SubResource("Resource_xmlhy")
-id = &"home#upstairs#pauls_room"
-name = "Pauls Room"
+parent = SubResource("Resource_umpth")
+id = &"home#main_floor"
+name = "Main Floor"
 
-[sub_resource type="Resource" id="Resource_umpth"]
+[sub_resource type="Resource" id="Resource_ttd2w"]
 script = ExtResource("21_4yfkm")
-id = &"pear_area"
-name = "Pear Forrest"
+parent = SubResource("Resource_t6e1l")
+id = &"home#main_floor#living_room"
+name = "Living Room"
 
-[sub_resource type="Resource" id="Resource_mb5dx"]
+[sub_resource type="Resource" id="Resource_ih845"]
+script = ExtResource("21_4yfkm")
+parent = SubResource("Resource_t6e1l")
+id = &"home#main_floor#bathroom"
+name = "Bathroom"
+
+[sub_resource type="Resource" id="Resource_bp760"]
+script = ExtResource("21_4yfkm")
+parent = SubResource("Resource_umpth")
+id = &"home#basement"
+name = "Basement"
+
+[sub_resource type="Resource" id="Resource_lfcqb"]
+script = ExtResource("21_4yfkm")
+parent = SubResource("Resource_bp760")
+id = &"home#basement#laundry_room"
+name = "Laundry Room"
+
+[sub_resource type="Resource" id="Resource_fj4t6"]
+script = ExtResource("21_4yfkm")
+parent = SubResource("Resource_bp760")
+id = &"home#basement#furnace_room"
+name = "Furnace Room"
+
+[sub_resource type="Resource" id="Resource_scq0j"]
+script = ExtResource("21_4yfkm")
+parent = SubResource("Resource_bp760")
+id = &"home#basement#supply_closet"
+name = "Supply Closet"
+
+[sub_resource type="Resource" id="Resource_f6ij4"]
 script = ExtResource("22_2jvpb")
 _objects = Dictionary[StringName, ExtResource("1_km3dt")]({
-&"apple_area": SubResource("Resource_7mphk"),
-&"banana_area": SubResource("Resource_0kop8"),
-&"home": SubResource("Resource_rjo8t"),
-&"home#attic": SubResource("Resource_0k00g"),
-&"home#backyard": SubResource("Resource_2w8xt"),
-&"home#basement": SubResource("Resource_fj4t6"),
-&"home#basement#furnace_room": SubResource("Resource_f6ij4"),
-&"home#basement#laundry_room": SubResource("Resource_scq0j"),
-&"home#basement#supply_closet": SubResource("Resource_llhyk"),
-&"home#front_yard": SubResource("Resource_3eymi"),
-&"home#main_floor": SubResource("Resource_ih845"),
-&"home#main_floor#bathroom": SubResource("Resource_lfcqb"),
-&"home#main_floor#living_room": SubResource("Resource_bp760"),
-&"home#upstairs": SubResource("Resource_xmlhy"),
-&"home#upstairs#bathroom": SubResource("Resource_ttd2w"),
-&"home#upstairs#pauls_room": SubResource("Resource_t6e1l"),
-&"pear_area": SubResource("Resource_umpth")
+&"apple_area": SubResource("Resource_ntlxy"),
+&"banana_area": SubResource("Resource_7mphk"),
+&"home": SubResource("Resource_umpth"),
+&"home#attic": SubResource("Resource_2w8xt"),
+&"home#backyard": SubResource("Resource_0kop8"),
+&"home#basement": SubResource("Resource_bp760"),
+&"home#basement#furnace_room": SubResource("Resource_fj4t6"),
+&"home#basement#laundry_room": SubResource("Resource_lfcqb"),
+&"home#basement#supply_closet": SubResource("Resource_scq0j"),
+&"home#front_yard": SubResource("Resource_rjo8t"),
+&"home#main_floor": SubResource("Resource_t6e1l"),
+&"home#main_floor#bathroom": SubResource("Resource_ih845"),
+&"home#main_floor#living_room": SubResource("Resource_ttd2w"),
+&"home#upstairs": SubResource("Resource_3eymi"),
+&"home#upstairs#bathroom": SubResource("Resource_xmlhy"),
+&"home#upstairs#pauls_room": SubResource("Resource_0k00g"),
+&"pear_area": SubResource("Resource_yu8wp")
 })
 
 [resource]
@@ -415,8 +387,6 @@ _debug_info = "17x ZoneDB
 1x QuestDB"
 _script_conds = Dictionary[int, String]({
 5381: "",
-520882869: "ZONE_ENTERED.zone == apple_area",
-1190937198: "my_quest.ticked(\"find_apple\", \"find_pear\", \"find_banana\")",
 1744640919: "ZONE_EXITED.zone in [apple_area, pear_area, banana_area]",
 1916210732: "my_quest.ticked(\"find_pear\", \"find_banana\")",
 2090770405: "true",
@@ -430,9 +400,9 @@ awards = SubResource("Resource_tww1j")
 chars = SubResource("Resource_fukpm")
 char_groups = SubResource("Resource_ho775")
 items = SubResource("Resource_mvm7m")
-zones = SubResource("Resource_mb5dx")
-stats = SubResource("Resource_yu8wp")
-quests = SubResource("Resource_864o4")
+zones = SubResource("Resource_f6ij4")
+stats = SubResource("Resource_864o4")
+quests = SubResource("Resource_4mpvb")
 attributes = SubResource("Resource_btmd1")
 inventories = SubResource("Resource_d25k1")
 equip_slots = SubResource("Resource_epwv1")

@@ -19,17 +19,17 @@ config/icon="uid://dcy71dgq416wh"
 
 [autoload]
 
-Global="*res://scripts/autoloads/global.gd"
-Assets="*res://scripts/autoloads/assets.gd"
-World="*res://scripts/autoloads/world.gd"
-Cheats="*res://scripts/autoloads/cheats.gd"
-Controllers="*res://scripts/autoloads/controllers.gd"
-Cinema="*res://scripts/autoloads/cinema.gd"
-Mods="*res://scripts/autoloads/mods.gd"
-Persistent="*res://scripts/autoloads/persistent.gd"
-Audio="*res://scripts/autoloads/audio.gd"
-Music="*res://scripts/autoloads/music.gd"
-SaveLoad="*res://scripts/autoloads/save_load.gd"
+Global="*res://addons/odyssey/scripts/autoloads/global.gd"
+Assets="*res://addons/odyssey/scripts/autoloads/assets.gd"
+World="*res://addons/odyssey/scripts/autoloads/world.gd"
+Cheats="*res://addons/odyssey/scripts/autoloads/cheats.gd"
+Controllers="*res://addons/odyssey/scripts/autoloads/controllers.gd"
+Cinema="*res://addons/odyssey/scripts/autoloads/cinema.gd"
+Mods="*res://addons/odyssey/scripts/autoloads/mods.gd"
+Persistent="*res://addons/odyssey/scripts/autoloads/persistent.gd"
+Audio="*res://addons/odyssey/scripts/autoloads/audio.gd"
+Music="*res://addons/odyssey/scripts/autoloads/music.gd"
+SaveLoad="*res://addons/odyssey/scripts/autoloads/save_load.gd"
 
 [debug_draw_3d]
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://tkue8m0xm4rg" path="res://addons/floor_planner/fp_root.gd" id="1_eun03"]
 [ext_resource type="Script" uid="uid://b4sdcqxn2ario" path="res://addons/floor_planner/fp_polygon.gd" id="2_echnk"]
 [ext_resource type="Script" uid="uid://cqhxe6cvtt610" path="res://addons/floor_planner/fp_spawner.gd" id="2_sy28x"]
-[ext_resource type="PackedScene" uid="uid://p7rqgmtls5qk" path="res://scenes/prefabs/controllables/humanoid.tscn" id="3_h8ngj"]
+[ext_resource type="PackedScene" uid="uid://p7rqgmtls5qk" path="res://addons/odyssey/scenes/prefabs/controllables/humanoid.tscn" id="3_h8ngj"]
 [ext_resource type="Script" uid="uid://cimrrrwl8upll" path="res://addons/floor_planner/fp_root_3d.gd" id="3_neabi"]
 
 [sub_resource type="Image" id="Image_h8ngj"]
