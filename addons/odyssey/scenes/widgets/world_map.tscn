@@ -1,0 +1,96 @@
+[gd_scene load_steps=5 format=3 uid="uid://bu3lcgql05318"]
+
+[ext_resource type="Script" uid="uid://cynb32qek5ceu" path="res://addons/odyssey/scenes/widgets/world_map.gd" id="1_lfjtp"]
+[ext_resource type="Texture2D" uid="uid://cvqiwepgya3ua" path="res://icon.svg" id="1_qcb0e"]
+
+[sub_resource type="Gradient" id="Gradient_qcb0e"]
+offsets = PackedFloat32Array(0, 0.5808081, 1)
+colors = PackedColorArray(0.9061527, 0.81951183, 7.70092e-07, 1, 0.93053705, 0, 0.4436466, 1, 0, 0.81415784, 0.72347564, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lfjtp"]
+gradient = SubResource("Gradient_qcb0e")
+fill = 1
+fill_to = Vector2(1, 1)
+
+[node name="world_map" type="Control" unique_id=348667238]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lfjtp")
+
+[node name="bounds" type="TextureRect" parent="." unique_id=482384519]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -311.0
+offset_top = -289.0
+offset_right = 1625.0
+offset_bottom = 985.0
+texture = SubResource("GradientTexture2D_lfjtp")
+
+[node name="zoom_1" type="Node2D" parent="bounds" unique_id=529292975]
+unique_name_in_owner = true
+
+[node name="Icon" type="Sprite2D" parent="bounds/zoom_1" unique_id=1621497768]
+position = Vector2(516, 494)
+texture = ExtResource("1_qcb0e")
+
+[node name="Icon10" type="Sprite2D" parent="bounds/zoom_1" unique_id=169828212]
+position = Vector2(71, 71)
+texture = ExtResource("1_qcb0e")
+
+[node name="Icon3" type="Sprite2D" parent="bounds/zoom_1" unique_id=847228617]
+position = Vector2(1596, 830)
+texture = ExtResource("1_qcb0e")
+
+[node name="Icon4" type="Sprite2D" parent="bounds/zoom_1" unique_id=783631865]
+position = Vector2(105, 872)
+texture = ExtResource("1_qcb0e")
+
+[node name="Icon5" type="Sprite2D" parent="bounds/zoom_1" unique_id=1541264729]
+position = Vector2(522, 1200)
+texture = ExtResource("1_qcb0e")
+
+[node name="zoom_2" type="Node2D" parent="bounds" unique_id=1848772133]
+unique_name_in_owner = true
+
+[node name="Icon2" type="Sprite2D" parent="bounds/zoom_2" unique_id=2020740485]
+position = Vector2(933, 822)
+texture = ExtResource("1_qcb0e")
+
+[node name="Label" type="Label" parent="bounds/zoom_2/Icon2" unique_id=299202364]
+offset_left = -113.0
+offset_top = -116.0
+offset_right = 114.0
+offset_bottom = -71.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.3529412)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 2
+theme_override_font_sizes/font_size = 32
+text = "North America"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon6" type="Sprite2D" parent="bounds/zoom_2" unique_id=1001876237]
+position = Vector2(1185, 1208)
+texture = ExtResource("1_qcb0e")
+
+[node name="Icon7" type="Sprite2D" parent="bounds/zoom_2" unique_id=2000451718]
+position = Vector2(772, 116)
+texture = ExtResource("1_qcb0e")
+
+[node name="Icon8" type="Sprite2D" parent="bounds/zoom_2" unique_id=714905620]
+position = Vector2(1245, 377)
+texture = ExtResource("1_qcb0e")
+
+[node name="Icon9" type="Sprite2D" parent="bounds/zoom_2" unique_id=1473455797]
+position = Vector2(1830, 140)
+texture = ExtResource("1_qcb0e")
+
+[node name="camera" type="Camera2D" parent="bounds" unique_id=518814665]
+unique_name_in_owner = true
+position = Vector2(656, 478)
+limit_smoothed = true

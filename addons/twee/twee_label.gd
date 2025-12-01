@@ -1,7 +1,11 @@
 @tool
 class_name TweeLabel extends TweeNode
 
-@export var text: String: set=set_text
+@export_multiline var text: String: set=set_text
+@export var label_settings: LabelSettings # TODO: Not implemented.
+@export_enum("Left", "Center", "Right", "Fill") var horizontal_alignment: int = HORIZONTAL_ALIGNMENT_CENTER
+@export_enum("Top", "Center", "Bottom", "Fill") var vertical_alignment: int = VERTICAL_ALIGNMENT_CENTER
+@export var paragraph_separator := r"\n"
 @export_storage var _chars: Array[TweeLabelChar]
 @export_storage var bounds: Rect2
 var _time := 0.0
@@ -11,15 +15,16 @@ var _time := 0.0
 		var cd := TweeLabelChar.new()
 		_chars.append(cd)
 		cd.index = i
-		
-	Log.grad("All right we did it, woohoo!!!")
+
+func _init() -> void:
+	if is_control():
+		var con := as_control()
+		con.item_rect_changed.connect(con.queue_redraw)
 
 func _ready() -> void:
 	for t in twees:
 		t.target_property = ^"_chars"
 	super()
-	for t in twees:
-		print(t.get_twee_script(self).source_code)
 	Input.set_mouse_mode.call_deferred(Input.MOUSE_MODE_VISIBLE)
 
 func _twee_changed() -> void:
@@ -38,11 +43,19 @@ func set_text(t: String) -> void:
 	var descent := font.get_descent(fsize)
 	var h := ascent + descent
 	var pos := Vector2.ZERO
+	var line := 0
 	
 	for i in text.length():
+		if text[i] == paragraph_separator.c_unescape():
+			pos.y += font.get_height(fsize)
+			pos.x = 0.0
+			line += 1
+			continue
+		
 		var cd := TweeLabelChar.new()
 		_chars.append(cd)
 		cd.index = i
+		cd.line = line
 		cd.text = text[i]
 		cd.trans = Transform2D.IDENTITY
 		cd.origin = pos + Vector2(0.0, ascent - descent)
@@ -63,21 +76,32 @@ func set_text(t: String) -> void:
 
 func _process(delta: float) -> void:
 	_time += delta
-	var canvas: CanvasItem = self as Object as CanvasItem
-	canvas.queue_redraw()
+	as_control().queue_redraw()
 
 func _draw() -> void:
-	var canvas: CanvasItem = self as Object as CanvasItem
+	var con := as_control()
 	var font := ThemeDB.fallback_font
 	var fsize := 32
 	var ascent := Vector2(0.0, font.get_ascent(fsize))
 	
-	canvas.draw_rect(bounds, Color.RED, false, 2, true)
+	con.draw_rect(bounds, Color.RED, false, 2, true)
+	
+	var alignment := Vector2.ZERO
+	match horizontal_alignment:
+		HORIZONTAL_ALIGNMENT_LEFT: pass
+		HORIZONTAL_ALIGNMENT_CENTER: alignment.x = con.size.x * .5 - bounds.size.x * .5
+		HORIZONTAL_ALIGNMENT_FILL: alignment.x = con.size.x * .5 - bounds.size.x * .5
+		HORIZONTAL_ALIGNMENT_RIGHT: alignment.x = con.size.x - bounds.size.x
+	match vertical_alignment:
+		VERTICAL_ALIGNMENT_TOP: pass
+		VERTICAL_ALIGNMENT_CENTER: alignment.y = con.size.y * .5 - bounds.size.y * .5
+		VERTICAL_ALIGNMENT_FILL: alignment.y = con.size.y * .5 - bounds.size.y * .5
+		VERTICAL_ALIGNMENT_BOTTOM: alignment.y = con.size.y - bounds.size.y
 	
 	for item in _chars:
 		if item.text == " ": continue
-		canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
-		canvas.draw_rect(item.rect.grow(-2.0), Color(Color.CYAN, 0.2), true, -1, true)
+		con.draw_set_transform_matrix(Transform2D.IDENTITY)
+		con.draw_rect(item.rect.grow(-2.0), Color(Color.CYAN, 0.2), true, -1, true)
 	
 	for item in _chars:
 		if item.text == " ": continue
@@ -85,8 +109,8 @@ func _draw() -> void:
 		var half_size := item.rect.size * .5
 		item.rotation = sin(_time) * .2
 		var basis_only := Transform2D(item.trans.x, item.trans.y, Vector2.ZERO)
-		var desired_center := (item.origin + item.off - ascent) + Vector2(baseline.x, 0) + half_size
+		var desired_center := (alignment + item.origin + item.off - ascent) + Vector2(baseline.x, 0) + half_size
 		var draw_mtx := Transform2D.IDENTITY.translated(desired_center) * basis_only * Transform2D.IDENTITY.translated(-half_size)
-		canvas.draw_set_transform_matrix(draw_mtx)
-		canvas.draw_string(font, ascent, item.text, HORIZONTAL_ALIGNMENT_CENTER, -1, fsize, item.color)
+		con.draw_set_transform_matrix(draw_mtx)
+		con.draw_string(font, ascent, item.text, HORIZONTAL_ALIGNMENT_CENTER, -1, fsize, item.color)
 	

@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqpbklo51cwca"]
+
+[ext_resource type="Script" uid="uid://7o3cih7gf3v6" path="res://addons/odyssey/editor/odyssey_editor_screen.gd" id="1_4aexx"]
+
+[node name="odyssey_editor2" type="Control" unique_id=38231269]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_4aexx")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1537717005]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=2085686986]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1570299562]
+layout_mode = 2
+
+[node name="update_db" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=797592952]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Update DB"
+
+[node name="autoupdate" type="CheckButton" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1624751896]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Auto"
+
+[node name="tags" type="HFlowContainer" parent="HBoxContainer/VBoxContainer" unique_id=1692076891]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="tree" type="Tree" parent="HBoxContainer/VBoxContainer" unique_id=1042625839]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=89522300]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="markdown_preview" type="RichTextLabel" parent="HBoxContainer/MarginContainer" unique_id=1186890524]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true

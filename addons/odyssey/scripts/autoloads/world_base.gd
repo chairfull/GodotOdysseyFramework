@@ -256,7 +256,7 @@ func reload():
 	ResourceSaver.save(scr, PATH_AUTOGEN_STATE)
 	set_script.call_deferred(load(PATH_AUTOGEN_STATE))
 	
-	Log.msg("State", "Reloading script...")
+	Log.msg("State", "Reλoading script...")
 	
 func find_char(id: StringName) -> CharInfo: return objects.chars.find(id)
 func find_item(id: StringName) -> ItemInfo: return objects.items.find(id)

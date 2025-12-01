@@ -4,6 +4,7 @@ signal view_state_changed()
 signal pawn_changed(p: Pawn)
 signal focus_exited(con: Control)
 signal focus_entered(con: Control)
+signal selection_changed()
 
 enum ViewState { None, FirstPerson, ThirdPerson, TopDown }
 
@@ -16,6 +17,7 @@ enum ViewState { None, FirstPerson, ThirdPerson, TopDown }
 var _pawn: Pawn
 var input_remap: Dictionary[StringName, StringName] # TODO: Move to some global area?
 var _widgets: Dictionary[StringName, Widget]
+var _selected: Array[Interactive]
 var _focused_control: Control
 
 var view_state := ViewState.FirstPerson:
@@ -29,6 +31,18 @@ func _init(i := 0) -> void:
 func _ready() -> void:
 	#camera_master.set_target(pawn_camera)
 	hide_mouse()
+
+func select(inter: Interactive) -> void:
+	if not inter in _selected:
+		_selected.append(inter)
+		inter._selected(self)
+		selection_changed.emit()
+
+func deselect(inter: Interactive) -> void:
+	if inter in _selected:
+		_selected.erase(inter)
+		inter._deselected(self)
+		selection_changed.emit()
 
 func hide_mouse() -> void: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 func show_mouse() -> void: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

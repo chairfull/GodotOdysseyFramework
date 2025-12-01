@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://k72odm38eo8k"]
 
-[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/flow/flow_player.gd" id="1_4lq1m"]
+[ext_resource type="Script" uid="uid://cywjnfdsf21kr" path="res://addons/odyssey/scripts/flow/flow_player.gd" id="1_4lq1m"]
 
 [sub_resource type="Animation" id="Animation_c2d20"]
 length = 0.001

@@ -1,0 +1,77 @@
+[gd_resource type="Resource" script_class="ObsidianDB" load_steps=7 format=3 uid="uid://x2m73mw2ld8l"]
+
+[ext_resource type="Script" uid="uid://bplcil5paal78" path="res://addons/odyssey/editor/obsidian_file.gd" id="1_0tohv"]
+[ext_resource type="Script" uid="uid://d2tenixyami7x" path="res://addons/odyssey/editor/obsidian_db.gd" id="2_11kyw"]
+
+[sub_resource type="Resource" id="Resource_0tohv"]
+script = ExtResource("1_0tohv")
+id = &"Characters/Archer"
+path = "res://obsidian_vault_example/Characters/Archer.md"
+mtime = 1764508191
+tags = Array[StringName]([&"character"])
+
+[sub_resource type="Resource" id="Resource_11kyw"]
+script = ExtResource("1_0tohv")
+id = &"Characters/King"
+path = "res://obsidian_vault_example/Characters/King.md"
+mtime = 1764510994
+tags = Array[StringName]([&"character", &"castle"])
+frontmatter = Dictionary[StringName, Variant]({
+&"name": "King"
+})
+elements = Array[Dictionary]([{
+&"text": "
+
+The king is at his castle.
+",
+&"type": 3
+}, {
+&"deep": 1,
+&"head": "About",
+&"type": 1
+}, {
+&"text": "",
+&"type": 3
+}, {
+&"deep": 1,
+&"head": "History",
+&"type": 1
+}, {
+&"text": "",
+&"type": 3
+}])
+
+[sub_resource type="Resource" id="Resource_l1pm1"]
+script = ExtResource("1_0tohv")
+id = &"Stories/Mission 1"
+path = "res://obsidian_vault_example/Stories/Mission 1.md"
+mtime = 1764508180
+tags = Array[StringName]([&"story"])
+elements = Array[Dictionary]([{
+&"text": "",
+&"type": 3
+}])
+
+[sub_resource type="Resource" id="Resource_wu1xe"]
+script = ExtResource("1_0tohv")
+id = &"Welcome"
+path = "res://obsidian_vault_example/Welcome.md"
+mtime = 1764505511
+elements = Array[Dictionary]([{
+&"text": "This is your new *vault*.
+
+Make a note of something, [[create a link]], or try [the Importer](https://help.obsidian.md/Plugins/Importer)!
+
+When you're ready, delete this note and make the vault your own.",
+&"type": 3
+}])
+
+[resource]
+script = ExtResource("2_11kyw")
+files = Dictionary[String, ExtResource("1_0tohv")]({
+"Characters/Archer": SubResource("Resource_0tohv"),
+"Characters/King": SubResource("Resource_11kyw"),
+"Stories/Mission 1": SubResource("Resource_l1pm1"),
+"Welcome": SubResource("Resource_wu1xe")
+})
+tags = Array[StringName]([&"character", &"castle", &"story"])

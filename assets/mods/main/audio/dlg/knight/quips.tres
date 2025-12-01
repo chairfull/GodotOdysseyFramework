@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="FlowScript" load_steps=2 format=3 uid="uid://cvuxcg1fcr4uo"]
 
-[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://addons/odyssey/flow/flow_script.gd" id="1_81fjv"]
+[ext_resource type="Script" uid="uid://bkc0pux3d1ajc" path="res://addons/odyssey/scripts/flow/flow_script.gd" id="1_81fjv"]
 
 [resource]
 script = ExtResource("1_81fjv")

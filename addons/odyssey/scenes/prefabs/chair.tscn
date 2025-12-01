@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bxfo72qqe1kxr" path="res://addons/odyssey/scripts/nodes/humanoid_seat.gd" id="1_6qfsc"]
 [ext_resource type="Script" uid="uid://l6evnfr3gvt5" path="res://addons/odyssey/scripts/nodes/remote_transform_3d_tweened.gd" id="2_8by7j"]
 [ext_resource type="BehaviorTree" uid="uid://cbee5riylyy70" path="res://assets/ai/trees/pawn.tres" id="2_n8k00"]
-[ext_resource type="PackedScene" uid="uid://u3bkxfb8i7gw" path="res://addons/kaykit_furniture_bits/Assets/gltf/chair_B.gltf" id="2_nfv84"]
+[ext_resource type="PackedScene" uid="uid://u3bkxfb8i7gw" path="res://assets/kaykit_furniture_bits/Assets/gltf/chair_B.gltf" id="2_nfv84"]
 [ext_resource type="Script" uid="uid://dbleug2gqv7c5" path="res://addons/odyssey/scripts/nodes/interactive.gd" id="3_n8k00"]
 [ext_resource type="Script" uid="uid://llfmpeqtpli1" path="res://addons/odyssey/scripts/nodes/camera_target.gd" id="6_8by7j"]
 

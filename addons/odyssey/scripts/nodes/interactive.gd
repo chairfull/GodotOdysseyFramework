@@ -3,9 +3,10 @@ class_name Interactive extends Area3D
 
 signal interacted(pawn: Pawn, form: Form)
 signal highlight_changed()
+signal selection_state_changed()
 
 enum Form { INTERACT, INTERACT_ALT, ENTERED, EXITED }
-enum Highlight { NONE, FOCUSED }
+enum Highlight { NONE, FOCUSED, SELECTED }
 
 @export var label: String = "Object"
 @export var interact_label: String = "[E] Interact"
@@ -46,6 +47,25 @@ func _ready() -> void:
 	#if body is Pawn:
 		#interaction_released(body)
 		#interaction_pressed(body, Form.EXITED)
+
+func _selected(con: PlayerController) -> void:
+	add_to_group("SELECTED:%s" % con.index)
+	add_to_group(&"SELECTED")
+	highlight = Highlight.SELECTED
+	selection_state_changed.emit()
+
+func _deselected(con: PlayerController) -> void:
+	remove_from_group("SELECTED:%s" % con.index)
+	if not is_selected():
+		remove_from_group(&"SELECTED")
+	highlight = Highlight.NONE
+	selection_state_changed.emit()
+
+func is_selected() -> bool:
+	for group in get_groups():
+		if group.begins_with("SELECTED:"):
+			return true
+	return false
 
 func interaction_pressed(pawn: Pawn, form := Form.INTERACT):
 	if _interacting_pawn:

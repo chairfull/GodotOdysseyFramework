@@ -3,6 +3,7 @@ class_name TweeLabelChar extends Resource
 @export var seed := 123
 @export var text := "?"
 @export var index := 0
+@export var line := 0
 @export var trans := Transform2D.IDENTITY
 @export var rect := Rect2()
 var origin: Vector2:
